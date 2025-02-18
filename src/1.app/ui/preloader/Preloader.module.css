@@ -1,0 +1,32 @@
+.preloader {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 3rem; /* pb-12 */
+	padding-left: 1.25rem; /* px-5 */
+	padding-right: 1.25rem; /* px-5 */
+	justify-content: space-between;
+	background-image: url('../../assets/images/preloader.png');
+	box-shadow:
+		inset 0px -70px 50px rgba(0, 0, 0, 0.8),
+		inset 0px 70px 50px rgba(0, 0, 0, 0.8);
+}
+
+.preloader > div:last-child > p {
+	color: white;
+	text-align: center;
+	line-height: 1rem; /* leading-4 */
+	max-width: 244px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 0.875rem; /* text-sm */
+}
+
+.preloader > div:last-child > p:last-child {
+	margin-top: 0.5rem; /* mt-2 */
+	font-weight: bold;
+	font-size: 1.5rem; /* text-2xl */
+}
