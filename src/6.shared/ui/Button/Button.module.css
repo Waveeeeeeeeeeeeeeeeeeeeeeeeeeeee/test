@@ -1,0 +1,33 @@
+.button {
+    border-radius: 12px;
+    padding: 0px 20px;
+    height: 48px;
+    max-width: 300px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.button:hover {
+    background: var(--accent-primary-hover);
+}
+
+.primary {
+    background: var(--violet);
+}
+
+.next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: var(--violet);
+}
+.secondary {
+    background: var(--grey-medium);
+}
+
+.large {
+    max-width: 100%;
+    width: 100%;
+}

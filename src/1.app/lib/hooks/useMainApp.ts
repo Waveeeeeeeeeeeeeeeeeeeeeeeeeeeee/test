@@ -19,7 +19,7 @@ export const useMainApp = () => {
 		expandViewport()
 		swipeBehavior.mount()
 		swipeBehavior.disableVertical()
-		document.body.style.height = `${window.innerHeight * 1.5}px`
+		// document.body.style.height = `${window.innerHeight * 1.5}px`
 	}, [])
 
 	useEffect(() => {

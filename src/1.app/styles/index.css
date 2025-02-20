@@ -3,3 +3,21 @@
 body {
 	color: white;
 }
+:root {
+	--violet: #6c5dd3;
+	--snow-white: #fff;
+	--grey-dark: #1f2128;
+	--grey-medium: #282b34;
+	--alpha-20: rgba(255, 255, 255, 0.2);
+	--fresh-mint: #22c1ae;
+	--color-icon-primary-dark: #fff;
+	--color-text-primary-dark: #fff;
+	--accent-primary: #6c5dd3;
+	--accent-primary-hover: #503fca;
+	--text-primary: #fff;
+	--text-secondary: rgba(255, 255, 255, 0.8);
+	--text-tertiary: rgba(255, 255, 255, 0.5);
+	--accent-secondary: rgba(108, 93, 211, 0.15);
+	--accent-secondary-hover: rgba(108, 93, 211, 0.25);
+	--text-accent: #9287de;
+}

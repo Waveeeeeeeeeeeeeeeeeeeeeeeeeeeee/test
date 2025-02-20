@@ -1,0 +1,13 @@
+.stepsCount {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 143%;
+    color: #9aa1b1;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: #fff;
+}

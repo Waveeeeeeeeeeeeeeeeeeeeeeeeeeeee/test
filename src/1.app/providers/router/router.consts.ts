@@ -1,3 +1,5 @@
 export enum EnumRoutes {
-	HOME = '/'
+	ONBOARDING = '/',
+	HOME = '/home',
+	ACCOUNT_INFO = '/account-info'
 }

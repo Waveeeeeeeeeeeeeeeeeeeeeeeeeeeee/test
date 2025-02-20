@@ -1,0 +1,21 @@
+.listItem {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    color: var(--text-secondary);
+}
+
+.number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    min-width: 24px;
+    min-height: 24px;
+    font-size: 14px;
+    line-height: 130%;
+    text-align: center;
+    color: var(--text-secondary);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.1);
+}

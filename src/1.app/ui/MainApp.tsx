@@ -8,7 +8,6 @@ const App = lazy(() => import('./App.tsx'))
 
 const MainApp: FC = () => {
 	const { handleAppLoaded, isAppLoaded, isShowApp } = useMainApp()
-
 	return (
 		<>
 			{!isAppLoaded && <Preloader />}
