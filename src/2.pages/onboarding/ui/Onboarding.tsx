@@ -21,6 +21,8 @@ import {
 	HeaderIcos3Step
 } from '@/6.shared/ui/HeaderIcos/HeaderIcos'
 
+let maxSteps = 4
+
 export const Onboarding = () => {
 	const location = useLocation()
 	const initialSteps = (location.state?.steps as number) || 1
@@ -34,6 +36,7 @@ export const Onboarding = () => {
 			setOpenRules(true)
 			return
 		}
+		if (steps > maxSteps) return
 		setSteps(prev => prev + 1)
 	}
 
