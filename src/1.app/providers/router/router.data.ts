@@ -6,7 +6,6 @@ import { Home } from '@/2.pages'
 export const bgRoutes: any = {
 	[EnumRoutes.HOME]: '#FFC96A',
 	[EnumRoutes.ONBOARDING]: '#FFC96A',
-	[EnumRoutes.ACCOUNT_INFO]: '#FFC96A'
 }
 
 export const routes: IRoute[] = [

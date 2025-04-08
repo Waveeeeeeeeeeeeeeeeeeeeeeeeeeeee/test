@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 import styles from './Onboarding.module.css'
 import HeaderIco from '@/1.app/assets/images/header.svg?react'
@@ -31,12 +31,15 @@ export const Onboarding = () => {
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
 	const { selectedLanguage } = useLanguageStore()
 	const [openRules, setOpenRules] = useState(false)
+	const navigate = useNavigate()
 	const handleStepsPlusClick = () => {
 		if (steps === 1) {
 			setOpenRules(true)
 			return
 		}
-		if (steps > maxSteps) return
+		if (steps > maxSteps) {
+			navigate('/')
+		}
 		setSteps(prev => prev + 1)
 	}
 
