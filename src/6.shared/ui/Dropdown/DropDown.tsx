@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import styles from './DropDown.module.css'
 import ArrowIco from './assets/arrow.svg?react'
-import { useCustomTranslation } from '@/6.shared/lib'
 
 interface DropDownProps {
 	data: { label: string; code: string }[]
