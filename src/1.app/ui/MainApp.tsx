@@ -1,4 +1,5 @@
 import { type FC, Suspense, lazy } from 'react'
+import { BrowserRouter } from 'react-router'
 
 import { useMainApp } from '../lib/hooks/useMainApp.ts'
 
@@ -12,9 +13,11 @@ const MainApp: FC = () => {
 		<>
 			{!isAppLoaded && <Preloader />}
 			{isShowApp && (
-				<Suspense>
-					<App handlerAppLoaded={handleAppLoaded} />
-				</Suspense>
+				<BrowserRouter>
+					<Suspense>
+						<App handlerAppLoaded={handleAppLoaded} />
+					</Suspense>
+				</BrowserRouter>
 			)}
 		</>
 	)

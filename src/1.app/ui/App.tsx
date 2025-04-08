@@ -1,21 +1,27 @@
 import { type FC, useEffect } from 'react'
-import { BrowserRouter } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import Layout from '../layout/Layout'
 import RouterProvider from '../providers/router/RouterProvider'
 
 const App: FC<any> = ({ handlerAppLoaded }) => {
+	const navigate = useNavigate()
+	const register = true
 	useEffect(() => {
 		handlerAppLoaded()
 	}, [])
 
+	useEffect(() => {
+		if (register) {
+			navigate('/onboarding')
+		}
+	}, [register])
+
 	return (
 		<>
-			<BrowserRouter>
-				<Layout>
-					<RouterProvider />
-				</Layout>
-			</BrowserRouter>
+			<Layout>
+				<RouterProvider />
+			</Layout>
 		</>
 	)
 }

@@ -8,16 +8,17 @@ interface DropDownProps {
 	data: { label: string; code: string }[]
 	country: string
 	setCountry: (country: string) => void
+	placeholder?: string
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
 	data,
 	country,
-	setCountry
+	setCountry,
+	placeholder
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const toggleDropdown = () => setIsOpen(!isOpen)
-	const { placeholder } = useCustomTranslation('dropDown')
 
 	const handleSelect = (label: string) => {
 		setCountry(label)

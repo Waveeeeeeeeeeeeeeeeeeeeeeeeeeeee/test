@@ -1,5 +1,5 @@
 export enum EnumRoutes {
-	ONBOARDING = '/',
-	HOME = '/home',
+	HOME = '/',
+	ONBOARDING = '/onboarding',
 	ACCOUNT_INFO = '/account-info'
 }

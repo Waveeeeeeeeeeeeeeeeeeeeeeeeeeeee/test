@@ -1,0 +1,23 @@
+.header {
+    width: 100%;
+    height: 196px;
+    border-radius: 16px;
+    background: var(--grey-medium);
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.headerImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--object-white);
+    text-align: center;
+}

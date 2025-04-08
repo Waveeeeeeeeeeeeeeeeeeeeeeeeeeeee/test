@@ -1,9 +1,11 @@
+import { useUserStore } from '@/5.entities/user/model/store'
 import {
 	expandViewport,
 	init,
 	initDataUser,
 	restoreInitData,
-	swipeBehavior
+	swipeBehavior,
+	retrieveLaunchParams
 } from '@telegram-apps/sdk'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,13 +14,21 @@ export const useMainApp = () => {
 	const [isShowApp, setIsShowApp] = useState(false)
 	const [isAppLoaded, setIsAppLoaded] = useState(false)
 	const { i18n } = useTranslation()
+	const {tgWebAppData} = retrieveLaunchParams();
+	const {setUser, setUserHash} = useUserStore()
 
+
+	console.log(tgWebAppData)
 	useEffect(() => {
 		init()
 		restoreInitData()
 		expandViewport()
 		swipeBehavior.mount()
 		swipeBehavior.disableVertical()
+		if(tgWebAppData?.user) {
+			setUserHash(tgWebAppData?.hash)
+			setUser(tgWebAppData?.user)
+		}
 		// document.body.style.height = `${window.innerHeight * 1.5}px`
 	}, [])
 

@@ -9,11 +9,11 @@
 }
 
 .button:hover {
-    background: var(--accent-primary-hover);
+    box-shadow: 0 -16px 64px 0 rgba(98, 75, 255, 0.6), inset 0 -1px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .primary {
-    background: var(--violet);
+    background: var(--color-accent);
 }
 
 .next {
@@ -21,10 +21,10 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    background: var(--violet);
+    background: var(--color-accent);
 }
 .secondary {
-    background: var(--grey-medium);
+    background: var(--third-bg);
 }
 
 .large {

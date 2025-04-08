@@ -1,0 +1,21 @@
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-align: center;
+}
+
+.subTitle {
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--object-white);
+    margin-bottom: 10px;
+}
+
+.description {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--snow-white);
+    margin-bottom: 12px;
+}

@@ -2,7 +2,6 @@ import { Onboarding } from '@/2.pages/onboarding'
 import { EnumRoutes } from './router.consts'
 import { IRoute } from './router.types'
 import { Home } from '@/2.pages'
-import { AccountInfo } from '@/2.pages/accountinfo'
 
 export const bgRoutes: any = {
 	[EnumRoutes.HOME]: '#FFC96A',
@@ -19,8 +18,4 @@ export const routes: IRoute[] = [
 		path: EnumRoutes.ONBOARDING,
 		component: Onboarding
 	},
-	{
-		path: EnumRoutes.ACCOUNT_INFO,
-		component: AccountInfo
-	}
 ]

@@ -1,19 +1,25 @@
+import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 
 import styles from './Onboarding.module.css'
-import OnBoardingRules from '@/3.widgets/onBoardingRules/ui/OnBoardingRules'
-import { OnboardingStep1 } from '@/3.widgets/onboardingStep1'
-import { useLanguageStore } from '@/3.widgets/onboardingStep1/model/language'
-import OnboardingStep2 from '@/3.widgets/onboardingStep2/ui/OnboardingStep2'
-import { OnboardingStep3 } from '@/3.widgets/onboardingStep3'
+import HeaderIco from '@/1.app/assets/images/header.svg?react'
+import AccountInfoStep1 from '@/3.widgets/accountSteps/accountInfoStep1/ui/AccountInfoStep1'
+import AccountInfoStep2 from '@/3.widgets/accountSteps/accountInfoStep2/ui/AccountInfoStep2'
+import { OnboardingStep2 } from '@/3.widgets/onboardingSteps'
+import OnBoardingRules from '@/3.widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
+import { OnboardingStep1 } from '@/3.widgets/onboardingSteps/onboardingStep1'
+import { useLanguageStore } from '@/3.widgets/onboardingSteps/onboardingStep1/model/language'
+import OnboardingStep3 from '@/3.widgets/onboardingSteps/onboardingStep3/ui/OnboardingStep3'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { AnimatedBlock } from '@/6.shared/ui/AnimatedBlock'
-import { Progress } from '@/6.shared/ui/Progress'
-
-const totalSteps = 3
+import {
+	HeaderIcos1Step,
+	HeaderIcos2Step,
+	HeaderIcos3Step
+} from '@/6.shared/ui/HeaderIcos/HeaderIcos'
 
 export const Onboarding = () => {
 	const location = useLocation()
@@ -23,9 +29,8 @@ export const Onboarding = () => {
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
 	const { selectedLanguage } = useLanguageStore()
 	const [openRules, setOpenRules] = useState(false)
-
 	const handleStepsPlusClick = () => {
-		if (steps >= totalSteps) {
+		if (steps === 1) {
 			setOpenRules(true)
 			return
 		}
@@ -42,6 +47,24 @@ export const Onboarding = () => {
 		setOpenRules(false)
 	}
 
+	const handleAccetpRules = () => {
+		setSteps(2)
+		setOpenRules(false)
+	}
+
+	const showIcos = (step: number) => {
+		switch (step) {
+			case 1:
+				return <HeaderIcos1Step />
+			case 2:
+				return <HeaderIcos2Step />
+			case 3:
+				return <HeaderIcos3Step />
+			default:
+				return null
+		}
+	}
+
 	const showActualOnboarding = (step: number) => {
 		switch (step) {
 			case 1:
@@ -50,6 +73,10 @@ export const Onboarding = () => {
 				return <OnboardingStep2 />
 			case 3:
 				return <OnboardingStep3 />
+			case 4:
+				return <AccountInfoStep1 />
+			case 5:
+				return <AccountInfoStep2 />
 			default:
 				return null
 		}
@@ -61,19 +88,32 @@ export const Onboarding = () => {
 
 	return (
 		<>
-			<div className='min-h-screen bg-[var(--grey-dark)] px-4 py-5 flex flex-col justify-between'>
-				<div className='flex justify-center items-center gap-4 mb-5'>
-					<span className={styles.stepsCount}>
-						{steps}/{totalSteps}
-					</span>
-					<Progress currentStep={steps} totalSteps={totalSteps} />
+			<div
+				className={clsx(
+					'min-h-screen bg-[var(--bg)]  py-5 flex flex-col justify-between px-4',
+					styles.onboarding
+				)}
+			>
+				<div className={`flex justify-center items-center gap-4 relative`}>
+					{' '}
+					<HeaderIco
+						className={'transition-all duration-700 ease-in-out'}
+						width={steps >= 4 ? 110 : 270}
+						height={steps >= 4 ? 110 : 234}
+					/>
+					{showIcos(steps)}
 				</div>
 				<div className='grow'>
 					<AnimatedBlock key={steps}>
 						{showActualOnboarding(steps)}
 					</AnimatedBlock>
 				</div>
-				<div className='flex justify-between items-center gap-4'>
+				<div
+					className={clsx(
+						'flex justify-between p-3 items-center gap-4',
+						styles.buttons
+					)}
+				>
 					<Button variant='secondary' onClick={handleStepsMinusClick}>
 						{backButton}
 					</Button>
@@ -90,10 +130,10 @@ export const Onboarding = () => {
 						animate={{ opacity: 1, scale: 1 }}
 						exit={{ opacity: 0, scale: 0.8 }}
 						transition={{ duration: 0.3, ease: 'easeInOut' }}
-						className='fixed inset-0 flex items-center justify-center bg-black/50'
+						className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
 					>
 						<OnBoardingRules
-							close={() => setOpenRules(false)}
+							handleAccetpRules={handleAccetpRules}
 							handleResetSteps={handleResetSteps}
 						/>
 					</motion.div>
