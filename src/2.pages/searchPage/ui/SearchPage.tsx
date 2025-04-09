@@ -1,8 +1,8 @@
 import { useParams } from 'react-router'
 
+import UserListFilters from '@/3.widgets/userListFilters/ui/UserListFilters'
 import { searchList } from '@/5.entities/search/config/searchList'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
-import FilterICon from '@/6.shared/ui/Filter/Filter'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
 
 const SearchPage = () => {
@@ -15,7 +15,7 @@ const SearchPage = () => {
 		<div className='pt-4 pb-24 px-1.5 h-full'>
 			<NotificationHeader title={card.title} back={true} />
 			<div>
-				<FilterICon />
+				<UserListFilters />
 			</div>
 		</div>
 	)
