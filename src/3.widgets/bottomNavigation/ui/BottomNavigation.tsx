@@ -11,9 +11,12 @@ export const BottomNavigation = () => {
 	const { user } = useUserStore()
 
 	return (
-		<nav className='p-4 flex justify-between items-center'>
+		<nav className='fixed z-[100] bottom-0 p-4 w-full flex justify-between items-center bg-[var(--second-bg)] rounded-t-[16px] rounded-b-[29px]'>
 			{navigationItems.map(item => {
-				const isActive = location.pathname === item.path
+				const isActive =
+					item.path === '/'
+						? location.pathname === '/'
+						: location.pathname.startsWith(item.path)
 				return (
 					<button
 						key={item.path}
