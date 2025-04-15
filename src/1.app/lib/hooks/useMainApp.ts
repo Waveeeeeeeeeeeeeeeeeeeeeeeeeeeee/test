@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export const useMainApp = () => {
-	const [isShowApp, setIsShowApp] = useState(true)
+	const [isShowApp, setIsShowApp] = useState(false)
 	const [isAppLoaded, setIsAppLoaded] = useState(false)
 	const { i18n } = useTranslation()
 	const {setTelegramUser, setUserHash} = useUserStore()
