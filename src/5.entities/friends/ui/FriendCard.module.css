@@ -1,0 +1,26 @@
+.name {
+    white-space: nowrap;
+  }
+  
+  .meta {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 125%;
+    text-align: center;
+    color: var(--object-secondary-white);
+  }
+  .online {
+    position: relative;
+  }
+  .online::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2.5px solid black; 
+    background: #4ECDC4; 
+    animation: pulse 1.5s infinite;
+  }
