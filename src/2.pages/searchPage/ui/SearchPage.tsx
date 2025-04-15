@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
 
 import styles from './SearchPage.module.css'
+import { UserFiltersModal } from '@/3.widgets/userFiltersModal/ui/UserFiltersModal'
 import UserListFilters from '@/3.widgets/userListFilters/ui/UserListFilters'
 import { UserInteractionPanel } from '@/3.widgets/userPanel/ui/UserInteractionPanel'
 import { PersonGamesSlider } from '@/4.features/personGamesSlider'
@@ -42,32 +43,44 @@ const SearchPage = () => {
 		}
 	]
 
+	const handleGoBack = () => {
+		window.history.back()
+	}
+
 	if (!card) return <div>Ничего не найдено 😢</div>
 	return (
-		<div className='pt-4 px-4 h-screen relative overflow-scroll pb-48'>
-			<NotificationHeader title={card.title} back={true} />
-			<div className=' mb-4'>
-				<UserListFilters />
-			</div>
-			<div className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-4 px-1.5 pt-1.5'>
-				<div>
-					<UserCard
-						name={profile.nickname}
-						age={+profile.age}
-						gender={profile.gender || ''}
-						city={profile.city}
-						languages={profile.selectedLanguage}
-						avatarUrl={profile.image || telegram?.photo_url || ''}
-					/>
+		<>
+			<div className='pt-4 px-4 h-screen relative overflow-scroll pb-48'>
+				<NotificationHeader
+					title={card.title}
+					back={true}
+					goBack={handleGoBack}
+					notification
+				/>
+				<div className=' mb-4'>
+					<UserListFilters />
 				</div>
-				<div className={styles.description}>
-					<p>{profile.about}</p>
+				<div className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-4 px-1.5 pt-1.5'>
+					<div>
+						<UserCard
+							name={profile.nickname}
+							age={+profile.age}
+							gender={profile.gender || ''}
+							city={profile.city}
+							languages={profile.selectedLanguage}
+							avatarUrl={profile.image || telegram?.photo_url || ''}
+						/>
+					</div>
+					<div className={styles.description}>
+						<p>{profile.about}</p>
+					</div>
+					<ShowInterests interests={profile.interests} maxVisible={6} />
+					<PersonGamesSlider games={mockGames} />
 				</div>
-				<ShowInterests interests={profile.interests} maxVisible={6} />
-				<PersonGamesSlider games={mockGames} />
+				<UserInteractionPanel userId='123' />
 			</div>
-			<UserInteractionPanel userId='123' />
-		</div>
+			<UserFiltersModal />
+		</>
 	)
 }
 
