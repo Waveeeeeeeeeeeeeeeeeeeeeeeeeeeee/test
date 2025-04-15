@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import 'swiper/css';
+@import 'swiper/css/pagination';
 @font-face {
     font-family: 'Gilroy';
     src: url('Gilroy-ExtraBold.eot');
@@ -223,6 +225,7 @@
 body {
 	color: white;
     font-family: 'Gilroy', sans-serif;
+    background: var(--bg);
 }
 
 :root {
@@ -236,3 +239,22 @@ body {
 	--object-secondary-white: #828289;
 	--color-green: #84dcc6;
 }
+
+.custom-swiper-pagination {
+    position: relative;
+    z-index: 100;
+}
+
+.custom-swiper-pagination .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+    background-color: #40434f !important; 
+    opacity: 1 !important;
+    border-radius: 9999px !important;
+    transition: background-color 0.3s !important;
+    margin: 0 !important;
+  }
+  
+  .custom-swiper-pagination .swiper-pagination-bullet-active {
+    background-color: var(--object-white) !important; 
+  }
