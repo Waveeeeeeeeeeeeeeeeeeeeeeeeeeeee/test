@@ -3,4 +3,6 @@ export enum EnumRoutes {
 	ONBOARDING = '/onboarding',
 	SEARCH = '/search',
 	SEARCH_DETAIL = '/search/:searchType',
+	FRIENDS = '/friends',
+	PROFILE = '/profile'
 }
