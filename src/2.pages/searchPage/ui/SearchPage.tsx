@@ -50,7 +50,7 @@ const SearchPage = () => {
 	if (!card) return <div>Ничего не найдено 😢</div>
 	return (
 		<>
-			<div className='pt-4 px-4 h-screen relative overflow-scroll pb-48'>
+			<div className='p-4 px-4 h-screen relative overflow-scroll pb-48'>
 				<NotificationHeader
 					title={card.title}
 					back={true}
@@ -69,6 +69,7 @@ const SearchPage = () => {
 							city={profile.city}
 							languages={profile.selectedLanguage}
 							avatarUrl={profile.image || telegram?.photo_url || ''}
+							icon='info'
 						/>
 					</div>
 					<div className={styles.description}>

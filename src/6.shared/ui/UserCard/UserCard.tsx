@@ -1,6 +1,7 @@
 import React from 'react'
 
 import InfoIco from '../../assets/icons/info.svg?react'
+import NotificationIco from '../../assets/images/notification.svg?react'
 import ru from '../../assets/images/ru.png'
 import ua from '../../assets/images/ua.png'
 import usa from '../../assets/images/usa.png'
@@ -15,6 +16,7 @@ type Props = {
 	languages: string
 	avatarUrl: string | File
 	isOnline?: boolean
+	icon: 'notification' | 'info'
 }
 
 const languageFlags: Record<string, string> = {
@@ -30,12 +32,16 @@ export const UserCard: React.FC<Props> = ({
 	city,
 	languages,
 	avatarUrl,
-	isOnline = false
+	isOnline = false,
+	icon = 'info'
 }) => {
 	return (
 		<div className={styles.card}>
 			<button className='bg-transparent border-none absolute right-2.5 top-2.5 cursor-pointer'>
-				<InfoIco />
+				{icon === 'info' && <InfoIco />}
+				{icon === 'notification' && (
+					<NotificationIco fill='var(--object-secondary-white)' />
+				)}
 			</button>
 			<div className={styles.avatarWrapper}>
 				<img

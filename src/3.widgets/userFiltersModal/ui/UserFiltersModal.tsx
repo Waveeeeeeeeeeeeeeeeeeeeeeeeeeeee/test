@@ -107,7 +107,7 @@ export const UserFiltersModal = () => {
 				<Button variant='secondary' onClick={close}>
 					{backButton}
 				</Button>
-				<Button variant='next' onClick={close}>
+				<Button variant='accept' onClick={close}>
 					{acceptButton}
 				</Button>
 			</div>
