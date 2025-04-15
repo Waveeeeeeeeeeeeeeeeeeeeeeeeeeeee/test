@@ -5,16 +5,16 @@ import styles from './NotificationHeader.module.css'
 
 export type NotificationHeaderProps = {
 	title: string
-	goBack: () => void
+	goBack?: () => void
 	back?: boolean
-	notification: boolean
+	notification?: boolean
 }
 
 export const NotificationHeader = ({
 	title,
 	goBack,
 	back = false,
-	notification
+	notification = true
 }: NotificationHeaderProps) => {
 	return (
 		<div className='flex justify-between mb-4 items-center'>

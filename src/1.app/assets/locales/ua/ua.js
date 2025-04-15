@@ -61,6 +61,36 @@ const ua = {
 		},
 		dropDown: {
 			placeholder: 'Вибрати'
+		},
+		bottomBar: {
+			label1: 'Головна',
+			label2: 'Пошук',
+			label3: 'Друзі',
+			label4: 'Профіль'
+		},
+		statusFilter: {
+			label1: 'Зараз онлайн',
+			label2: 'Офлайн'
+		},
+		skipButton: {
+			text: 'Пропустити'
+		},
+		messageButton: {
+			text: 'Написати'
+		},
+		inviteButton: {
+			text: 'Запросити'
+		},
+		userFiltersModal: {
+			scope1: 'По місту',
+			scope2: 'По країні',
+			scope3: 'По світу',
+			mainTitle: 'Фільтри',
+			subtitle1: 'Обрати гру',
+			subtitle2: 'Пошук по статі',
+			subtitle3: 'Місцезнаходження',
+			backButton: 'Назад',
+			acceptButton: 'Застосувати'
 		}
 	}
 }

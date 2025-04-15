@@ -61,6 +61,36 @@ const ru = {
 		},
 		dropDown: {
 			placeholder: 'Выбрать'
+		},
+		bottomBar: {
+			label1: 'Главная',
+			label2: 'Поиск',
+			label3: 'Друзья',
+			label4: 'Профиль'
+		},
+		statusFilter: {
+			label1: 'Сейчас в сети',
+			label2: 'Оффлайн'
+		},
+		skipButton: {
+			text: 'Пропустить'
+		},
+		messageButton: {
+			text: 'Написать'
+		},
+		inviteButton: {
+			text: 'Пригласить'
+		},
+		userFiltersModal: {
+			scope1: 'По городу',
+			scope2: 'По стране',
+			scope3: 'По миру',
+			mainTitle: 'Фильтры',
+			subtitle1: 'Выбрать игру',
+			subtitle2: 'Поиск по полу',
+			subtitle3: 'Местоположение',
+			backButton: 'Назад',
+			acceptButton: 'Применить'
 		}
 	}
 }

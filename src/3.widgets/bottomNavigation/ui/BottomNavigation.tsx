@@ -1,11 +1,37 @@
 import { useLocation, useNavigate } from 'react-router'
 
-import { navigationItems } from '../model/data'
+import FriendsIcon from '../../../6.shared/assets/icons/Friends.svg?react'
+import HomeIcon from '../../../6.shared/assets/icons/Home.svg?react'
+import SearchIcon from '../../../6.shared/assets/icons/Search.svg?react'
 
 import styles from './BottomNavigation.module.css'
 import { useUserStore } from '@/5.entities/user/model/store'
+import { useCustomTranslation } from '@/6.shared'
 
 export const BottomNavigation = () => {
+	const { label1, label2, label3, label4 } = useCustomTranslation('bottomBar')
+	const navigationItems = [
+		{
+			label: label1,
+			path: '/',
+			icon: HomeIcon
+		},
+		{
+			label: label2,
+			path: '/search',
+			icon: SearchIcon
+		},
+		{
+			label: label3,
+			path: '/friends',
+			icon: FriendsIcon
+		},
+		{
+			label: label4,
+			path: '/profile',
+			isProfile: true
+		}
+	]
 	const navigate = useNavigate()
 	const location = useLocation()
 	const { user } = useUserStore()

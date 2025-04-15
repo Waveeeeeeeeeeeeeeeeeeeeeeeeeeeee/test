@@ -62,6 +62,36 @@ const en = {
 		},
 		dropDown: {
 			placeholder: 'Select'
+		},
+		bottomBar: {
+			label1: 'Home',
+			label2: 'Search',
+			label3: 'Friends',
+			label4: 'Profile'
+		},
+		statusFilter: {
+			label1: 'Currently online',
+			label2: 'Offline'
+		},
+		skipButton: {
+			text: 'Skip'
+		},
+		messageButton: {
+			text: 'Write'
+		},
+		inviteButton: {
+			text: 'Invite'
+		},
+		userFiltersModal: {
+			scope1: 'By city',
+			scope2: 'By country',
+			scope3: 'By world',
+			mainTitle: 'Filters',
+			subtitle1: 'Select game',
+			subtitle2: 'Search by gender',
+			subtitle3: 'Location',
+			backButton: 'Back',
+			acceptButton: 'Apply'
 		}
 	}
 }
