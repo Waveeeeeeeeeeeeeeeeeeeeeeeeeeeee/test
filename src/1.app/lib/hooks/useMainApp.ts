@@ -14,23 +14,24 @@ export const useMainApp = () => {
 	const [isShowApp, setIsShowApp] = useState(false)
 	const [isAppLoaded, setIsAppLoaded] = useState(false)
 	const { i18n } = useTranslation()
-	const {tgWebAppData} = retrieveLaunchParams();
-	const {setUser, setUserHash} = useUserStore()
+	const {setTelegramUser, setUserHash} = useUserStore()
 
 
-	console.log(tgWebAppData)
 	useEffect(() => {
 		init()
 		restoreInitData()
 		expandViewport()
 		swipeBehavior.mount()
 		swipeBehavior.disableVertical()
-		if(tgWebAppData?.user) {
-			setUserHash(tgWebAppData?.hash)
-			setUser(tgWebAppData?.user)
+	
+		const { tgWebAppData } = retrieveLaunchParams()
+	
+		if (tgWebAppData?.user && !useUserStore.getState().user) {
+			setUserHash(tgWebAppData.hash)
+			setTelegramUser(tgWebAppData.user)
 		}
-		// document.body.style.height = `${window.innerHeight * 1.5}px`
 	}, [])
+	
 
 	useEffect(() => {
 		const timer = setTimeout(() => {

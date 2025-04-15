@@ -10,7 +10,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<div
 			style={{ backgroundColor: 'black' }}
-			className='flex flex-col min-h-screen overflow-hidden'
+			className='flex flex-col min-h-screen overflow-hidden '
 		>
 			{children}
 			{!isOnboardingPage && <BottomNavigation />}
