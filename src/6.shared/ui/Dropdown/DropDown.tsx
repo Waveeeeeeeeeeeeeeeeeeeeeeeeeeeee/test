@@ -5,30 +5,31 @@ import ArrowIco from './assets/arrow.svg?react'
 
 interface DropDownProps {
 	data: { label: string; code: string }[]
-	country: string
-	setCountry: (country: string) => void
+	selectedValue: string
+	onSelect: (code: string) => void
 	placeholder?: string
 }
 
 export const DropDown: React.FC<DropDownProps> = ({
 	data,
-	country,
-	setCountry,
+	selectedValue,
+	onSelect,
 	placeholder
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const toggleDropdown = () => setIsOpen(!isOpen)
+	const selectedItem = data.find(item => item.code === selectedValue)
 
-	const handleSelect = (label: string) => {
-		setCountry(label)
+	const handleSelect = (code: string) => {
+		onSelect(code)
 		setIsOpen(false)
 	}
 
 	return (
 		<div className='relative w-full'>
 			<button className={styles.button} onClick={toggleDropdown}>
-				<span className={!country ? styles.placeholder : styles.selected}>
-					{country || placeholder}
+				<span className={!selectedValue ? styles.placeholder : styles.selected}>
+					{selectedItem?.label || placeholder}
 				</span>
 				<ArrowIco
 					style={{
@@ -44,7 +45,7 @@ export const DropDown: React.FC<DropDownProps> = ({
 						<li
 							key={item.code}
 							className='px-4 py-2 cursor-pointer hover:bg-gray-700'
-							onClick={() => handleSelect(item.label)}
+							onClick={() => handleSelect(item.code)}
 						>
 							{item.label}
 						</li>

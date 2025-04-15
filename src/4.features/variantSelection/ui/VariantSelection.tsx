@@ -11,15 +11,15 @@ interface languageSelectProps {
 		seclabel?: string
 		flag?: FC<SVGProps<SVGSVGElement>>
 	}[]
-	selectedLanguage: string
-	setLanguage: (value: string) => void
+	selected: string
+	onSelect: (value: string) => void
 	variant?: string
 }
 
 const VariantSelection = ({
 	data,
-	selectedLanguage,
-	setLanguage,
+	selected,
+	onSelect,
 	variant = 'col'
 }: languageSelectProps) => {
 	return (
@@ -28,15 +28,15 @@ const VariantSelection = ({
 				<label
 					key={lang.code}
 					className={`flex items-center justify-between w-full p-3 rounded-2xl transition-colors bg-[var(--second-bg)] cursor-pointer duration-300 
-					${selectedLanguage === lang.code ? 'border-2 border-[var(--violet)]' : 'border-2 border-transparent'} 	
+					${selected === lang.code ? 'border-2 border-[var(--violet)]' : 'border-2 border-transparent'} 	
 						`}
 				>
 					<input
 						type='radio'
 						name='language'
 						value={lang.code}
-						checked={selectedLanguage === lang.code}
-						onChange={() => setLanguage(lang.code)}
+						checked={selected === lang.code}
+						onChange={() => onSelect(lang.code)}
 						className='hidden'
 					/>
 					<div className={`flex items-center gap-4`}>
@@ -51,10 +51,10 @@ const VariantSelection = ({
 
 					<span
 						className={`w-5 h-5 border-2 rounded-full flex items-center justify-center 
-              ${selectedLanguage === lang.code ? 'border-purple-700 bg-purple-700 text-white' : 'border-gray-300 text-transparent'} 
+              ${selected === lang.code ? 'border-purple-700 bg-purple-700 text-white' : 'border-gray-300 text-transparent'} 
               transition-colors`}
 					>
-						{selectedLanguage === lang.code && (
+						{selected === lang.code && (
 							<span className='text-white text-lg'>
 								<CheckIco />
 							</span>

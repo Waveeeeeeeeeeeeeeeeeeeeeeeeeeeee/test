@@ -1,6 +1,10 @@
+import { Purpose } from "@/5.entities/user/model/types";
+
 export type Game = {
     id: string;
     title: string;
     icon: string;   
-    players: number; 
+    players: number;
+    purpose?: Purpose | null;
+    isOpen?: boolean;
   };

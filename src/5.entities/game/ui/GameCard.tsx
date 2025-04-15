@@ -2,19 +2,25 @@ import { AnimatePresence } from 'framer-motion'
 
 import { Game } from '../model/types'
 
-import { useChosenGames } from '@/4.features/chooseGame/model/useChosenGames'
 import { ChoosenTarget } from '@/4.features/chooseGame/ui/ChoosenTarget'
 import { TargetSelector } from '@/4.features/chooseGame/ui/TargetSelector'
+import { useUserStore } from '@/5.entities/user/model/store'
 
-export const GameCard = ({ game }: { game: Game }) => {
-	const { chosenGames, toggleGame, toggleTargetSelector, resetPurpose } =
-		useChosenGames()
-	const selected = chosenGames[game.id]
+interface GameCardProps {
+	game: Game
+	isSelected: boolean
+	onToggle: (id: string) => void
+}
 
+export const GameCard = ({ game, onToggle }: GameCardProps) => {
+	const { profile, toggleTargetSelector, resetPurpose, removeGame } =
+		useUserStore()
+
+	const selected = profile.games.find(g => g.id === game.id)
 	return (
 		<div
 			className='flex flex-col justify-between items-center p-2 rounded-md cursor-pointer'
-			onClick={() => toggleGame(game.id)}
+			onClick={() => onToggle(game.id)}
 		>
 			<div className='flex justify-between w-full'>
 				<div className='flex gap-2 items-center'>
@@ -34,9 +40,9 @@ export const GameCard = ({ game }: { game: Game }) => {
 					isActive={!!selected?.purpose}
 					onClick={e => {
 						e.stopPropagation()
-
 						if (selected?.purpose && !selected?.isOpen) {
 							resetPurpose(game.id)
+							removeGame(game)
 						} else {
 							toggleTargetSelector(game.id)
 						}
