@@ -1,0 +1,21 @@
+.card {
+    background: radial-gradient(446.45% 141.42% at 100% 0%, rgba(11, 10, 10, 0.6) 0%, #0b0a0a 100%);
+}
+
+.title {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 125%;
+    color: var(--object-white);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 3px;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 125%;
+    color: var(--object-secondary-white);
+}
