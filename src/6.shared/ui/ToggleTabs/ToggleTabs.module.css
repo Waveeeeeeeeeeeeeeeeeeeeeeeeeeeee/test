@@ -1,0 +1,14 @@
+.accent_active {
+    color: black
+}
+
+.accent {
+    color: var(--object-secondary-white);
+}
+
+.base_acitve {
+    color: var(--object-white)
+}
+.base {
+    color: var(--object-secondary-white);
+}

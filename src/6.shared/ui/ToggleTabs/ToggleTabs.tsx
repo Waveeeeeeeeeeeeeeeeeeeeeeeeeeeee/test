@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import React from 'react'
 
+import styles from './ToggleTabs.module.css'
+
 type ToggleOption = {
 	label: string
 	value: string
@@ -12,12 +14,25 @@ type ToggleTabsProps = {
 	options: ToggleOption[]
 	active: string
 	onChange: (val: string) => void
+	variant?: 'accent' | 'base'
+}
+
+const colorVariant = (value: string) => {
+	switch (value) {
+		case 'accent': {
+			return 'var(--color-green)'
+		}
+		case 'base': {
+			return '#201e1d'
+		}
+	}
 }
 
 export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 	options,
 	active,
-	onChange
+	onChange,
+	variant = 'accent'
 }) => {
 	const activeIndex = options.findIndex(opt => opt.value === active)
 
@@ -25,7 +40,7 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 		<div className='relative flex bg-zinc-900 w-full p-1 rounded-full overflow-hidden'>
 			<span
 				className={clsx(
-					'absolute top-1 left-1 h-[calc(100%-0.5rem)] w-1/2 rounded-full bg-[var(--color-green)] transition-transform duration-300 ease-in-out'
+					`absolute top-1 left-1 h-[calc(100%-0.5rem)] w-1/2 rounded-full bg-[${colorVariant(variant)}] transition-transform duration-300 ease-in-out`
 				)}
 				style={{
 					transform: `translateX(${activeIndex * 100}%)`
@@ -40,7 +55,7 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 						onClick={() => onChange(opt.value)}
 						className={clsx(
 							'relative z-10 w-1/2 rounded-full flex flex-col items-center justify-center transition-all cursor-pointer',
-							isActive ? 'text-black' : 'text-gray-400'
+							isActive ? styles[`${variant}_active`] : styles[variant]
 						)}
 					>
 						<div className='flex items-center gap-2 text-sm font-medium'>
