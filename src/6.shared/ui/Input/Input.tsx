@@ -6,7 +6,7 @@ interface InputProps {
 		label: string
 		name: string
 		placeholder: string
-		value?: string
+		value?: string | number
 		notification?: string
 		onChange: (value: string) => void
 	}
