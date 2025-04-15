@@ -66,7 +66,7 @@ const en = {
 		targetSearchList: {
 			justPlayTxt: 'Just Play',
 			conquerorTxt: 'Conqueror',
-			practiceTxt: 'Praki',
+			praksTxt: 'Praks',
 			duoTxt: 'Duo'
 		},
 		bottomBar: {
