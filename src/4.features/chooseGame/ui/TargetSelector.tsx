@@ -3,20 +3,24 @@ import { motion } from 'framer-motion'
 import CheckIco from '../../variantSelection/assets/check.svg?react'
 
 import { useUserStore } from '@/5.entities/user/model/store'
-
-const purposes = [
-	'Просто поиграть',
-	'Завоеватель',
-	'TDM',
-	'Ultimate Royal',
-	'Праки',
-	'Дуо',
-	'WoW'
-]
+import { useCustomTranslation } from '@/6.shared'
 
 export const TargetSelector = ({ gameId }: { gameId: string }) => {
 	const { profile, setPurpose } = useUserStore()
+	const { justPlayTxt, conquerorTxt, praksTxt, duoTxt } =
+		useCustomTranslation('targetSearchList')
+
 	const selected = profile.games.find(g => g.id === gameId)?.purpose
+
+	const purposes = [
+		justPlayTxt,
+		conquerorTxt,
+		'TDM',
+		'Ultimate Royal',
+		praksTxt,
+		duoTxt,
+		'WoW'
+	]
 	return (
 		<motion.div
 			className='flex flex-wrap gap-2 mt-2 w-full'

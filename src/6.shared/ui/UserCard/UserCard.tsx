@@ -2,11 +2,9 @@ import React from 'react'
 
 import InfoIco from '../../assets/icons/info.svg?react'
 import NotificationIco from '../../assets/images/notification.svg?react'
-import ru from '../../assets/images/ru.png'
-import ua from '../../assets/images/ua.png'
-import usa from '../../assets/images/usa.png'
 
 import styles from './UserCard.module.css'
+import { languageFlags } from '@/6.shared/const/languageFlags'
 
 type Props = {
 	name: string
@@ -17,12 +15,6 @@ type Props = {
 	avatarUrl: string | File
 	isOnline?: boolean
 	icon: 'notification' | 'info'
-}
-
-const languageFlags: Record<string, string> = {
-	ru: ru,
-	ua: ua,
-	en: usa
 }
 
 export const UserCard: React.FC<Props> = ({

@@ -32,6 +32,7 @@ const UserListFilters = () => {
 				options={statusOptions}
 				active={status}
 				onChange={setStatus}
+				variant='accent'
 			/>
 		</div>
 	)

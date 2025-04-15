@@ -7,7 +7,7 @@ import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared'
 
 export const OnboardingStep2 = () => {
-	const { title } = useCustomTranslation('onboardingStep2')
+	const { title, searchHolder } = useCustomTranslation('onboardingStep2')
 
 	const { search, onChange } = useGameFilter()
 	const { profile, addGame, removeGame, toggleTargetSelector, resetPurpose } =
@@ -52,7 +52,7 @@ export const OnboardingStep2 = () => {
 				onToggle={handleToggle}
 				selectedGameIds={selectedGameIds}
 				allGameTitles={gameList.map(game => game.title)}
-				searchPlaceholder='Во что ты играешь?'
+				searchPlaceholder={searchHolder}
 				withTargetSelector={true}
 				getPurpose={getPurposeByGameId}
 				isTargetSelectorOpen={checkIsOpen}

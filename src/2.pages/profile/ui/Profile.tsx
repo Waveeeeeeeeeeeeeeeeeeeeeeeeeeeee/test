@@ -32,12 +32,14 @@ const Profile = () => {
 				avatarUrl={profile.image || telegram?.photo_url || ''}
 				icon='notification'
 			/>
-			<ToggleTabs
-				options={profileOptions}
-				active={toggle}
-				onChange={setToggle}
-				variant='base'
-			/>
+			<div className='h-[39px]'>
+				<ToggleTabs
+					options={profileOptions}
+					active={toggle}
+					onChange={setToggle}
+					variant='base'
+				/>
+			</div>
 		</div>
 	)
 }

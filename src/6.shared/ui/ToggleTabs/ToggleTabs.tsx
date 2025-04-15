@@ -20,7 +20,7 @@ type ToggleTabsProps = {
 const colorVariant = (value: string) => {
 	switch (value) {
 		case 'accent': {
-			return 'var(--color-green)'
+			return '#84dcc6'
 		}
 		case 'base': {
 			return '#201e1d'
@@ -37,13 +37,12 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 	const activeIndex = options.findIndex(opt => opt.value === active)
 
 	return (
-		<div className='relative flex bg-zinc-900 w-full p-1 rounded-full overflow-hidden'>
+		<div className='relative flex bg-zinc-900 w-full p-1 rounded-full overflow-hidden h-full'>
 			<span
-				className={clsx(
-					`absolute top-1 left-1 h-[calc(100%-0.5rem)] w-1/2 rounded-full bg-[${colorVariant(variant)}] transition-transform duration-300 ease-in-out`
-				)}
+				className='absolute top-0 left-0 h-full w-1/2 rounded-full transition-transform duration-300 ease-in-out'
 				style={{
-					transform: `translateX(${activeIndex * 100}%)`
+					transform: `translateX(${activeIndex * 100}%)`,
+					backgroundColor: colorVariant(variant)
 				}}
 			/>
 

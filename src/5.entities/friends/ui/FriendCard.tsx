@@ -2,6 +2,7 @@ import MessageIco from '../../../6.shared/assets/icons/message.svg?react'
 
 import styles from './FriendCard.module.css'
 import { FriendProps } from '@/3.widgets/friendList/model/type'
+import { languageFlags } from '@/6.shared/const/languageFlags'
 
 const FriendCard = ({ person }: { person: FriendProps }) => {
 	return (
@@ -14,11 +15,16 @@ const FriendCard = ({ person }: { person: FriendProps }) => {
 				</div>
 				<div className='flex flex-col'>
 					<div className='flex gap-2'>
-						<img src={person.country} />
+						<img
+							src={languageFlags[person.country]}
+							alt={person.country}
+							width={16}
+							height={16}
+						/>
 						<span className={styles.name}>{person.name}</span>
 					</div>
 					<span className={styles.meta}>
-						г. {person.country} {person.gender.charAt(0).toUpperCase()},{' '}
+						г. {person.city} {person.gender.charAt(0).toUpperCase()},{' '}
 						{person.age}
 					</span>
 				</div>
