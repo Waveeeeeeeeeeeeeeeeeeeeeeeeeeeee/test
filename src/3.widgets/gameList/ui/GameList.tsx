@@ -32,14 +32,14 @@ export const GameList = ({
 	}
 
 	return (
-		<div className='w-full max-w-md mx-auto p-4'>
+		<div className='w-full max-w-md mx-auto'>
 			<Search
 				tags={allGameTitles}
 				addInterest={handleAddInterest}
 				placeholder={searchPlaceholder}
 			/>
 
-			<div className='flex flex-col gap-4'>
+			<div className='flex flex-col gap-4 max-h-[343px] overflow-y-auto'>
 				{filteredGames.map(game => (
 					<GameCard
 						key={game.id}
