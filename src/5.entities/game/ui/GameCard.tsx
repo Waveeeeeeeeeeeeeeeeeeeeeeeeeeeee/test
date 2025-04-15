@@ -4,25 +4,32 @@ import { Game } from '../model/types'
 
 import { ChoosenTarget } from '@/4.features/chooseGame/ui/ChoosenTarget'
 import { TargetSelector } from '@/4.features/chooseGame/ui/TargetSelector'
-import { useUserStore } from '@/5.entities/user/model/store'
 
 interface GameCardProps {
 	game: Game
 	isSelected: boolean
-	onToggle: (id: string) => void
+	withTargetSelector?: boolean
+	purpose?: string | null
+	isTargetSelectorOpen?: boolean
+	onClick?: () => void
+	onTogglePurpose?: () => void
 }
 
-export const GameCard = ({ game, onToggle }: GameCardProps) => {
-	const { profile, toggleTargetSelector, resetPurpose, removeGame } =
-		useUserStore()
-
-	const selected = profile.games.find(g => g.id === game.id)
+export const GameCard = ({
+	game,
+	isSelected,
+	withTargetSelector = false,
+	purpose,
+	isTargetSelectorOpen = false,
+	onClick,
+	onTogglePurpose
+}: GameCardProps) => {
 	return (
 		<div
-			className='flex flex-col justify-between items-center p-2 rounded-md cursor-pointer'
-			onClick={() => onToggle(game.id)}
+			className='flex flex-col justify-between items-center p-2 rounded-md cursor-pointer transition-colors hover:bg-zinc-800'
+			onClick={onClick}
 		>
-			<div className='flex justify-between w-full'>
+			<div className='flex justify-between w-full items-center'>
 				<div className='flex gap-2 items-center'>
 					<img
 						src={game.icon}
@@ -36,25 +43,22 @@ export const GameCard = ({ game, onToggle }: GameCardProps) => {
 				</div>
 
 				<ChoosenTarget
-					purpose={selected?.purpose}
-					isActive={!!selected?.purpose}
+					purpose={withTargetSelector ? purpose : null}
+					isActive={isSelected}
 					onClick={e => {
 						e.stopPropagation()
-						if (selected?.purpose && !selected?.isOpen) {
-							resetPurpose(game.id)
-							removeGame(game)
-						} else {
-							toggleTargetSelector(game.id)
-						}
+						withTargetSelector ? onTogglePurpose?.() : onClick?.()
 					}}
 				/>
 			</div>
 
-			<AnimatePresence>
-				{selected?.isOpen && (
-					<TargetSelector key={`selector-${game.id}`} gameId={game.id} />
-				)}
-			</AnimatePresence>
+			{withTargetSelector && (
+				<AnimatePresence>
+					{isTargetSelectorOpen && (
+						<TargetSelector key={`selector-${game.id}`} gameId={game.id} />
+					)}
+				</AnimatePresence>
+			)}
 		</div>
 	)
 }

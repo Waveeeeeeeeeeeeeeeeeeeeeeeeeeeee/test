@@ -1,36 +1,34 @@
-import { useGameFilter } from '../model/useGameFilter'
+import { GameListProps } from '../model/types'
 
 import Search from '@/4.features/search/Search'
-import { gameList } from '@/5.entities/game/config/gameList'
-import { Game } from '@/5.entities/game/model/types'
 import { GameCard } from '@/5.entities/game/ui/GameCard'
-import { useUserStore } from '@/5.entities/user/model/store'
-import { useCustomTranslation } from '@/6.shared'
 
-export const GameList = () => {
-	const { search, onChange } = useGameFilter()
-	const { profile, addGame, removeGame } = useUserStore()
-	const { searchHolder } = useCustomTranslation('onboardingStep2')
-
-	const filteredGames = gameList.filter(game =>
-		game.title.toLowerCase().includes(search.toLowerCase())
+export const GameList = ({
+	games,
+	searchValue,
+	onSearchChange,
+	onToggle,
+	selectedGameIds,
+	allGameTitles,
+	searchPlaceholder = 'Поиск',
+	withTargetSelector = false,
+	getPurpose,
+	isTargetSelectorOpen,
+	onTogglePurpose
+}: GameListProps & {
+	withTargetSelector?: boolean
+	getPurpose?: (id: string) => string | undefined
+	isTargetSelectorOpen?: (id: string) => boolean
+	onTogglePurpose?: (id: string) => void
+}) => {
+	const filteredGames = games.filter(game =>
+		game.title.toLowerCase().includes(searchValue.toLowerCase())
 	)
-	const allGameTitles = gameList.map(game => game.title)
 
 	const handleAddInterest = (tag: string) => {
-		onChange({ target: { value: tag } } as React.ChangeEvent<HTMLInputElement>)
-		const gameToAdd = gameList.find(game => game.title === tag)
-		if (gameToAdd) {
-			addGame(gameToAdd)
-		}
-	}
-
-	const isGameSelected = (gameId: string) => {
-		return profile.games.some(game => game.id === gameId)
-	}
-
-	const handleRemoveGame = (game: Game) => {
-		removeGame(game)
+		onSearchChange(tag)
+		const game = games.find(g => g.title === tag)
+		if (game) onToggle(game)
 	}
 
 	return (
@@ -38,7 +36,7 @@ export const GameList = () => {
 			<Search
 				tags={allGameTitles}
 				addInterest={handleAddInterest}
-				placeholder={searchHolder}
+				placeholder={searchPlaceholder}
 			/>
 
 			<div className='flex flex-col gap-4'>
@@ -46,10 +44,12 @@ export const GameList = () => {
 					<GameCard
 						key={game.id}
 						game={game}
-						isSelected={isGameSelected(game.id)}
-						onToggle={() =>
-							isGameSelected(game.id) ? handleRemoveGame(game) : addGame(game)
-						}
+						isSelected={selectedGameIds.includes(game.id)}
+						onClick={() => onToggle(game)}
+						withTargetSelector={withTargetSelector}
+						purpose={getPurpose?.(game.id)}
+						isTargetSelectorOpen={isTargetSelectorOpen?.(game.id)}
+						onTogglePurpose={() => onTogglePurpose?.(game.id)}
 					/>
 				))}
 			</div>
