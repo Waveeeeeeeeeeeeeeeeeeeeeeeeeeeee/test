@@ -62,6 +62,12 @@ const ua = {
 		dropDown: {
 			placeholder: 'Вибрати'
 		},
+		targetSearchList: {
+			justPlayTxt: 'Просто пограти',
+			conquerorTxt: 'Завойовник',
+			praksTxt: 'Праки',
+			duoTxt: 'Дуо'
+		},
 		bottomBar: {
 			label1: 'Головна',
 			label2: 'Пошук',

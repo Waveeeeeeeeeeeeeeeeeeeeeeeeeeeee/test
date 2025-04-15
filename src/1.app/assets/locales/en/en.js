@@ -63,6 +63,12 @@ const en = {
 		dropDown: {
 			placeholder: 'Select'
 		},
+		targetSearchList: {
+			justPlayTxt: 'Just Play',
+			conquerorTxt: 'Conqueror',
+			practiceTxt: 'Praki',
+			duoTxt: 'Duo'
+		},
 		bottomBar: {
 			label1: 'Home',
 			label2: 'Search',

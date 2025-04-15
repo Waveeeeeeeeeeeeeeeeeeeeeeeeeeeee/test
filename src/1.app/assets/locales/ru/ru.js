@@ -62,6 +62,12 @@ const ru = {
 		dropDown: {
 			placeholder: 'Выбрать'
 		},
+		targetSearchList: {
+			justPlayTxt: 'Просто поиграть',
+			conquerorTxt: 'Завоеватель',
+			praksTxt: 'Праки',
+			duoTxt: 'Дуо'
+		},
 		bottomBar: {
 			label1: 'Главная',
 			label2: 'Поиск',
