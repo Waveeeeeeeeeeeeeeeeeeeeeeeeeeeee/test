@@ -97,6 +97,13 @@ const ua = {
 			subtitle3: 'Місцезнаходження',
 			backButton: 'Назад',
 			acceptButton: 'Застосувати'
+		},
+		friends: {
+			title: 'Друзі'
+		},
+		profile: {
+			description: 'Опис',
+			games: 'Ваші ігри'
 		}
 	}
 }

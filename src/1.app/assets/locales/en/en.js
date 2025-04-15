@@ -98,6 +98,13 @@ const en = {
 			subtitle3: 'Location',
 			backButton: 'Back',
 			acceptButton: 'Apply'
+		},
+		friends: {
+			title: 'Friends'
+		},
+		profile: {
+			description: 'Description',
+			games: 'Your games'
 		}
 	}
 }

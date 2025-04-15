@@ -97,6 +97,13 @@ const ru = {
 			subtitle3: 'Местоположение',
 			backButton: 'Назад',
 			acceptButton: 'Применить'
+		},
+		friends: {
+			title: 'Друзья'
+		},
+		profile: {
+			description: 'Описание',
+			games: 'Ваши игры'
 		}
 	}
 }
