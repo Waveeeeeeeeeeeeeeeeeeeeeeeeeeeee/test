@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 
 import CheckIco from '../../variantSelection/assets/check.svg?react'
-import { useChosenGames } from '../model/useChosenGames'
+
+import { useUserStore } from '@/5.entities/user/model/store'
 
 const purposes = [
 	'Просто поиграть',
@@ -14,8 +15,8 @@ const purposes = [
 ]
 
 export const TargetSelector = ({ gameId }: { gameId: string }) => {
-	const { chosenGames, setPurpose } = useChosenGames()
-	const selected = chosenGames[gameId]?.purpose
+	const { profile, setPurpose } = useUserStore()
+	const selected = profile.games.find(g => g.id === gameId)?.purpose
 	return (
 		<motion.div
 			className='flex flex-wrap gap-2 mt-2 w-full'
