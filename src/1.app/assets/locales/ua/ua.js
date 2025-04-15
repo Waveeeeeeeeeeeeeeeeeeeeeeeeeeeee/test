@@ -1,4 +1,4 @@
-const uk = {
+const ua = {
 	translation: {
 		Onboarding: {
 			backButton: 'Назад',
@@ -65,4 +65,4 @@ const uk = {
 	}
 }
 
-export default uk
+export default ua

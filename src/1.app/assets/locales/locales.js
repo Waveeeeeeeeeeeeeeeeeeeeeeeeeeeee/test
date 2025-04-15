@@ -1,11 +1,11 @@
 import en from './en/en'
 import ru from './ru/ru'
-import uk from './uk/uk'
+import ua from './ua/ua'
 
 const locales = {
 	en: en,
 	ru: ru,
-	uk: uk
+	ua: ua
 }
 
 export default locales
