@@ -1,20 +1,21 @@
-import { useState } from 'react'
-
-import { useFormStore } from '../../accountInfoStep1/model/aboutForm'
+import { useEffect, useState } from 'react'
 
 import styles from './AccountInfoStep2.module.css'
 import Search from '@/4.features/search/Search'
+import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared'
 import PhotoContainer from '@/6.shared/ui/PhotoContainer/PhotoContainer'
 import { TagSelector } from '@/6.shared/ui/TagsSelectors/TagsSelectors'
 import { TextArea } from '@/6.shared/ui/TextArea'
 
 const AccountInfoStep2 = () => {
-	const { about, setAbout, interests, toggleInterest, addInterest } =
-		useFormStore()
+	const { profile, setProfileField, toggleInterest, addInterest, telegram } =
+		useUserStore()
 	const { title, label, placeholder, interest, char, searchHolder } =
 		useCustomTranslation('accountInfoStep3')
-	const [tags, setTags] = useState([
+
+	console.log(telegram)
+	const initialTags = [
 		'Футбол',
 		'Баскетбол',
 		'Рисование',
@@ -24,7 +25,27 @@ const AccountInfoStep2 = () => {
 		'Музыка',
 		'Спорт',
 		'Литература'
-	])
+	]
+
+	const [tags, setTags] = useState([...initialTags])
+
+	useEffect(() => {
+		const newTags = [...initialTags]
+		profile.interests.forEach(interest => {
+			if (!newTags.includes(interest)) {
+				newTags.push(interest)
+			}
+		})
+		setTags(newTags)
+	}, [profile.interests])
+
+	const handleAddInterest = (tag: string) => {
+		if (!tags.includes(tag)) {
+			setTags([tag, ...tags])
+		}
+		addInterest(tag)
+	}
+
 	return (
 		<div className='flex flex-col gap-8 pb-14'>
 			<h2 className={styles.title}>{title}</h2>
@@ -34,11 +55,11 @@ const AccountInfoStep2 = () => {
 					label: label,
 					name: 'comment',
 					placeholder: placeholder,
-					value: about,
+					value: profile.about,
 					minLength: 10,
 					maxLength: 300,
-					notification: `${about.length}/300 ${char}`,
-					onChange: setAbout
+					notification: `${profile.about.length}/300 ${char}`,
+					onChange: (value: string) => setProfileField('about', value)
 				}}
 			/>
 			<div>
@@ -46,16 +67,13 @@ const AccountInfoStep2 = () => {
 				<div>
 					<Search
 						tags={tags}
-						addInterest={tag => {
-							if (!tags.includes(tag)) setTags([tag, ...tags])
-							addInterest(tag)
-						}}
+						addInterest={handleAddInterest}
 						placeholder={searchHolder}
 					/>
 
 					<TagSelector
 						presetTags={tags}
-						interests={interests}
+						interests={profile.interests}
 						toggleInterest={toggleInterest}
 					/>
 				</div>

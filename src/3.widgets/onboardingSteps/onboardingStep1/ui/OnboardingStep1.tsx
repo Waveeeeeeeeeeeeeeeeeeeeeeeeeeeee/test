@@ -3,21 +3,28 @@ import clsx from 'clsx'
 import GbIco from '../assets/gb.svg?react'
 import RuIco from '../assets/ru.svg?react'
 import UaIco from '../assets/ua.svg?react'
-import { useLanguageStore } from '../model/language'
 
 import styles from './OnboardingStep1.module.css'
 import VariantSelection from '@/4.features/variantSelection/ui/VariantSelection'
+import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared'
 
 const languages = [
 	{ code: 'ru', label: 'Русский', flag: RuIco },
-	{ code: 'uk', label: 'Український', flag: UaIco },
+	{ code: 'ua', label: 'Український', flag: UaIco },
 	{ code: 'en', label: 'English', flag: GbIco }
 ]
 
 export const OnboardingStep1 = () => {
-	const { selectedLanguage, setLanguage } = useLanguageStore()
+	const selectedLanguage = useUserStore(state => state.profile.selectedLanguage)
+	const setProfileField = useUserStore(state => state.setProfileField)
+
 	const { title, desription } = useCustomTranslation('onboardingStep1')
+
+	const handleLanguageChange = (language: string) => {
+		setProfileField('selectedLanguage', language)
+	}
+
 	return (
 		<div className='flex flex-col gap-6 relative'>
 			<div>
@@ -26,8 +33,8 @@ export const OnboardingStep1 = () => {
 			</div>
 			<VariantSelection
 				data={languages}
-				selectedLanguage={selectedLanguage}
-				setLanguage={setLanguage}
+				selected={selectedLanguage}
+				onSelect={handleLanguageChange}
 			/>
 		</div>
 	)
