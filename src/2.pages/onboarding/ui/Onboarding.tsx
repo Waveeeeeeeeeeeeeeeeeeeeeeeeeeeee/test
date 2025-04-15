@@ -104,11 +104,16 @@ export const Onboarding = () => {
 			>
 				<div className={`flex justify-center items-center gap-4 relative`}>
 					{' '}
-					<HeaderIco
-						className={'transition-all duration-700 ease-in-out'}
-						width={steps >= 4 ? 110 : 270}
-						height={steps >= 4 ? 110 : 234}
-					/>
+					<motion.div
+						animate={{
+							width: steps >= 4 ? 110 : 270,
+							height: steps >= 4 ? 110 : 234
+						}}
+						transition={{ duration: 0.6, ease: 'easeInOut' }}
+						className='flex items-center justify-center'
+					>
+						<HeaderIco className='transition-all duration-700 ease-in-out' />
+					</motion.div>
 					{showIcos(steps)}
 				</div>
 				<div className='grow'>
