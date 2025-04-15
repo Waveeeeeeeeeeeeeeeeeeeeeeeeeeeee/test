@@ -11,8 +11,8 @@ import AccountInfoStep2 from '@/3.widgets/accountSteps/accountInfoStep2/ui/Accou
 import { OnboardingStep2 } from '@/3.widgets/onboardingSteps'
 import OnBoardingRules from '@/3.widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
 import { OnboardingStep1 } from '@/3.widgets/onboardingSteps/onboardingStep1'
-import { useLanguageStore } from '@/3.widgets/onboardingSteps/onboardingStep1/model/language'
 import OnboardingStep3 from '@/3.widgets/onboardingSteps/onboardingStep3/ui/OnboardingStep3'
+import { useUserStore } from '@/5.entities/user/model/store'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { AnimatedBlock } from '@/6.shared/ui/AnimatedBlock'
 import {
@@ -29,9 +29,10 @@ export const Onboarding = () => {
 	const [steps, setSteps] = useState(initialSteps)
 	const { i18n } = useTranslation()
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
-	const { selectedLanguage } = useLanguageStore()
+	const selectedLanguage = useUserStore(state => state.profile.selectedLanguage)
 	const [openRules, setOpenRules] = useState(false)
 	const navigate = useNavigate()
+
 	const handleStepsPlusClick = () => {
 		if (steps === 1) {
 			setOpenRules(true)
@@ -89,9 +90,10 @@ export const Onboarding = () => {
 	}
 
 	useEffect(() => {
-		i18n.changeLanguage(selectedLanguage)
-	}, [selectedLanguage])
-
+		if (i18n.language !== selectedLanguage) {
+			i18n.changeLanguage(selectedLanguage)
+		}
+	}, [selectedLanguage, i18n.language])
 	return (
 		<>
 			<div
