@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react'
 
 import CameraIco from '../../assets/images/camera.svg?react'
 
+import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared/lib'
 
 const PhotoContainer = () => {
 	const { title, subtitle } = useCustomTranslation('photoContainer')
+	const { setUserImage } = useUserStore()
 	const fileInputRef = useRef<HTMLInputElement>(null)
 	const [photos, setPhotos] = useState<File | null>(null)
 	const handleClick = () => {
@@ -15,7 +17,9 @@ const PhotoContainer = () => {
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {
+			console.log(1)
 			setPhotos(file)
+			setUserImage(file)
 		}
 	}
 
@@ -30,7 +34,7 @@ const PhotoContainer = () => {
 						<CameraIco />
 					</div>
 				) : (
-					<div className='w-16 h-20 flex justify-center items-center'>
+					<div className='w-16 h-20 flex justify-center items-center overflow-hidden rounded-2xl'>
 						<img src={URL.createObjectURL(photos)} />
 					</div>
 				)}
