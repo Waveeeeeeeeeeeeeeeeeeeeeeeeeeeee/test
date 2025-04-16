@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
 import { Route, Routes, useLocation } from 'react-router'
 
 import { routes } from './router.data'
@@ -11,13 +11,16 @@ const RouterProvider: FC = () => {
 		if (route.children) {
 			return (
 				<Route key={route.path} path={route.path} element={<route.component />}>
-					{route.children.map(child => (
-						<Route
-							key={`${route.path}/${child.path}`}
-							path={child.path}
-							element={<route.component />}
-						/>
-					))}
+					{route.children.map(child => {
+						console.log(child)
+						return (
+							<Route
+								key={`${route.path}/${child.path}`}
+								path={child.path}
+								element={React.createElement(child.element)}
+							/>
+						)
+					})}
 				</Route>
 			)
 		}
