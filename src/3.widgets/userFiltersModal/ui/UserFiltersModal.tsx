@@ -60,12 +60,14 @@ export const UserFiltersModal = () => {
 
 	return (
 		<Modal isOpen={isOpen}>
-			<NotificationHeader
-				title={mainTitle}
-				back
-				goBack={close}
-				notification={false}
-			/>
+			<div className='mb-5'>
+				<NotificationHeader
+					title={mainTitle}
+					back
+					goBack={close}
+					notification={false}
+				/>
+			</div>
 			<div className='flex flex-col gap-7'>
 				<div>
 					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle1}</h3>

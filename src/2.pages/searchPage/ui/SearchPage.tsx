@@ -1,6 +1,5 @@
 import { useParams } from 'react-router'
 
-import styles from './SearchPage.module.css'
 import { UserFiltersModal } from '@/3.widgets/userFiltersModal/ui/UserFiltersModal'
 import UserListFilters from '@/3.widgets/userListFilters/ui/UserListFilters'
 import { UserInteractionPanel } from '@/3.widgets/userPanel/ui/UserInteractionPanel'
@@ -52,12 +51,14 @@ const SearchPage = () => {
 	return (
 		<>
 			<div className='p-4 px-4 h-screen relative overflow-scroll pb-48'>
-				<NotificationHeader
-					title={card.title}
-					back={true}
-					goBack={handleGoBack}
-					notification
-				/>
+				<div className=' mb-2.5'>
+					<NotificationHeader
+						title={card.title}
+						back={true}
+						goBack={handleGoBack}
+						notification
+					/>
+				</div>
 				<div className=' mb-4'>
 					<UserListFilters />
 				</div>
