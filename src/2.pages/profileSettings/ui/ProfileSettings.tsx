@@ -39,7 +39,7 @@ const ProfileSettings = () => {
 		lang,
 		countryPlaceHolder
 	} = useCustomTranslation('accountInfoStep2')
-	const { backBtn, saveBtn } = useCustomTranslation('profileSettings')
+	const { title, backBtn, saveBtn } = useCustomTranslation('profileSettings')
 	const handleBack = () => {
 		window.history.back()
 	}
@@ -123,82 +123,84 @@ const ProfileSettings = () => {
 	}
 
 	return (
-		<div className='p-4 px-4 h-screen relative overflow-scroll pb-20 flex flex-col gap-7.5'>
-			<NotificationHeader
-				back
-				title='Настройки профиля'
-				goBack={handleBack}
-				notification={false}
-			/>
-			<PhotoContainer />
-			{InputData.map((item, index) => (
-				<Input key={index} data={item} />
-			))}
-			<div>
-				<h3 className={styles.subtitle}>{label3}</h3>
-				<VariantSelection
-					variant='row'
-					data={genders}
-					selected={profile.gender || ''}
-					onSelect={handleGenderChange}
+		<div className='h-full relative overflow-scroll flex flex-col'>
+			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
+				<NotificationHeader
+					back
+					title={title}
+					goBack={handleBack}
+					notification={false}
 				/>
-			</div>
-			<div>
-				<h3 className={styles.subtitle}>{lang}</h3>
-				<VariantSelection
-					data={languages}
-					selected={profile.selectedLanguage}
-					onSelect={handleLanguageChange}
-				/>
-			</div>
-			<div>
-				<h3 className={styles.subtitle}>{label4}</h3>
-				<div className='flex gap-2.5'>
-					<DropDown
-						data={countryData}
-						selectedValue={profile.country}
-						onSelect={handleCountryChange}
-						placeholder={countryPlaceHolder}
-					/>
-					<DropDown
-						data={profile.country === 'ua' ? uaCities : ruCities}
-						selectedValue={profile.city}
-						onSelect={handleCityChange}
-						placeholder={countryPlaceHolder}
-					/>
-				</div>
-			</div>
-
-			<TextArea
-				data={{
-					label: label,
-					name: 'comment',
-					placeholder: placeholder,
-					value: profile.about,
-					minLength: 10,
-					maxLength: 300,
-					notification: `${profile.about.length}/300 ${char}`,
-					onChange: (value: string) => setProfileField('about', value)
-				}}
-			/>
-			<div>
-				<h3 className={styles.subtitle}>{interest}</h3>
+				<PhotoContainer />
+				{InputData.map((item, index) => (
+					<Input key={index} data={item} />
+				))}
 				<div>
-					<Search
-						tags={tags}
-						addInterest={handleAddInterest}
-						placeholder={searchHolder}
-					/>
-
-					<TagSelector
-						presetTags={tags}
-						interests={profile.interests}
-						toggleInterest={toggleInterest}
-						edit={true}
+					<h3 className={styles.subtitle}>{label3}</h3>
+					<VariantSelection
+						variant='row'
+						data={genders}
+						selected={profile.gender || ''}
+						onSelect={handleGenderChange}
 					/>
 				</div>
+				<div>
+					<h3 className={styles.subtitle}>{lang}</h3>
+					<VariantSelection
+						data={languages}
+						selected={profile.selectedLanguage}
+						onSelect={handleLanguageChange}
+					/>
+				</div>
+				<div>
+					<h3 className={styles.subtitle}>{label4}</h3>
+					<div className='flex gap-2.5'>
+						<DropDown
+							data={countryData}
+							selectedValue={profile.country}
+							onSelect={handleCountryChange}
+							placeholder={countryPlaceHolder}
+						/>
+						<DropDown
+							data={profile.country === 'ua' ? uaCities : ruCities}
+							selectedValue={profile.city}
+							onSelect={handleCityChange}
+							placeholder={countryPlaceHolder}
+						/>
+					</div>
+				</div>
+
+				<TextArea
+					data={{
+						label: label,
+						name: 'comment',
+						placeholder: placeholder,
+						value: profile.about,
+						minLength: 10,
+						maxLength: 300,
+						notification: `${profile.about.length}/300 ${char}`,
+						onChange: (value: string) => setProfileField('about', value)
+					}}
+				/>
+				<div>
+					<h3 className={styles.subtitle}>{interest}</h3>
+					<div>
+						<Search
+							tags={tags}
+							addInterest={handleAddInterest}
+							placeholder={searchHolder}
+						/>
+
+						<TagSelector
+							presetTags={tags}
+							interests={profile.interests}
+							toggleInterest={toggleInterest}
+							edit={true}
+						/>
+					</div>
+				</div>
 			</div>
-			<div className='flex gap-4 mt-8'>
+			<div className={`flex w-full gap-4 mt-8 ${styles.buttons}`}>
 				<Button variant='secondary' onClick={handleBack}>
 					{backBtn}
 				</Button>

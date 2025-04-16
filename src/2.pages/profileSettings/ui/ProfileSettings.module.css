@@ -4,3 +4,9 @@
     color: var(--object-white);
     margin-bottom: 10px;
 }
+
+.buttons {
+    background: var(--second-bg);
+    border-radius: 16px 16px 29px 29px;
+    padding: 12px 16px;
+}
