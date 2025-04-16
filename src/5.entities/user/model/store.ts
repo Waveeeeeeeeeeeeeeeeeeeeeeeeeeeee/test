@@ -52,6 +52,20 @@ export const useUserStore = create<UserStore>((set, get) => ({
     });
   },
 
+  setGamePhoto: (gameId: string, photo: File) =>
+    set((state) => {
+      const updatedGames = state.profile.games.map((game) =>
+        game.id === gameId ? { ...game, photo } : game
+      );
+  
+      return {
+        profile: {
+          ...state.profile,
+          games: updatedGames,
+        },
+      };
+    }),
+
   toggleInterest: (interest) => {
     const { interests } = get().profile;
     const exists = interests.includes(interest);

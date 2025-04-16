@@ -7,4 +7,5 @@ export type Game = {
     players: number;
     purpose?: Purpose | null;
     isOpen?: boolean;
+    photo?: File
   };
