@@ -9,6 +9,7 @@ import { ShowInterests } from '@/4.features/showInterests'
 import { searchList } from '@/5.entities/search/config/searchList'
 import { useUserStore } from '@/5.entities/user/model/store'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
+import Description from '@/6.shared/ui/Description/Description'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
 import { UserCard } from '@/6.shared/ui/UserCard/UserCard'
 
@@ -72,8 +73,8 @@ const SearchPage = () => {
 							icon='info'
 						/>
 					</div>
-					<div className={styles.description}>
-						<p>{profile.about}</p>
+					<div className='px-4'>
+						<Description description={profile.about} variant='short' />
 					</div>
 					<ShowInterests interests={profile.interests} maxVisible={6} />
 					<PersonGamesSlider games={mockGames} />

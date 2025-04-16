@@ -102,20 +102,18 @@ export const Onboarding = () => {
 					styles.onboarding
 				)}
 			>
-				<div className={`flex justify-center items-center gap-4 relative`}>
+				<motion.div
+					className={`flex justify-center items-center gap-4 relative `}
+					animate={{
+						scale: steps >= 4 ? 0.45 : 1,
+						height: steps >= 4 ? '105px' : 'auto'
+					}}
+					transition={{ duration: 0.6, ease: 'easeInOut' }}
+				>
 					{' '}
-					<motion.div
-						animate={{
-							width: steps >= 4 ? 110 : 270,
-							height: steps >= 4 ? 110 : 234
-						}}
-						transition={{ duration: 0.6, ease: 'easeInOut' }}
-						className='flex items-center justify-center'
-					>
-						<HeaderIco className='transition-all duration-700 ease-in-out' />
-					</motion.div>
+					<HeaderIco className='transition-all duration-700 ease-in-out w-[270px] h-[234px]' />
 					{showIcos(steps)}
-				</div>
+				</motion.div>
 				<div className='grow'>
 					<AnimatedBlock key={steps}>
 						{showActualOnboarding(steps)}
