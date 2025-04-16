@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
+import ProfileMenu from '@/4.features/profileMenu/ui/ProfileMenu'
+import { ShowInterests } from '@/4.features/showInterests'
 import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
+import Description from '@/6.shared/ui/Description/Description'
 import { ToggleTabs } from '@/6.shared/ui/ToggleTabs/ToggleTabs'
 import { UserCard } from '@/6.shared/ui/UserCard/UserCard'
 
@@ -22,7 +25,7 @@ const Profile = () => {
 		}
 	]
 	return (
-		<div className={'p-4'}>
+		<div className={'px-4 pt-4 pb-28 flex flex-col gap-7.5'}>
 			<UserCard
 				name={profile.nickname}
 				age={+profile.age}
@@ -32,14 +35,19 @@ const Profile = () => {
 				avatarUrl={profile.image || telegram?.photo_url || ''}
 				icon='notification'
 			/>
-			<div className='h-[39px]'>
-				<ToggleTabs
-					options={profileOptions}
-					active={toggle}
-					onChange={setToggle}
-					variant='base'
-				/>
+			<div className='flex flex-col gap-4 border-b-[1px] border-[#40434f] pb-7.5 mt-5'>
+				<div className='h-[47px]'>
+					<ToggleTabs
+						options={profileOptions}
+						active={toggle}
+						onChange={setToggle}
+						variant='base'
+					/>
+				</div>
+				<Description description={profile.about} variant='full' />
+				<ShowInterests interests={profile.interests} />
 			</div>
+			<ProfileMenu />
 		</div>
 	)
 }
