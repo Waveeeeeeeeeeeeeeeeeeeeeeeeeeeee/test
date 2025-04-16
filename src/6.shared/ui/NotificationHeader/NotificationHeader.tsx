@@ -17,7 +17,7 @@ export const NotificationHeader = ({
 	notification = true
 }: NotificationHeaderProps) => {
 	return (
-		<div className='flex justify-between mb-4 items-center'>
+		<div className='flex justify-between items-center'>
 			<div className='flex items-center gap-2.5'>
 				{back && (
 					<button className='cursor-pointer' onClick={goBack}>

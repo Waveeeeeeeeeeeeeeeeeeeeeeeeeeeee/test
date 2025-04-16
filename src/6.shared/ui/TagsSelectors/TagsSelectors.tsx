@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import DeleteIco from '../../../6.shared/assets/icons/delete.svg?react'
+import AddIco from '../../assets/icons/add.svg?react'
 
 import styles from './TagsSelectors.module.css'
 import { useCustomTranslation } from '@/6.shared/lib'
@@ -50,15 +51,7 @@ export const TagSelector = ({
 						onKeyDown={e => e.key === 'Enter' && handleAddTag()}
 					/>
 					<button type='button' onClick={handleAddTag} disabled={!value.trim()}>
-						<svg
-							width='14'
-							height='14'
-							viewBox='0 0 14 14'
-							fill='none'
-							xmlns='http://www.w3.org/2000/svg'
-						>
-							<path d='...' fill='white' />
-						</svg>
+						<AddIco />
 					</button>
 				</div>
 

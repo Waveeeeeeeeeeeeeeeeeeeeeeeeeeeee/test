@@ -7,15 +7,16 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     backdrop-filter: blur(30px);
+    background: var(--second-bg);
     -webkit-backdrop-filter: blur(30px);
     cursor: pointer;
 }
 
 .placeholder {
-	font-weight: 400;
-	font-size: 14px;
+	font-weight: 500;
+    font-size: 17px;
+    color: var(--object-white);
 	line-height: 171%;
-	color: rgba(255, 255, 255, 0.7);
 }
 
 .selected {

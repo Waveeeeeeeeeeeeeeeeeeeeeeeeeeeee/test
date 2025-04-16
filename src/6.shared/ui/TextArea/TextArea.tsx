@@ -10,6 +10,7 @@ interface TextAreaProps {
 		maxLength?: number
 		notification?: string
 		onChange: (value: string) => void
+		height?: string
 	}
 }
 
@@ -19,6 +20,7 @@ export const TextArea = ({ data }: TextAreaProps) => {
 			<label className={styles.label}>
 				{data.label}
 				<textarea
+					className={`${data.height}`}
 					name={data.name}
 					placeholder={data.placeholder}
 					value={data.value}
