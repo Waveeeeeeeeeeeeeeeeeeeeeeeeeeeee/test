@@ -44,7 +44,8 @@ const ru = {
 			button1: `Я парень`,
 			button2: `Я девушка`,
 			label4: `Где ты проживаешь?`,
-			countryPlaceHolder: 'Город, страна'
+			countryPlaceHolder: 'Город, страна',
+			lang: 'Язык'
 		},
 		accountInfoStep3: {
 			title: 'Последний шаг!',
@@ -113,6 +114,11 @@ const ru = {
 			rules_description: 'Личная информация, описание теги',
 			privacy: 'Политика конфиденциальности',
 			privacy_description: 'Личная информация, описание теги'
+		},
+		profileSettings: {
+			title: 'Настройки профиля',
+			backBtn: 'Назад',
+			saveBtn: 'Сохранить'
 		}
 	}
 }

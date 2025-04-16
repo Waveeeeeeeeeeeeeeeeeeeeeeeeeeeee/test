@@ -44,7 +44,8 @@ const ua = {
 			button1: `Я хлопець`,
 			button2: `Я дівчина`,
 			label4: `Де ти проживаєш?`,
-			countryPlaceHolder: 'Місто, країна'
+			countryPlaceHolder: 'Місто, країна',
+			lang: 'Мова'
 		},
 		accountInfoStep3: {
 			title: 'Останній крок!',
@@ -113,6 +114,15 @@ const ua = {
 			rules_description: 'Особиста інформація, опис теги',
 			privacy: 'Політика конфіденційності',
 			privacy_description: 'Особиста інформація, опис теги'
+		},
+		profileSettings: {
+			backBtn: 'Назад',
+			saveBtn: 'Сохранить'
+		},
+		profileSettings: {
+			title: 'Налаштування профілю',
+			backBtn: 'Назад',
+			saveBtn: 'Зберегти'
 		}
 	}
 }

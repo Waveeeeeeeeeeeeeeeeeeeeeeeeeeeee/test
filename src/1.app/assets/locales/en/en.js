@@ -38,14 +38,15 @@ const en = {
 			title: `Tell me about yourself`,
 			label1: `How old are you?`,
 			placeholder1: `Enter your age`,
-			label1: `Must be 14 years of age or older`,
+			notification: `Must be 14 years of age or older`,
 			label2: `What is your name?`,
 			placeholder2: `Enter your nickname`,
 			label3: `Your gender`,
 			button1: `I'm a guy`,
 			button2: `I'm a girl`,
 			label4: `Where do you live?`,
-			countryPlaceHolder: 'City, country'
+			countryPlaceHolder: 'City, country',
+			lang: 'Language'
 		},
 		accountInfoStep3: {
 			title: 'One last step!',
@@ -114,6 +115,11 @@ const en = {
 			rules_description: 'Personal information, description tags',
 			privacy: 'Privacy policy',
 			privacy_description: 'Personal information, description tags'
+		},
+		profileSettings: {
+			title: 'Profile Settings',
+			backBtn: 'Back',
+			saveBtn: 'Save'
 		}
 	}
 }
