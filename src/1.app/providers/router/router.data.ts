@@ -5,6 +5,7 @@ import  Home from '@/2.pages/home/ui/home'
 import SearchPage from '@/2.pages/searchPage/ui/SearchPage'
 import Friends from '@/2.pages/friends/ui/Friends'
 import Profile from '@/2.pages/profile/ui/Profile'
+import ProfileSettings from '@/2.pages/profileSettings/ui/ProfileSettings'
 
 export const bgRoutes: any = {
 	[EnumRoutes.HOME]: '#FFC96A',
@@ -30,7 +31,10 @@ export const routes: IRoute[] = [
 	},
 	{
 		path: EnumRoutes.PROFILE,
-		component: Profile
+		component: Profile,
+		children: [
+			{ path: 'settings', element: ProfileSettings },
+		]
 	}
 	
 ]

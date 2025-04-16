@@ -1,6 +1,10 @@
-import { FC } from 'react'
+import { ComponentType} from 'react'
 
 export interface IRoute {
 	path: string
-	component: FC
+	component: ComponentType<any>
+	children?: {
+		path: string
+		element: ComponentType<any>
+	}[]
 }
