@@ -5,7 +5,13 @@ import { BottomNavigation } from '@/3.widgets/bottomNavigation/ui/BottomNavigati
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
 	const location = useLocation()
-	const isOnboardingPage = location.pathname === '/onboarding'
+	const disabledBottom = [
+		'/profile/settings',
+		'/profile/games',
+		'/profile/rules',
+		'/profile/support',
+		'/onboarding'
+	].includes(location.pathname)
 
 	return (
 		<div
@@ -13,7 +19,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 			className='flex flex-col min-h-screen overflow-hidden '
 		>
 			{children}
-			{!isOnboardingPage && <BottomNavigation />}
+			{!disabledBottom && <BottomNavigation />}
 		</div>
 	)
 }
