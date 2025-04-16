@@ -104,7 +104,16 @@ const en = {
 		},
 		profile: {
 			description: 'Description',
-			games: 'Your games'
+			games: 'Your games',
+			games_description: 'Change your game list and goals',
+			settings: 'Profile settings',
+			settings_description: 'Personal information, description tags',
+			support: 'Contact support',
+			support_description: 'Personal information, description tags',
+			rules: 'Terms of use',
+			rules_description: 'Personal information, description tags',
+			privacy: 'Privacy policy',
+			privacy_description: 'Personal information, description tags'
 		}
 	}
 }

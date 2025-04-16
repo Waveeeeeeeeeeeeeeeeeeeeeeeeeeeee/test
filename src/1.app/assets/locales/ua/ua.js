@@ -103,7 +103,16 @@ const ua = {
 		},
 		profile: {
 			description: 'Опис',
-			games: 'Ваші ігри'
+			games: 'Ваші ігри',
+			games_description: 'Змінити список гри та цілей',
+			settings: 'Налаштування профілю',
+			settings_description: 'Особиста інформація, опис теги',
+			support: 'Звернутися на підтримку',
+			support_description: 'Особиста інформація, опис теги',
+			rules: 'Правила користування',
+			rules_description: 'Особиста інформація, опис теги',
+			privacy: 'Політика конфіденційності',
+			privacy_description: 'Особиста інформація, опис теги'
 		}
 	}
 }

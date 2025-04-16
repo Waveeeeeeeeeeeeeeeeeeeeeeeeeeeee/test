@@ -103,7 +103,16 @@ const ru = {
 		},
 		profile: {
 			description: 'Описание',
-			games: 'Ваши игры'
+			games: 'Ваши игры',
+			games_description: 'Изменить список игры и целей',
+			settings: 'Настройки профиля',
+			settings_description: 'Личная информация, описание теги',
+			support: 'Обратиться в поддержку',
+			support_description: 'Личная информация, описание теги',
+			rules: 'Правила пользования',
+			rules_description: 'Личная информация, описание теги',
+			privacy: 'Политика конфиденциальности',
+			privacy_description: 'Личная информация, описание теги'
 		}
 	}
 }
