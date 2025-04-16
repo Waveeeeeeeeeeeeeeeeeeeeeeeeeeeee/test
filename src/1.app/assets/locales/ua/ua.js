@@ -123,6 +123,16 @@ const ua = {
 			title: 'Налаштування профілю',
 			backBtn: 'Назад',
 			saveBtn: 'Зберегти'
+		},
+		profileGames: {
+			title: 'Ваші ігри',
+			subtitle: 'Додати гру'
+		},
+		profileSupport: {
+			title: 'Звернення в підтримку',
+			messageTitle: 'Виберіть тему звернення',
+			problemTitle: 'Опишіть проблему',
+			problemDesc: 'Дайте докладний опис питання'
 		}
 	}
 }

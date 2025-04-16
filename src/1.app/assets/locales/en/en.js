@@ -120,6 +120,16 @@ const en = {
 			title: 'Profile Settings',
 			backBtn: 'Back',
 			saveBtn: 'Save'
+		},
+		profileGames: {
+			title: 'Your Games',
+			subtitle: 'Add a Game'
+		},
+		profileSupport: {
+			title: 'Contact Support',
+			messageTitle: 'Select a subject for your contact',
+			problemTitle: 'Describe the problem',
+			problemDesc: 'Give a detailed description of the issue'
 		}
 	}
 }

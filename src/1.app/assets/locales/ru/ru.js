@@ -119,6 +119,16 @@ const ru = {
 			title: 'Настройки профиля',
 			backBtn: 'Назад',
 			saveBtn: 'Сохранить'
+		},
+		profileGames: {
+			title: 'Ваши игры',
+			subtitle: 'Добавить игру'
+		},
+		profileSupport: {
+			title: 'Обращение в поддержку',
+			messageTitle: 'Выберите тему обращения',
+			problemTitle: 'Опишите проблему',
+			problemDesc: 'Дайте подробное описание вопроса'
 		}
 	}
 }
