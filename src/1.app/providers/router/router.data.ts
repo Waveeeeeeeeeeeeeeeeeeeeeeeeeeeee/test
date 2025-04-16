@@ -7,6 +7,7 @@ import Friends from '@/2.pages/friends/ui/Friends'
 import Profile from '@/2.pages/profile/ui/Profile'
 import ProfileSettings from '@/2.pages/profileSettings/ui/ProfileSettings'
 import ProfileGames from '@/2.pages/profileGames/ui/ProfileGames'
+import ProfileSupport from '@/2.pages/profileSupport/ui/ProfileSupport'
 
 export const bgRoutes: any = {
 	[EnumRoutes.HOME]: '#FFC96A',
@@ -35,12 +36,16 @@ export const routes: IRoute[] = [
 		component: Profile,
 	},
 	{
-		path: '/profile/settings',
+		path: EnumRoutes.PROFILE_SETTINGS,
 		component: ProfileSettings
 	},
 	{
-		path: '/profile/games',
+		path: EnumRoutes.PROFILE_GAMES,
 		component: ProfileGames
+	},
+	{
+		path: EnumRoutes.PROFILE_SUPPORT,
+		component: ProfileSupport
 	}
 	
 ]

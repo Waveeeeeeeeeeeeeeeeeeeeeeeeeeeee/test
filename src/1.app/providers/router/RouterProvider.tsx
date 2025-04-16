@@ -12,7 +12,6 @@ const RouterProvider: FC = () => {
 			return (
 				<Route key={route.path} path={route.path} element={<route.component />}>
 					{route.children.map(child => {
-						console.log(child)
 						return (
 							<Route
 								key={`${route.path}/${child.path}`}
