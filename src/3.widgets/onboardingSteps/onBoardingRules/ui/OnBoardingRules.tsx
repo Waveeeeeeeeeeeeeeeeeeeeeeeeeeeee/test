@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import styles from './OnBoardingRules.module.css'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { NumericList } from '@/6.shared/ui/NumericList'
@@ -5,15 +7,26 @@ import { NumericList } from '@/6.shared/ui/NumericList'
 const link = { href: '#', text: 'Boost Ace', position: 0 }
 
 interface OnBoardingRulesProps {
-	handleResetSteps: () => void
+	handleResetSteps?: () => void
 	handleAccetpRules: () => void
+	profile?: boolean
 }
 const OnBoardingRules = ({
 	handleResetSteps,
-	handleAccetpRules
+	handleAccetpRules,
+	profile = false
 }: OnBoardingRulesProps) => {
 	const { title, numeric1, numeric2, numeric3, button, declineButton } =
 		useCustomTranslation('onBoardingRules')
+
+	useEffect(() => {
+		const originalStyle = window.getComputedStyle(document.body).overflow
+		document.body.style.overflow = 'hidden'
+
+		return () => {
+			document.body.style.overflow = originalStyle
+		}
+	}, [])
 
 	return (
 		<div className={styles.rules}>
@@ -22,9 +35,11 @@ const OnBoardingRules = ({
 			</div>
 			<NumericList data={[numeric1, numeric2, numeric3]} link={link} />
 			<div className='flex gap-2.5 w-full mt-13'>
-				<Button size='large' variant='secondary' onClick={handleResetSteps}>
-					{declineButton}
-				</Button>
+				{!profile && (
+					<Button size='large' variant='secondary' onClick={handleResetSteps}>
+						{declineButton}
+					</Button>
+				)}
 				<Button size='large' variant='next' onClick={handleAccetpRules}>
 					{button}
 				</Button>

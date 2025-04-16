@@ -30,7 +30,7 @@ export const profileMenuItems: ProfileMenuItem[] = [
 	{
 		key: 'rules',
 		icon: RulesIco,
-		route: '/profile/rules'
+		route: 'rules'
 	},
 	{
 		key: 'privacy',

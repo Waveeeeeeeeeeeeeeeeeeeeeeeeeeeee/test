@@ -1,5 +1,8 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 
+import { useRulesToggle } from '@/3.widgets/onboardingSteps/model/toggleRules'
+import OnBoardingRules from '@/3.widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
 import ProfileMenu from '@/4.features/profileMenu/ui/ProfileMenu'
 import { ShowInterests } from '@/4.features/showInterests'
 import { useUserStore } from '@/5.entities/user/model/store'
@@ -13,7 +16,7 @@ const Profile = () => {
 	const [toggle, setToggle] = useState('description')
 	const { profile, telegram } = useUserStore()
 	const { description, games } = useCustomTranslation('profile')
-
+	const { isOpen, close } = useRulesToggle()
 	const profileOptions = [
 		{
 			label: description,
@@ -48,6 +51,21 @@ const Profile = () => {
 				<ShowInterests interests={profile.interests} />
 			</div>
 			<ProfileMenu />
+
+			<AnimatePresence>
+				{isOpen && (
+					<motion.div
+						key='onboarding-rules'
+						initial={{ opacity: 0, scale: 0.8 }}
+						animate={{ opacity: 1, scale: 1 }}
+						exit={{ opacity: 0, scale: 0.8 }}
+						transition={{ duration: 0.3, ease: 'easeInOut' }}
+						className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
+					>
+						<OnBoardingRules handleAccetpRules={close} profile />
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	)
 }
