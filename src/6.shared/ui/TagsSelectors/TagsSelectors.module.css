@@ -11,15 +11,14 @@
   }
 
 .item {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    padding: 6px 12px;
     font-weight: 500;
     font-size: 17px;
-    color: var(--object-secondary-white);
+    color: var(--object-white);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     display: flex;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -53,7 +52,28 @@
 }
 
 .active {
-    color: var(--object-white);
-    background: var(--color-accent);
-    border: 1px solid transparent;
+    background: var(--color-accent) !important;
+    border: 1px solid transparent !important;
 }
+.active button {
+    color: var(--object-white);
+}
+
+.itemWrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 6px 12px;
+    background: var(--second-bg);
+}
+
+.deleteButton {
+	background: transparent;
+	border: none;
+    cursor: pointer;
+}
+
