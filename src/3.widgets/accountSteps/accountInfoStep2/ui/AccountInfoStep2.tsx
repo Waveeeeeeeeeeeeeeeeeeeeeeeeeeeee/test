@@ -9,12 +9,11 @@ import { TagSelector } from '@/6.shared/ui/TagsSelectors/TagsSelectors'
 import { TextArea } from '@/6.shared/ui/TextArea'
 
 const AccountInfoStep2 = () => {
-	const { profile, setProfileField, toggleInterest, addInterest, telegram } =
+	const { profile, setProfileField, toggleInterest, addInterest } =
 		useUserStore()
 	const { title, label, placeholder, interest, char, searchHolder } =
 		useCustomTranslation('accountInfoStep3')
 
-	console.log(telegram)
 	const initialTags = [
 		'Футбол',
 		'Баскетбол',
@@ -75,6 +74,7 @@ const AccountInfoStep2 = () => {
 						presetTags={tags}
 						interests={profile.interests}
 						toggleInterest={toggleInterest}
+						edit={false}
 					/>
 				</div>
 			</div>
