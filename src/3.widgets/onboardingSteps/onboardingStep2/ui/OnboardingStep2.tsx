@@ -41,7 +41,7 @@ export const OnboardingStep2 = () => {
 
 	console.log(profile)
 	return (
-		<div className='relative flex flex-col gap-7'>
+		<div className='relative flex flex-col gap-7 pb-20'>
 			<h2 className={styles.title}>{title}</h2>
 			<GameList
 				games={gameList}

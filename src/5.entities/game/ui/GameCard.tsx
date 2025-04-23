@@ -4,6 +4,7 @@ import { Game } from '../model/types'
 
 import { ChoosenTarget } from '@/4.features/chooseGame/ui/ChoosenTarget'
 import { TargetSelector } from '@/4.features/chooseGame/ui/TargetSelector'
+import { GameImageUpload } from '@/4.features/game/uploadImage/GameImageUpload'
 
 interface GameCardProps {
 	game: Game
@@ -13,6 +14,7 @@ interface GameCardProps {
 	isTargetSelectorOpen?: boolean
 	onClick?: () => void
 	onTogglePurpose?: () => void
+	withPhotoUpload?: boolean
 }
 
 export const GameCard = ({
@@ -22,7 +24,8 @@ export const GameCard = ({
 	purpose,
 	isTargetSelectorOpen = false,
 	onClick,
-	onTogglePurpose
+	onTogglePurpose,
+	withPhotoUpload = false
 }: GameCardProps) => {
 	return (
 		<div
@@ -51,7 +54,7 @@ export const GameCard = ({
 					}}
 				/>
 			</div>
-
+			{withPhotoUpload && <GameImageUpload gameId={game.id} />}
 			{withTargetSelector && (
 				<AnimatePresence>
 					{isTargetSelectorOpen && (

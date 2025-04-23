@@ -52,19 +52,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
     });
   },
 
-  setGamePhoto: (gameId: string, photo: File) =>
-    set((state) => {
-      const updatedGames = state.profile.games.map((game) =>
-        game.id === gameId ? { ...game, photo } : game
-      );
-  
-      return {
-        profile: {
-          ...state.profile,
-          games: updatedGames,
-        },
-      };
-    }),
+  setGamePhoto: (gameId, file) =>
+		set(state => ({
+			profile: {
+				...state.profile,
+				games: state.profile.games.map(game =>
+					game.id === gameId ? { ...game, photo: file } : game
+				),
+			},
+		})),
 
   toggleInterest: (interest) => {
     const { interests } = get().profile;

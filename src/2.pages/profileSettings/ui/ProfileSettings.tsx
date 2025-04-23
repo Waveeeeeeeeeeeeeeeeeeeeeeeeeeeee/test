@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import RuIco from '../../../6.shared/assets/flags/ru.svg?react'
 import UaIco from '../../../6.shared/assets/flags/ua.svg?react'
@@ -40,10 +41,16 @@ const ProfileSettings = () => {
 		countryPlaceHolder
 	} = useCustomTranslation('accountInfoStep2')
 	const { title, backBtn, saveBtn } = useCustomTranslation('profileSettings')
+	const { i18n } = useTranslation()
 	const handleBack = () => {
 		window.history.back()
 	}
 
+	const handleSave = () => {
+		localStorage.setItem('selectedLanguage', profile.selectedLanguage)
+		window.history.back()
+	}
+	console.log(profile)
 	const InputData = [
 		{
 			label: label2,
@@ -121,6 +128,12 @@ const ProfileSettings = () => {
 		}
 		addInterest(tag)
 	}
+
+	useEffect(() => {
+		if (i18n.language !== profile.selectedLanguage) {
+			i18n.changeLanguage(profile.selectedLanguage)
+		}
+	}, [profile.selectedLanguage, i18n.language])
 
 	return (
 		<div className='h-full relative overflow-scroll flex flex-col'>
@@ -204,7 +217,7 @@ const ProfileSettings = () => {
 				<Button variant='secondary' onClick={handleBack}>
 					{backBtn}
 				</Button>
-				<Button variant='accept' onClick={handleBack}>
+				<Button variant='accept' onClick={handleSave}>
 					{saveBtn}
 				</Button>
 			</div>

@@ -78,7 +78,7 @@ const AccountInfoStep1 = () => {
 	}
 
 	return (
-		<div className='flex flex-col gap-8 pb-14'>
+		<div className='flex flex-col gap-8 pb-48'>
 			<h2 className={styles.title}>{title}</h2>
 			<div className='flex flex-col gap-6'>
 				{InputData.map((item, index) => (
