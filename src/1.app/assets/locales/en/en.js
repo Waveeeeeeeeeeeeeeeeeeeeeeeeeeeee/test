@@ -12,6 +12,9 @@ const en = {
 			title: 'Indicate your favorite games',
 			searchHolder: 'Search'
 		},
+		gameImageUpload: {
+			upload: 'Add photo'
+		},
 		onboardingStep3: {
 			title: `Choose what you want to find a person for`,
 			description: `This is a very important item, a little more <br /> ‼️Warning‼️ is required, because

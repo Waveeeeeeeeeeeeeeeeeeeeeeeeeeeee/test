@@ -12,6 +12,9 @@ const ru = {
 			searchHolder: 'Во что ты играешь?',
 			searchHolder: 'Поиск'
 		},
+		gameImageUpload: {
+			upload: 'Добавить фото'
+		},
 		onboardingStep3: {
 			title: `Выбери для чего ты хочешь найти человека`,
 			description: `Это очень важный пункт, требуется чуть больше <br /> ‼️ВНИМАНИЯ‼️, ведь

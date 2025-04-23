@@ -12,6 +12,9 @@ const ua = {
 			title: 'Вкажи свої улюблені ігри',
 			searchHolder: 'Пошук'
 		},
+		gameImageUpload: {
+			upload: 'Додати фото'
+		},
 		onboardingStep3: {
 			title: `Вибери для чого ти хочеш знайти людину`,
 			description: `Це дуже важливий пункт, потрібно трохи більше <br /> ‼️ВНИМАНИЯ‼️, адже

@@ -68,7 +68,7 @@ export interface TelegramUser {
     setPurpose: (gameId: string, purpose: Purpose) => void;
     resetPurpose: (gameId: string) => void;
     toggleTargetSelector: (gameId: string) => void;
-    setGamePhoto: (gameId: string, photo: File) => void;
+    setGamePhoto: (gameId: string, photo: File | null) => void;
   }
 
 
