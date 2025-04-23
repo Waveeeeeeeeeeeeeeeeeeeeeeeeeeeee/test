@@ -1,0 +1,29 @@
+.photoContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+
+.photo{
+    border: 2px solid var(--object-div,-icon);
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.photoName {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--object-white);
+}
+
+.photoSub {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 125%;
+    color: #8a8989;
+}
