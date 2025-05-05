@@ -18,7 +18,7 @@ export const BottomNavigation = () => {
 		},
 		{
 			label: label2,
-			path: '/search',
+			path: '/search/just-play',
 			icon: SearchIcon
 		},
 		{
