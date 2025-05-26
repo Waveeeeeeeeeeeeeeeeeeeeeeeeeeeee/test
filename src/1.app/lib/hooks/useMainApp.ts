@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export const useMainApp = () => {
-	const [isShowApp, setIsShowApp] = useState(false)
+	const [isShowApp, setIsShowApp] = useState(true)
 	const [isAppLoaded, setIsAppLoaded] = useState(false)
 	const { i18n } = useTranslation()
 	const {setTelegramUser, setUserHash} = useUserStore()
@@ -25,8 +25,12 @@ export const useMainApp = () => {
 		swipeBehavior.disableVertical()
 	
 		const { tgWebAppData } = retrieveLaunchParams()
+
+		console.log(tgWebAppData)
 	
 		if (tgWebAppData?.user && !useUserStore.getState().user) {
+
+			console.log(tgWebAppData)
 			setUserHash(tgWebAppData.hash)
 			setTelegramUser(tgWebAppData.user)
 		}

@@ -29,6 +29,7 @@ export const Onboarding = () => {
 	const [steps, setSteps] = useState(initialSteps)
 	const { i18n } = useTranslation()
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
+	const { profile } = useUserStore()
 	const selectedLanguage = useUserStore(state => state.profile.selectedLanguage)
 	const [openRules, setOpenRules] = useState(false)
 	const navigate = useNavigate()
@@ -37,6 +38,9 @@ export const Onboarding = () => {
 		if (steps === 1) {
 			setOpenRules(true)
 			return
+		} else if (steps === 2 && !profile.games.some(el => el.purpose)) {
+			return
+		} else if (steps === 4) {
 		}
 		if (steps > maxSteps) {
 			navigate('/')
