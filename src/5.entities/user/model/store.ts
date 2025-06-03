@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { TelegramUser, UserStore, Purpose } from './types';
 import { Game } from '@/5.entities/game/model/types';
+import { getProfileByTelegramId } from '../api/getProfileByTelegramId';
 
 const defaultProfile = {
   age: '',
   nickname: '',
-  gender: 'men',
+  gender: 'MALE',
   city: '',
   country: '',
   about: '',
@@ -190,4 +191,25 @@ setPurpose: (gameId: string, purpose: Purpose) =>
           },
         };
       }),
+      fetchUserProfile: async () => {
+  const telegram = get().telegram;
+  if (!telegram?.id) return;
+
+  try {
+    const profileData = await getProfileByTelegramId(telegram.id.toString());
+
+    set((state) => ({
+      profile: {
+        ...state.profile,
+        ...profileData,
+        user_id: profileData.user_id,
+        profile_id: profileData.profile_id,
+        isFirstFormValid: true,
+        isSecondFormValid: true,
+      },
+    }));
+  } catch (error) {
+    console.error('Ошибка при получении профиля:', error);
+  }
+}
 }));
