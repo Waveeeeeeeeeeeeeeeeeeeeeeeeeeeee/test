@@ -7,13 +7,21 @@ import mkcert from 'vite-plugin-mkcert'
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(({ mode }) => {
-	let server = {}
+	let server: Record<string, any> = {}
 
 	if (mode !== 'production') {
 		server = {
 			port: 443,
-
-			host: 'tma.internal'
+			host: 'tma.internal',
+			https: true,
+			proxy: {
+				'/api': {
+					target: 'http://77.238.235.94:15000',
+					changeOrigin: true,
+					secure: false, 
+					rewrite: (path: string) => path.replace(/^\/api/, '')
+				}
+			}
 		}
 	}
 
