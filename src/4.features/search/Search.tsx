@@ -6,17 +6,25 @@ interface TagSearchProps {
 	tags: string[]
 	addInterest: (tag: string) => void
 	placeholder: string
+	searchValue: string
+	onSearchChange: (value: string) => void
 }
 
 const Search: React.FC<TagSearchProps> = ({
 	tags,
 	addInterest,
-	placeholder
+	placeholder,
+	searchValue,
+	onSearchChange
 }) => {
-	const [query, setQuery] = useState('')
+	const [query, setQuery] = useState(searchValue)
 	const debouncedQuery = useDebounce(query, 300)
 	const [filteredTags, setFilteredTags] = useState<string[]>([])
 	const [showDropdown, setShowDropdown] = useState(false)
+
+	useEffect(() => {
+		setQuery(searchValue)
+	}, [searchValue])
 
 	useEffect(() => {
 		if (debouncedQuery.trim() === '') {
@@ -38,6 +46,12 @@ const Search: React.FC<TagSearchProps> = ({
 		setShowDropdown(false)
 	}
 
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setQuery(value)
+		onSearchChange(value)
+	}
+
 	return (
 		<div className='relative w-full mb-5'>
 			<div className='flex items-center border border-gray-600 rounded-full px-4 py-2 bg-[var(--second-bg)]'>
@@ -55,7 +69,7 @@ const Search: React.FC<TagSearchProps> = ({
 					type='text'
 					placeholder={placeholder}
 					value={query}
-					onChange={e => setQuery(e.target.value)}
+					onChange={handleInputChange}
 					className='bg-transparent outline-none text-white w-full'
 				/>
 			</div>
