@@ -1,9 +1,11 @@
+import { useEffect } from 'react'
+
 import styles from './AccountInfoStep1.module.css'
 import VariantSelection from '@/4.features/variantSelection/ui/VariantSelection'
 import { useUserStore } from '@/5.entities/user/model/store'
 import { useCustomTranslation } from '@/6.shared'
-import { DropDown } from '@/6.shared/ui/Dropdown'
 import { Input } from '@/6.shared/ui/Input'
+import { InputWithDropdown } from '@/6.shared/ui/InputWithDropdown/InputWithDropdown'
 
 const AccountInfoStep1 = () => {
 	const {
@@ -24,8 +26,15 @@ const AccountInfoStep1 = () => {
 	const nickname = useUserStore(state => state.profile.nickname)
 	const gender = useUserStore(state => state.profile.gender)
 	const country = useUserStore(state => state.profile.country)
-	const setProfileField = useUserStore(state => state.setProfileField)
 	const city = useUserStore(state => state.profile.city)
+	const setProfileField = useUserStore(state => state.setProfileField)
+
+	useEffect(() => {
+		if (!country && city) {
+			setProfileField('city', '')
+		}
+	}, [country, city, setProfileField])
+
 	const InputData = [
 		{
 			label: label2,
@@ -62,19 +71,19 @@ const AccountInfoStep1 = () => {
 	]
 
 	const genders = [
-		{ code: 'men', label: button1 },
-		{ code: 'women', label: button2 }
+		{ code: 'MALE', label: button1 },
+		{ code: 'FEMALE', label: button2 }
 	]
 
 	const handleGenderChange = (gender: string) => {
 		setProfileField('gender', gender)
 	}
 
-	const handleCountryChange = (countryCode: string) => {
-		setProfileField('country', countryCode)
-	}
-	const handleCityChange = (cityCode: string) => {
-		setProfileField('city', cityCode)
+	const handleCountryChange = (code: string) => {
+		setProfileField('country', code)
+		if (code && city) {
+			setProfileField('city', '')
+		}
 	}
 
 	return (
@@ -97,17 +106,20 @@ const AccountInfoStep1 = () => {
 			<div>
 				<h3 className='mb-2'>{label4}</h3>
 				<div className='flex gap-2.5'>
-					<DropDown
+					<InputWithDropdown
 						data={countryData}
-						selectedValue={country}
-						onSelect={handleCountryChange}
+						value={country}
+						onChange={handleCountryChange}
 						placeholder={countryPlaceHolder}
 					/>
-					<DropDown
-						data={country === 'ua' ? uaCities : ruCities}
-						selectedValue={city}
-						onSelect={handleCityChange}
-						placeholder={countryPlaceHolder}
+					<InputWithDropdown
+						data={
+							country === 'ua' ? uaCities : country === 'ru' ? ruCities : []
+						}
+						value={city}
+						onChange={value => setProfileField('city', value)}
+						placeholder='Выберите город'
+						disabled={!country}
 					/>
 				</div>
 			</div>
