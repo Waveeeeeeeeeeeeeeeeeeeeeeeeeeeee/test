@@ -17,7 +17,7 @@ export const UserFiltersModal = () => {
 		scope,
 		setScope,
 		selectedGames,
-		setSelectedGames
+		toggleSelectedGames
 	} = useUserFiltersStore()
 
 	const { button1, button2 } = useCustomTranslation('accountInfoStep2')
@@ -55,9 +55,8 @@ export const UserFiltersModal = () => {
 	const { search, onChange } = useGameFilter()
 
 	const handleToggle = (game: Game) => {
-		setSelectedGames(game.id)
+		toggleSelectedGames(game.id)
 	}
-
 	return (
 		<Modal isOpen={isOpen}>
 			<div className='mb-5'>
@@ -83,6 +82,8 @@ export const UserFiltersModal = () => {
 						selectedGameIds={selectedGames}
 						allGameTitles={gameList.map(game => game.title)}
 						searchPlaceholder='Поиск'
+						withTargetSelector={false}
+						onTogglePurpose={undefined}
 					/>
 				</div>
 				<div className='flex flex-col gap-2 mt-6'>

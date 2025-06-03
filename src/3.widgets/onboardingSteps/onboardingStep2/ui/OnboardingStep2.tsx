@@ -4,6 +4,7 @@ import { GameList } from '@/3.widgets/gameList/ui/GameList'
 import { gameList } from '@/5.entities/game/config/gameList'
 import { Game } from '@/5.entities/game/model/types'
 import { useUserStore } from '@/5.entities/user/model/store'
+import { Purpose } from '@/5.entities/user/model/types'
 import { useCustomTranslation } from '@/6.shared'
 
 export const OnboardingStep2 = () => {
@@ -23,17 +24,17 @@ export const OnboardingStep2 = () => {
 
 	const selectedGameIds = profile.games.map(g => g.id)
 
-	const getPurposeByGameId = (id: string): string | undefined =>
-		profile.games.find(g => g.id === id)?.purpose ?? undefined
+	const getPurposeByGameId = (id: string): Purpose[] | undefined =>
+		profile.games.find(g => g.id === id)?.purposes ?? undefined
 
 	const checkIsOpen = (id: string) =>
 		profile.games.find(g => g.id === id)?.isOpen ?? false
 
 	const handleTargetToggle = (id: string) => {
 		const game = profile.games.find(g => g.id === id)
-		if (game?.purpose && !game?.isOpen) {
+		if (!game?.purposes?.length) {
 			resetPurpose(id)
-			removeGame(game)
+			removeGame(game as Game)
 		} else {
 			toggleTargetSelector(id)
 		}
