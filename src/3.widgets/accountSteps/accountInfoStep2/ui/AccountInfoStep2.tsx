@@ -51,7 +51,7 @@ const AccountInfoStep2 = () => {
 	}
 
 	return (
-		<div className='flex flex-col gap-8 pb-14'>
+		<div className='flex flex-col gap-8 pb-20'>
 			<h2 className={styles.title}>{title}</h2>
 			<PhotoContainer />
 			<TextArea

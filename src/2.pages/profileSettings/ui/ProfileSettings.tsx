@@ -51,7 +51,6 @@ const ProfileSettings = () => {
 		localStorage.setItem('selectedLanguage', profile.selectedLanguage)
 		window.history.back()
 	}
-	console.log(profile)
 	const InputData = [
 		{
 			label: label2,
@@ -73,8 +72,8 @@ const ProfileSettings = () => {
 	]
 
 	const genders = [
-		{ code: 'men', label: button1 },
-		{ code: 'women', label: button2 }
+		{ code: 'MALE', label: button1 },
+		{ code: 'FEMALE', label: button2 }
 	]
 
 	const handleGenderChange = (gender: string) => {
