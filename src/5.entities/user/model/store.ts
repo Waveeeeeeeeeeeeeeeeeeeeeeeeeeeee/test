@@ -87,12 +87,12 @@ export const useUserStore = create<UserStore>((set, get) => ({
     );
   },
 
-  addGame: (game: Game) => {
-    const { games } = get().profile;
-    if (!games.some((g) => g.id === game.id)) {
-      get().setProfileField('games', [...games, { ...game, purpose: null, isOpen: true }]);
-    }
-  },
+addGame: (game: Game) => {
+  const { games } = get().profile;
+  if (!games.some((g) => g.id === game.id)) {
+    get().setProfileField('games', [...games, { ...game, purpose: [], isOpen: true }]);
+  }
+},
 
   removeGame: (game: Game) => {
     const { games } = get().profile;
@@ -121,39 +121,45 @@ export const useUserStore = create<UserStore>((set, get) => ({
       };
     }),
 
-  setPurpose: (gameId: string, purpose: Purpose) =>
-    set((state) => {
-      const gameIndex = state.profile.games.findIndex(g => g.id === gameId);
-      if (gameIndex === -1) return state;
+ setPurpose: (gameId: string, purpose: Purpose) =>
+  set((state) => {
+    const gameIndex = state.profile.games.findIndex(g => g.id === gameId);
+    if (gameIndex === -1) return state;
 
-      const updatedGames = [...state.profile.games];
-      updatedGames[gameIndex] = {
-        ...updatedGames[gameIndex],
-        purpose,
-        isOpen: false
-      };
+    const game = state.profile.games[gameIndex];
+    const exists = game.purpose?.includes(purpose);
 
-      return {
-        profile: {
-          ...state.profile,
-          games: updatedGames
-        }
-      };
-    }),
+    const updatedPurposes = exists
+      ? game.purpose!.filter(p => p !== purpose)
+      : [...(game.purpose || []), purpose];
+
+    const updatedGames = [...state.profile.games];
+    updatedGames[gameIndex] = {
+      ...game,
+      purpose: updatedPurposes
+    };
+
+    return {
+      profile: {
+        ...state.profile,
+        games: updatedGames
+      }
+    };
+  }),
 
   resetPurpose: (gameId: string) =>
-    set((state) => {
-      const updatedGames = state.profile.games.map(game => 
-        game.id === gameId ? { ...game, purpose: null } : game
-      );
+  set((state) => {
+    const updatedGames = state.profile.games.map(game => 
+      game.id === gameId ? { ...game, purpose: [] } : game
+    );
 
-      return {
-        profile: {
-          ...state.profile,
-          games: updatedGames
-        }
-      };
-    }),
+    return {
+      profile: {
+        ...state.profile,
+        games: updatedGames
+      }
+    };
+  }),
     toggleTargetSelector: (gameId: string) =>
       set((state) => {
         const gameIndex = state.profile.games.findIndex(g => g.id === gameId);

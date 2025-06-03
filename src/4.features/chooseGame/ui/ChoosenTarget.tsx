@@ -1,7 +1,9 @@
 import CheckIco from '../../variantSelection/assets/check.svg?react'
 
+import { Purpose } from '@/5.entities/user/model/types'
+
 interface ChoosenTargetProps {
-	purpose?: string | null
+	purpose?: Purpose[] | []
 	isActive: boolean
 	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
@@ -16,8 +18,10 @@ export const ChoosenTarget = ({
 			onClick={onClick}
 			className={`flex items-center gap-2 p-2 px-3 rounded-2xl transition-colors duration-300	cursor-pointer`}
 		>
-			{isActive && (
-				<span className='text-purple-400 font-semibold'>{purpose}</span>
+			{isActive && !!purpose?.length && (
+				<span className='text-purple-400 font-semibold text-sm'>
+					{purpose[0]}
+				</span>
 			)}
 			<span
 				className={`w-5 h-5 border-2 rounded-full flex items-center justify-center 

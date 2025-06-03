@@ -5,6 +5,7 @@ import { UserGameList } from '@/3.widgets/userGameList/ui/UserGameList'
 import { gameList } from '@/5.entities/game/config/gameList'
 import { Game } from '@/5.entities/game/model/types'
 import { useUserStore } from '@/5.entities/user/model/store'
+import { Purpose } from '@/5.entities/user/model/types'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
@@ -19,15 +20,12 @@ const ProfileGames = () => {
 		useUserStore()
 
 	const handleToggle = (game: Game) => {
-		if (profile.games.some(g => g.id === game.id)) {
-			removeGame(game)
-		} else {
+		if (!profile.games.some(g => g.id === game.id)) {
 			addGame(game)
 		}
 	}
-
 	const selectedGameIds = profile.games.map(g => g.id)
-	const getPurposeByGameId = (id: string): string | undefined =>
+	const getPurposeByGameId = (id: string): Purpose[] | undefined =>
 		profile.games.find(g => g.id === id)?.purpose ?? undefined
 
 	const checkIsOpen = (id: string) =>

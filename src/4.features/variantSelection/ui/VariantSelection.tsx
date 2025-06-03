@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { FC, SVGProps } from 'react'
 
 import CheckIco from '../assets/check.svg?react'
@@ -23,7 +24,11 @@ const VariantSelection = ({
 	variant = 'col'
 }: languageSelectProps) => {
 	return (
-		<div className={`w-full rounded-lg shadow-lg flex flex-${variant} gap-3`}>
+		<div
+			className={clsx(
+				`w-full rounded-lg  shadow-lg flex flex-${variant} mx-auto gap-3`
+			)}
+		>
 			{data.map(lang => (
 				<label
 					key={lang.code}

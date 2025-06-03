@@ -2,6 +2,7 @@ import { GameListProps } from '../model/types'
 
 import Search from '@/4.features/search/Search'
 import { GameCard } from '@/5.entities/game/ui/GameCard'
+import { Purpose } from '@/5.entities/user/model/types'
 
 export const GameList = ({
 	games,
@@ -17,7 +18,7 @@ export const GameList = ({
 	onTogglePurpose
 }: GameListProps & {
 	withTargetSelector?: boolean
-	getPurpose?: (id: string) => string | undefined
+	getPurpose?: (id: string) => Purpose[] | undefined
 	isTargetSelectorOpen?: (id: string) => boolean
 	onTogglePurpose?: (id: string) => void
 }) => {
@@ -32,7 +33,7 @@ export const GameList = ({
 	}
 
 	return (
-		<div className='w-full max-w-md mx-auto'>
+		<div className='w-full mx-auto'>
 			<Search
 				tags={allGameTitles}
 				addInterest={handleAddInterest}
@@ -45,7 +46,15 @@ export const GameList = ({
 						key={game.id}
 						game={game}
 						isSelected={selectedGameIds.includes(game.id)}
-						onClick={() => onToggle(game)}
+						onClick={() => {
+							const isAlreadySelected = selectedGameIds.includes(game.id)
+
+							if (isAlreadySelected) {
+								onTogglePurpose?.(game.id)
+							} else {
+								onToggle(game)
+							}
+						}}
 						withTargetSelector={withTargetSelector}
 						purpose={getPurpose?.(game.id)}
 						isTargetSelectorOpen={isTargetSelectorOpen?.(game.id)}

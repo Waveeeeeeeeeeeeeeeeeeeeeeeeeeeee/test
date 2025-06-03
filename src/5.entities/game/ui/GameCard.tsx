@@ -5,12 +5,13 @@ import { Game } from '../model/types'
 import { ChoosenTarget } from '@/4.features/chooseGame/ui/ChoosenTarget'
 import { TargetSelector } from '@/4.features/chooseGame/ui/TargetSelector'
 import { GameImageUpload } from '@/4.features/game/uploadImage/GameImageUpload'
+import { Purpose } from '@/5.entities/user/model/types'
 
 interface GameCardProps {
 	game: Game
 	isSelected: boolean
 	withTargetSelector?: boolean
-	purpose?: string | null
+	purpose?: Purpose[]
 	isTargetSelectorOpen?: boolean
 	onClick?: () => void
 	onTogglePurpose?: () => void
@@ -46,7 +47,7 @@ export const GameCard = ({
 				</div>
 
 				<ChoosenTarget
-					purpose={withTargetSelector ? purpose : null}
+					purpose={withTargetSelector ? purpose : []}
 					isActive={isSelected}
 					onClick={e => {
 						e.stopPropagation()

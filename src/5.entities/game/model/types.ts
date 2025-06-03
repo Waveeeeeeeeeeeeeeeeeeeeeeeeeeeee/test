@@ -5,7 +5,7 @@ export type Game = {
     title: string;
     icon: string;   
     players: number;
-    purpose?: Purpose | null;
+    purpose?: Purpose[];
     isOpen?: boolean;
     photo?: File | null
   };

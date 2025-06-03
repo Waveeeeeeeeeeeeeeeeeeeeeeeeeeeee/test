@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import CheckIco from '../../variantSelection/assets/check.svg?react'
 
 import { useUserStore } from '@/5.entities/user/model/store'
+import { Purpose } from '@/5.entities/user/model/types'
 import { useCustomTranslation } from '@/6.shared'
 
 export const TargetSelector = ({ gameId }: { gameId: string }) => {
@@ -10,8 +11,8 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
 	const { justPlayTxt, conquerorTxt, praksTxt, duoTxt } =
 		useCustomTranslation('targetSearchList')
 
-	const selected = profile.games.find(g => g.id === gameId)?.purpose
-
+	const selected = profile.games.find(g => g.id === gameId)?.purpose || []
+	const isSelected = (p: Purpose) => selected.includes(p)
 	const purposes = [
 		justPlayTxt,
 		conquerorTxt,
@@ -37,8 +38,8 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
 				<label
 					key={p}
 					className={`flex items-center justify-between p-2 px-3 rounded-2xl cursor-pointer text-sm transition-all duration-300 border
-            ${selected === p ? 'border-purple-500 bg-purple-900/30 text-purple-300' : 'border-transparent bg-[var(--second-bg)] hover:border-purple-300'}
-          `}
+      ${isSelected(p) ? 'border-purple-500 bg-purple-900/30 text-purple-300' : 'border-transparent bg-[var(--second-bg)] hover:border-purple-300'}
+    `}
 					onClick={e => {
 						e.stopPropagation()
 						setPurpose(gameId, p as any)
@@ -47,10 +48,10 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
 					<span>{p}</span>
 					<span
 						className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ml-2
-              ${selected === p ? 'border-purple-700 bg-purple-700' : 'border-gray-500'}
-            `}
+        ${isSelected(p) ? 'border-purple-700 bg-purple-700' : 'border-gray-500'}
+      `}
 					>
-						{selected === p && <CheckIco />}
+						{isSelected(p) && <CheckIco />}
 					</span>
 				</label>
 			))}

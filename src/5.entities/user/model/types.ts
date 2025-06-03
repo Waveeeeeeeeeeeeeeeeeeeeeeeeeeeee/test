@@ -12,7 +12,7 @@ export type Purpose =
 
 export interface ChosenGame {
   gameId: string;
-  purpose: Purpose | null;
+  purpose: Purpose[];
   isOpen: boolean;
 }
 

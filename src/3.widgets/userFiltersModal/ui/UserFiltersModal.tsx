@@ -68,7 +68,7 @@ export const UserFiltersModal = () => {
 					notification={false}
 				/>
 			</div>
-			<div className='flex flex-col gap-7'>
+			<div className='flex flex-col gap-7 pb-20'>
 				<div>
 					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle1}</h3>
 					<GameList
@@ -105,7 +105,7 @@ export const UserFiltersModal = () => {
 					/>
 				</div>
 			</div>
-			<div className='flex gap-4 mt-8'>
+			<div className={`flex gap-4 mt-8 ${styles.buttons}`}>
 				<Button variant='secondary' onClick={close}>
 					{backButton}
 				</Button>
