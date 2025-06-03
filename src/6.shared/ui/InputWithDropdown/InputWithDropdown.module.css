@@ -1,0 +1,13 @@
+.input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    backdrop-filter: blur(30px);
+    background: var(--second-bg);
+    -webkit-backdrop-filter: blur(30px);
+    cursor: pointer;
+}
