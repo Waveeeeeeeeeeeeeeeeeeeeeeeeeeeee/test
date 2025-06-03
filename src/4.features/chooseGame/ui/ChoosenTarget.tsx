@@ -20,7 +20,8 @@ export const ChoosenTarget = ({
 		>
 			{isActive && !!purpose?.length && (
 				<span className='text-purple-400 font-semibold text-sm'>
-					{purpose[0]}
+					{purpose[0].purpose_name}{' '}
+					{purpose.length - 1 > 0 ? `+${purpose.length - 1}` : ''}
 				</span>
 			)}
 			<span
