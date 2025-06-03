@@ -30,7 +30,7 @@ export const GameCard = ({
 }: GameCardProps) => {
 	return (
 		<div
-			className='flex flex-col justify-between items-center p-2 rounded-md cursor-pointer transition-colors hover:bg-zinc-800'
+			className='flex flex-col justify-between items-center p-2 rounded-md cursor-pointer transition-colors hover:bg-zinc-800/50'
 			onClick={onClick}
 		>
 			<div className='flex justify-between w-full items-center'>

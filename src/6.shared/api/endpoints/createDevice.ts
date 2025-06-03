@@ -3,7 +3,7 @@ import { axiosInstance } from '../axiosInstance'
 type CreateDeviceParams = {
   user_id: number
   service_id: number
-  platform: 'Web_App'
+  platform: 'WEB_APP'
   push_service_token: null
 }
 

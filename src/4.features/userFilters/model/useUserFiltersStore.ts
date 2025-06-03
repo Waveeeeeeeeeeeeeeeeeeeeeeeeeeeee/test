@@ -12,7 +12,7 @@ interface UserFiltersState {
 }
 
 export const useUserFiltersStore = create<UserFiltersState>((set) => ({
-	gender: 'men',
+	gender: 'MALE',
 	scope: 'city',
 	selectedGames: [],
 	setGender: (gender) => set({ gender }),
@@ -29,7 +29,7 @@ export const useUserFiltersStore = create<UserFiltersState>((set) => ({
  	 });
 },
 	reset: () => set({
-		gender: 'men',
+		gender: 'MALE',
 		scope: 'city',
 		selectedGames: [],
 	})

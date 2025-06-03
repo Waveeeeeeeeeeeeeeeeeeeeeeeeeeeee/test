@@ -46,7 +46,7 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
             ${
 							isSelected(p)
 								? 'border-purple-500 bg-purple-900/30 text-purple-300'
-								: 'border-transparent bg-[var(--second-bg)] hover:border-purple-300'
+								: 'border-transparent  hover:border-purple-300'
 						}
           `}
 					onClick={e => {

@@ -17,7 +17,6 @@ const PhotoContainer = () => {
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (file) {
-			console.log(1)
 			setPhotos(file)
 			setUserImage(file)
 		}

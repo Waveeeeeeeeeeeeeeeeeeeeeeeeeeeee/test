@@ -68,6 +68,7 @@ export interface TelegramUser {
     toggleTargetSelector: (gameId: string) => void;
     setGamePhoto: (gameId: string, photo: File | null) => void;
     setUserAndProfileIds: (user_id: number, profile_id: number) => void;
+    fetchUserProfile: () => void;
   }
 
 
