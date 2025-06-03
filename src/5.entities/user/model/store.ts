@@ -14,7 +14,10 @@ const defaultProfile = {
   image: null,
   selectedLanguage: localStorage.getItem('selectedLanguage') || 'ru',
   selectedMatchType: 'realLife',
-  isFormValid: false,
+  user_id: null,
+  profile_id: null,
+  isFirstFormValid: false,
+  isSecondFormValid: false
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -40,15 +43,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
     if (current === value) return;
 
     const updated = { ...get().profile, [key]: value };
-    const { age, nickname, gender, country, about } = updated;
-    const isFormValid = !!age && !!nickname && !!gender && !!country && !!about;
-
+    const { age, nickname, gender, country, city } = updated;
+    const isFirstFormValid = !!age && !!nickname && !!gender && !!country && !!city;
+    const isSecondFormValid = !!updated.interests.length 
     if (key === 'selectedLanguage') {
       localStorage.setItem('selectedLanguage', value as string);
     }
 
     set({
-      profile: { ...updated, isFormValid },
+      profile: { ...updated, isFirstFormValid, isSecondFormValid },
     });
   },
 
@@ -79,6 +82,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
     }
   },
 
+  setUserAndProfileIds: (user_id: number, profile_id: number) =>
+  set((state) => ({
+    profile: {
+      ...state.profile,
+      user_id,
+      profile_id,
+    },
+  })),
+
   removeInterest: (interest) => {
     const { interests } = get().profile;
     get().setProfileField(
@@ -90,7 +102,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 addGame: (game: Game) => {
   const { games } = get().profile;
   if (!games.some((g) => g.id === game.id)) {
-    get().setProfileField('games', [...games, { ...game, purpose: [], isOpen: true }]);
+    get().setProfileField('games', [...games, { ...game, purposes: [], isOpen: true }]);
   }
 },
 
@@ -121,30 +133,30 @@ addGame: (game: Game) => {
       };
     }),
 
- setPurpose: (gameId: string, purpose: Purpose) =>
+setPurpose: (gameId: string, purpose: Purpose) =>
   set((state) => {
-    const gameIndex = state.profile.games.findIndex(g => g.id === gameId);
-    if (gameIndex === -1) return state;
+    const gameIndex = state.profile.games.findIndex(g => g.id === gameId)
+    if (gameIndex === -1) return state
 
-    const game = state.profile.games[gameIndex];
-    const exists = game.purpose?.includes(purpose);
+    const game = state.profile.games[gameIndex]
+    const exists = game.purposes?.some(p => p.purpose_id === purpose.purpose_id)
 
     const updatedPurposes = exists
-      ? game.purpose!.filter(p => p !== purpose)
-      : [...(game.purpose || []), purpose];
+      ? game.purposes.filter(p => p.purpose_id !== purpose.purpose_id)
+      : [...(game.purposes || []), purpose]
 
-    const updatedGames = [...state.profile.games];
+    const updatedGames = [...state.profile.games]
     updatedGames[gameIndex] = {
       ...game,
-      purpose: updatedPurposes
-    };
+      purposes: updatedPurposes
+    }
 
     return {
       profile: {
         ...state.profile,
         games: updatedGames
       }
-    };
+    }
   }),
 
   resetPurpose: (gameId: string) =>

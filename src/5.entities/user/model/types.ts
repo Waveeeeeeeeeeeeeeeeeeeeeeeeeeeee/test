@@ -1,14 +1,11 @@
 import { Game } from "@/5.entities/game/model/types";
 
 
-export type Purpose =
-| 'Просто поиграть'
-| 'Завоеватель'
-| 'TDM'
-| 'Ultimate Royal'
-| 'Праки'
-| 'Дуо'
-| 'WoW';
+export interface Purpose {
+  purpose_id: number
+  purpose_name: string
+  purpose_description?: string
+}
 
 export interface ChosenGame {
   gameId: string;
@@ -42,7 +39,8 @@ export interface TelegramUser {
     image: File | null;
     selectedLanguage: string;
     selectedMatchType: string;
-    isFormValid: boolean;
+    isFirstFormValid: boolean;
+    isSecondFormValid: boolean;
   }
   
   export interface UserState {
@@ -69,6 +67,7 @@ export interface TelegramUser {
     resetPurpose: (gameId: string) => void;
     toggleTargetSelector: (gameId: string) => void;
     setGamePhoto: (gameId: string, photo: File | null) => void;
+    setUserAndProfileIds: (user_id: number, profile_id: number) => void;
   }
 
 
