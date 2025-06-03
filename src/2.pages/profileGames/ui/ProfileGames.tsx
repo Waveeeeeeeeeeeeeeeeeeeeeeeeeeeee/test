@@ -26,14 +26,14 @@ const ProfileGames = () => {
 	}
 	const selectedGameIds = profile.games.map(g => g.id)
 	const getPurposeByGameId = (id: string): Purpose[] | undefined =>
-		profile.games.find(g => g.id === id)?.purpose ?? undefined
+		profile.games.find(g => g.id === id)?.purposes ?? undefined
 
 	const checkIsOpen = (id: string) =>
 		profile.games.find(g => g.id === id)?.isOpen ?? false
 
 	const handleTargetToggle = (id: string) => {
 		const game = profile.games.find(g => g.id === id)
-		if (game?.purpose && !game?.isOpen) {
+		if (game?.purposes?.length === 0) {
 			resetPurpose(id)
 			removeGame(game)
 		} else {
@@ -55,7 +55,6 @@ const ProfileGames = () => {
 				/>
 				<UserGameList />
 				<h3 className={styles.subtitle}>{subtitle}</h3>
-
 				<GameList
 					games={gameList}
 					searchValue={search}

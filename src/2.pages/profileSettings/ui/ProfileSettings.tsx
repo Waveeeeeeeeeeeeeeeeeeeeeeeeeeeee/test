@@ -41,6 +41,7 @@ const ProfileSettings = () => {
 		countryPlaceHolder
 	} = useCustomTranslation('accountInfoStep2')
 	const { title, backBtn, saveBtn } = useCustomTranslation('profileSettings')
+	const [searchValue, setSearchValue] = useState('')
 	const { i18n } = useTranslation()
 	const handleBack = () => {
 		window.history.back()
@@ -136,7 +137,7 @@ const ProfileSettings = () => {
 	}, [profile.selectedLanguage, i18n.language])
 
 	return (
-		<div className='h-full relative overflow-scroll flex flex-col'>
+		<div className='h-full relative overflow-scroll flex flex-col pb-20'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
 				<NotificationHeader
 					back
@@ -202,6 +203,8 @@ const ProfileSettings = () => {
 							tags={tags}
 							addInterest={handleAddInterest}
 							placeholder={searchHolder}
+							searchValue={searchValue}
+							onSearchChange={setSearchValue}
 						/>
 
 						<TagSelector

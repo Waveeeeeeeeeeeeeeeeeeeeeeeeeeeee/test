@@ -14,6 +14,11 @@ const AccountInfoStep2 = () => {
 	const { title, label, placeholder, interest, char, searchHolder } =
 		useCustomTranslation('accountInfoStep3')
 
+	const [searchValue, setSearchValue] = useState('')
+
+	const handleSearchChange = (value: string) => {
+		setSearchValue(value)
+	}
 	const initialTags = [
 		'Футбол',
 		'Баскетбол',
@@ -68,6 +73,8 @@ const AccountInfoStep2 = () => {
 						tags={tags}
 						addInterest={handleAddInterest}
 						placeholder={searchHolder}
+						searchValue={searchValue}
+						onSearchChange={handleSearchChange}
 					/>
 
 					<TagSelector

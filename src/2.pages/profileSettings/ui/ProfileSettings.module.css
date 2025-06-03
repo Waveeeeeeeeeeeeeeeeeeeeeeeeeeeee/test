@@ -6,6 +6,10 @@
 }
 
 .buttons {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
     background: var(--second-bg);
     border-radius: 16px 16px 29px 29px;
     padding: 12px 16px;
