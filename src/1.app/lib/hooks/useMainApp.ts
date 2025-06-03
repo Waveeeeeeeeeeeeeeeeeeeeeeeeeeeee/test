@@ -16,7 +16,6 @@ export const useMainApp = () => {
 	const { i18n } = useTranslation()
 	const {setTelegramUser, setUserHash} = useUserStore()
 
-
 	useEffect(() => {
 		init()
 		restoreInitData()
@@ -29,8 +28,6 @@ export const useMainApp = () => {
 		console.log(tgWebAppData)
 	
 		if (tgWebAppData?.user && !useUserStore.getState().user) {
-
-			console.log(tgWebAppData)
 			setUserHash(tgWebAppData.hash)
 			setTelegramUser(tgWebAppData.user)
 		}
