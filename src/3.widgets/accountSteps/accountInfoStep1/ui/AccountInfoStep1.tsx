@@ -50,6 +50,7 @@ const AccountInfoStep1 = () => {
 			name: 'age',
 			placeholder: placeholder1,
 			value: age,
+			max: 110,
 			onChange: (value: string) => setProfileField('age', value),
 			notification
 		}

@@ -20,11 +20,12 @@ export const UserFiltersModal = () => {
 		toggleSelectedGames
 	} = useUserFiltersStore()
 
-	const { button1, button2 } = useCustomTranslation('accountInfoStep2')
 	const {
 		scope1,
 		scope2,
 		scope3,
+		button1,
+		button2,
 		mainTitle,
 		subtitle1,
 		subtitle2,
@@ -33,8 +34,8 @@ export const UserFiltersModal = () => {
 		acceptButton
 	} = useCustomTranslation('userFiltersModal')
 	const genders = [
-		{ code: 'men', label: button1 },
-		{ code: 'women', label: button2 }
+		{ code: 'MALE', label: button1 },
+		{ code: 'FEMALE', label: button2 }
 	]
 
 	const scopes = [

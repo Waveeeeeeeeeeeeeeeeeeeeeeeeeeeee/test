@@ -26,15 +26,14 @@ export const SearchCard: FC<Props> = ({ data }) => {
 	return (
 		<div
 			className={`relative rounded-2xl bg-[#1a1a1a] cursor-pointer hover:scale-[1.01] transition-all duration-200 ${styles.card}`}
+			onClick={handleCardClick}
 		>
-			<div
-				className='absolute inset-0 z-10'
-				onClick={handleCardClick}
-				aria-hidden='true'
-			/>
-
-			<div className='p-3 h-full flex flex-col justify-between gap-11.5 relative'>
-				<div className='z-20 w-5 h-5 relative' onClick={handleHeartClick}>
+			<div className='p-3 h-full flex flex-col justify-between gap-11.5'>
+				<div
+					className='z-20 w-5 h-5 relative'
+					onClick={handleHeartClick}
+					style={{ pointerEvents: 'auto' }}
+				>
 					<HeartIco fill={isSubscribe ? 'white' : ''} />
 				</div>
 

@@ -55,7 +55,7 @@ const VariantSelection = ({
 					</div>
 
 					<span
-						className={`w-5 h-5 border-2 rounded-full flex items-center justify-center 
+						className={`w-5 h-5 min-w-5 ml-1.5 border-2 rounded-full flex items-center justify-center 
               ${selected === lang.code ? 'border-purple-700 bg-purple-700 text-white' : 'border-gray-300 text-transparent'} 
               transition-colors`}
 					>
