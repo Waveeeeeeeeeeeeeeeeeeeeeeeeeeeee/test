@@ -1,28 +1,34 @@
-import { type FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import Layout from '../layout/Layout'
 import RouterProvider from '../providers/router/RouterProvider'
 
-const App: FC<any> = ({ handlerAppLoaded }) => {
+interface AppProps {
+	shouldRedirectToOnboarding: boolean
+}
+
+const App: FC<AppProps> = ({ shouldRedirectToOnboarding }) => {
 	const navigate = useNavigate()
-	const register = true
-	useEffect(() => {
-		handlerAppLoaded()
-	}, [])
+	const [hasNavigated, setHasNavigated] = useState(false)
 
 	useEffect(() => {
-		if (register) {
-			navigate('/onboarding')
+		if (!hasNavigated && shouldRedirectToOnboarding !== null) {
+			console.log(
+				'Навигация:',
+				shouldRedirectToOnboarding ? 'Onboarding' : 'Главная'
+			)
+			navigate(shouldRedirectToOnboarding ? '/onboarding' : '/', {
+				replace: true
+			})
+			setHasNavigated(true)
 		}
-	}, [register])
+	}, [shouldRedirectToOnboarding, navigate, hasNavigated])
 
 	return (
-		<>
-			<Layout>
-				<RouterProvider />
-			</Layout>
-		</>
+		<Layout>
+			<RouterProvider />
+		</Layout>
 	)
 }
 

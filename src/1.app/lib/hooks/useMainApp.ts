@@ -1,60 +1,73 @@
 import { useUserStore } from '@/5.entities/user/model/store'
 import {
-	expandViewport,
-	init,
-	initDataUser,
-	restoreInitData,
-	swipeBehavior,
-	retrieveLaunchParams
+  expandViewport,
+  init,
+  initDataUser,
+  restoreInitData,
+  swipeBehavior,
+  retrieveLaunchParams
 } from '@telegram-apps/sdk'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getProfileByTelegramId } from '@/5.entities/user/api/getProfileByTelegramId'
 
 export const useMainApp = () => {
-	const [isShowApp, setIsShowApp] = useState(true)
-	const [isAppLoaded, setIsAppLoaded] = useState(false)
-	const { i18n } = useTranslation()
-	const {setTelegramUser, setUserHash} = useUserStore()
+  const [isReady, setIsReady] = useState(false)
+  const [shouldRedirectToOnboarding, setShouldRedirectToOnboarding] = useState<boolean | null>(null)
+  const [minLoadingPassed, setMinLoadingPassed] = useState(false)
 
-	useEffect(() => {
-		init()
-		restoreInitData()
-		expandViewport()
-		swipeBehavior.mount()
-		swipeBehavior.disableVertical()
-	
-		const { tgWebAppData } = retrieveLaunchParams()
+  const { i18n } = useTranslation()
+  const { setTelegramUser, setUserHash } = useUserStore()
 
-		console.log(tgWebAppData)
-	
-		if (tgWebAppData?.user && !useUserStore.getState().user) {
-			setUserHash(tgWebAppData.hash)
-			setTelegramUser(tgWebAppData.user)
-		}
-	}, [])
-	
+  useEffect(() => {
+    const timer = setTimeout(() => setMinLoadingPassed(true), 5000)
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsShowApp(true)
-		}, 6000)
+    const initApp = async () => {
+      try {
+        init()
+        restoreInitData()
+        expandViewport()
+        swipeBehavior.mount()
+        swipeBehavior.disableVertical()
 
-		return () => clearTimeout(timer)
-	}, [])
+        const { tgWebAppData } = retrieveLaunchParams()
 
-	useEffect(() => {
-		const languageCodeFromLs = localStorage.getItem('language_code')
-		if (languageCodeFromLs) {
-			i18n.changeLanguage(languageCodeFromLs)
-		} else {
-			const languageCode = initDataUser()?.language_code
-			if (languageCode === 'ru') i18n.changeLanguage('ru')
-		}
-	}, [])
+        if (tgWebAppData?.user && !useUserStore.getState().user) {
+          setUserHash(tgWebAppData.hash)
+          setTelegramUser(tgWebAppData.user)
+        }
 
-	const handleAppLoaded = () => {
-		setIsAppLoaded(true)
-	}
+        const languageCodeFromLs = localStorage.getItem('language_code')
+        if (languageCodeFromLs) {
+          i18n.changeLanguage(languageCodeFromLs)
+        } else {
+          const languageCode = initDataUser()?.language_code
+          if (languageCode === 'ru') i18n.changeLanguage('ru')
+        }
 
-	return { handleAppLoaded, isAppLoaded, isShowApp }
+        const userId = tgWebAppData?.user?.id
+        if (userId) {
+          const profile = await getProfileByTelegramId(userId.toString())
+		  console.log(profile)
+          setShouldRedirectToOnboarding(!profile)
+        } else {
+          setShouldRedirectToOnboarding(true)
+        }
+      } catch (e) {
+        console.error('Ошибка инициализации:', e)
+        setShouldRedirectToOnboarding(true)
+      } finally {
+        setIsReady(true)
+      }
+    }
+
+    initApp()
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  return {
+    showContent: minLoadingPassed && isReady && shouldRedirectToOnboarding !== null,
+    shouldRedirectToOnboarding
+  }
 }
