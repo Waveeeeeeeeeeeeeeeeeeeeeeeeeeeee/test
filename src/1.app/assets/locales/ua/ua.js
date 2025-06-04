@@ -97,6 +97,8 @@ const ua = {
 			scope3: 'По світу',
 			mainTitle: 'Фільтри',
 			subtitle1: 'Обрати гру',
+			button1: `Хлопець`,
+			button2: `Дівчина`,
 			subtitle2: 'Пошук по статі',
 			subtitle3: 'Місцезнаходження',
 			backButton: 'Назад',

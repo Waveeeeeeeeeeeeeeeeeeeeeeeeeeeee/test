@@ -95,6 +95,8 @@ const ru = {
 			scope1: 'По городу',
 			scope2: 'По стране',
 			scope3: 'По миру',
+			button1: `Парень`,
+			button2: `Девушка`,
 			mainTitle: 'Фильтры',
 			subtitle1: 'Выбрать игру',
 			subtitle2: 'Поиск по полу',

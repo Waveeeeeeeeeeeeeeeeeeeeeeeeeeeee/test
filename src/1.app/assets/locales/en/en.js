@@ -97,6 +97,8 @@ const en = {
 			scope2: 'By country',
 			scope3: 'By world',
 			mainTitle: 'Filters',
+			button1: `Guy`,
+			button2: `Girl`,
 			subtitle1: 'Select game',
 			subtitle2: 'Search by gender',
 			subtitle3: 'Location',
