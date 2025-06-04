@@ -8,7 +8,8 @@ import PhotoContainer from '@/6.shared/ui/PhotoContainer/PhotoContainer'
 const ProfileSupport = () => {
 	const { title, messageTitle, problemTitle, problemDesc } =
 		useCustomTranslation('profileSupport')
-	const { topic, setTopic, description, setDescription } = useSupportFormStore()
+	const { topic, setTopic, description, setDescription, setImage } =
+		useSupportFormStore()
 	const { char } = useCustomTranslation('accountInfoStep3')
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
 	const handleBack = () => {
@@ -60,7 +61,7 @@ const ProfileSupport = () => {
 				</div>
 
 				<div>
-					<PhotoContainer />
+					<PhotoContainer setImage={setImage} />
 				</div>
 			</div>
 			<div className={`w-full flex gap-4 mt-8 ${styles.buttons}`}>

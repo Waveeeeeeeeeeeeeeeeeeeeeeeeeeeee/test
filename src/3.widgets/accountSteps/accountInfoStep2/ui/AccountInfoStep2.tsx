@@ -9,8 +9,13 @@ import { TagSelector } from '@/6.shared/ui/TagsSelectors/TagsSelectors'
 import { TextArea } from '@/6.shared/ui/TextArea'
 
 const AccountInfoStep2 = () => {
-	const { profile, setProfileField, toggleInterest, addInterest } =
-		useUserStore()
+	const {
+		profile,
+		setProfileField,
+		toggleInterest,
+		addInterest,
+		setUserImage
+	} = useUserStore()
 	const { title, label, placeholder, interest, char, searchHolder } =
 		useCustomTranslation('accountInfoStep3')
 
@@ -53,7 +58,7 @@ const AccountInfoStep2 = () => {
 	return (
 		<div className='flex flex-col gap-8 pb-20'>
 			<h2 className={styles.title}>{title}</h2>
-			<PhotoContainer />
+			<PhotoContainer setImage={setUserImage} />
 			<TextArea
 				data={{
 					label: label,

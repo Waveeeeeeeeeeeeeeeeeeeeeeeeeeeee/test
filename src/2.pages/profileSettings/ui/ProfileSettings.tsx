@@ -22,8 +22,13 @@ import PhotoContainer from '@/6.shared/ui/PhotoContainer/PhotoContainer'
 import { TagSelector } from '@/6.shared/ui/TagsSelectors/TagsSelectors'
 
 const ProfileSettings = () => {
-	const { profile, setProfileField, addInterest, toggleInterest } =
-		useUserStore()
+	const {
+		profile,
+		setProfileField,
+		addInterest,
+		toggleInterest,
+		setUserImage
+	} = useUserStore()
 	const [tags, setTags] = useState([...profile.interests])
 	const { label, placeholder, char, interest, searchHolder } =
 		useCustomTranslation('accountInfoStep3')
@@ -46,7 +51,6 @@ const ProfileSettings = () => {
 	const handleBack = () => {
 		window.history.back()
 	}
-
 	const handleSave = () => {
 		localStorage.setItem('selectedLanguage', profile.selectedLanguage)
 		window.history.back()
@@ -144,7 +148,7 @@ const ProfileSettings = () => {
 					goBack={handleBack}
 					notification={false}
 				/>
-				<PhotoContainer />
+				<PhotoContainer setImage={setUserImage} />
 				{InputData.map((item, index) => (
 					<Input key={index} data={item} />
 				))}
@@ -211,6 +215,7 @@ const ProfileSettings = () => {
 							interests={profile.interests}
 							toggleInterest={toggleInterest}
 							edit={true}
+							addInterest={handleAddInterest}
 						/>
 					</div>
 				</div>
