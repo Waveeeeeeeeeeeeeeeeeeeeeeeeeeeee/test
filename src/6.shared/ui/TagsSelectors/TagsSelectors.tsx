@@ -8,17 +8,21 @@ import AddIco from '../../assets/icons/add.svg?react'
 import styles from './TagsSelectors.module.css'
 import { useCustomTranslation } from '@/6.shared/lib'
 
-export const TagSelector = ({
-	presetTags,
-	interests,
-	toggleInterest,
-	edit = false
-}: {
+type TagSelectorProps = {
 	presetTags: string[]
 	interests: string[]
 	toggleInterest: (interest: string) => void
 	edit?: boolean
-}) => {
+	addInterest?: (tag: string) => void
+}
+
+export const TagSelector = ({
+	presetTags,
+	interests,
+	toggleInterest,
+	edit = false,
+	addInterest
+}: TagSelectorProps) => {
 	const [tags, setTags] = useState(presetTags)
 	const [value, setValue] = useState('')
 
@@ -29,6 +33,7 @@ export const TagSelector = ({
 			setTags(prev => [value, ...prev])
 			setValue('')
 		}
+		if (addInterest) addInterest(value)
 	}
 
 	const handleRemoveTag = (tagToRemove: string) => {
