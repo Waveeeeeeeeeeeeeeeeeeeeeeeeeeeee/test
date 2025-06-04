@@ -9,6 +9,7 @@ interface InputProps {
 		value?: string | number
 		notification?: string
 		onChange: (value: string) => void
+		max?: number
 	}
 }
 
@@ -21,7 +22,16 @@ export const Input = ({ data }: InputProps) => {
 					type={data.type}
 					placeholder={data.placeholder}
 					value={data.value}
-					onChange={e => data.onChange(e.target.value)}
+					onChange={e => {
+						const value = e.target.value
+						if (
+							data.type === 'number' &&
+							data.max !== undefined &&
+							+value > data.max
+						)
+							return
+						data.onChange(value)
+					}}
 				/>
 			</label>
 			{data.notification && (
