@@ -2,10 +2,9 @@ import { axiosInstance } from '../axiosInstance'
 
 type SetProfileGamesWithPurposesParams = {
   profile_id: number
-  game_id: number
-  purpose_ids: number[]
+  games_with_purposes: Record<string, number[]>
 }
 
 export const setProfileGamesWithPurposes = (data: SetProfileGamesWithPurposesParams) => {
-  return axiosInstance.post('/profiles/create_profile_games_purposes', data)
+  return axiosInstance.patch('/profiles/set_profile_games_with_purposes', data)
 }
