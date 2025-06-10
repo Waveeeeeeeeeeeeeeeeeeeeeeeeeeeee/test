@@ -15,12 +15,6 @@ export default defineConfig(({ mode }) => {
 			host: 'tma.internal',
 			https: true,
 			proxy: {
-				'/api': {
-					target: 'http://77.238.235.94:15000',
-					changeOrigin: true,
-					secure: false, 
-					rewrite: (path: string) => path.replace(/^\/api/, '')
-				}
 			}
 		}
 	}
