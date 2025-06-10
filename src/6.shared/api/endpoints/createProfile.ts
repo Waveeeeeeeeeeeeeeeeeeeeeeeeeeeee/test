@@ -9,6 +9,6 @@ type CreateProfileParams = {
 }
 
 export const createProfile = async (data: CreateProfileParams) => {
-    const res = await axiosInstance.post('/profiles/create_profile', data)
+    const res = await axiosInstance.post('/database/profiles/create_profile', data)
     return res.data
 }

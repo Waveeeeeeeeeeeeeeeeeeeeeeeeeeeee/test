@@ -11,5 +11,5 @@ type CreateProfileMediaParams = {
 }
 
 export const createProfileMedia = (data: CreateProfileMediaParams) => {
-  return axiosInstance.post('/profiles/create_profile_media', data)
+  return axiosInstance.post('/database/profiles/create_profile_media', data)
 }

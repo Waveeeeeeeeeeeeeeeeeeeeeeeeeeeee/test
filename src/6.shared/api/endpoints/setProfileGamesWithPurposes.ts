@@ -6,5 +6,5 @@ type SetProfileGamesWithPurposesParams = {
 }
 
 export const setProfileGamesWithPurposes = (data: SetProfileGamesWithPurposesParams) => {
-  return axiosInstance.patch('/profiles/set_profile_games_with_purposes', data)
+  return axiosInstance.patch('/database/profiles/set_profile_games_with_purposes', data)
 }

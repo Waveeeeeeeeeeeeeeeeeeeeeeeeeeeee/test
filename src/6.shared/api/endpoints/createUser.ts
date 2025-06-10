@@ -28,6 +28,6 @@ export type CreateUserResponse = {
 export const createUser = async (
   data: CreateUserParams
 ): Promise<CreateUserResponse> => {
-  const res = await axiosInstance.post('/users/create_user', data)
+  const res = await axiosInstance.post('/database/users/create_user', data)
   return res.data
 }

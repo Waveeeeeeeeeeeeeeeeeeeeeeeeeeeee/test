@@ -8,5 +8,5 @@ type CreateDeviceParams = {
 }
 
 export const createDevice = (data: CreateDeviceParams) => {
-  return axiosInstance.post('/devices/create_device', data)
+  return axiosInstance.post('/database/devices/create_device', data)
 }
