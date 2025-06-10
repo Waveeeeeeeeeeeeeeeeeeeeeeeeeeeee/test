@@ -34,6 +34,7 @@ export const useMainApp = () => {
         const { tgWebAppData } = retrieveLaunchParams()
 
         if (tgWebAppData?.user && !useUserStore.getState().user) {
+          console.log('tgWebAppData', tgWebAppData)
           setUserHash(tgWebAppData.hash)
           setTelegramUser(tgWebAppData.user)
         }
