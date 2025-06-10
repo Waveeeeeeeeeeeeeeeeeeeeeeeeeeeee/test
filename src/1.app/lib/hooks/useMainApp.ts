@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getProfileByTelegramId } from '@/5.entities/user/api/getProfileByTelegramId'
+import { mapApiProfileToStore } from '@/1.app/utils/mapApiProfileToStore'
 
 export const useMainApp = () => {
   const [isReady, setIsReady] = useState(false)
@@ -17,10 +18,10 @@ export const useMainApp = () => {
   const [minLoadingPassed, setMinLoadingPassed] = useState(false)
 
   const { i18n } = useTranslation()
-  const { setTelegramUser, setUserHash } = useUserStore()
+  const { setTelegramUser, setUserHash, setProfile } = useUserStore()
 
   useEffect(() => {
-    const timer = setTimeout(() => setMinLoadingPassed(true), 5000)
+    const timer = setTimeout(() => setMinLoadingPassed(true), 3500)
 
     const initApp = async () => {
       try {
@@ -46,13 +47,15 @@ export const useMainApp = () => {
         }
 
         const userId = tgWebAppData?.user?.id
-        if (userId) {
-          const profile = await getProfileByTelegramId(userId.toString())
-		  console.log(profile)
-          setShouldRedirectToOnboarding(!profile)
-        } else {
-          setShouldRedirectToOnboarding(true)
-        }
+       if (userId) {
+			const profile = await getProfileByTelegramId(userId.toString())
+			if (profile) {
+				setProfile(mapApiProfileToStore(profile))
+				setShouldRedirectToOnboarding(false)
+			} else {
+				setShouldRedirectToOnboarding(true)
+			}
+			}
       } catch (e) {
         console.error('Ошибка инициализации:', e)
         setShouldRedirectToOnboarding(true)
