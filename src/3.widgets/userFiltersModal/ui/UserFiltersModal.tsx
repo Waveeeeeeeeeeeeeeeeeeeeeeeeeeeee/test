@@ -4,8 +4,8 @@ import { GameList } from '@/3.widgets/gameList/ui/GameList'
 import { useUserFiltersToggleStore } from '@/3.widgets/userListFilters/model/toggleUserFilter'
 import { useUserFiltersStore } from '@/4.features/userFilters/model/useUserFiltersStore'
 import VariantSelection from '@/4.features/variantSelection/ui/VariantSelection'
-import { gameList } from '@/5.entities/game/config/gameList'
 import { Game } from '@/5.entities/game/model/types'
+import { useGamesWithPurposes } from '@/5.entities/game/model/useGamesWithPurposes'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { Modal } from '@/6.shared/ui/Modal/Modal'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
@@ -54,7 +54,7 @@ export const UserFiltersModal = () => {
 	]
 	const { isOpen, close } = useUserFiltersToggleStore()
 	const { search, onChange } = useGameFilter()
-
+	const { games } = useGamesWithPurposes()
 	const handleToggle = (game: Game) => {
 		toggleSelectedGames(game.id)
 	}
@@ -72,7 +72,7 @@ export const UserFiltersModal = () => {
 				<div>
 					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle1}</h3>
 					<GameList
-						games={gameList}
+						games={games}
 						searchValue={search}
 						onSearchChange={value =>
 							onChange({
@@ -81,7 +81,7 @@ export const UserFiltersModal = () => {
 						}
 						onToggle={handleToggle}
 						selectedGameIds={selectedGames}
-						allGameTitles={gameList.map(game => game.title)}
+						allGameTitles={games.map(game => game.title)}
 						searchPlaceholder='Поиск'
 						withTargetSelector={false}
 						onTogglePurpose={undefined}

@@ -4,9 +4,8 @@ import InfoIco from '../../assets/icons/info.svg?react'
 import NotificationIco from '../../assets/images/notification.svg?react'
 
 import styles from './UserCard.module.css'
-import { languageFlags } from '@/6.shared/const/languageFlags'
 
-type Props = {
+export type UserCardProps = {
 	name: string
 	age: number
 	gender: string
@@ -15,9 +14,10 @@ type Props = {
 	avatarUrl: string | File
 	isOnline?: boolean
 	icon: 'notification' | 'info'
+	coutry_code: string
 }
 
-export const UserCard: React.FC<Props> = ({
+export const UserCard: React.FC<UserCardProps> = ({
 	name,
 	age,
 	gender,
@@ -25,7 +25,8 @@ export const UserCard: React.FC<Props> = ({
 	languages,
 	avatarUrl,
 	isOnline = false,
-	icon = 'info'
+	icon = 'info',
+	coutry_code
 }) => {
 	return (
 		<div className={styles.card}>
@@ -52,10 +53,10 @@ export const UserCard: React.FC<Props> = ({
 			<div className={styles.info}>
 				<div className={styles.nameRow}>
 					<img
-						src={languageFlags[languages]}
-						alt={languages}
-						width={16}
-						height={16}
+						src={`https://flagcdn.com/16x12/${coutry_code.toLowerCase()}.png`}
+						width='16'
+						height='12'
+						alt='Украина'
 					/>
 					<span className={styles.name}>{name}</span>
 					<span className={styles.meta}>

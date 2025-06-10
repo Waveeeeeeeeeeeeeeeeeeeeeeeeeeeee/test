@@ -3,19 +3,15 @@ import { useParams } from 'react-router'
 import { UserFiltersModal } from '@/3.widgets/userFiltersModal/ui/UserFiltersModal'
 import UserListFilters from '@/3.widgets/userListFilters/ui/UserListFilters'
 import { UserInteractionPanel } from '@/3.widgets/userPanel/ui/UserInteractionPanel'
-import { PersonGamesSlider } from '@/4.features/personGamesSlider'
-import { ShowInterests } from '@/4.features/showInterests'
+import { SwipeCardDeck } from '@/4.features/swipeCardDeck/ui/SwipeCardDeck'
+import { mockUsers } from '@/5.entities/person/config/testUsers'
 import { searchList } from '@/5.entities/search/config/searchList'
-import { useUserStore } from '@/5.entities/user/model/store'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
-import Description from '@/6.shared/ui/Description/Description'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
-import { UserCard } from '@/6.shared/ui/UserCard/UserCard'
 
 const SearchPage = () => {
 	const { searchType } = useParams<{ searchType: string }>()
 	const card = searchList.find(item => item.href.endsWith(searchType || ''))
-	const { profile, telegram } = useUserStore()
 
 	const mockGames = [
 		{
@@ -62,24 +58,7 @@ const SearchPage = () => {
 				<div className=' mb-4'>
 					<UserListFilters />
 				</div>
-				<div className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-4 px-1.5 pt-1.5'>
-					<div>
-						<UserCard
-							name={profile.nickname}
-							age={+profile.age}
-							gender={profile.gender || ''}
-							city={profile.city}
-							languages={profile.selectedLanguage}
-							avatarUrl={profile.image || telegram?.photo_url || ''}
-							icon='info'
-						/>
-					</div>
-					<div className='px-4'>
-						<Description description={profile.about} variant='short' />
-					</div>
-					<ShowInterests interests={profile.interests} maxVisible={6} />
-					<PersonGamesSlider games={mockGames} />
-				</div>
+				<SwipeCardDeck users={mockUsers} games={mockGames} />
 				<UserInteractionPanel userId='123' />
 			</div>
 			<UserFiltersModal />

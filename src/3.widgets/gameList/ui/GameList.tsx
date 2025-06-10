@@ -41,7 +41,6 @@ export const GameList = ({
 			setSelectedTag(null)
 		}
 	}
-
 	return (
 		<div className='w-full mx-auto'>
 			<Search
@@ -56,6 +55,7 @@ export const GameList = ({
 				{filteredGames.map(game => (
 					<GameCard
 						key={game.id}
+						defaultPurpose={game.purposes}
 						game={game}
 						isSelected={selectedGameIds.includes(game.id)}
 						onClick={() => {

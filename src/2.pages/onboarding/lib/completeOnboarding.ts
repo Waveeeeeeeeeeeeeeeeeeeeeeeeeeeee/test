@@ -1,13 +1,14 @@
 import {
   createUser,
-  createDevice,
   createProfile,
   createProfileMedia,
   setProfileGamesWithPurposes,
+  // createDevice,
 } from '@/6.shared/api/endpoints'
 
 import { UserProfile } from '@/5.entities/user/model/types'
 import { useUserStore } from '@/5.entities/user/model/store'
+import { getLocationDetails } from '@/6.shared/services/location-service'
 
 type Params = UserProfile & {
   serviceId: number
@@ -16,13 +17,16 @@ type Params = UserProfile & {
 
 export const completeOnboarding = async (profile: Params): Promise<{ userId: number; profileId: number }> => {
   
-  const { setUserAndProfileIds } = useUserStore.getState()
+  const { setUserAndProfileIds, setCountryCode } = useUserStore.getState()
+  const countryCode = await getLocationDetails(profile.country, profile.city)
+  
+  setCountryCode(countryCode)
   const user = await createUser({
     name: profile.nickname,
     lang: profile.selectedLanguage.toUpperCase(),
     city: profile.city,
     country: profile.country,
-    country_code: profile.country,
+    country_code: countryCode,
     email: null,
     password_hash: null,
     telegram_id: profile.telegramId,
@@ -30,12 +34,14 @@ export const completeOnboarding = async (profile: Params): Promise<{ userId: num
 
     const userId = user.id;
 
-  await createDevice({
-    user_id: userId,
-    service_id: profile.serviceId,
-    platform: 'Web_App',
-    push_service_token: null,
-  })
+    console.log(userId)
+
+  // await createDevice({
+  //   user_id: userId,
+  //   service_id: profile.serviceId,
+  //   platform: 'WEB_APP',
+  //   push_service_token: null,
+  // })
 
    const createdProfile  = await createProfile({
     user_id: userId,
@@ -61,15 +67,16 @@ export const completeOnboarding = async (profile: Params): Promise<{ userId: num
     })
   }
 
-  for (const game of profile.games) {
-    if (game.purposes?.length) {
-      await setProfileGamesWithPurposes({
-        profile_id: profileId,
-        game_id: Number(game.id),
-        purpose_ids: game.purposes.map(Number),
-      })
-    }
-  }
+  const gamesWithPurposes = profile.games.reduce((acc, game) => {
+  acc[game.id] = game.purposes.map(p => p.purpose_id)
+  return acc
+  }, {} as Record<string, number[]>)
+
+  await setProfileGamesWithPurposes({
+  profile_id: profileId,
+  games_with_purposes: gamesWithPurposes
+})
+
 
   return { userId: userId, profileId: profileId }
 }

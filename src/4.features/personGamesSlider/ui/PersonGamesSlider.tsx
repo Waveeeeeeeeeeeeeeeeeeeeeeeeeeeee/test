@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import 'swiper/css'
+import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -10,14 +13,23 @@ type Props = {
 }
 
 export const PersonGamesSlider = ({ games }: Props) => {
+	const paginationRef = useRef<HTMLDivElement>(null)
+
 	return (
-		<>
+		<div className='swiper-container'>
 			<Swiper
 				modules={[Pagination]}
-				pagination={{ clickable: true, el: '.custom-swiper-pagination' }}
+				pagination={{
+					clickable: true,
+					el: paginationRef.current,
+					dynamicBullets: true
+				}}
 				spaceBetween={16}
 				slidesPerView={1}
-				className='w-full'
+				onInit={swiper => {
+					swiper.pagination.init()
+					swiper.pagination.render()
+				}}
 			>
 				{games.map(game => (
 					<SwiperSlide key={game.id}>
@@ -26,7 +38,15 @@ export const PersonGamesSlider = ({ games }: Props) => {
 				))}
 			</Swiper>
 
-			<div className='custom-swiper-pagination  flex justify-center gap-1.5' />
-		</>
+			<div
+				ref={paginationRef}
+				className='swiper-pagination'
+				style={{
+					position: 'relative',
+					marginTop: '16px',
+					height: '10px'
+				}}
+			/>
+		</div>
 	)
 }

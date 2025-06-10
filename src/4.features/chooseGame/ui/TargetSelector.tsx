@@ -4,12 +4,19 @@ import CheckIco from '../../variantSelection/assets/check.svg?react'
 
 import { useUserStore } from '@/5.entities/user/model/store'
 import { Purpose } from '@/5.entities/user/model/types'
-import { useCustomTranslation } from '@/6.shared'
 
-export const TargetSelector = ({ gameId }: { gameId: string }) => {
+// import { useCustomTranslation } from '@/6.shared'
+
+export const TargetSelector = ({
+	gameId,
+	defaultPurpose
+}: {
+	gameId: string
+	defaultPurpose: Purpose[]
+}) => {
 	const { profile, setPurpose } = useUserStore()
-	const { justPlayTxt, conquerorTxt, praksTxt, duoTxt } =
-		useCustomTranslation('targetSearchList')
+	// const { justPlayTxt, conquerorTxt, praksTxt, duoTxt } =
+	// 	useCustomTranslation('targetSearchList')
 
 	const selectedPurposes =
 		profile.games.find(g => g.id === gameId)?.purposes || []
@@ -17,15 +24,15 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
 	const isSelected = (p: Purpose) =>
 		selectedPurposes.some(sp => sp.purpose_id === p.purpose_id)
 
-	const purposes: Purpose[] = [
-		{ purpose_id: 1, purpose_name: justPlayTxt, purpose_description: '' },
-		{ purpose_id: 2, purpose_name: conquerorTxt, purpose_description: '' },
-		{ purpose_id: 3, purpose_name: 'TDM', purpose_description: '' },
-		{ purpose_id: 4, purpose_name: 'Ultimate Royal', purpose_description: '' },
-		{ purpose_id: 5, purpose_name: praksTxt, purpose_description: '' },
-		{ purpose_id: 6, purpose_name: duoTxt, purpose_description: '' },
-		{ purpose_id: 7, purpose_name: 'WoW', purpose_description: '' }
-	]
+	// const purposes: Purpose[] = [
+	// 	{ purpose_id: 1, purpose_name: justPlayTxt, purpose_description: '' },
+	// 	{ purpose_id: 2, purpose_name: conquerorTxt, purpose_description: '' },
+	// 	{ purpose_id: 3, purpose_name: 'TDM', purpose_description: '' },
+	// 	{ purpose_id: 4, purpose_name: 'Ultimate Royal', purpose_description: '' },
+	// 	{ purpose_id: 5, purpose_name: praksTxt, purpose_description: '' },
+	// 	{ purpose_id: 6, purpose_name: duoTxt, purpose_description: '' },
+	// 	{ purpose_id: 7, purpose_name: 'WoW', purpose_description: '' }
+	// ]
 
 	return (
 		<motion.div
@@ -39,7 +46,7 @@ export const TargetSelector = ({ gameId }: { gameId: string }) => {
 			<h2 className='font-medium text-[15px] text-[#8a8989] text-left w-full mt-2'>
 				Цель игры:
 			</h2>
-			{purposes.map(p => (
+			{defaultPurpose?.map(p => (
 				<label
 					key={p.purpose_id}
 					className={`flex items-center justify-between p-2 px-3 rounded-2xl cursor-pointer text-sm transition-all duration-300 border

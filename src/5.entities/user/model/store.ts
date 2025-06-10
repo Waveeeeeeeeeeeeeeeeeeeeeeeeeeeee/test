@@ -1,7 +1,6 @@
 import { create } from 'zustand';
-import { TelegramUser, UserStore, Purpose } from './types';
+import { TelegramUser, UserStore, Purpose, UserProfile } from './types';
 import { Game } from '@/5.entities/game/model/types';
-import { getProfileByTelegramId } from '../api/getProfileByTelegramId';
 
 const defaultProfile = {
   age: '',
@@ -17,6 +16,7 @@ const defaultProfile = {
   selectedMatchType: 'realLife',
   user_id: null,
   profile_id: null,
+  country_code: '',
   isFirstFormValid: false,
   isSecondFormValid: false
 };
@@ -29,7 +29,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
   setTelegramUser: (user: TelegramUser) => set({ telegram: user, user }),
   setUserHash: (hash) => set({ userHash: hash }),
   setUserImage: (image: File) => set({ profile: { ...get().profile, image } }),
-
+  setProfile: (profile: UserProfile) => set({ profile }),
 
   clearUser: () =>
     set({
@@ -91,6 +91,15 @@ export const useUserStore = create<UserStore>((set, get) => ({
       profile_id,
     },
   })),
+
+  setCountryCode: (code: string) => {
+    set((state) => ({
+      profile: {
+        ...state.profile,
+        country_code: code,
+      },
+    }))
+  },
 
   removeInterest: (interest) => {
     const { interests } = get().profile;
@@ -191,25 +200,4 @@ setPurpose: (gameId: string, purpose: Purpose) =>
           },
         };
       }),
-      fetchUserProfile: async () => {
-  const telegram = get().telegram;
-  if (!telegram?.id) return;
-
-  try {
-    const profileData = await getProfileByTelegramId(telegram.id.toString());
-
-    set((state) => ({
-      profile: {
-        ...state.profile,
-        ...profileData,
-        user_id: profileData.user_id,
-        profile_id: profileData.profile_id,
-        isFirstFormValid: true,
-        isSecondFormValid: true,
-      },
-    }));
-  } catch (error) {
-    console.error('Ошибка при получении профиля:', error);
-  }
-}
 }));

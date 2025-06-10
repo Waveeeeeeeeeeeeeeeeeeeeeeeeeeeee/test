@@ -39,6 +39,7 @@ export interface TelegramUser {
     image: File | null;
     selectedLanguage: string;
     selectedMatchType: string;
+    country_code: string;
     isFirstFormValid: boolean;
     isSecondFormValid: boolean;
   }
@@ -54,6 +55,7 @@ export interface TelegramUser {
   export interface UserStore extends UserState {
     setTelegramUser: (user: TelegramUser) => void;
     setUserHash: (hash: string) => void;
+    setProfile: (profile: UserProfile) => void;
     clearUser: () => void;
     setUserImage: (image: File) => void;
     setProfileField: <K extends keyof UserState['profile']>(key: K, value: UserState['profile'][K]) => void;
@@ -68,7 +70,7 @@ export interface TelegramUser {
     toggleTargetSelector: (gameId: string) => void;
     setGamePhoto: (gameId: string, photo: File | null) => void;
     setUserAndProfileIds: (user_id: number, profile_id: number) => void;
-    fetchUserProfile: () => void;
+    setCountryCode: (code: string) => void;
   }
 
 

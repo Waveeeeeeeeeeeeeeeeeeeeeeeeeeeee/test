@@ -3,6 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
+import { toast } from 'react-toastify'
+
+import { completeOnboarding } from '../lib/completeOnboarding'
 
 import styles from './Onboarding.module.css'
 import HeaderIco from '@/1.app/assets/images/header.svg?react'
@@ -12,6 +15,7 @@ import { OnboardingStep2 } from '@/3.widgets/onboardingSteps'
 import OnBoardingRules from '@/3.widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
 import { OnboardingStep1 } from '@/3.widgets/onboardingSteps/onboardingStep1'
 import OnboardingStep3 from '@/3.widgets/onboardingSteps/onboardingStep3/ui/OnboardingStep3'
+import { useTelegram } from '@/5.entities/user/model/selectors'
 import { useUserStore } from '@/5.entities/user/model/store'
 import { Button, useCustomTranslation } from '@/6.shared'
 import { AnimatedBlock } from '@/6.shared/ui/AnimatedBlock'
@@ -30,20 +34,38 @@ export const Onboarding = () => {
 	const { i18n } = useTranslation()
 	const { backButton, nextButton } = useCustomTranslation('Onboarding')
 	const { profile } = useUserStore()
+	const isFirstFormValid = useUserStore(state => state.profile.isFirstFormValid)
 	const selectedLanguage = useUserStore(state => state.profile.selectedLanguage)
 	const [openRules, setOpenRules] = useState(false)
 	const navigate = useNavigate()
+	// const [loading, setLoading] = useState(false)
+	const telegram = useTelegram()
 
-	const handleStepsPlusClick = () => {
+	const handleStepsPlusClick = async () => {
 		if (steps === 1) {
 			setOpenRules(true)
 			return
-		} else if (steps === 2 && !profile.games.some(el => el.purpose)) {
+		} else if (steps === 2 && !profile.games.some(el => el.purposes)) {
+			toast.error('Пожалуйста выберите игру')
 			return
-		} else if (steps === 4) {
+		} else if (steps === 4 && !isFirstFormValid) {
+			toast.error('Пожалуйста заполните все поля')
+			return
 		}
 		if (steps > maxSteps) {
-			navigate('/')
+			try {
+				await completeOnboarding({
+					...profile,
+					serviceId: 1,
+					telegramId: telegram?.id || 0
+				})
+				navigate('/')
+			} catch (error) {
+				console.error(error)
+				toast.error('Ошибка при отправке данных')
+			} finally {
+			}
+			return
 		}
 		setSteps(prev => prev + 1)
 	}

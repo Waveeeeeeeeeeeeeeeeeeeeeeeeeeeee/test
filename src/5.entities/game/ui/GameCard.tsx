@@ -16,6 +16,7 @@ interface GameCardProps {
 	onClick?: () => void
 	onTogglePurpose?: () => void
 	withPhotoUpload?: boolean
+	defaultPurpose: Purpose[]
 }
 
 export const GameCard = ({
@@ -26,7 +27,8 @@ export const GameCard = ({
 	isTargetSelectorOpen = false,
 	onClick,
 	onTogglePurpose,
-	withPhotoUpload = false
+	withPhotoUpload = false,
+	defaultPurpose
 }: GameCardProps) => {
 	return (
 		<div
@@ -59,7 +61,11 @@ export const GameCard = ({
 			{withTargetSelector && (
 				<AnimatePresence>
 					{isTargetSelectorOpen && (
-						<TargetSelector key={`selector-${game.id}`} gameId={game.id} />
+						<TargetSelector
+							key={`selector-${game.id}`}
+							gameId={game.id}
+							defaultPurpose={defaultPurpose}
+						/>
 					)}
 				</AnimatePresence>
 			)}

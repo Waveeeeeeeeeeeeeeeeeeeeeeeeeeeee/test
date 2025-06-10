@@ -9,14 +9,9 @@ import styles from './ProfileSettings.module.css'
 import Search from '@/4.features/search/Search'
 import VariantSelection from '@/4.features/variantSelection/ui/VariantSelection'
 import { useUserStore } from '@/5.entities/user/model/store'
-import {
-	Button,
-	DropDown,
-	Input,
-	TextArea,
-	useCustomTranslation
-} from '@/6.shared'
+import { Button, Input, TextArea, useCustomTranslation } from '@/6.shared'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
+import { InputWithDropdown } from '@/6.shared/ui/InputWithDropdown/InputWithDropdown'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
 import PhotoContainer from '@/6.shared/ui/PhotoContainer/PhotoContainer'
 import { TagSelector } from '@/6.shared/ui/TagsSelectors/TagsSelectors'
@@ -99,21 +94,20 @@ const ProfileSettings = () => {
 		{ label: 'Россия', code: 'ru' }
 	]
 
-	const uaCities = [
-		{ label: 'Киев', code: 'kyiv' },
-		{ label: 'Одесса', code: 'odesa' }
-	]
-
-	const ruCities = [
-		{ label: 'Москва', code: 'moscow' },
-		{ label: 'Санкт-Петербург', code: 'spb' }
-	]
+	const citiesByCountry = {
+		ua: [
+			{ label: 'Киев', code: 'kyiv' },
+			{ label: 'Одесса', code: 'odesa' }
+		],
+		ru: [
+			{ label: 'Москва', code: 'moscow' },
+			{ label: 'Санкт-Петербург', code: 'spb' }
+		]
+	}
 
 	const handleCountryChange = (countryCode: string) => {
 		setProfileField('country', countryCode)
-	}
-	const handleCityChange = (cityCode: string) => {
-		setProfileField('city', cityCode)
+		setProfileField('city', '')
 	}
 
 	useEffect(() => {
@@ -172,17 +166,24 @@ const ProfileSettings = () => {
 				<div>
 					<h3 className={styles.subtitle}>{label4}</h3>
 					<div className='flex gap-2.5'>
-						<DropDown
+						<InputWithDropdown
 							data={countryData}
-							selectedValue={profile.country}
-							onSelect={handleCountryChange}
+							value={profile.country}
+							onChange={handleCountryChange}
 							placeholder={countryPlaceHolder}
 						/>
-						<DropDown
-							data={profile.country === 'ua' ? uaCities : ruCities}
-							selectedValue={profile.city}
-							onSelect={handleCityChange}
-							placeholder={countryPlaceHolder}
+						<InputWithDropdown
+							data={
+								profile.country
+									? citiesByCountry[
+											profile.country as keyof typeof citiesByCountry
+										] || []
+									: []
+							}
+							value={profile.city}
+							onChange={value => setProfileField('city', value)}
+							placeholder='Выберите город'
+							disabled={!profile.country}
 						/>
 					</div>
 				</div>

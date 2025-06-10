@@ -2,8 +2,8 @@ import styles from './ProfileGames.module.css'
 import { useGameFilter } from '@/3.widgets/gameList/model/useGameFilter'
 import { GameList } from '@/3.widgets/gameList/ui/GameList'
 import { UserGameList } from '@/3.widgets/userGameList/ui/UserGameList'
-import { gameList } from '@/5.entities/game/config/gameList'
 import { Game } from '@/5.entities/game/model/types'
+import { useGamesWithPurposes } from '@/5.entities/game/model/useGamesWithPurposes'
 import { useUserStore } from '@/5.entities/user/model/store'
 import { Purpose } from '@/5.entities/user/model/types'
 import { Button, useCustomTranslation } from '@/6.shared'
@@ -15,7 +15,7 @@ const ProfileGames = () => {
 	const { searchHolder } = useCustomTranslation('onboardingStep2')
 	const { backBtn, saveBtn } = useCustomTranslation('profileSettings')
 	const { search, onChange } = useGameFilter()
-
+	const { games } = useGamesWithPurposes()
 	const { profile, addGame, removeGame, toggleTargetSelector, resetPurpose } =
 		useUserStore()
 
@@ -56,7 +56,7 @@ const ProfileGames = () => {
 				<UserGameList />
 				<h3 className={styles.subtitle}>{subtitle}</h3>
 				<GameList
-					games={gameList}
+					games={games}
 					searchValue={search}
 					onSearchChange={value =>
 						onChange({
@@ -65,7 +65,7 @@ const ProfileGames = () => {
 					}
 					onToggle={handleToggle}
 					selectedGameIds={selectedGameIds}
-					allGameTitles={gameList.map(game => game.title)}
+					allGameTitles={games.map(game => game.title)}
 					searchPlaceholder={searchHolder}
 					withTargetSelector={true}
 					getPurpose={getPurposeByGameId}

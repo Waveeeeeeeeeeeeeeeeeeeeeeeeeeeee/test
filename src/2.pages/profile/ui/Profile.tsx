@@ -27,6 +27,8 @@ const Profile = () => {
 			value: 'games'
 		}
 	]
+
+	console.log(profile)
 	return (
 		<div className={'px-4 pt-4 pb-28 flex flex-col gap-7.5'}>
 			<UserCard
@@ -36,6 +38,7 @@ const Profile = () => {
 				city={profile.city}
 				languages={profile.selectedLanguage}
 				avatarUrl={profile.image || telegram?.photo_url || ''}
+				coutry_code={profile.country_code}
 				icon='notification'
 			/>
 			<div className='flex flex-col gap-4 border-b-[1px] border-[#40434f] pb-7.5 mt-5'>

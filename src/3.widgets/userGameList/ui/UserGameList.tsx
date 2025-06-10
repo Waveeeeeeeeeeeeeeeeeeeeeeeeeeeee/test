@@ -29,6 +29,7 @@ export const UserGameList = () => {
 							isTargetSelectorOpen={false}
 							onTogglePurpose={() => {}}
 							withPhotoUpload
+							defaultPurpose={[]}
 						/>
 					</motion.div>
 				))}
