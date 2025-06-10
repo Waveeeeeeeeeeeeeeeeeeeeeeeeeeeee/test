@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { Game } from './types';
 
 type Purpose = {
   purpose_id: number;
@@ -6,11 +7,6 @@ type Purpose = {
   purpose_description: string;
 };
 
-type Game = {
-  id: number;
-  name: string;
-  description: string;
-};
 
 export type GameWithPurposes = {
   game: Game;
@@ -18,10 +14,10 @@ export type GameWithPurposes = {
 };
 
 interface GameStore {
-  games: GameWithPurposes[];
+  games: Game[];
   isLoading: boolean;
   error: string | null;
-  setGames: (games: GameWithPurposes[]) => void;
+  setGames: (games: Game[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
