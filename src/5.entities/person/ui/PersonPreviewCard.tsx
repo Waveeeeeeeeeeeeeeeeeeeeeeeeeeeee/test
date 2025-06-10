@@ -28,6 +28,7 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 				city={person.city}
 				languages={person.selectedLanguage}
 				avatarUrl={person.image || catIco}
+				coutry_code={person.country_code}
 				icon='info'
 			/>
 			<div className='px-4'>
