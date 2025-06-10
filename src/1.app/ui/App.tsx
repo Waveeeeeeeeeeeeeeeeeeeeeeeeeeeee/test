@@ -14,10 +14,6 @@ const App: FC<AppProps> = ({ shouldRedirectToOnboarding }) => {
 
 	useEffect(() => {
 		if (!hasNavigated && shouldRedirectToOnboarding !== null) {
-			console.log(
-				'Навигация:',
-				shouldRedirectToOnboarding ? 'Onboarding' : 'Главная'
-			)
 			navigate(shouldRedirectToOnboarding ? '/onboarding' : '/', {
 				replace: true
 			})
