@@ -1,28 +1,56 @@
-import { io, Socket } from 'socket.io-client';
-
-let socket: Socket | null = null;
+let socket: WebSocket | null = null
+let onMessageCallback: ((data: any) => void) | null = null
 
 export const initSocket = () => {
-  if (!socket) {
-    socket = io('http://77.238.235.94:15000', {
-      transports: ['websocket'],
-    });
+	if (!socket || socket.readyState === WebSocket.CLOSED) {
+		socket = new WebSocket('wss://api.acetest.site/dating/profiles/ws')
 
-    socket.on('connect', () => {
-      console.log('Socket connected:', socket?.id);
-    });
+		socket.onopen = () => {
+			console.log('WebSocket connected')
 
-    socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
-  }
+			const authMessage = {
+				token: '1234567890',
+				version: '1'
+			}
+			socket?.send(JSON.stringify(authMessage))
+		}
 
-  return socket;
-};
+	socket.onmessage = event => {
+	console.log('Received socket message:', event.data) 
+	const data = JSON.parse(event.data)
+	if (onMessageCallback) {
+		onMessageCallback(data)
+	}
+}
 
-export const getSocket = () => {
-  if (!socket) {
-    throw new Error('Socket is not initialized.');
-  }
-  return socket;
-};
+		socket.onclose = event => {
+			console.log('WebSocket disconnected', event)
+		}
+
+		socket.onerror = error => {
+			console.error('WebSocket error', error)
+		}
+	}
+
+	return socket
+}
+
+export const sendFindRequest = (params: any) => {
+	if (!socket || socket.readyState !== WebSocket.OPEN) {
+		console.warn('ВебСокет не открыт', socket?.readyState)
+		return
+	}
+
+	console.log('Sending find request:', params)
+
+	const message = {
+		cmd: 'find',
+		params
+	}
+
+	socket.send(JSON.stringify(message))
+}
+
+export const subscribeToSocketMessages = (callback: (data: any) => void) => {
+	onMessageCallback = callback
+}

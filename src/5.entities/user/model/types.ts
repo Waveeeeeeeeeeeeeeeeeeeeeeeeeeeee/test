@@ -42,6 +42,8 @@ export interface TelegramUser {
     country_code: string;
     isFirstFormValid: boolean;
     isSecondFormValid: boolean;
+    profile_id: number | null;
+    user_id: number | null;
   }
   
   export interface UserState {
@@ -71,6 +73,7 @@ export interface TelegramUser {
     setGamePhoto: (gameId: string, photo: File | null) => void;
     setUserAndProfileIds: (user_id: number, profile_id: number) => void;
     setCountryCode: (code: string) => void;
+    updateProfile: (data: Partial<UserProfile>) => void;
   }
 
 

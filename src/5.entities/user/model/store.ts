@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { TelegramUser, UserStore, Purpose, UserProfile } from './types';
 import { Game } from '@/5.entities/game/model/types';
+import { mapApiProfileToStore } from '@/1.app/utils/mapApiProfileToStore';
+import { updateUserProfile } from '../api/updateUserProfile';
 
 const defaultProfile = {
   age: '',
@@ -56,6 +58,17 @@ export const useUserStore = create<UserStore>((set, get) => ({
     });
   },
 
+
+  updateProfile: async (data: any) => {
+  try {
+    const apiResponse = await updateUserProfile.updateProfile(data);
+    const storeData = mapApiProfileToStore(apiResponse);
+    set({ profile: storeData });
+  } catch (error) {
+    console.error("Ошибка при обновлении профиля:", error);
+  }
+},
+
   setGamePhoto: (gameId, file) =>
 		set(state => ({
 			profile: {
@@ -91,6 +104,8 @@ export const useUserStore = create<UserStore>((set, get) => ({
       profile_id,
     },
   })),
+
+
 
   setCountryCode: (code: string) => {
     set((state) => ({

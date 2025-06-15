@@ -4,7 +4,8 @@ import { UserFiltersModal } from '@/3.widgets/userFiltersModal/ui/UserFiltersMod
 import UserListFilters from '@/3.widgets/userListFilters/ui/UserListFilters'
 import { UserInteractionPanel } from '@/3.widgets/userPanel/ui/UserInteractionPanel'
 import { SwipeCardDeck } from '@/4.features/swipeCardDeck/ui/SwipeCardDeck'
-import { mockUsers } from '@/5.entities/person/config/testUsers'
+// import { mockUsers } from '@/5.entities/person/config/testUsers'
+import { useUserSocketStore } from '@/5.entities/person/model/userSocketStore'
 import { searchList } from '@/5.entities/search/config/searchList'
 import { AnimatedPage } from '@/6.shared/hoc/AnimatedPage'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
@@ -12,6 +13,7 @@ import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
 const SearchPage = () => {
 	const { searchType } = useParams<{ searchType: string }>()
 	const card = searchList.find(item => item.href.endsWith(searchType || ''))
+	const users = useUserSocketStore(state => state.users)
 
 	const mockGames = [
 		{
@@ -58,7 +60,7 @@ const SearchPage = () => {
 				<div className=' mb-4'>
 					<UserListFilters />
 				</div>
-				<SwipeCardDeck users={mockUsers} games={mockGames} />
+				<SwipeCardDeck users={users} games={mockGames} />
 				<UserInteractionPanel userId='123' />
 			</div>
 			<UserFiltersModal />

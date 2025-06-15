@@ -12,6 +12,7 @@ type ButtonProps = {
 	variant?: 'primary' | 'secondary' | 'next' | 'accept'
 	disabled?: boolean
 	size?: 'normal' | 'large'
+	type?: 'submit' | 'reset' | 'button'
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,13 +20,15 @@ export const Button: React.FC<ButtonProps> = ({
 	onClick,
 	variant = 'primary',
 	disabled,
-	size = 'normal'
+	size = 'normal',
+	type = 'button'
 }) => {
 	return (
 		<button
 			className={clsx(styles.button, styles[variant], styles[size])}
 			onClick={onClick}
 			disabled={disabled}
+			type={type}
 		>
 			{children}
 			{variant === 'next' && <ArrowIco />}

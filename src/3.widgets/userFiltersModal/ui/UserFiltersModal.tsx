@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import styles from './UserFilterModal.module.css'
 import { useGameFilter } from '@/3.widgets/gameList/model/useGameFilter'
 import { GameList } from '@/3.widgets/gameList/ui/GameList'
@@ -6,7 +8,13 @@ import { useUserFiltersStore } from '@/4.features/userFilters/model/useUserFilte
 import VariantSelection from '@/4.features/variantSelection/ui/VariantSelection'
 import { Game } from '@/5.entities/game/model/types'
 import { useGamesWithPurposes } from '@/5.entities/game/model/useGamesWithPurposes'
+import { useUserSocketStore } from '@/5.entities/person/model/userSocketStore'
 import { Button, useCustomTranslation } from '@/6.shared'
+import {
+	initSocket,
+	sendFindRequest,
+	subscribeToSocketMessages
+} from '@/6.shared/socet/socketClient'
 import { Modal } from '@/6.shared/ui/Modal/Modal'
 import { NotificationHeader } from '@/6.shared/ui/NotificationHeader'
 
@@ -37,6 +45,28 @@ export const UserFiltersModal = () => {
 		{ code: 'MALE', label: button1 },
 		{ code: 'FEMALE', label: button2 }
 	]
+
+	useEffect(() => {
+		initSocket()
+		subscribeToSocketMessages(data => {
+			console.log('Callback received socket data:', data)
+
+			if (data.cmd === 'find') {
+				useUserSocketStore.getState().setUsers(data.users)
+			}
+		})
+	}, [])
+	const handleSearch = () => {
+		sendFindRequest({
+			gender: 'MALE',
+			age: '14',
+			// scope,
+			// games: selectedGames,
+			country_code: 'RU'
+		})
+
+		close()
+	}
 
 	const scopes = [
 		{
@@ -111,7 +141,7 @@ export const UserFiltersModal = () => {
 				<Button variant='secondary' onClick={close}>
 					{backButton}
 				</Button>
-				<Button variant='accept' onClick={close}>
+				<Button variant='accept' onClick={handleSearch}>
 					{acceptButton}
 				</Button>
 			</div>

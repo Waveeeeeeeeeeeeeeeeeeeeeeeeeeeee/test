@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 import RuIco from '../../../6.shared/assets/flags/ru.svg?react'
 import UaIco from '../../../6.shared/assets/flags/ua.svg?react'
@@ -22,7 +23,8 @@ const ProfileSettings = () => {
 		setProfileField,
 		addInterest,
 		toggleInterest,
-		setUserImage
+		setUserImage,
+		updateProfile
 	} = useUserStore()
 	const [tags, setTags] = useState([...profile.interests])
 	const { label, placeholder, char, interest, searchHolder } =
@@ -43,12 +45,20 @@ const ProfileSettings = () => {
 	const { title, backBtn, saveBtn } = useCustomTranslation('profileSettings')
 	const [searchValue, setSearchValue] = useState('')
 	const { i18n } = useTranslation()
+	const [_, setError] = useState(null)
 	const handleBack = () => {
 		window.history.back()
 	}
-	const handleSave = () => {
-		localStorage.setItem('selectedLanguage', profile.selectedLanguage)
-		window.history.back()
+
+	const handleSave = async () => {
+		setError(null)
+		try {
+			updateProfile(profile)
+			localStorage.setItem('selectedLanguage', profile.selectedLanguage)
+			window.history.back()
+		} catch (err: any) {
+			toast.error(err.response?.data?.message || 'Ошибка обновления профиля')
+		}
 	}
 	const InputData = [
 		{
@@ -222,7 +232,7 @@ const ProfileSettings = () => {
 				</div>
 			</div>
 			<div className={`flex w-full gap-4 mt-8 ${styles.buttons}`}>
-				<Button variant='secondary' onClick={handleBack}>
+				<Button variant='secondary' onClick={handleBack} type='submit'>
 					{backBtn}
 				</Button>
 				<Button variant='accept' onClick={handleSave}>

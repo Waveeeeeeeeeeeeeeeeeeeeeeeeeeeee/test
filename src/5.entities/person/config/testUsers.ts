@@ -16,7 +16,10 @@ export const mockUsers: UserProfile[] = [
     selectedMatchType: 'Friendship',
     isFirstFormValid: true,
     isSecondFormValid: true,
-      country_code: 'RU'
+    country_code: 'RU',
+    profile_id: 1,
+    user_id: 1
+
   },
    {
     age: '22',
@@ -32,7 +35,9 @@ export const mockUsers: UserProfile[] = [
     selectedMatchType: 'Friendship',
     isFirstFormValid: true,
     isSecondFormValid: true,
-    country_code: 'RU'
+    country_code: 'RU',
+    profile_id: 1,
+    user_id: 1
 
   },
     {
@@ -49,7 +54,9 @@ export const mockUsers: UserProfile[] = [
     selectedMatchType: 'Friendship',
     isFirstFormValid: true,
     isSecondFormValid: true,
-      country_code: 'RU'
+      country_code: 'RU',
+      profile_id: 1,
+    user_id: 1
   },
     {
     age: '22',
@@ -65,6 +72,8 @@ export const mockUsers: UserProfile[] = [
     selectedMatchType: 'Friendship',
     isFirstFormValid: true,
     isSecondFormValid: true,
-    country_code: 'RU'
+    country_code: 'RU',
+    profile_id: 1,
+    user_id: 1
   },
 ]
