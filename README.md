@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
+# Генерация локального SSL-сертификата `tma.internal` с помощью mkcert на Windows
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. Установка Scoop
 
-Currently, two official plugins are available:
+**Scoop** — это менеджер пакетов для Windows, который облегчает установку утилит командной строки.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Откройте PowerShell от имени пользователя и разрешите выполнение скриптов:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```powershell
+1. Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+2. iwr -useb get.scoop.sh | iex
+3. scoop --version
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 2. Установка mkcert
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+**mkcert** — это генератор локальных SSL/TLS сертификатов.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. scoop bucket add extras
+2. scoop install mkcert
+3. mkcert --version
+
+## 3. Установка локального корневого сертификата и сертификата для домена
+
+1. mkcert install
+2. нужно зайти в папку с проектом
+3. mkcert tma.internal
+4. Появившиеся сертификаты добавить в корневую папку проекта certs
+
+project/
+├─ certs/
+│ ├─ tma.internal.pem
+│ └─ tma.internal-key.pem
+
+## 4. Для работы сертификата в Firefox
+
+1. Найти корневой сертификат C:\Users\ВашЮзер\AppData\Local\mkcert
+2. Зайти в Firefox в настройках приватность и защита
+3. Сертификаты - Просмотр сертификатов
+4. Импортировать корневой сертификат rootCA.pem
+5. Разрешить для защищеного соединения сайтов

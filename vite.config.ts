@@ -1,30 +1,32 @@
-import tailwindcss from '@tailwindcss/vite'
-import basicSsl from '@vitejs/plugin-basic-ssl'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import { defineConfig } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
-import svgr from 'vite-plugin-svgr'
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
+import { ServerOptions, defineConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => {
-	let server: Record<string, any> = {}
+	let server: ServerOptions = {};
 
 	if (mode !== 'production') {
 		server = {
 			port: 3000,
 			host: 'tma.internal',
-			https: true,
+			https: {
+				key: fs.readFileSync('./certs/tma.internal-key.pem'),
+				cert: fs.readFileSync('./certs/tma.internal.pem')
+			},
 			proxy: {}
-		}
+		};
 	}
 
 	return {
-		plugins: [react(), svgr(), basicSsl(), mkcert(), tailwindcss()],
+		plugins: [react(), svgr(), tailwindcss()],
 		server,
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, './src/')
 			}
 		}
-	}
-})
+	};
+});

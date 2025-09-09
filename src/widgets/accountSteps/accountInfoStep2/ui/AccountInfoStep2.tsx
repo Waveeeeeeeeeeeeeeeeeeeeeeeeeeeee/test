@@ -1,12 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import styles from './AccountInfoStep2.module.css'
-import { useUserStore } from '@/entities/user/model/store'
-import Search from '@/features/search/Search'
-import { useCustomTranslation } from '@/shared'
-import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer'
-import { TagSelector } from '@/shared/ui/TagsSelectors/TagsSelectors'
-import { TextArea } from '@/shared/ui/TextArea'
+import styles from './AccountInfoStep2.module.css';
+import { useUserStore } from '@/entities/user/model/store';
+import Search from '@/features/search/Search';
+import { useCustomTranslation } from '@/shared';
+import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
+import { TagSelector } from '@/shared/ui/TagsSelectors/TagsSelectors';
+import { TextArea } from '@/shared/ui/TextArea';
+
+const initialTags = [
+	'Футбол',
+	'Баскетбол',
+	'Рисование',
+	'Аниме',
+	'Машины',
+	'Фильмы',
+	'Музыка',
+	'Спорт',
+	'Литература'
+];
 
 const AccountInfoStep2 = () => {
 	const {
@@ -15,45 +27,34 @@ const AccountInfoStep2 = () => {
 		toggleInterest,
 		addInterest,
 		setUserImage
-	} = useUserStore()
+	} = useUserStore();
 	const { title, label, placeholder, interest, char, searchHolder } =
-		useCustomTranslation('accountInfoStep3')
+		useCustomTranslation('accountInfoStep3');
 
-	const [searchValue, setSearchValue] = useState('')
+	const [searchValue, setSearchValue] = useState('');
 
 	const handleSearchChange = (value: string) => {
-		setSearchValue(value)
-	}
-	const initialTags = [
-		'Футбол',
-		'Баскетбол',
-		'Рисование',
-		'Аниме',
-		'Машины',
-		'Фильмы',
-		'Музыка',
-		'Спорт',
-		'Литература'
-	]
+		setSearchValue(value);
+	};
 
-	const [tags, setTags] = useState([...initialTags])
+	const [tags, setTags] = useState([...initialTags]);
 
 	useEffect(() => {
-		const newTags = [...initialTags]
+		const newTags = [...initialTags];
 		profile.interests.forEach(interest => {
 			if (!newTags.includes(interest)) {
-				newTags.push(interest)
+				newTags.push(interest);
 			}
-		})
-		setTags(newTags)
-	}, [profile.interests])
+		});
+		setTags(newTags);
+	}, [profile.interests]);
 
 	const handleAddInterest = (tag: string) => {
 		if (!tags.includes(tag)) {
-			setTags([tag, ...tags])
+			setTags([tag, ...tags]);
 		}
-		addInterest(tag)
-	}
+		addInterest(tag);
+	};
 
 	return (
 		<div className='flex flex-col gap-8 pb-20'>
@@ -91,7 +92,7 @@ const AccountInfoStep2 = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default AccountInfoStep2
+export default AccountInfoStep2;
