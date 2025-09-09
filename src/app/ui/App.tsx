@@ -1,31 +1,31 @@
-import { FC, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import Layout from '../layout/Layout'
-import RouterProvider from '../providers/router/RouterProvider'
+import Layout from '../layout/Layout';
+import AppRouter from '../router/AppRouter';
 
 interface AppProps {
-	shouldRedirectToOnboarding: boolean
+	shouldRedirectToOnboarding: boolean;
 }
 
 const App: FC<AppProps> = ({ shouldRedirectToOnboarding }) => {
-	const navigate = useNavigate()
-	const [hasNavigated, setHasNavigated] = useState(false)
+	const navigate = useNavigate();
+	const [hasNavigated, setHasNavigated] = useState(false);
 
 	useEffect(() => {
 		if (!hasNavigated && shouldRedirectToOnboarding !== null) {
 			navigate(shouldRedirectToOnboarding ? '/onboarding' : '/', {
 				replace: true
-			})
-			setHasNavigated(true)
+			});
+			setHasNavigated(true);
 		}
-	}, [shouldRedirectToOnboarding, navigate, hasNavigated])
+	}, [shouldRedirectToOnboarding, navigate, hasNavigated]);
 
 	return (
 		<Layout>
-			<RouterProvider />
+			<AppRouter />
 		</Layout>
-	)
-}
+	);
+};
 
-export default App
+export default App;

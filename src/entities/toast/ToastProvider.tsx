@@ -1,8 +1,8 @@
-import React from 'react'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
+export const Toast: React.FC<{ children: React.ReactNode }> = ({
 	children
 }) => {
 	return (
@@ -21,5 +21,5 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 				theme='dark'
 			/>
 		</>
-	)
-}
+	);
+};
