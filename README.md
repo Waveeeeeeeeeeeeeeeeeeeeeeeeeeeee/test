@@ -16,9 +16,11 @@
 
 **mkcert** — это генератор локальных SSL/TLS сертификатов.
 
+```powershell
 1. scoop bucket add extras
 2. scoop install mkcert
 3. mkcert --version
+```
 
 ## 3. Установка локального корневого сертификата и сертификата для домена
 
@@ -26,11 +28,6 @@
 2. нужно зайти в папку с проектом
 3. mkcert tma.internal
 4. Появившиеся сертификаты добавить в корневую папку проекта certs
-
-project/
-├─ certs/
-│ ├─ tma.internal.pem
-│ └─ tma.internal-key.pem
 
 ## 4. Для работы сертификата в Firefox
 
