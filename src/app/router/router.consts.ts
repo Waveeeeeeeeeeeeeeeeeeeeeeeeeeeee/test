@@ -7,5 +7,5 @@ export enum EnumRoutes {
 	PROFILE = '/profile',
 	PROFILE_SETTINGS = '/profile/settings',
 	PROFILE_GAMES = '/profile/games',
-	PROFILE_SUPPORT = '/profile/support',
+	PROFILE_SUPPORT = '/profile/support'
 }

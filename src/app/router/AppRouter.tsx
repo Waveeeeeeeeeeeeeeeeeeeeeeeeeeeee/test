@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Route, Routes, useLocation } from 'react-router';
+import { Navigate, Route, Routes, useLocation } from 'react-router';
 
 import { routes } from './router.data';
 import { IRoute } from './router.types';
@@ -11,15 +11,13 @@ const AppRouter: FC = () => {
 		if (route.children) {
 			return (
 				<Route key={route.path} path={route.path} element={<route.component />}>
-					{route.children.map(child => {
-						return (
-							<Route
-								key={`${route.path}/${child.path}`}
-								path={child.path}
-								element={React.createElement(child.element)}
-							/>
-						);
-					})}
+					{route.children.map(child => (
+						<Route
+							key={`${route.path}/${child.path}`}
+							path={child.path}
+							element={React.createElement(child.element)}
+						/>
+					))}
 				</Route>
 			);
 		}
@@ -30,7 +28,11 @@ const AppRouter: FC = () => {
 
 	return (
 		<Routes location={location} key={location.pathname}>
+			<Route path='/' element={<Navigate to='/onboarding' replace />} />
 			{routes.map(renderRoutes)}
+
+			{/* Catch-all: редирект на онбординг для любых неизвестных маршрутов */}
+			<Route path='*' element={<Navigate to='/onboarding' replace />} />
 		</Routes>
 	);
 };
