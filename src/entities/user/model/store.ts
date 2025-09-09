@@ -61,7 +61,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 		});
 	},
 
-	updateProfile: async (data: any) => {
+	updateProfile: async (data: Partial<UserProfile>) => {
 		try {
 			const apiResponse = await updateUserProfile.updateProfile(data);
 			const storeData = mapApiProfileToStore(apiResponse);

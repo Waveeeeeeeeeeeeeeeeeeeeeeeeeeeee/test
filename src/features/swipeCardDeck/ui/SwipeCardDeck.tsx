@@ -4,34 +4,34 @@ import {
 	motion,
 	useMotionValue,
 	useTransform
-} from 'framer-motion'
-import { useRef, useState } from 'react'
+} from 'framer-motion';
+import React, { useRef, useState } from 'react';
 
-import { PersonPreviewCard } from '@/entities/person/ui/PersonPreviewCard'
-import { UserProfile } from '@/entities/user/model/types'
-import { PersonGame } from '@/features/personGamesSlider/model/types'
+import { PersonPreviewCard } from '@/entities/person/ui/PersonPreviewCard';
+import { UserProfile } from '@/entities/user/model/types';
+import { PersonGame } from '@/features/personGamesSlider/model/types';
 
 interface SwipeCardDeckProps {
-	users: UserProfile[]
-	games: PersonGame[]
+	users: UserProfile[];
+	games: PersonGame[];
 }
 
 export const SwipeCardDeck = ({ users, games }: SwipeCardDeckProps) => {
-	const [currentIndex, setCurrentIndex] = useState(0)
-	const [direction, setDirection] = useState<number | null>(null)
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [direction, setDirection] = useState<number | null>(null);
 
 	const handleSwipe = (dir: number) => {
-		setDirection(dir)
+		setDirection(dir);
 		setTimeout(() => {
-			setCurrentIndex(prev => (prev + 1) % users.length)
-			setDirection(null)
-		}, 300)
-	}
+			setCurrentIndex(prev => (prev + 1) % users.length);
+			setDirection(null);
+		}, 300);
+	};
 
-	if (users.length === 0) return null
+	if (users.length === 0) return null;
 
-	const activeUser = users[currentIndex]
-	const nextUser = users[(currentIndex + 1) % users.length]
+	const activeUser = users[currentIndex];
+	const nextUser = users[(currentIndex + 1) % users.length];
 
 	return (
 		<div className='relative w-full h-full flex items-center justify-center overflow-hidden touch-none'>
@@ -54,14 +54,14 @@ export const SwipeCardDeck = ({ users, games }: SwipeCardDeckProps) => {
 				/>
 			</AnimatePresence>
 		</div>
-	)
-}
+	);
+};
 
 interface SwipeableCardProps {
-	user: UserProfile
-	games: PersonGame[]
-	onSwipe: (dir: number) => void
-	direction: number | null
+	user: UserProfile;
+	games: PersonGame[];
+	onSwipe: (dir: number) => void;
+	direction: number | null;
 }
 
 const SwipeableCard = ({
@@ -70,46 +70,49 @@ const SwipeableCard = ({
 	onSwipe,
 	direction
 }: SwipeableCardProps) => {
-	const x = useMotionValue(0)
-	const rotate = useTransform(x, [-200, 200], [-15, 15])
-	const dragEnabledRef = useRef(true)
+	const x = useMotionValue(0);
+	const rotate = useTransform(x, [-200, 200], [-15, 15]);
+	const dragEnabledRef = useRef(true);
 
 	const handlePointerDown = (e: React.PointerEvent) => {
-		const target = e.target as HTMLElement
+		const target = e.target as HTMLElement;
 		if (target.closest('.swiper') || target.closest('.swiper-pagination')) {
-			dragEnabledRef.current = false
+			dragEnabledRef.current = false;
 		} else {
-			dragEnabledRef.current = true
+			dragEnabledRef.current = true;
 		}
-	}
+	};
 
-	const handleDragStart = (event: any) => {
+	const handleDragStart = (event: MouseEvent | TouchEvent | PointerEvent) => {
 		if (!dragEnabledRef.current) {
-			event.preventDefault()
+			event.preventDefault();
 		}
-	}
+	};
 
-	const handleDragEnd = (_: any, info: PanInfo) => {
+	const handleDragEnd = (
+		_: MouseEvent | TouchEvent | PointerEvent,
+		info: PanInfo
+	) => {
 		if (!dragEnabledRef.current) {
-			x.set(0)
-			return
+			x.set(0);
+			return;
 		}
 
-		const offsetX = info.offset.x
-		const velocityX = info.velocity.x
-		const swipeThreshold = 150
-		const velocityThreshold = 500
+		const offsetX = info.offset.x;
+		const velocityX = info.velocity.x;
+		const swipeThreshold = 150;
+		const velocityThreshold = 500;
 
 		if (offsetX > swipeThreshold || velocityX > velocityThreshold) {
-			x.set(1000)
-			onSwipe(1)
+			x.set(1000);
+			onSwipe(1);
 		} else if (offsetX < -swipeThreshold || velocityX < -velocityThreshold) {
-			x.set(-1000)
-			onSwipe(-1)
+			x.set(-1000);
+			onSwipe(-1);
 		} else {
-			x.set(0)
+			x.set(0);
 		}
-	}
+	};
 
 	return (
 		<motion.div
@@ -131,5 +134,5 @@ const SwipeableCard = ({
 		>
 			<PersonPreviewCard person={user} games={games} />
 		</motion.div>
-	)
-}
+	);
+};
