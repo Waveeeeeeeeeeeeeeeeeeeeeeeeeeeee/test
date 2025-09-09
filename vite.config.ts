@@ -11,11 +11,10 @@ export default defineConfig(({ mode }) => {
 
 	if (mode !== 'production') {
 		server = {
-			port: 443,
+			port: 3000,
 			host: 'tma.internal',
 			https: true,
-			proxy: {
-			}
+			proxy: {}
 		}
 	}
 
