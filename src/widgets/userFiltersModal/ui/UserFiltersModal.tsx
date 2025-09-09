@@ -4,6 +4,7 @@ import styles from './UserFilterModal.module.css';
 import { Game } from '@/entities/game/model/types';
 import { useGamesWithPurposes } from '@/entities/game/model/useGamesWithPurposes';
 import { useUserSocketStore } from '@/entities/person/model/userSocketStore';
+import { UserProfile } from '@/entities/user/model/types';
 import { useUserFiltersStore } from '@/features/userFilters/model/useUserFiltersStore';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, useCustomTranslation } from '@/shared';
@@ -47,12 +48,15 @@ export const UserFiltersModal = () => {
 	];
 
 	useEffect(() => {
-		initSocket();
-		subscribeToSocketMessages(data => {
+		initSocket('wss://api.acetest.site/dating/profiles/ws', {
+			token: '1234567890',
+			version: '1'
+		});
+		subscribeToSocketMessages<{ users: UserProfile[] }>(data => {
 			console.log('Callback received socket data:', data);
 
-			if (data.cmd === 'find') {
-				useUserSocketStore.getState().setUsers(data.users);
+			if (data.cmd === 'find' && data.payload?.users) {
+				useUserSocketStore.getState().setUsers(data.payload.users);
 			}
 		});
 	}, []);

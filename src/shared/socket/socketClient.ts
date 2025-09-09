@@ -1,72 +1,74 @@
-type SocketMessage = {
-	type: string;
-	payload?: Record<string, unknown>;
+export type SocketMessage<TPayload = unknown> = {
+	cmd: string;
+	payload?: TPayload;
 };
 
-type FindRequestParams = {
-	age?: number;
+export type FindRequestParams = {
+	age?: string;
 	gender?: 'MALE' | 'FEMALE';
-	city?: string;
+	country_code?: string;
 };
+
+type Subscriber = (data: SocketMessage<unknown>) => void;
 
 let socket: WebSocket | null = null;
-let onMessageCallback: ((data: SocketMessage) => void) | null = null;
+// Хранение всех подписчиков как unknown
+let subscribers: Subscriber[] = [];
 
-export const initSocket = () => {
+export const initSocket = (url: string, auth?: Record<string, unknown>) => {
 	if (!socket || socket.readyState === WebSocket.CLOSED) {
-		socket = new WebSocket('wss://api.acetest.site/dating/profiles/ws');
+		socket = new WebSocket(url);
 
 		socket.onopen = () => {
 			console.log('WebSocket connected');
-
-			const authMessage = {
-				token: '1234567890',
-				version: '1'
-			};
-			socket?.send(JSON.stringify(authMessage));
+			if (auth) socket?.send(JSON.stringify(auth));
 		};
 
 		socket.onmessage = event => {
-			console.log('Received socket message:', event.data);
-
 			try {
 				const data: SocketMessage = JSON.parse(event.data);
-				if (onMessageCallback) {
-					onMessageCallback(data);
-				}
+				subscribers.forEach(sub => sub(data));
 			} catch (err) {
 				console.error('Failed to parse socket message', err);
 			}
 		};
 
-		socket.onclose = event => {
-			console.log('WebSocket disconnected', event);
-		};
-
-		socket.onerror = error => {
-			console.error('WebSocket error', error);
-		};
+		socket.onclose = event => console.log('WebSocket disconnected', event);
+		socket.onerror = error => console.error('WebSocket error', error);
 	}
 
 	return socket;
 };
 
-export const sendFindRequest = (params: FindRequestParams) => {
-	if (!socket || socket.readyState !== WebSocket.OPEN) {
-		console.warn('ВебСокет не открыт', socket?.readyState);
-		return;
+export const sendSocketCommand = <TPayload = unknown>(
+	cmd: string,
+	payload?: TPayload
+) => {
+	if (socket && socket.readyState === WebSocket.OPEN) {
+		socket.send(JSON.stringify({ cmd, payload }));
+	} else {
+		console.warn('WebSocket not open', socket?.readyState);
 	}
-
-	const message = {
-		cmd: 'find',
-		params
-	};
-
-	socket.send(JSON.stringify(message));
 };
 
-export const subscribeToSocketMessages = (
-	callback: (data: SocketMessage) => void
+// Подписка с кастомным типом для callback
+export const subscribeToSocketMessages = <TPayload = unknown>(
+	callback: (data: SocketMessage<TPayload>) => void
 ) => {
-	onMessageCallback = callback;
+	// Кастуем в Subscriber<unknown>
+	const wrappedCallback: Subscriber = data =>
+		callback(data as SocketMessage<TPayload>);
+	subscribers.push(wrappedCallback);
+
+	return () => {
+		subscribers = subscribers.filter(sub => sub !== wrappedCallback);
+	};
+};
+
+export const clearSocketSubscribers = () => {
+	subscribers = [];
+};
+
+export const sendFindRequest = (params: FindRequestParams) => {
+	sendSocketCommand<FindRequestParams>('find', params);
 };
