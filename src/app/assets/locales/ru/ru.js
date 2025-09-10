@@ -4,18 +4,21 @@ const ru = {
 			backButton: 'Назад',
 			nextButton: 'Продолжить'
 		},
-		onboardingStep1: {
+		onboardingChooseLanguage: {
 			title: 'Мы рады тебя видеть!',
 			desription: `Выбери язык, на котором ты хочешь продолжить`
 		},
-		onboardingStep2: {
+		onboardingChooseGame: {
 			searchHolder: 'Во что ты играешь?',
 			searchHolder: 'Поиск'
+		},
+		onboardingChoosePlatform: {
+			title: 'Выбери основную платформу'
 		},
 		gameImageUpload: {
 			upload: 'Добавить фото'
 		},
-		onboardingStep3: {
+		onboardingСhoosePerson: {
 			title: `Выбери для чего ты хочешь найти человека`,
 			description: `Это очень важный пункт, требуется чуть больше <br /> ‼️ВНИМАНИЯ‼️, ведь
 				в зависимости от того, что ты выберешь, будет 2 варианта событий:`,
@@ -136,6 +139,6 @@ const ru = {
 			problemDesc: 'Дайте подробное описание вопроса'
 		}
 	}
-}
+};
 
-export default ru
+export default ru;

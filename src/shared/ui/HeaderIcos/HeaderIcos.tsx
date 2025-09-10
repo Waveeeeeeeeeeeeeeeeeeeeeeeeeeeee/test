@@ -1,15 +1,15 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
-import cs from '../../assets/images/cs.png'
-import gamePade from '../../assets/images/gamepad.png'
-import lol from '../../assets/images/lol.png'
-import meet from '../../assets/images/meet.png'
-import pubg from '../../assets/images/pubg.png'
-import ru from '../../assets/images/ru.png'
-import ua from '../../assets/images/ua.png'
-import usa from '../../assets/images/usa.png'
+import cs from '../../assets/images/cs.png';
+import gamePade from '../../assets/images/gamepad.png';
+import lol from '../../assets/images/lol.png';
+import meet from '../../assets/images/meet.png';
+import pubg from '../../assets/images/pubg.png';
+import ru from '../../assets/images/ru.png';
+import ua from '../../assets/images/ua.png';
+import usa from '../../assets/images/usa.png';
 
-export const HeaderIcos1Step = () => {
+export const HeaderIcosChooseLanguage = () => {
 	return (
 		<>
 			<motion.div
@@ -40,10 +40,10 @@ export const HeaderIcos1Step = () => {
 				<img src={usa} alt='usa' />
 			</motion.div>
 		</>
-	)
-}
+	);
+};
 
-export const HeaderIcos2Step = () => {
+export const HeaderIcosChooseGame = () => {
 	return (
 		<>
 			<motion.div
@@ -74,10 +74,10 @@ export const HeaderIcos2Step = () => {
 				<img src={pubg} alt='pubg' />
 			</motion.div>
 		</>
-	)
-}
+	);
+};
 
-export const HeaderIcos3Step = () => {
+export const HeaderIcosChoosePlatform = () => {
 	return (
 		<>
 			<motion.div
@@ -99,5 +99,5 @@ export const HeaderIcos3Step = () => {
 				<img src={meet} alt='meet' />
 			</motion.div>
 		</>
-	)
-}
+	);
+};

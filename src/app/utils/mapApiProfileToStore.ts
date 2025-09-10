@@ -14,6 +14,7 @@ type ApiProfile = {
 		city?: string;
 		country?: string;
 		country_code?: string;
+		platform?: string;
 	};
 };
 
@@ -34,6 +35,7 @@ export type StoreProfile = {
 	profile_id: string | number;
 	isFirstFormValid: boolean;
 	isSecondFormValid: boolean;
+	selectedPlatform: string;
 };
 
 export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
@@ -47,13 +49,15 @@ export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
 		interests: apiData.hobbies
 			? apiData.hobbies.split(',').map(s => s.trim())
 			: [],
-		games: adaptGames(apiData.games || []), // ✅ используем пустой массив по умолчанию
+		games: adaptGames(apiData.games || []),
 		image: null,
 		selectedLanguage: localStorage.getItem('selectedLanguage') || 'ru',
 		selectedMatchType: 'realLife',
+		selectedPlatform: apiData.user?.platform || '',
 		user_id: apiData.user?.id || null,
 		country_code: apiData.user?.country_code || '',
 		profile_id: apiData.id,
+
 		isFirstFormValid: true,
 		isSecondFormValid: true
 	};

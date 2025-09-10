@@ -4,18 +4,21 @@ const en = {
 			backButton: 'Back',
 			nextButton: 'Next'
 		},
-		onboardingStep1: {
+		onboardingChooseLanguage: {
 			title: 'Hello, nice to meet you!',
 			desription: `Choose the language in which you want to continue`
 		},
-		onboardingStep2: {
+		onboardingChoosePlatform: {
+			title: 'Choose platform'
+		},
+		onboardingChooseGame: {
 			title: 'Indicate your favorite games',
 			searchHolder: 'Search'
 		},
 		gameImageUpload: {
 			upload: 'Add photo'
 		},
-		onboardingStep3: {
+		onboardingChoosePerson: {
 			title: `Choose what you want to find a person for`,
 			description: `This is a very important item, a little more <br /> ‼️Warning‼️ is required, because
 				depending on what you choose to do, there's two ways things can happen:`,
@@ -137,6 +140,6 @@ const en = {
 			problemDesc: 'Give a detailed description of the issue'
 		}
 	}
-}
+};
 
-export default en
+export default en;

@@ -1,56 +1,60 @@
-import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router'
-import { toast } from 'react-toastify'
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
-import { completeOnboarding } from '../lib/completeOnboarding'
+import { completeOnboarding } from '../lib/completeOnboarding';
 
-import styles from './Onboarding.module.css'
-import HeaderIco from '@/app/assets/images/header.svg?react'
-import { useTelegram } from '@/entities/user/model/selectors'
-import { useUserStore } from '@/entities/user/model/store'
-import { Button, useCustomTranslation } from '@/shared'
-import { AnimatedBlock } from '@/shared/ui/AnimatedBlock'
+import styles from './Onboarding.module.css';
+import HeaderIco from '@/app/assets/images/header.svg?react';
+import { useTelegram } from '@/entities/user/model/selectors';
+import { useUserStore } from '@/entities/user/model/store';
+import { Button, useCustomTranslation } from '@/shared';
+import { AnimatedBlock } from '@/shared/ui/AnimatedBlock';
 import {
-	HeaderIcos1Step,
-	HeaderIcos2Step,
-	HeaderIcos3Step
-} from '@/shared/ui/HeaderIcos/HeaderIcos'
-import AccountInfoStep1 from '@/widgets/accountSteps/accountInfoStep1/ui/AccountInfoStep1'
-import AccountInfoStep2 from '@/widgets/accountSteps/accountInfoStep2/ui/AccountInfoStep2'
-import { OnboardingStep2 } from '@/widgets/onboardingSteps'
-import OnBoardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
-import { OnboardingStep1 } from '@/widgets/onboardingSteps/onboardingStep1'
-import OnboardingStep3 from '@/widgets/onboardingSteps/onboardingStep3/ui/OnboardingStep3'
+	HeaderIcosChooseGame,
+	HeaderIcosChooseLanguage,
+	HeaderIcosChoosePlatform
+} from '@/shared/ui/HeaderIcos/HeaderIcos';
+import AccountInfoStep1 from '@/widgets/accountSteps/accountInfoStep1/ui/AccountInfoStep1';
+import AccountInfoStep2 from '@/widgets/accountSteps/accountInfoStep2/ui/AccountInfoStep2';
+import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
+import OnBoardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules';
+import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingChooseLanguage/ui/OnboardingChooseLanguage';
+import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
+import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
 
-let maxSteps = 4
+const maxSteps = 4;
 
 export const Onboarding = () => {
-	const location = useLocation()
-	const initialSteps = (location.state?.steps as number) || 1
-	const [steps, setSteps] = useState(initialSteps)
-	const { i18n } = useTranslation()
-	const { backButton, nextButton } = useCustomTranslation('Onboarding')
-	const { profile } = useUserStore()
-	const isFirstFormValid = useUserStore(state => state.profile.isFirstFormValid)
-	const selectedLanguage = useUserStore(state => state.profile.selectedLanguage)
-	const [openRules, setOpenRules] = useState(false)
-	const navigate = useNavigate()
-	// const [loading, setLoading] = useState(false)
-	const telegram = useTelegram()
+	const location = useLocation();
+	const initialSteps = (location.state?.steps as number) || 1;
+	const [steps, setSteps] = useState(initialSteps);
+	const { i18n } = useTranslation();
+	const { backButton, nextButton } = useCustomTranslation('Onboarding');
+	const { profile } = useUserStore();
+	const isFirstFormValid = useUserStore(
+		state => state.profile.isFirstFormValid
+	);
+	const selectedLanguage = useUserStore(
+		state => state.profile.selectedLanguage
+	);
+	const [openRules, setOpenRules] = useState(false);
+	const navigate = useNavigate();
+	const telegram = useTelegram();
 
 	const handleStepsPlusClick = async () => {
 		if (steps === 1) {
-			setOpenRules(true)
-			return
-		} else if (steps === 2 && !profile.games.some(el => el.purposes)) {
-			toast.error('Пожалуйста выберите игру')
-			return
+			setOpenRules(true);
+			return;
+		} else if (steps === 3 && !profile.games.some(el => el.purposes)) {
+			toast.error('Пожалуйста выберите игру');
+			return;
 		} else if (steps === 4 && !isFirstFormValid) {
-			toast.error('Пожалуйста заполните все поля')
-			return
+			toast.error('Пожалуйста заполните все поля');
+			return;
 		}
 		if (steps > maxSteps) {
 			try {
@@ -58,68 +62,69 @@ export const Onboarding = () => {
 					...profile,
 					serviceId: 1,
 					telegramId: telegram?.id || 0
-				})
-				navigate('/')
+				});
+				navigate('/');
 			} catch (error) {
-				console.error(error)
-				toast.error('Ошибка при отправке данных')
-			} finally {
+				console.error(error);
+				toast.error('Ошибка при отправке данных');
 			}
-			return
+			return;
 		}
-		setSteps(prev => prev + 1)
-	}
+		setSteps(prev => prev + 1);
+	};
 
 	const handleStepsMinusClick = () => {
-		if (steps <= 1) return
-		setSteps(prev => prev - 1)
-	}
+		if (steps <= 1) return;
+		setSteps(prev => prev - 1);
+	};
 
 	const handleResetSteps = () => {
-		setSteps(1)
-		setOpenRules(false)
-	}
+		setSteps(1);
+		setOpenRules(false);
+	};
 
 	const handleAccetpRules = () => {
-		setSteps(2)
-		setOpenRules(false)
-	}
+		setSteps(2);
+		setOpenRules(false);
+	};
 
 	const showIcos = (step: number) => {
 		switch (step) {
 			case 1:
-				return <HeaderIcos1Step />
+				return <HeaderIcosChooseLanguage />;
 			case 2:
-				return <HeaderIcos2Step />
+				return <HeaderIcosChoosePlatform />;
 			case 3:
-				return <HeaderIcos3Step />
+				return <HeaderIcosChooseGame />;
 			default:
-				return null
+				return null;
 		}
-	}
+	};
 
 	const showActualOnboarding = (step: number) => {
 		switch (step) {
 			case 1:
-				return <OnboardingStep1 />
+				return <OnboardingChooseLanguage />;
 			case 2:
-				return <OnboardingStep2 />
+				return <OnboardingChoosePlatform />;
 			case 3:
-				return <OnboardingStep3 />
+				return <OnboardingChooseGame />;
 			case 4:
-				return <AccountInfoStep1 />
+				return <OnboardingChoosePerson />;
 			case 5:
-				return <AccountInfoStep2 />
+				return <AccountInfoStep1 />;
+			case 6:
+				return <AccountInfoStep2 />;
 			default:
-				return null
+				return null;
 		}
-	}
+	};
 
 	useEffect(() => {
 		if (i18n.language !== selectedLanguage) {
-			i18n.changeLanguage(selectedLanguage)
+			i18n.changeLanguage(selectedLanguage);
 		}
-	}, [selectedLanguage, i18n.language])
+	}, [selectedLanguage, i18n.language, i18n]);
 	return (
 		<>
 			<div
@@ -177,5 +182,5 @@ export const Onboarding = () => {
 				)}
 			</AnimatePresence>
 		</>
-	)
-}
+	);
+};

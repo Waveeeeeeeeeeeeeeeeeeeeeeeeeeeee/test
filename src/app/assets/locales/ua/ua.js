@@ -4,18 +4,21 @@ const ua = {
 			backButton: 'Назад',
 			nextButton: 'Далей'
 		},
-		onboardingStep1: {
+		onboardingChooseLanguage: {
 			title: 'Ми раді тебе бачити!',
 			desription: `Вибери мову, якою ти хочеш продовжити`
 		},
-		onboardingStep2: {
+		onboardingChooseGame: {
 			title: 'Вкажи свої улюблені ігри',
 			searchHolder: 'Пошук'
+		},
+		onboardingChoosePlatform: {
+			title: 'Вибери основну платформу'
 		},
 		gameImageUpload: {
 			upload: 'Додати фото'
 		},
-		onboardingStep3: {
+		onboardingChoosePerson: {
 			title: `Вибери для чого ти хочеш знайти людину`,
 			description: `Це дуже важливий пункт, потрібно трохи більше <br /> ‼️ВНИМАНИЯ‼️, адже
 				залежно від того, що ти вибереш, буде 2 варіанти подій:`,
@@ -140,6 +143,6 @@ const ua = {
 			problemDesc: 'Дайте докладний опис питання'
 		}
 	}
-}
+};
 
-export default ua
+export default ua;

@@ -1,12 +1,12 @@
-import { GameWithPurposesAdapt } from '../utils/adaptedData'
+import { GameWithPurposesAdapt } from '../types/gameWithPurposeAdapt';
 
-import { axiosInstance } from '@/shared/api/axiosInstance'
+import { axiosInstance } from '@/shared/api/axiosInstance';
 
 export const getGamesWithPurposes = async (): Promise<
 	GameWithPurposesAdapt[]
 > => {
 	const response = await axiosInstance.get(
 		'/database/games/get_games_with_purposes'
-	)
-	return response.data
-}
+	);
+	return response.data;
+};

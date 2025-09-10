@@ -22,7 +22,8 @@ const defaultProfile = {
 	profile_id: null,
 	country_code: '',
 	isFirstFormValid: false,
-	isSecondFormValid: false
+	isSecondFormValid: false,
+	selectedPlatform: 'pc'
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -115,7 +116,13 @@ export const useUserStore = create<UserStore>((set, get) => ({
 			}
 		}));
 	},
-
+	setPlatform: (platform: UserProfile['selectedPlatform']) =>
+		set(state => ({
+			profile: {
+				...state.profile,
+				selectedPlatform: platform
+			}
+		})),
 	removeInterest: interest => {
 		const { interests } = get().profile;
 		get().setProfileField(
