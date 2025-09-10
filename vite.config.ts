@@ -15,8 +15,7 @@ export default defineConfig(({ mode }) => {
 			https: {
 				key: fs.readFileSync('./certs/tma.internal-key.pem'),
 				cert: fs.readFileSync('./certs/tma.internal.pem')
-			},
-			proxy: {}
+			}
 		};
 	}
 

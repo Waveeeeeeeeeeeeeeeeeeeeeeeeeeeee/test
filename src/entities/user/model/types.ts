@@ -76,5 +76,4 @@ export interface UserStore extends UserState {
 	setUserAndProfileIds: (user_id: number, profile_id: number) => void;
 	setCountryCode: (code: string) => void;
 	updateProfile: (data: Partial<UserProfile>) => void;
-	setPlatform: (platform: UserProfile['selectedPlatform']) => void;
 }

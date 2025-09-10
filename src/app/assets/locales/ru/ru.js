@@ -18,7 +18,7 @@ const ru = {
 		gameImageUpload: {
 			upload: 'Добавить фото'
 		},
-		onboardingСhoosePerson: {
+		onboardingChoosePerson: {
 			title: `Выбери для чего ты хочешь найти человека`,
 			description: `Это очень важный пункт, требуется чуть больше <br /> ‼️ВНИМАНИЯ‼️, ведь
 				в зависимости от того, что ты выберешь, будет 2 варианта событий:`,

@@ -49,7 +49,7 @@ export const Onboarding = () => {
 		if (steps === 1) {
 			setOpenRules(true);
 			return;
-		} else if (steps === 3 && !profile.games.some(el => el.purposes)) {
+		} else if (steps === 13 && !profile.games.some(el => el.purposes)) {
 			toast.error('Пожалуйста выберите игру');
 			return;
 		} else if (steps === 4 && !isFirstFormValid) {
@@ -107,13 +107,13 @@ export const Onboarding = () => {
 				return <OnboardingChooseLanguage />;
 			case 2:
 				return <OnboardingChoosePlatform />;
+			// case 3:
+			// 	return <OnboardingChooseGame />;
 			case 3:
-				return <OnboardingChooseGame />;
-			case 4:
 				return <OnboardingChoosePerson />;
-			case 5:
+			case 4:
 				return <AccountInfoStep1 />;
-			case 6:
+			case 5:
 				return <AccountInfoStep2 />;
 			default:
 				return null;
