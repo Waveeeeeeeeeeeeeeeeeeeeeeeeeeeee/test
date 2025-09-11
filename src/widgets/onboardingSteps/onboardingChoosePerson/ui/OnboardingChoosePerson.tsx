@@ -1,5 +1,9 @@
+import { useState } from 'react';
+
+import { validateLocation } from '../api/validateLocation';
 import GamePadIco from '../assets/gamepad.svg?react';
 import MeetIco from '../assets/meet.svg?react';
+import CheckIco from '../assets/valid.svg?react';
 
 import styles from './OnboardingChoosePerson.module.css';
 import { useUserStore } from '@/entities/user/model/store';
@@ -8,11 +12,59 @@ import { useCustomTranslation } from '@/shared';
 import { Input } from '@/shared';
 
 const OnboardingChoosePerson = () => {
+	const [isCountryValid, setIsCountryValid] = useState<boolean | null>(null);
+	const [isCityValid, setIsCityValid] = useState<boolean | null>(null);
+
 	const { title, label1, label2, secLabel1, secLabel2 } = useCustomTranslation(
 		'onboardingChoosePerson'
 	);
 	const country = useUserStore(state => state.profile.country);
 	const city = useUserStore(state => state.profile.city);
+
+	const checkCountry = async (value: string) => {
+		if (!value) {
+			setIsCountryValid(false);
+			return;
+		}
+
+		try {
+			const response = await validateLocation({
+				country_name: value,
+				city_name: city || ''
+			});
+			if (response.data && response.data.detail !== 'Empty response') {
+				setIsCountryValid(true);
+			} else {
+				setIsCountryValid(false);
+			}
+		} catch {
+			setIsCountryValid(false);
+		}
+	};
+
+	const checkCity = async (val: string) => {
+		if (!val) {
+			setIsCityValid(false);
+			return;
+		}
+
+		try {
+			const result = await validateLocation({
+				country_name: country,
+				city_name: val
+			});
+
+			if (result.data?.detail === 'Empty response') {
+				setIsCityValid(false);
+				return;
+			}
+
+			setIsCityValid(true);
+		} catch (err) {
+			console.error(err);
+			setIsCityValid(false);
+		}
+	};
 
 	const chooseVariant = [
 		{
@@ -34,9 +86,15 @@ const OnboardingChoosePerson = () => {
 							type: 'text',
 							placeholder: 'Найти страну',
 							value: country,
-							onChange: (val: string) => setProfileField('country', val)
+							onChange: (val: string) => setProfileField('country', val),
+							onBlur: (val: string) => checkCountry(val),
+							iconRight:
+								country.trim().length === 0 ? undefined : isCountryValid ? (
+									<CheckIco />
+								) : undefined
 						}}
 					/>
+
 					<Input
 						data={{
 							label: 'Город проживания',
@@ -45,7 +103,12 @@ const OnboardingChoosePerson = () => {
 							type: 'text',
 							placeholder: 'Найти город',
 							value: city,
-							onChange: (val: string) => setProfileField('city', val)
+							onChange: (val: string) => setProfileField('city', val),
+							onBlur: (val: string) => checkCity(val),
+							iconRight:
+								city.trim().length === 0 ? undefined : isCityValid ? (
+									<CheckIco />
+								) : undefined
 						}}
 					/>
 				</div>
@@ -69,7 +132,7 @@ const OnboardingChoosePerson = () => {
 	};
 
 	return (
-		<div className='relative'>
+		<div className='relative mb-30'>
 			<h2 className={styles.title}>{title}</h2>
 			<div className='mt-6'>
 				<VariantSelection

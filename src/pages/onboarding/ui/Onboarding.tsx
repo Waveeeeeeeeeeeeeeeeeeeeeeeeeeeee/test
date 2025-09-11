@@ -63,12 +63,12 @@ export const Onboarding = () => {
 			}
 
 			try {
-				const result = await validateLocation({
+				const response = await validateLocation({
 					country_name: country,
 					city_name: city
 				});
 
-				if (!result || Object.keys(result).length === 0) {
+				if (!response.data || response.data.detail === 'Empty response') {
 					toast.error('Неверная страна или город');
 					return;
 				}
