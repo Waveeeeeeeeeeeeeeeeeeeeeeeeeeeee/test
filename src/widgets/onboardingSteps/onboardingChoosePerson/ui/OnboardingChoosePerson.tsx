@@ -11,6 +11,8 @@ const OnboardingChoosePerson = () => {
 	const { title, label1, label2, secLabel1, secLabel2 } = useCustomTranslation(
 		'onboardingChoosePerson'
 	);
+	const country = useUserStore(state => state.profile.country);
+	const city = useUserStore(state => state.profile.city);
 
 	const chooseVariant = [
 		{
@@ -20,26 +22,30 @@ const OnboardingChoosePerson = () => {
 			seclabel: secLabel1,
 			withContainer: true,
 			content: (
-				<div className='flex flex-col gap-4 mt-4'>
+				<div className='flex flex-col gap-5 mt-4'>
 					<h3 className='text-md text-center font-semibold'>
 						Где вы проживаете?
 					</h3>
 					<Input
 						data={{
-							label: 'Страна',
+							label: 'Страна проживания',
+							labelColor: 'text-[#8A8989]',
 							name: 'country',
 							type: 'text',
 							placeholder: 'Найти страну',
-							onChange: () => {}
+							value: country,
+							onChange: (val: string) => setProfileField('country', val)
 						}}
 					/>
 					<Input
 						data={{
-							label: 'Город',
+							label: 'Город проживания',
+							labelColor: 'text-[#8A8989]',
 							name: 'city',
 							type: 'text',
-							placeholder: 'Москва',
-							onChange: () => {}
+							placeholder: 'Найти город',
+							value: city,
+							onChange: (val: string) => setProfileField('city', val)
 						}}
 					/>
 				</div>

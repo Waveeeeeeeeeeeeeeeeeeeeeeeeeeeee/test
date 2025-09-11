@@ -81,7 +81,9 @@ const VariantSelection = ({
 						{item.withContainer && isSelected ? (
 							<div className='w-full bg-[var(--second-bg)] rounded-lg shadow-lg flex flex-col '>
 								{labelContent}
-								{item.content && <div className='p-6'>{item.content}</div>}
+								{item.content && (
+									<div className='pl-3 pr-3 mb-6'>{item.content}</div>
+								)}
 							</div>
 						) : (
 							labelContent

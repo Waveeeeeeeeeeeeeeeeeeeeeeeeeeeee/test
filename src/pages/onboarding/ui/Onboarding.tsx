@@ -23,6 +23,7 @@ import AccountInfoStep2 from '@/widgets/accountSteps/accountInfoStep2/ui/Account
 import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
 import OnBoardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules';
 import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingChooseLanguage/ui/OnboardingChooseLanguage';
+import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePerson/api/validateLocation';
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
 
@@ -41,6 +42,10 @@ export const Onboarding = () => {
 	const selectedLanguage = useUserStore(
 		state => state.profile.selectedLanguage
 	);
+
+	const country = useUserStore(state => state.profile.country);
+	const city = useUserStore(state => state.profile.city);
+
 	const [openRules, setOpenRules] = useState(false);
 	const navigate = useNavigate();
 	const telegram = useTelegram();
@@ -49,13 +54,41 @@ export const Onboarding = () => {
 		if (steps === 1) {
 			setOpenRules(true);
 			return;
-		} else if (steps === 13 && !profile.games.some(el => el.purposes)) {
+		}
+
+		if (steps === 3) {
+			if (!country || !city) {
+				toast.error('Пожалуйста заполните все поля');
+				return;
+			}
+
+			try {
+				const result = await validateLocation({
+					country_name: country,
+					city_name: city
+				});
+
+				if (!result || Object.keys(result).length === 0) {
+					toast.error('Неверная страна или город');
+					return;
+				}
+			} catch (err) {
+				console.error(err);
+				toast.error('Ошибка при проверке страны и города');
+				return;
+			}
+		}
+
+		if (steps === 13 && !profile.games.some(el => el.purposes)) {
 			toast.error('Пожалуйста выберите игру');
 			return;
-		} else if (steps === 4 && !isFirstFormValid) {
+		}
+
+		if (steps === 4 && !isFirstFormValid) {
 			toast.error('Пожалуйста заполните все поля');
 			return;
 		}
+
 		if (steps > maxSteps) {
 			try {
 				await completeOnboarding({
@@ -70,6 +103,7 @@ export const Onboarding = () => {
 			}
 			return;
 		}
+
 		setSteps(prev => prev + 1);
 	};
 
