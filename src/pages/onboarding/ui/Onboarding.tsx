@@ -45,6 +45,9 @@ export const Onboarding = () => {
 
 	const country = useUserStore(state => state.profile.country);
 	const city = useUserStore(state => state.profile.city);
+	const selectedMatchType = useUserStore(
+		state => state.profile.selectedMatchType
+	);
 
 	const [openRules, setOpenRules] = useState(false);
 	const navigate = useNavigate();
@@ -57,9 +60,11 @@ export const Onboarding = () => {
 		}
 
 		if (steps === 3) {
-			if (!country || !city) {
-				toast.error('Пожалуйста заполните все поля');
-				return;
+			if (selectedMatchType === 'realLife') {
+				if (!country || !city) {
+					toast.error('Пожалуйста заполните все поля');
+					return;
+				}
 			}
 
 			try {
