@@ -38,7 +38,7 @@ export const OnboardingChooseLanguage = () => {
 			<VariantSelection
 				data={languages}
 				selected={selectedLanguage}
-				onSelect={handleLanguageChange}
+				onSelect={value => handleLanguageChange(value as string)}
 			/>
 		</div>
 	);

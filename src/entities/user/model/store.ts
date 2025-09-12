@@ -23,7 +23,7 @@ const defaultProfile = {
 	country_code: '',
 	isFirstFormValid: false,
 	isSecondFormValid: false,
-	selectedPlatform: 'pc'
+	selectedPlatform: ['pc']
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({

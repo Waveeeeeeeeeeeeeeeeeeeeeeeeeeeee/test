@@ -37,7 +37,7 @@ export interface UserProfile {
 	games: Game[];
 	image: File | null;
 	selectedLanguage: string;
-	selectedPlatform: string;
+	selectedPlatform: string[];
 	selectedMatchType: string;
 	country_code: string;
 	isFirstFormValid: boolean;

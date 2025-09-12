@@ -16,6 +16,7 @@ export const useGamesWithPurposes = () => {
 			try {
 				const data = await getGamesWithPurposes();
 				const adaptedGames = adaptGames(data);
+				console.log('adaptedGames', adaptedGames);
 				setGames(adaptedGames);
 			} catch (err: unknown) {
 				if (err instanceof Error) {

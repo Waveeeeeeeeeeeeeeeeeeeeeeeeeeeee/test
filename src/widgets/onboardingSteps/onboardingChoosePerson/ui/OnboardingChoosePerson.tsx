@@ -149,7 +149,7 @@ const OnboardingChoosePerson = () => {
 				<VariantSelection
 					data={chooseVariant}
 					selected={selectedMatchType}
-					onSelect={handleMatchTypeChange}
+					onSelect={value => handleMatchTypeChange(value as string)}
 				/>
 			</div>
 		</div>

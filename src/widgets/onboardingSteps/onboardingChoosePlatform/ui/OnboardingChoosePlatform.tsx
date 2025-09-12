@@ -27,7 +27,7 @@ export const OnboardingChoosePlatform = () => {
 		'onboardingChoosePlatform'
 	);
 
-	const handlePlatformChange = (platform: string) => {
+	const handlePlatformChange = (platform: string[]) => {
 		setProfileField('selectedPlatform', platform);
 	};
 
@@ -40,7 +40,8 @@ export const OnboardingChoosePlatform = () => {
 			<VariantSelection
 				data={platforms}
 				selected={selectedPlatform}
-				onSelect={handlePlatformChange}
+				multiple={true}
+				onSelect={value => handlePlatformChange(value as string[])}
 			/>
 		</div>
 	);

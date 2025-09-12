@@ -16,21 +16,40 @@ interface VariantItem {
 
 interface VariantSelectionProps {
 	data: VariantItem[];
-	selected: string;
-	onSelect: (value: string) => void;
+	selected: string | string[]; // теперь может быть строка (single) или массив (multi)
+	onSelect: (value: string | string[]) => void;
 	variant?: 'col' | 'row';
+	multiple?: boolean; // режим выбора
 }
 
 const VariantSelection = ({
 	data,
 	selected,
 	onSelect,
-	variant = 'col'
+	variant = 'col',
+	multiple = false
 }: VariantSelectionProps) => {
+	// привести selected к массиву для удобной проверки
+	const selectedArray = multiple
+		? (selected as string[])
+		: [selected as string];
+
+	const handleChange = (code: string) => {
+		if (multiple) {
+			if (selectedArray.includes(code)) {
+				onSelect(selectedArray.filter(c => c !== code));
+			} else {
+				onSelect([...selectedArray, code]);
+			}
+		} else {
+			onSelect(code);
+		}
+	};
+
 	return (
 		<div className={clsx(`w-full flex flex-${variant} mx-auto gap-3`)}>
 			{data.map(item => {
-				const isSelected = selected === item.code;
+				const isSelected = selectedArray.includes(item.code);
 
 				const labelContent = (
 					<label
@@ -42,11 +61,11 @@ const VariantSelection = ({
 						)}
 					>
 						<input
-							type='radio'
+							type={multiple ? 'checkbox' : 'radio'}
 							name='variant-selection'
 							value={item.code}
 							checked={isSelected}
-							onChange={() => onSelect(item.code)}
+							onChange={() => handleChange(item.code)}
 							className='hidden'
 						/>
 						<div className='flex items-center gap-4'>

@@ -35,7 +35,7 @@ export type StoreProfile = {
 	profile_id: string | number;
 	isFirstFormValid: boolean;
 	isSecondFormValid: boolean;
-	selectedPlatform: string;
+	selectedPlatform: string[];
 };
 
 export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
@@ -53,7 +53,7 @@ export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
 		image: null,
 		selectedLanguage: localStorage.getItem('selectedLanguage') || 'ru',
 		selectedMatchType: 'realLife',
-		selectedPlatform: apiData.user?.platform || '',
+		selectedPlatform: apiData.user?.platform ? [apiData.user.platform] : [],
 		user_id: apiData.user?.id || null,
 		country_code: apiData.user?.country_code || '',
 		profile_id: apiData.id,

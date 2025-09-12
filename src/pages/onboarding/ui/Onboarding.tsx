@@ -27,7 +27,7 @@ import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePers
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
 
-const maxSteps = 4;
+const maxSteps = 5;
 
 export const Onboarding = () => {
 	const location = useLocation();
@@ -49,6 +49,8 @@ export const Onboarding = () => {
 		state => state.profile.selectedMatchType
 	);
 
+	const choosedPlatform = useUserStore(state => state.profile.selectedPlatform);
+
 	const [openRules, setOpenRules] = useState(false);
 	const navigate = useNavigate();
 	const telegram = useTelegram();
@@ -59,7 +61,19 @@ export const Onboarding = () => {
 			return;
 		}
 
-		if (steps === 3) {
+		if (steps === 2) {
+			if (choosedPlatform.length === 0) {
+				toast.error('Пожалуйста выберите платформу');
+				return;
+			}
+		}
+
+		if (steps === 3 && !profile.games.some(el => el.purposes)) {
+			toast.error('Пожалуйста выберите игру');
+			return;
+		}
+
+		if (steps === 4) {
 			if (selectedMatchType === 'realLife') {
 				if (!country || !city) {
 					toast.error('Пожалуйста заполните все поля');
@@ -84,12 +98,7 @@ export const Onboarding = () => {
 			}
 		}
 
-		if (steps === 13 && !profile.games.some(el => el.purposes)) {
-			toast.error('Пожалуйста выберите игру');
-			return;
-		}
-
-		if (steps === 4 && !isFirstFormValid) {
+		if (steps === 5 && !isFirstFormValid) {
 			toast.error('Пожалуйста заполните все поля');
 			return;
 		}
@@ -146,13 +155,13 @@ export const Onboarding = () => {
 				return <OnboardingChooseLanguage />;
 			case 2:
 				return <OnboardingChoosePlatform />;
-			// case 3:
-			// 	return <OnboardingChooseGame />;
 			case 3:
-				return <OnboardingChoosePerson />;
+				return <OnboardingChooseGame />;
 			case 4:
-				return <AccountInfoStep1 />;
+				return <OnboardingChoosePerson />;
 			case 5:
+				return <AccountInfoStep1 />;
+			case 6:
 				return <AccountInfoStep2 />;
 			default:
 				return null;

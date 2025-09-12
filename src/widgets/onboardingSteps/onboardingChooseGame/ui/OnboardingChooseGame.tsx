@@ -40,6 +40,7 @@ export const OnboardingChooseGame = () => {
 			toggleTargetSelector(id);
 		}
 	};
+
 	return (
 		<div className='relative flex flex-col gap-7 pb-20'>
 			<h2 className={styles.title}>{title}</h2>
