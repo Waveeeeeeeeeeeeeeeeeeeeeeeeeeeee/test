@@ -15,11 +15,24 @@ const OnboardingChoosePerson = () => {
 	const [isCountryValid, setIsCountryValid] = useState<boolean | null>(null);
 	const [isCityValid, setIsCityValid] = useState<boolean | null>(null);
 
-	const { title, label1, label2, secLabel1, secLabel2 } = useCustomTranslation(
-		'onboardingChoosePerson'
-	);
+	const {
+		title,
+		title2,
+		placeholderCountry,
+		placeholderCity,
+		labelCountry,
+		labelCity,
+		label1,
+		label2,
+		secLabel1,
+		secLabel2
+	} = useCustomTranslation('onboardingChoosePerson');
 	const country = useUserStore(state => state.profile.country);
 	const city = useUserStore(state => state.profile.city);
+
+	const debugStore = useUserStore(state => state.profile);
+
+	console.log('debugStore', debugStore);
 
 	const checkCountry = async (value: string) => {
 		if (!value) {
@@ -75,16 +88,14 @@ const OnboardingChoosePerson = () => {
 			withContainer: true,
 			content: (
 				<div className='flex flex-col gap-5 mt-4'>
-					<h3 className='text-md text-center font-semibold'>
-						Где вы проживаете?
-					</h3>
+					<h3 className='text-md text-center font-semibold'>{title2}</h3>
 					<Input
 						data={{
-							label: 'Страна проживания',
+							label: `${labelCountry}`,
 							labelColor: 'text-[#8A8989]',
 							name: 'country',
 							type: 'text',
-							placeholder: 'Найти страну',
+							placeholder: `${placeholderCountry}`,
 							value: country,
 							onChange: (val: string) => setProfileField('country', val),
 							onBlur: (val: string) => checkCountry(val),
@@ -97,11 +108,11 @@ const OnboardingChoosePerson = () => {
 
 					<Input
 						data={{
-							label: 'Город проживания',
+							label: `${labelCity}`,
 							labelColor: 'text-[#8A8989]',
 							name: 'city',
 							type: 'text',
-							placeholder: 'Найти город',
+							placeholder: `${placeholderCity}`,
 							value: city,
 							onChange: (val: string) => setProfileField('city', val),
 							onBlur: (val: string) => checkCity(val),

@@ -20,6 +20,11 @@ const ua = {
 		},
 		onboardingChoosePerson: {
 			title: `Вибери для чого ти хочеш знайти людину`,
+			title2: `Де ви проживаєте?`,
+			placeholderCountry: `Знайти країну`,
+			placeholderCity: `Знайти місто`,
+			labelCountry: `Країна проживання`,
+			labelCity: `Місто проживання`,
 			description: `Це дуже важливий пункт, потрібно трохи більше <br /> ‼️ВНИМАНИЯ‼️, адже
 				залежно від того, що ти вибереш, буде 2 варіанти подій:`,
 			label1: `Людина з реального життя`,
@@ -37,7 +42,7 @@ const ua = {
 		},
 		accountInfo: {
 			backButton: 'Назад',
-			nextButton: 'Далей'
+			nextButton: 'Далi'
 		},
 		accountInfoStep2: {
 			title: `Розкажи про себе`,

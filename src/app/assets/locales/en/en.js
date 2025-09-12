@@ -20,6 +20,11 @@ const en = {
 		},
 		onboardingChoosePerson: {
 			title: `Choose what you want to find a person for`,
+			title2: `Where are you live?`,
+			placeholderCountry: `Find country`,
+			placeholderCity: `Find city`,
+			labelCountry: `Country of residence`,
+			labelCity: `City of residence`,
 			description: `This is a very important item, a little more <br /> ‼️Warning‼️ is required, because
 				depending on what you choose to do, there's two ways things can happen:`,
 			label1: `A person from real life`,
