@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { GameListProps } from '../model/types';
 
 import Search from '@/features/search/Search';
-import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
+import VirtualVariantSelection from '@/features/variantSelection/ui/VirtualVariantSelection';
 
 export const GameList = ({
 	games,
@@ -50,7 +50,7 @@ export const GameList = ({
 				onSearchChange={handleSearchChange}
 			/>
 
-			<VariantSelection
+			<VirtualVariantSelection
 				data={filteredGames.map(game => ({
 					code: game.id,
 					label: game.title,
@@ -72,7 +72,6 @@ export const GameList = ({
 					}
 				}}
 				multiple
-				variant='col'
 			/>
 		</div>
 	);
