@@ -1,48 +1,26 @@
-import styles from './ProfileGames.module.css'
-import { Game } from '@/entities/game/model/types'
-import { useGamesWithPurposes } from '@/entities/game/model/useGamesWithPurposes'
-import { useUserStore } from '@/entities/user/model/store'
-import { Purpose } from '@/entities/user/model/types'
-import { Button, useCustomTranslation } from '@/shared'
-import { AnimatedPage } from '@/shared/hoc/AnimatedPage'
-import { NotificationHeader } from '@/shared/ui/NotificationHeader'
-import { useGameFilter } from '@/widgets/gameList/model/useGameFilter'
-import { GameList } from '@/widgets/gameList/ui/GameList'
-import { UserGameList } from '@/widgets/userGameList/ui/UserGameList'
+import styles from './ProfileGames.module.css';
+import { useGamesWithPurposes } from '@/entities/game/model/useGamesWithPurposes';
+import { useUserStore } from '@/entities/user/model/store';
+import { Button, useCustomTranslation } from '@/shared';
+import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import { NotificationHeader } from '@/shared/ui/NotificationHeader';
+import { useGameFilter } from '@/widgets/gameList/model/useGameFilter';
+import { GameList } from '@/widgets/gameList/ui/GameList';
+import { UserGameList } from '@/widgets/userGameList/ui/UserGameList';
 
 const ProfileGames = () => {
-	const { title, subtitle } = useCustomTranslation('profileGames')
-	const { searchHolder } = useCustomTranslation('onboardingStep2')
-	const { backBtn, saveBtn } = useCustomTranslation('profileSettings')
-	const { search, onChange } = useGameFilter()
-	const { games } = useGamesWithPurposes()
-	const { profile, addGame, removeGame, toggleTargetSelector, resetPurpose } =
-		useUserStore()
+	const { title, subtitle } = useCustomTranslation('profileGames');
+	const { searchHolder } = useCustomTranslation('onboardingStep2');
+	const { backBtn, saveBtn } = useCustomTranslation('profileSettings');
+	const { search, onChange } = useGameFilter();
+	const { games } = useGamesWithPurposes();
+	const { profile, addGame, removeGame } = useUserStore();
 
-	const handleToggle = (game: Game) => {
-		if (!profile.games.some(g => g.id === game.id)) {
-			addGame(game)
-		}
-	}
-	const selectedGameIds = profile.games.map(g => g.id)
-	const getPurposeByGameId = (id: string): Purpose[] | undefined =>
-		profile.games.find(g => g.id === id)?.purposes ?? undefined
+	const selectedGameIds = profile.games.map(g => g.id);
 
-	const checkIsOpen = (id: string) =>
-		profile.games.find(g => g.id === id)?.isOpen ?? false
-
-	const handleTargetToggle = (id: string) => {
-		const game = profile.games.find(g => g.id === id)
-		if (game?.purposes?.length === 0) {
-			resetPurpose(id)
-			removeGame(game)
-		} else {
-			toggleTargetSelector(id)
-		}
-	}
 	const handleBack = () => {
-		window.history.back()
-	}
+		window.history.back();
+	};
 
 	return (
 		<>
@@ -63,14 +41,23 @@ const ProfileGames = () => {
 							target: { value }
 						} as React.ChangeEvent<HTMLInputElement>)
 					}
-					onToggle={handleToggle}
 					selectedGameIds={selectedGameIds}
+					onChangeSelectedGameIds={ids => {
+						ids.forEach(id => {
+							if (!profile.games.some(g => g.id === id)) {
+								const game = games.find(g => g.id === id);
+								if (game) addGame(game);
+							}
+						});
+
+						profile.games.forEach(g => {
+							if (!ids.includes(g.id)) {
+								removeGame(g);
+							}
+						});
+					}}
 					allGameTitles={games.map(game => game.title)}
 					searchPlaceholder={searchHolder}
-					withTargetSelector={true}
-					getPurpose={getPurposeByGameId}
-					isTargetSelectorOpen={checkIsOpen}
-					onTogglePurpose={handleTargetToggle}
 				/>
 			</div>
 
@@ -83,7 +70,7 @@ const ProfileGames = () => {
 				</Button>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default AnimatedPage(ProfileGames)
+export default AnimatedPage(ProfileGames);

@@ -1,0 +1,1 @@
+export const GameCard = () => <div>GameCard</div>;
