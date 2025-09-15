@@ -1,16 +1,12 @@
-import { Game } from "@/5.entities/game/model/types"
-import { Purpose } from "@/5.entities/user/model/types"
+import { Game } from '@/entities/game/model/types';
 
 export type GameListProps = {
-	games: Game[]
-	searchValue: string
-	onSearchChange: (value: string) => void
-	onToggle: (game: Game) => void
-	selectedGameIds: string[]
-	allGameTitles: string[]
-	searchPlaceholder?: string
-	withTargetSelector?: boolean
-	getPurpose?: (id: string) => Purpose[] | undefined
-	isTargetSelectorOpen?: (id: string) => boolean
-	onTogglePurpose?: (id: string) => void
-}
+	games: Game[];
+	allGameTitles: string[];
+	searchValue: string;
+	onSearchChange: (value: string) => void;
+	selectedGameIds: string[];
+	onChangeSelectedGameIds: (ids: string[]) => void;
+	searchPlaceholder?: string;
+	withTargetSelector?: boolean;
+};

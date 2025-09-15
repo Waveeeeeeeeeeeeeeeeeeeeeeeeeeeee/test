@@ -9,7 +9,7 @@ const ru = {
 			desription: `Выбери язык, на котором ты хочешь продолжить`
 		},
 		onboardingChooseGame: {
-			searchHolder: 'Во что ты играешь?',
+			title: 'Укажи свои любимые игры',
 			searchHolder: 'Поиск'
 		},
 		onboardingChoosePlatform: {

@@ -16,10 +16,10 @@ interface VariantItem {
 
 interface VariantSelectionProps {
 	data: VariantItem[];
-	selected: string | string[]; // теперь может быть строка (single) или массив (multi)
+	selected: string | string[];
 	onSelect: (value: string | string[]) => void;
 	variant?: 'col' | 'row';
-	multiple?: boolean; // режим выбора
+	multiple?: boolean;
 }
 
 const VariantSelection = ({
@@ -29,7 +29,6 @@ const VariantSelection = ({
 	variant = 'col',
 	multiple = false
 }: VariantSelectionProps) => {
-	// привести selected к массиву для удобной проверки
 	const selectedArray = multiple
 		? (selected as string[])
 		: [selected as string];

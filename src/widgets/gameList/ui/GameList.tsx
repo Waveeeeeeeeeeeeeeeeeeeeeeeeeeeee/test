@@ -1,24 +1,20 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { GameListProps } from '../model/types'
+import { GameListProps } from '../model/types';
 
-import { GameCard } from '@/entities/game/ui/GameCard'
-import Search from '@/features/search/Search'
+import Search from '@/features/search/Search';
+import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 
 export const GameList = ({
 	games,
 	searchValue,
 	onSearchChange,
-	onToggle,
 	selectedGameIds,
+	onChangeSelectedGameIds,
 	allGameTitles,
-	searchPlaceholder = 'Поиск',
-	withTargetSelector = false,
-	getPurpose,
-	isTargetSelectorOpen,
-	onTogglePurpose
+	searchPlaceholder = 'Поиск'
 }: GameListProps) => {
-	const [selectedTag, setSelectedTag] = useState<string | null>(null)
+	const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
 	const filteredGames = selectedTag
 		? games.filter(game => game.title === selectedTag)
@@ -26,21 +22,24 @@ export const GameList = ({
 			? games
 			: games.filter(game =>
 					game.title.toLowerCase().includes(searchValue.toLowerCase())
-				)
+				);
 
 	const handleAddInterest = (tag: string) => {
-		const game = games.find(g => g.title === tag)
-		if (game) onToggle(game)
-		setSelectedTag(tag)
-		onSearchChange('')
-	}
+		const game = games.find(g => g.title === tag);
+		if (game) {
+			onChangeSelectedGameIds([...selectedGameIds, game.id]);
+		}
+		setSelectedTag(tag);
+		onSearchChange('');
+	};
 
 	const handleSearchChange = (value: string) => {
-		onSearchChange(value)
+		onSearchChange(value);
 		if (value === '') {
-			setSelectedTag(null)
+			setSelectedTag(null);
 		}
-	}
+	};
+
 	return (
 		<div className='w-full mx-auto'>
 			<Search
@@ -51,29 +50,30 @@ export const GameList = ({
 				onSearchChange={handleSearchChange}
 			/>
 
-			<div className='flex flex-col gap-4 max-h-[343px] overflow-y-auto'>
-				{filteredGames.map(game => (
-					<GameCard
-						key={game.id}
-						defaultPurpose={game.purposes}
-						game={game}
-						isSelected={selectedGameIds.includes(game.id)}
-						onClick={() => {
-							const isAlreadySelected = selectedGameIds.includes(game.id)
-
-							if (isAlreadySelected && onTogglePurpose) {
-								onTogglePurpose(game.id)
-							} else {
-								onToggle(game)
-							}
-						}}
-						withTargetSelector={withTargetSelector}
-						purpose={getPurpose?.(game.id)}
-						isTargetSelectorOpen={isTargetSelectorOpen?.(game.id)}
-						onTogglePurpose={() => onTogglePurpose?.(game.id)}
-					/>
-				))}
-			</div>
+			<VariantSelection
+				data={filteredGames.map(game => ({
+					code: game.id,
+					label: game.title,
+					seclabel: `${game.players} чел.`,
+					icon: () => (
+						<img
+							src={game.icon}
+							alt={game.title}
+							className='w-[52px] h-[52px] rounded-2xl'
+						/>
+					)
+				}))}
+				selected={selectedGameIds}
+				onSelect={value => {
+					if (Array.isArray(value)) {
+						onChangeSelectedGameIds(value);
+					} else {
+						onChangeSelectedGameIds([value]);
+					}
+				}}
+				multiple
+				variant='col'
+			/>
 		</div>
-	)
-}
+	);
+};
