@@ -14,6 +14,7 @@ interface InputProps {
 		onChange: (value: string) => void;
 		onBlur?: (value: string) => void;
 		max?: number;
+		labelSize?: string;
 		labelColor?: string;
 		iconRight?: ReactNode;
 	};
@@ -27,7 +28,8 @@ export const Input = ({ data }: InputProps) => {
 			>
 				<span
 					className={clsx(
-						'text-sm transition-colors',
+						data.labelSize || 'text-sm', // используем labelSize или fallback
+						'transition-colors',
 						data.labelColor ?? 'text-white',
 						'group-focus-within:text-white'
 					)}
@@ -58,7 +60,6 @@ export const Input = ({ data }: InputProps) => {
                        focus:outline-none focus:ring-1 focus:ring-[#32302F] text-white'
 					/>
 
-					{/* иконка справа */}
 					{data.iconRight && (
 						<div className='absolute right-3 top-1/2 -translate-y-1/2 text-green-500'>
 							{data.iconRight}

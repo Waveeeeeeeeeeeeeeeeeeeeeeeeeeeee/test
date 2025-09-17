@@ -16,7 +16,9 @@
 	background: var(--second-bg);
 	resize: vertical;
 	font-size: 16px;
-	min-height: 72px;
+	min-height: 180px;
+	outline: none;
+	resize: none;
 }
 
 .label textarea::placeholder {
@@ -28,7 +30,7 @@
 .notification {
 	letter-spacing: 0.01em;
 	font-weight: 400;
-    font-size: 13px;
-    color: var(--object-secondary-white);
+	font-size: 13px;
+	color: var(--object-secondary-white);
 	margin-top: 10px;
 }

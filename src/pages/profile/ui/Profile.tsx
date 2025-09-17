@@ -1,22 +1,22 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
-import { useUserStore } from '@/entities/user/model/store'
-import ProfileMenu from '@/features/profileMenu/ui/ProfileMenu'
-import { ShowInterests } from '@/features/showInterests'
-import { useCustomTranslation } from '@/shared'
-import { AnimatedPage } from '@/shared/hoc/AnimatedPage'
-import Description from '@/shared/ui/Description/Description'
-import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs'
-import { UserCard } from '@/shared/ui/UserCard/UserCard'
-import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules'
-import OnBoardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules'
+import { useUserStore } from '@/entities/user/model/store';
+import ProfileMenu from '@/features/profileMenu/ui/ProfileMenu';
+import { ShowInterests } from '@/features/showInterests';
+import { useCustomTranslation } from '@/shared';
+import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import Description from '@/shared/ui/Description/Description';
+import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
+import { UserCard } from '@/shared/ui/UserCard/UserCard';
+import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules';
+import OnBoardingRules from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
 const Profile = () => {
-	const [toggle, setToggle] = useState('description')
-	const { profile, telegram } = useUserStore()
-	const { description, games } = useCustomTranslation('profile')
-	const { isOpen, close } = useRulesToggle()
+	const [toggle, setToggle] = useState('description');
+	const { profile, telegram } = useUserStore();
+	const { description, games } = useCustomTranslation('profile');
+	const { isOpen, close } = useRulesToggle();
 	const profileOptions = [
 		{
 			label: description,
@@ -26,9 +26,9 @@ const Profile = () => {
 			label: games,
 			value: 'games'
 		}
-	]
+	];
 
-	console.log(profile)
+	console.log(profile);
 	return (
 		<div className={'px-4 pt-4 pb-28 flex flex-col gap-7.5'}>
 			<UserCard
@@ -70,7 +70,7 @@ const Profile = () => {
 				)}
 			</AnimatePresence>
 		</div>
-	)
-}
+	);
+};
 
-export default AnimatedPage(Profile)
+export default AnimatedPage(Profile);

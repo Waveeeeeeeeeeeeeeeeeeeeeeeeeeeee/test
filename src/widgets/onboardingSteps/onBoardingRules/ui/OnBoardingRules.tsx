@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-import styles from './OnBoardingRules.module.css'
-import { Button, useCustomTranslation } from '@/shared'
-import { NumericList } from '@/shared/ui/NumericList'
+import styles from './OnBoardingRules.module.css';
+import { Button, useCustomTranslation } from '@/shared';
+import { NumericList } from '@/shared/ui/NumericList';
 
-const link = { href: '#', text: 'Boost Ace', position: 0 }
+const link = { href: '#', text: 'Boost Ace', position: 0 };
 
 interface OnBoardingRulesProps {
-	handleResetSteps?: () => void
-	handleAccetpRules: () => void
-	profile?: boolean
+	handleResetSteps?: () => void;
+	handleAccetpRules: () => void;
+	profile?: boolean;
 }
 const OnBoardingRules = ({
 	handleResetSteps,
@@ -17,16 +17,16 @@ const OnBoardingRules = ({
 	profile = false
 }: OnBoardingRulesProps) => {
 	const { title, numeric1, numeric2, numeric3, button, declineButton } =
-		useCustomTranslation('onBoardingRules')
+		useCustomTranslation('onboardingRules');
 
 	useEffect(() => {
-		const originalStyle = window.getComputedStyle(document.body).overflow
-		document.body.style.overflow = 'hidden'
+		const originalStyle = window.getComputedStyle(document.body).overflow;
+		document.body.style.overflow = 'hidden';
 
 		return () => {
-			document.body.style.overflow = originalStyle
-		}
-	}, [])
+			document.body.style.overflow = originalStyle;
+		};
+	}, []);
 
 	return (
 		<div className={styles.rules}>
@@ -45,7 +45,7 @@ const OnBoardingRules = ({
 				</Button>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default OnBoardingRules
+export default OnBoardingRules;

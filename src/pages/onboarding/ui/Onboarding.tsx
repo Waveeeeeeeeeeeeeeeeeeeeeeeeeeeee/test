@@ -18,10 +18,9 @@ import {
 	HeaderIcosChooseLanguage,
 	HeaderIcosChoosePlatform
 } from '@/shared/ui/HeaderIcos/HeaderIcos';
-import AccountInfoStep1 from '@/widgets/accountSteps/accountInfoStep1/ui/AccountInfoStep1';
-import AccountInfoStep2 from '@/widgets/accountSteps/accountInfoStep2/ui/AccountInfoStep2';
 import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
-import OnBoardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnBoardingRules';
+import OnboardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnboardingRules';
+import OnboardingAboutMe from '@/widgets/onboardingSteps/onboardingAboutMe/ui/OnboardingAboutMe';
 import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingChooseLanguage/ui/OnboardingChooseLanguage';
 import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePerson/api/validateLocation';
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
@@ -160,9 +159,7 @@ export const Onboarding = () => {
 			case 4:
 				return <OnboardingChoosePerson />;
 			case 5:
-				return <AccountInfoStep1 />;
-			case 6:
-				return <AccountInfoStep2 />;
+				return <OnboardingAboutMe />;
 			default:
 				return null;
 		}
@@ -222,7 +219,7 @@ export const Onboarding = () => {
 						transition={{ duration: 0.3, ease: 'easeInOut' }}
 						className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
 					>
-						<OnBoardingRules
+						<OnboardingRules
 							handleAccetpRules={handleAccetpRules}
 							handleResetSteps={handleResetSteps}
 						/>
