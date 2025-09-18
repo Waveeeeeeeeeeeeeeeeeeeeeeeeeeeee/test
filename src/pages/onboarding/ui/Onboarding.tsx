@@ -25,7 +25,7 @@ import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingCh
 import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePerson/api/validateLocation';
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
-import OnboardingRules from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
+import { OnboardingRules } from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
 const maxSteps = 5;
 
