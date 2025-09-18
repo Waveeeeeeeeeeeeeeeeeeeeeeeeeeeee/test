@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { validateLocation } from '../api/validateLocation';
 import GamePadIco from '../assets/gamepad.svg?react';
 import MeetIco from '../assets/meet.svg?react';
-import CheckIco from '../assets/valid.svg?react';
 
 import styles from './OnboardingChoosePerson.module.css';
 import { useUserStore } from '@/entities/user/model/store';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { useCustomTranslation } from '@/shared';
 import { Input } from '@/shared';
+import CheckIco from '@/shared/ui/Input/assets/valid.svg?react';
 
 const OnboardingChoosePerson = () => {
 	const [isCountryValid, setIsCountryValid] = useState<boolean | null>(null);
@@ -29,10 +29,6 @@ const OnboardingChoosePerson = () => {
 	} = useCustomTranslation('onboardingChoosePerson');
 	const country = useUserStore(state => state.profile.country);
 	const city = useUserStore(state => state.profile.city);
-
-	const debugStore = useUserStore(state => state.profile);
-
-	console.log('debugStore', debugStore);
 
 	const checkCountry = async (value: string) => {
 		if (!value) {

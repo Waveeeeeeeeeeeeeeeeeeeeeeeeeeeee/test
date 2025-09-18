@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
+import { OnboardingChooseCountry } from '../../../widgets/onboardingSteps/onboardingChooseCountry/ui/OnboardingChooseCountry';
 import { completeOnboarding } from '../lib/completeOnboarding';
 
 import styles from './Onboarding.module.css';
@@ -143,6 +144,14 @@ export const Onboarding = () => {
 				return <HeaderIcosChoosePlatform />;
 			case 3:
 				return <HeaderIcosChooseGame />;
+			case 4:
+				return <HeaderIcosChoosePlatform />;
+			case 5:
+				return selectedMatchType === 'realLife' ? (
+					<HeaderIcosChoosePlatform />
+				) : (
+					<HeaderIcosChooseLanguage />
+				);
 			default:
 				return null;
 		}
@@ -159,7 +168,12 @@ export const Onboarding = () => {
 			case 4:
 				return <OnboardingChoosePerson />;
 			case 5:
-				return <OnboardingAboutMe />;
+				return selectedMatchType === 'realLife' ? (
+					<OnboardingAboutMe />
+				) : (
+					<OnboardingChooseCountry />
+				);
+
 			default:
 				return null;
 		}
@@ -181,8 +195,8 @@ export const Onboarding = () => {
 				<motion.div
 					className={`flex justify-center items-center gap-4 relative `}
 					animate={{
-						scale: steps >= 4 ? 0.45 : 1,
-						height: steps >= 4 ? '105px' : 'auto'
+						scale: steps >= 6 ? 0.45 : 1,
+						height: steps >= 6 ? '105px' : 'auto'
 					}}
 					transition={{ duration: 0.6, ease: 'easeInOut' }}
 				>

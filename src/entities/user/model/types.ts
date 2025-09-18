@@ -38,6 +38,7 @@ export interface UserProfile {
 	image: File | null;
 	selectedLanguage: string;
 	selectedPlatform: string[];
+	selectedCountry: string[];
 	selectedMatchType: string;
 	country_code: string;
 	isFirstFormValid: boolean;

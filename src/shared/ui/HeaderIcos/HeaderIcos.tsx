@@ -31,7 +31,7 @@ export const HeaderIcosChooseLanguage = () => {
 				<img src={ua} alt='ua' />
 			</motion.div>
 			<motion.div
-				className='absolute -bottom-10 right-[33%]'
+				className='absolute -bottom-10 right-[33%] -z-1'
 				initial={{ opacity: 0, scale: 0.5 }}
 				animate={{ opacity: 1, scale: 1 }}
 				exit={{ opacity: 0, scale: 0.5 }}

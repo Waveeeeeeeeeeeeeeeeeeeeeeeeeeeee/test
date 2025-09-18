@@ -1,4 +1,4 @@
-import { GameWithPurposesAdapt } from '@/entities/game/types/gameWithPurposeAdapt';
+import { GamesResponse } from '@/entities/game/api/getGamesWithPurposes';
 import { adaptGames } from '@/entities/game/utils/adaptedData';
 
 type ApiProfile = {
@@ -7,7 +7,7 @@ type ApiProfile = {
 	gender?: 'MALE' | 'FEMALE';
 	about?: string;
 	hobbies?: string;
-	games?: GameWithPurposesAdapt[]; // games может быть undefined
+	games?: GamesResponse;
 	user?: {
 		id?: string | number;
 		name?: string;
@@ -36,9 +36,14 @@ export type StoreProfile = {
 	isFirstFormValid: boolean;
 	isSecondFormValid: boolean;
 	selectedPlatform: string[];
+	selectedCountry: string[];
 };
 
 export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
+	const gamesData =
+		apiData.games && 'games_with_purposes' in apiData.games
+			? apiData.games
+			: { games_with_purposes: [] };
 	return {
 		age: apiData.age?.toString() || '',
 		nickname: apiData.user?.name || '',
@@ -49,11 +54,12 @@ export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
 		interests: apiData.hobbies
 			? apiData.hobbies.split(',').map(s => s.trim())
 			: [],
-		games: adaptGames(apiData.games || []),
+		games: adaptGames(gamesData),
 		image: null,
 		selectedLanguage: localStorage.getItem('selectedLanguage') || 'ru',
 		selectedMatchType: 'realLife',
 		selectedPlatform: apiData.user?.platform ? [apiData.user.platform] : [],
+		selectedCountry: [],
 		user_id: apiData.user?.id || null,
 		country_code: apiData.user?.country_code || '',
 		profile_id: apiData.id,
