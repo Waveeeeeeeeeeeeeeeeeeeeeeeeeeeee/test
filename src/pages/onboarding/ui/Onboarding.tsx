@@ -98,11 +98,17 @@ export const Onboarding = () => {
 			}
 		}
 
-		if (steps === 5 && !isFirstFormValid) {
+		if (steps === 5 && !isFirstFormValid && selectedMatchType === 'realLife') {
 			toast.error('Пожалуйста заполните все поля');
 			return;
 		}
 
+		if (steps === 5 && selectedMatchType === 'online') {
+			if (profile.selectedCountry.length === 0) {
+				toast.error('Введите как минимум одну страну');
+				return;
+			}
+		}
 		if (steps > maxSteps) {
 			try {
 				await completeOnboarding({

@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import clsx from 'clsx';
+import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { validateCountry } from '../api/validateCountry';
@@ -14,6 +16,10 @@ type CountryData = {
 	country_code: string;
 };
 
+type ErrorResponse = {
+	detail: string;
+};
+
 export const OnboardingChooseCountry = () => {
 	const { profile, setProfileField } = useUserStore();
 	const [searchCountry, setSearchCountry] = useState('');
@@ -22,11 +28,11 @@ export const OnboardingChooseCountry = () => {
 	>(undefined);
 	const [countryData, setCountryData] = useState<CountryData | null>(null);
 	const [isValidCountry, setIsValidCountry] = useState(false);
+	const [isEditing, setIsEditing] = useState(true);
 
 	const handleValidate = async (name: string) => {
 		try {
 			const result = await validateCountry({ country_name: name });
-
 			const data = result.data;
 
 			if ('detail' in data) {
@@ -39,9 +45,15 @@ export const OnboardingChooseCountry = () => {
 			setCountryData(data);
 			setSearchCountryError(undefined);
 			setIsValidCountry(true);
-			console.log('countryData', data);
-		} catch (err: any) {
-			setSearchCountryError(err?.detail || 'Ошибка валидации');
+		} catch (err) {
+			let message = 'Ошибка валидации';
+
+			const axiosError = err as AxiosError<ErrorResponse>;
+			if (axiosError.response?.data?.detail) {
+				message = axiosError.response.data.detail;
+			}
+
+			setSearchCountryError(message);
 			setCountryData(null);
 			setIsValidCountry(false);
 		}
@@ -61,44 +73,89 @@ export const OnboardingChooseCountry = () => {
 		return () => clearTimeout(handler);
 	}, [searchCountry]);
 
+	const handleSaveCountry = () => {
+		if (isValidCountry && countryData) {
+			setProfileField('selectedCountry', [
+				...(profile.selectedCountry || []),
+				countryData.country
+			]);
+			setSearchCountry('');
+			setCountryData(null);
+			setIsValidCountry(false);
+			setIsEditing(false);
+		}
+	};
+
+	const handleRemoveCountry = (country: string) => {
+		setProfileField(
+			'selectedCountry',
+			profile.selectedCountry.filter((c: string) => c !== country)
+		);
+	};
+
 	return (
 		<div className='z-10 '>
 			<h1 className={clsx(styles.title, 'font-gilroy')}>Выбор стран</h1>
 			<p className={styles.description}>
-				Выбери страны геймеров, с кем ты бы хотел {''}
+				Выбери страны геймеров, с кем ты бы хотел{' '}
 				<span className='block'>познакомиться</span>
 			</p>
-			<div className='mt-6'>
-				<Input
-					data={{
-						type: 'text',
-						name: 'country',
-						placeholder: 'Введите название страны',
-						label: 'Введите страну',
-						labelSize: 'text-md',
-						value: searchCountry,
-						notification: searchCountryError,
-						// 🔥 иконка только если страна валидна
-						iconRight: isValidCountry ? <CheckIco /> : undefined,
-						onChange: (value: string) => {
-							setSearchCountry(value);
-						}
-					}}
-				/>
 
-				<button className='bg-[#201E1D] h-12 w-full rounded-2xl mt-6 font-semibold flex items-center justify-center gap-2'>
+			{isEditing ? (
+				<div className='mt-6'>
+					<Input
+						data={{
+							type: 'text',
+							name: 'country',
+							placeholder: 'Введите название страны',
+							label: 'Введите страну',
+							labelSize: 'text-md',
+							value: searchCountry,
+							notification: searchCountryError,
+							iconRight: isValidCountry ? <CheckIco /> : undefined,
+							onChange: (value: string) => setSearchCountry(value)
+						}}
+					/>
+
+					{isValidCountry && (
+						<button
+							className='bg-violet-600 h-12 w-full rounded-2xl mt-4 font-semibold flex items-center justify-center gap-2'
+							onClick={handleSaveCountry}
+						>
+							Сохранить
+						</button>
+					)}
+				</div>
+			) : (
+				<button
+					className='bg-[#201E1D] h-12 w-full rounded-2xl mt-6 font-semibold flex items-center justify-center gap-2'
+					onClick={() => setIsEditing(true)}
+				>
 					Добавить еще{' '}
 					<span className='translate-y-[2px]'>
 						<AddIco />
 					</span>
 				</button>
-			</div>
+			)}
 
-			{/* <ul>
-				{profile.selectedCountry.map(country => (
-					<li key={country}>{country}</li>
-				))}
-			</ul> */}
+			{profile.selectedCountry?.length > 0 && (
+				<ul className='mt-6 mb-20 space-y-2'>
+					{profile.selectedCountry.map((country: string) => (
+						<li
+							key={country}
+							className='bg-[#2A2827] px-4 py-2 rounded-xl text-white flex items-center justify-between'
+						>
+							<span>{country}</span>
+							<button
+								onClick={() => handleRemoveCountry(country)}
+								className='ml-3 text-gray-400 hover:text-white'
+							>
+								<X size={18} />
+							</button>
+						</li>
+					))}
+				</ul>
+			)}
 		</div>
 	);
 };

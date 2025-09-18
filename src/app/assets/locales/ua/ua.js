@@ -2,7 +2,7 @@ const ua = {
 	translation: {
 		Onboarding: {
 			backButton: 'Назад',
-			nextButton: 'Далей'
+			nextButton: 'Далі'
 		},
 		onboardingChooseLanguage: {
 			title: 'Ми раді тебе бачити!',
