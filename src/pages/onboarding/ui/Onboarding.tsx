@@ -20,12 +20,12 @@ import {
 	HeaderIcosChoosePlatform
 } from '@/shared/ui/HeaderIcos/HeaderIcos';
 import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
-import OnboardingRules from '@/widgets/onboardingSteps/onBoardingRules/ui/OnboardingRules';
 import OnboardingAboutMe from '@/widgets/onboardingSteps/onboardingAboutMe/ui/OnboardingAboutMe';
 import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingChooseLanguage/ui/OnboardingChooseLanguage';
 import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePerson/api/validateLocation';
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
+import OnboardingRules from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
 const maxSteps = 5;
 

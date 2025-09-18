@@ -27,10 +27,8 @@ export const OnboardingChooseCountry = () => {
 		try {
 			const result = await validateCountry({ country_name: name });
 
-			// axios возвращает { data, status, ... }
 			const data = result.data;
 
-			// ❌ если API вернул detail → ошибка
 			if ('detail' in data) {
 				setSearchCountryError(data.detail);
 				setCountryData(null);
@@ -38,7 +36,6 @@ export const OnboardingChooseCountry = () => {
 				return;
 			}
 
-			// ✅ валидная страна
 			setCountryData(data);
 			setSearchCountryError(undefined);
 			setIsValidCountry(true);

@@ -10,7 +10,7 @@ import Description from '@/shared/ui/Description/Description';
 import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
 import { UserCard } from '@/shared/ui/UserCard/UserCard';
 import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules';
-import OnBoardingRules from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
+import OnboardingRules from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
 const Profile = () => {
 	const [toggle, setToggle] = useState('description');
@@ -65,7 +65,7 @@ const Profile = () => {
 						transition={{ duration: 0.3, ease: 'easeInOut' }}
 						className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
 					>
-						<OnBoardingRules handleAccetpRules={close} profile />
+						<OnboardingRules handleAccetpRules={close} profile />
 					</motion.div>
 				)}
 			</AnimatePresence>

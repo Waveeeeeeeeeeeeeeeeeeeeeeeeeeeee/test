@@ -6,16 +6,16 @@ import { NumericList } from '@/shared/ui/NumericList';
 
 const link = { href: '#', text: 'Boost Ace', position: 0 };
 
-interface OnBoardingRulesProps {
+interface OnboardingRulesProps {
 	handleResetSteps?: () => void;
 	handleAccetpRules: () => void;
 	profile?: boolean;
 }
-const OnBoardingRules = ({
+const OnboardingRules = ({
 	handleResetSteps,
 	handleAccetpRules,
 	profile = false
-}: OnBoardingRulesProps) => {
+}: OnboardingRulesProps) => {
 	const { title, numeric1, numeric2, numeric3, button, declineButton } =
 		useCustomTranslation('onboardingRules');
 
@@ -48,4 +48,4 @@ const OnBoardingRules = ({
 	);
 };
 
-export default OnBoardingRules;
+export default OnboardingRules;

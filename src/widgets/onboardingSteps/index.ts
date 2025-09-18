@@ -1,4 +1,4 @@
 export * from './onboardingChooseLanguage';
 export * from './onboardingChooseGame';
 export * from './onboardingChoosePerson';
-export * from './onBoardingRules';
+export * from './onboardingRules';

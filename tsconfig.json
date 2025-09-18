@@ -1,15 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@features/*": ["features/*"],
-      "@shared/*": ["shared/*"],
-      "@widgets/*": ["widgets/*"]
-    }
-  }
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	],
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"paths": {
+			"@features/*": ["features/*"],
+			"@shared/*": ["shared/*"],
+			"@widgets/*": ["widgets/*"]
+		},
+		"forceConsistentCasingInFileNames": true
+	}
 }
