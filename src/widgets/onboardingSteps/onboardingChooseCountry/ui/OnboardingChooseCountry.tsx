@@ -77,7 +77,11 @@ export const OnboardingChooseCountry = () => {
 	}, [searchCountry]);
 
 	const handleSaveCountry = () => {
-		if (isValidCountry && countryData) {
+		if (
+			isValidCountry &&
+			countryData &&
+			!profile.selectedCountry.includes(countryData.country) // проверка
+		) {
 			setProfileField('selectedCountry', [
 				...(profile.selectedCountry || []),
 				countryData.country
@@ -88,7 +92,6 @@ export const OnboardingChooseCountry = () => {
 			setIsEditing(false);
 		}
 	};
-
 	const handleRemoveCountry = (country: string) => {
 		setProfileField(
 			'selectedCountry',

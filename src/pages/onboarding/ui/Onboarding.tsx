@@ -30,7 +30,7 @@ import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingCh
 import { OnboardingChoosePrime } from '@/widgets/onboardingSteps/onboardingChoosePrime';
 import { OnboardingRules } from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
-const maxSteps = 7;
+const maxSteps = 8;
 
 export const Onboarding = () => {
 	const location = useLocation();
@@ -109,6 +109,20 @@ export const Onboarding = () => {
 		if (steps === 5 && selectedMatchType === 'online') {
 			if (profile.selectedCountry.length === 0) {
 				toast.error('Введите как минимум одну страну');
+				return;
+			}
+		}
+
+		if (steps === 6 && selectedMatchType === 'online') {
+			if (profile.selectedGoal.length === 0) {
+				toast.error('Выберите как минимум одну цель для игры');
+				return;
+			}
+		}
+
+		if (steps === 7 && selectedMatchType === 'online') {
+			if (profile.selectedPrime.length === 0) {
+				toast.error('Выберите как минимум один временной отрезок');
 				return;
 			}
 		}
@@ -203,6 +217,11 @@ export const Onboarding = () => {
 					return <OnboardingChoosePrime />;
 				}
 				return null;
+			case 8:
+				if (selectedMatchType === 'online') {
+					return <OnboardingAboutMe />;
+				}
+				return null;
 
 			default:
 				return null;
@@ -225,8 +244,8 @@ export const Onboarding = () => {
 				<motion.div
 					className={`flex justify-center items-center gap-4 relative `}
 					animate={{
-						scale: steps >= 8 ? 0.45 : 1,
-						height: steps >= 8 ? '105px' : 'auto'
+						scale: steps >= 9 ? 0.45 : 1,
+						height: steps >= 9 ? '105px' : 'auto'
 					}}
 					transition={{ duration: 0.6, ease: 'easeInOut' }}
 				>

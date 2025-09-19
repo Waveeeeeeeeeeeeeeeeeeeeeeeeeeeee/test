@@ -9,10 +9,14 @@ import { TextArea } from '@/shared/ui/TextArea';
 
 const OnboardingAboutMe = () => {
 	const { profile, setProfileField, setUserImage } = useUserStore();
+	const selectedMatchType = useUserStore(
+		state => state.profile.selectedMatchType
+	);
 	const {
 		title,
 		label,
 		labelRealLife,
+		labelOnline,
 		placeholder,
 		char,
 		save,
@@ -117,7 +121,7 @@ const OnboardingAboutMe = () => {
 			</div>
 			<TextArea
 				data={{
-					label: labelRealLife,
+					label: selectedMatchType === 'realLife' ? labelRealLife : labelOnline,
 					name: 'comment',
 					placeholder: placeholder,
 					value: profile.about,
