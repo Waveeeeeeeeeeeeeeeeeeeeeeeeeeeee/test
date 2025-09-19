@@ -72,7 +72,7 @@ const VariantSelection = ({
 						<div className='flex items-center gap-4'>
 							{item.icon && <item.icon />}
 							<div className='flex flex-col'>
-								<span>{item.label}</span>
+								<span className='font-semibold'>{item.label}</span>
 								{item.seclabel && (
 									<span className={styles.secLabel}>{item.seclabel}</span>
 								)}

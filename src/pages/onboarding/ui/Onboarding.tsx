@@ -17,7 +17,8 @@ import { AnimatedBlock } from '@/shared/ui/AnimatedBlock';
 import {
 	HeaderIcosChooseGame,
 	HeaderIcosChooseLanguage,
-	HeaderIcosChoosePlatform
+	HeaderIcosChoosePlatform,
+	HeaderIcosChoosePrime
 } from '@/shared/ui/HeaderIcos/HeaderIcos';
 import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
 import OnboardingAboutMe from '@/widgets/onboardingSteps/onboardingAboutMe/ui/OnboardingAboutMe';
@@ -167,7 +168,7 @@ export const Onboarding = () => {
 				return null;
 			case 7:
 				if (selectedMatchType === 'online') {
-					return <HeaderIcosChooseLanguage />;
+					return <HeaderIcosChoosePrime />;
 				}
 				return null;
 			default:

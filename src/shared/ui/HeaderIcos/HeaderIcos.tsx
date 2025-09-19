@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 
+import clock from '../../assets/images/clock.png';
 import cs from '../../assets/images/cs.png';
+import done from '../../assets/images/done.png';
 import gamePade from '../../assets/images/gamepad.png';
 import lol from '../../assets/images/lol.png';
 import meet from '../../assets/images/meet.png';
@@ -97,6 +99,31 @@ export const HeaderIcosChoosePlatform = () => {
 				transition={{ duration: 0.5, delay: 0.1 }}
 			>
 				<img src={meet} alt='meet' />
+			</motion.div>
+		</>
+	);
+};
+
+export const HeaderIcosChoosePrime = () => {
+	return (
+		<>
+			<motion.div
+				className='absolute left-1/5'
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				exit={{ opacity: 0, scale: 0.5 }}
+				transition={{ duration: 0.5 }}
+			>
+				<img src={clock} alt='clock' />
+			</motion.div>
+			<motion.div
+				className='absolute right-1/5 top-[70%]'
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				exit={{ opacity: 0, scale: 0.5 }}
+				transition={{ duration: 0.5, delay: 0.1 }}
+			>
+				<img src={done} alt='done' />
 			</motion.div>
 		</>
 	);

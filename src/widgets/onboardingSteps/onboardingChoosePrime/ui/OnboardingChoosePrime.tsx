@@ -20,6 +20,7 @@ export const OnboardingChoosePrime = () => {
 	return (
 		<div className='flex flex-col gap-6 relative mb-20'>
 			<h1 className={styles.title}>Выбери цель игр</h1>
+			<h2 className={styles.description}>(+3 UTC)</h2>
 			<VariantSelection
 				data={primeTimes}
 				selected={selectedPrime}
