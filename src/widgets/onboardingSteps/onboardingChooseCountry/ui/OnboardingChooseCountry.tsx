@@ -7,6 +7,7 @@ import { validateCountry } from '../api/validateCountry';
 
 import styles from './OnboardingChooseCountry.module.css';
 import { useUserStore } from '@/entities/user/model/store';
+import { useCustomTranslation } from '@/shared';
 import { Input } from '@/shared';
 import AddIco from '@/shared/assets/icons/add.svg?react';
 import CheckIco from '@/shared/ui/Input/assets/valid.svg?react';
@@ -23,6 +24,8 @@ type ErrorResponse = {
 export const OnboardingChooseCountry = () => {
 	const { profile, setProfileField } = useUserStore();
 	const [searchCountry, setSearchCountry] = useState('');
+	const { title, subtitle, label, placeholder, save, add } =
+		useCustomTranslation('onboardingChooseCountry');
 	const [searchCountryError, setSearchCountryError] = useState<
 		string | undefined
 	>(undefined);
@@ -95,11 +98,8 @@ export const OnboardingChooseCountry = () => {
 
 	return (
 		<div className='z-10 '>
-			<h1 className={clsx(styles.title, 'font-gilroy')}>Выбор стран</h1>
-			<p className={styles.description}>
-				Выбери страны геймеров, с кем ты бы хотел{' '}
-				<span className='block'>познакомиться</span>
-			</p>
+			<h1 className={clsx(styles.title, 'font-gilroy')}>{title}</h1>
+			<p className={styles.description}>{subtitle}</p>
 
 			{isEditing ? (
 				<div className='mt-6'>
@@ -107,8 +107,8 @@ export const OnboardingChooseCountry = () => {
 						data={{
 							type: 'text',
 							name: 'country',
-							placeholder: 'Введите название страны',
-							label: 'Введите страну',
+							placeholder: placeholder,
+							label: label,
 							labelSize: 'text-md',
 							value: searchCountry,
 							notification: searchCountryError,
@@ -122,7 +122,7 @@ export const OnboardingChooseCountry = () => {
 							className='bg-violet-600 h-12 w-full rounded-2xl mt-4 font-semibold flex items-center justify-center gap-2'
 							onClick={handleSaveCountry}
 						>
-							Сохранить
+							{save}
 						</button>
 					)}
 				</div>
@@ -131,7 +131,7 @@ export const OnboardingChooseCountry = () => {
 					className='bg-[#201E1D] h-12 w-full rounded-2xl mt-6 font-semibold flex items-center justify-center gap-2'
 					onClick={() => setIsEditing(true)}
 				>
-					Добавить еще{' '}
+					{add}
 					<span className='translate-y-[2px]'>
 						<AddIco />
 					</span>

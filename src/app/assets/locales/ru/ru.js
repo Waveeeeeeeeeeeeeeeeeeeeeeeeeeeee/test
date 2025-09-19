@@ -1,3 +1,5 @@
+import { a } from '@react-spring/web';
+
 const ru = {
 	translation: {
 		Onboarding: {
@@ -47,10 +49,44 @@ const ru = {
 
 		onboardingAboutMe: {
 			title: 'Расскажи о себе',
+			label: 'Ваш никнейм',
+			save: 'Сохранить',
+			cancel: 'Отмена',
+			min: 'Минимум 6 символов',
+			complete: 'Нажмите "Сохранить" чтобы завершить',
+			yourAge: 'Сколько тебе лет?',
+			ageVariation1: 'лет',
+			ageVariation2: 'года',
+			minAge: 'Возраст должен быть от 14 лет',
 			labelRealLife: 'Описание вашей реальной жизни',
+			labelOnline: 'Описание вашей виртуальной жизни',
 			placeholder: 'Пару слов о себе',
-			char: 'символов',
-			interest: 'Укажите свои интересы'
+			char: 'символов'
+		},
+		onboardingChooseCountry: {
+			title: 'Выбор стран',
+			subtitle: 'Выбери страны геймеров, с кем ты бы хотел познакомиться',
+			placeholder: 'Введите название страны',
+			label: 'Введите страну',
+			save: 'Сохранить',
+			add: 'Добавить еще'
+		},
+		onboardingChooseGoal: {
+			title: 'Выбери цель игр',
+			labelJustPlay: 'Просто поиграть',
+			labelConquerer: 'Завоеватель',
+			labelTdm: 'TDM',
+			labelUltimateRoyal: 'Королевская битва',
+			labelSnuggle: 'Праки',
+			labelDuo: 'Дуо',
+			labelWow: 'WoW'
+		},
+		onboardingChoosePrime: {
+			title: 'Время основной активности',
+			labelMorning: 'Утро (6:00 - 12:00)',
+			labelAfternoon: 'День (12:00 - 18:00)',
+			labelEvening: 'Вечер (18:00 - 00:00)',
+			labelNight: 'Ночь (00:00 - 6:00)'
 		},
 		photoContainer: {
 			title: 'Загрузите фотографию',

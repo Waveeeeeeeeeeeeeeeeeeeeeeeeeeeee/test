@@ -9,8 +9,21 @@ import { TextArea } from '@/shared/ui/TextArea';
 
 const OnboardingAboutMe = () => {
 	const { profile, setProfileField, setUserImage } = useUserStore();
-	const { title, labelRealLife, placeholder, char } =
-		useCustomTranslation('onboardingAboutMe');
+	const {
+		title,
+		label,
+		labelRealLife,
+		placeholder,
+		char,
+		save,
+		cancel,
+		min,
+		complete,
+		yourAge,
+		minAge,
+		ageVariation1,
+		ageVariation2
+	} = useCustomTranslation('onboardingAboutMe');
 	const [reqChangeNickname, setReqChangeNickname] = useState(true);
 	const [previousNickname, setPreviousNickname] = useState(profile.nickname);
 
@@ -26,10 +39,10 @@ const OnboardingAboutMe = () => {
 					<>
 						<Input
 							data={{
-								label: 'Ваш никнейм',
+								label: label,
 								name: 'nickname',
 								type: 'text',
-								placeholder: 'Ваш никнейм',
+								placeholder: label,
 								value: profile.nickname,
 								onChange: (value: string) => setProfileField('nickname', value),
 								labelSize: 'text-md'
@@ -46,7 +59,7 @@ const OnboardingAboutMe = () => {
 								disabled={profile.nickname.length < 6}
 								className='px-4 py-2 bg-[#6B5CD1] text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed'
 							>
-								Сохранить
+								{save}
 							</button>
 							{previousNickname.trim() && (
 								<button
@@ -56,14 +69,14 @@ const OnboardingAboutMe = () => {
 									}}
 									className='px-4 py-2 bg-gray-500 text-white rounded'
 								>
-									Отмена
+									{cancel}
 								</button>
 							)}
 						</div>
 						<p className='font-normal text-sm text-[#828289] mt-2'>
 							{profile.nickname.length < 6
-								? `Минимум 6 символов. Осталось ${6 - profile.nickname.length}`
-								: 'Нажмите "Сохранить" чтобы завершить'}
+								? `${min} ${6 - profile.nickname.length}`
+								: `${complete}`}
 						</p>
 					</>
 				) : (
@@ -74,12 +87,12 @@ const OnboardingAboutMe = () => {
 							setReqChangeNickname(true);
 						}}
 					>
-						Ваш никнейм: {profile.nickname}
+						{label}: {profile.nickname}
 					</div>
 				)}
 			</div>
 			<div>
-				<h2 className='text-lg font-semibold mb-4'>Сколько тебе лет?</h2>
+				<h2 className='text-lg font-semibold mb-4'>{yourAge}</h2>
 				<div className='flex flex-row flex-wrap items-center gap-4'>
 					{['14-17', '18-24', '25-30', '35+'].map(age => (
 						<label
@@ -94,14 +107,13 @@ const OnboardingAboutMe = () => {
 								className='w-4 h-4 appearance-none border-1 border-[#525560] rounded-full checked:bg-[#6B5CD1] checked:border-[#6B5CD1] focus:outline-none focus:ring-[#6B5CD1]'
 							/>
 							<span className='text-white font-semibold text-700'>
-								{age} {age === '18-24' ? 'года' : 'лет'}
+								{age}{' '}
+								{age === '18-24' ? `${ageVariation2}` : `${ageVariation1}`}
 							</span>
 						</label>
 					))}
 				</div>
-				<p className='font-normal text-sm text-[#828289] mt-2'>
-					Возраст должен быть от 14 лет
-				</p>
+				<p className='font-normal text-sm text-[#828289] mt-2'>{minAge}</p>
 			</div>
 			<TextArea
 				data={{

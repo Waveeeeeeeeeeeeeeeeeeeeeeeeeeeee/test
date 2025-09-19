@@ -32,7 +32,7 @@ const ua = {
 			secLabel2: `пошук тіммейта з будь-якої країни!`,
 			label2: `Просто пограти`
 		},
-		onBoardingRules: {
+		onboardingRules: {
 			title: `Правила використання`,
 			numeric1: `Анкети з прокачуванням, обміном і продажем акаунтів - скам, який негайно відлітає в бан. (Ти ж знаєш, що найкращий сервіс для прокачування`,
 			numeric2: `Заборонено просити інших користувачів підвищити вашу популярність - за це загрожує блокування.`,
@@ -40,32 +40,52 @@ const ua = {
 			button: `Прийняти правила`,
 			declineButton: `Відмовитися`
 		},
+		onboardingAboutMe: {
+			title: 'Розкажи про себе',
+			label: 'Ваш нікнейм',
+			save: 'Зберегти',
+			cancel: 'Скасувати',
+			min: 'Мінімум 6 символів',
+			complete: 'Натисніть "Зберегти", щоб завершити',
+			yourAge: 'Скільки тобі років?',
+			ageVariation1: 'років',
+			ageVariation2: 'роки',
+			minAge: 'Вік повинен бути від 14 років',
+			labelRealLife: 'Опис вашого реального життя',
+			labelOnline: 'Опис вашого віртуального життя',
+			placeholder: 'Кілька слів про себе',
+			char: 'символів'
+		},
+		onboardingChooseCountry: {
+			title: 'Вибір країн',
+			subtitle: 'Вибери країни геймерів, з якими ти хотів би познайомитися',
+			placeholder: 'Введіть назву країни',
+			label: 'Введіть країну',
+			save: 'Зберегти',
+			add: 'Додати ще'
+		},
 		accountInfo: {
 			backButton: 'Назад',
 			nextButton: 'Далi'
 		},
-		accountInfoStep2: {
-			title: `Розкажи про себе`,
-			label1: `Скільки тобі років?`,
-			placeholder1: `Введіть ваш вік`,
-			notification: `Вік має бути від 14 років`,
-			label2: `Як тебе звуть?`,
-			placeholder2: `Введи свій нікнейм`,
-			label3: `Твоя стать`,
-			button1: `Я хлопець`,
-			button2: `Я дівчина`,
-			label4: `Де ти проживаєш?`,
-			countryPlaceHolder: 'Місто, країна',
-			lang: 'Мова'
+
+		onboardingChooseGoal: {
+			title: 'Оберіть мету ігор',
+			labelJustPlay: 'Просто пограти',
+			labelConquerer: 'Завойовник',
+			labelTdm: 'TDM',
+			labelUltimateRoyal: 'Королівська битва',
+			labelSnuggle: 'Праки',
+			labelDuo: 'Дуо',
+			labelWow: 'WoW'
 		},
-		accountInfoStep3: {
-			title: 'Останній крок!',
-			label: 'Розкажи про себе',
-			placeholder: 'Кілька слів про себе',
-			char: 'символів',
-			interest: 'Вкажіть свої інтереси',
-			tagplaceholder: 'Додати свій',
-			searchHolder: 'Пошук тегів'
+
+		onboardingChoosePrime: {
+			title: 'Час основної активності',
+			labelMorning: 'Ранок (6:00 - 12:00)',
+			labelAfternoon: 'День (12:00 - 18:00)',
+			labelEvening: 'Вечір (18:00 - 00:00)',
+			labelNight: 'Ніч (00:00 - 6:00)'
 		},
 		photoContainer: {
 			title: 'Завантажте фотографію',

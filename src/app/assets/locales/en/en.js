@@ -33,7 +33,52 @@ const en = {
 			label2: `Just to play`
 		},
 
-		onBoardingRules: {
+		onboardingAboutMe: {
+			title: 'Tell us about yourself',
+			label: 'Your nickname',
+			save: 'Save',
+			cancel: 'Cancel',
+			min: 'Minimum 6 characters',
+			complete: 'Click "Save" to finish',
+			yourAge: 'How old are you?',
+			ageVariation1: 'years',
+			ageVariation2: 'years',
+			minAge: 'Age must be at least 14',
+			labelRealLife: 'Description of your real life',
+			labelOnline: 'Description of your virtual life',
+			placeholder: 'A few words about yourself',
+			char: 'characters'
+		},
+
+		onboardingChooseCountry: {
+			title: 'Choose countries',
+			subtitle: 'Select the countries of gamers you would like to meet',
+			placeholder: 'Enter the country name',
+			label: 'Enter a country',
+			save: 'Save',
+			add: 'Add more'
+		},
+
+		onboardingChooseGoal: {
+			title: 'Choose your gaming goal',
+			labelJustPlay: 'Just play',
+			labelConquerer: 'Conquerer',
+			labelTdm: 'TDM',
+			labelUltimateRoyal: 'Battle Royale',
+			labelSnuggle: 'Snuggle',
+			labelDuo: 'Duo',
+			labelWow: 'WoW'
+		},
+
+		onboardingChoosePrime: {
+			title: 'Prime activity time',
+			labelMorning: 'Morning (6:00 - 12:00)',
+			labelAfternoon: 'Afternoon (12:00 - 18:00)',
+			labelEvening: 'Evening (18:00 - 00:00)',
+			labelNight: 'Night (00:00 - 6:00)'
+		},
+
+		onboardingRules: {
 			title: `Rules of Use`,
 			numeric1: `Questionnaires with pumping, exchanging and selling accounts - scam, which immediately flies to the ban. (You know that the best service for pumping`,
 			numeric2: `It is forbidden to ask other users to increase your popularity - you will be blocked for this.`,
@@ -44,29 +89,6 @@ const en = {
 		accountInfo: {
 			backButton: 'Back',
 			nextButton: 'Next'
-		},
-		accountInfoStep2: {
-			title: `Tell me about yourself`,
-			label1: `How old are you?`,
-			placeholder1: `Enter your age`,
-			notification: `Must be 14 years of age or older`,
-			label2: `What is your name?`,
-			placeholder2: `Enter your nickname`,
-			label3: `Your gender`,
-			button1: `I'm a guy`,
-			button2: `I'm a girl`,
-			label4: `Where do you live?`,
-			countryPlaceHolder: 'City, country',
-			lang: 'Language'
-		},
-		accountInfoStep3: {
-			title: 'One last step!',
-			label: 'Tell us about yourself',
-			placeholder: 'A few words about yourself',
-			char: 'chars',
-			interest: 'State your interests',
-			tagplaceholder: 'Add your own',
-			searchHolder: 'Search Tags'
 		},
 		photoContainer: {
 			title: 'Upload a photo',
