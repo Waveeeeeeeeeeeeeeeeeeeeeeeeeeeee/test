@@ -24,7 +24,9 @@ const defaultProfile = {
 	isFirstFormValid: false,
 	isSecondFormValid: false,
 	selectedPlatform: ['pc'],
-	selectedCountry: []
+	selectedCountry: [],
+	selectedGoal: [],
+	selectedPrime: []
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({

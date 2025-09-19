@@ -21,13 +21,15 @@ import {
 } from '@/shared/ui/HeaderIcos/HeaderIcos';
 import { OnboardingChooseGame } from '@/widgets/onboardingSteps';
 import OnboardingAboutMe from '@/widgets/onboardingSteps/onboardingAboutMe/ui/OnboardingAboutMe';
+import { OnboardingChooseGoal } from '@/widgets/onboardingSteps/onboardingChooseGoal';
 import { OnboardingChooseLanguage } from '@/widgets/onboardingSteps/onboardingChooseLanguage/ui/OnboardingChooseLanguage';
 import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePerson/api/validateLocation';
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
+import { OnboardingChoosePrime } from '@/widgets/onboardingSteps/onboardingChoosePrime';
 import { OnboardingRules } from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
 
-const maxSteps = 5;
+const maxSteps = 7;
 
 export const Onboarding = () => {
 	const location = useLocation();
@@ -158,6 +160,16 @@ export const Onboarding = () => {
 				) : (
 					<HeaderIcosChooseLanguage />
 				);
+			case 6:
+				if (selectedMatchType === 'online') {
+					return <HeaderIcosChoosePlatform />;
+				}
+				return null;
+			case 7:
+				if (selectedMatchType === 'online') {
+					return <HeaderIcosChooseLanguage />;
+				}
+				return null;
 			default:
 				return null;
 		}
@@ -180,6 +192,17 @@ export const Onboarding = () => {
 					<OnboardingChooseCountry />
 				);
 
+			case 6:
+				if (selectedMatchType === 'online') {
+					return <OnboardingChooseGoal />;
+				}
+				return null;
+			case 7:
+				if (selectedMatchType === 'online') {
+					return <OnboardingChoosePrime />;
+				}
+				return null;
+
 			default:
 				return null;
 		}
@@ -201,8 +224,8 @@ export const Onboarding = () => {
 				<motion.div
 					className={`flex justify-center items-center gap-4 relative `}
 					animate={{
-						scale: steps >= 6 ? 0.45 : 1,
-						height: steps >= 6 ? '105px' : 'auto'
+						scale: steps >= 8 ? 0.45 : 1,
+						height: steps >= 8 ? '105px' : 'auto'
 					}}
 					transition={{ duration: 0.6, ease: 'easeInOut' }}
 				>

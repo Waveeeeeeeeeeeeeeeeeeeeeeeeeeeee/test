@@ -37,6 +37,8 @@ export type StoreProfile = {
 	isSecondFormValid: boolean;
 	selectedPlatform: string[];
 	selectedCountry: string[];
+	selectedGoal: string[];
+	selectedPrime: string[];
 };
 
 export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
@@ -60,6 +62,8 @@ export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
 		selectedMatchType: 'realLife',
 		selectedPlatform: apiData.user?.platform ? [apiData.user.platform] : [],
 		selectedCountry: [],
+		selectedGoal: [],
+		selectedPrime: [],
 		user_id: apiData.user?.id || null,
 		country_code: apiData.user?.country_code || '',
 		profile_id: apiData.id,

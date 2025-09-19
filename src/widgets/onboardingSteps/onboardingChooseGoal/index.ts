@@ -1,1 +1,1 @@
-export * from './ui/OnboardingChoosePlatform';
+export * from './ui/OnboardingChooseGoal';

@@ -39,6 +39,8 @@ export interface UserProfile {
 	selectedLanguage: string;
 	selectedPlatform: string[];
 	selectedCountry: string[];
+	selectedGoal: string[];
+	selectedPrime: string[];
 	selectedMatchType: string;
 	country_code: string;
 	isFirstFormValid: boolean;

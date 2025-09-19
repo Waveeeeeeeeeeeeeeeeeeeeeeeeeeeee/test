@@ -20,6 +20,7 @@ interface VariantSelectionProps {
 	onSelect: (value: string | string[]) => void;
 	variant?: 'col' | 'row';
 	multiple?: boolean;
+	shape?: 'circle' | 'square';
 }
 
 const VariantSelection = ({
@@ -27,7 +28,8 @@ const VariantSelection = ({
 	selected,
 	onSelect,
 	variant = 'col',
-	multiple = false
+	multiple = false,
+	shape = 'circle'
 }: VariantSelectionProps) => {
 	const selectedArray = multiple
 		? (selected as string[])
@@ -79,10 +81,13 @@ const VariantSelection = ({
 
 						<span
 							className={clsx(
-								'w-5 h-5 min-w-5 ml-1.5 border-2 rounded-full flex items-center justify-center transition-colors',
+								'w-5 h-5 min-w-5 ml-1.5 flex items-center justify-center transition-colors border-2', // 👈 border-2 всегда
+								shape === 'square' ? 'rounded-md' : 'rounded-full',
 								isSelected
 									? 'border-purple-700 bg-purple-700 text-white'
-									: 'border-gray-300 text-transparent'
+									: shape === 'square'
+										? 'border-[#40434F] text-transparent'
+										: 'border-gray-300 text-transparent'
 							)}
 						>
 							{isSelected && (
