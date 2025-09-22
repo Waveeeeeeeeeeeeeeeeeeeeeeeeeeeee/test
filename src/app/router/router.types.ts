@@ -5,6 +5,6 @@ export interface IChildRoute {
 
 export interface IRoute {
 	path: string;
-	component: React.ComponentType<unknown>;
+	component: React.ComponentType<object>;
 	children?: IChildRoute[];
 }

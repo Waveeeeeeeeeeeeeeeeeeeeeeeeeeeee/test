@@ -1,19 +1,19 @@
-import { useParams } from 'react-router'
+import { useParams } from 'react-router';
 
 // import { mockUsers } from '@/5.entities/person/config/testUsers'
-import { useUserSocketStore } from '@/entities/person/model/userSocketStore'
-import { searchList } from '@/entities/search/config/searchList'
-import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck'
-import { AnimatedPage } from '@/shared/hoc/AnimatedPage'
-import { NotificationHeader } from '@/shared/ui/NotificationHeader'
-import { UserFiltersModal } from '@/widgets/userFiltersModal/ui/UserFiltersModal'
-import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters'
-import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel'
+import { useUserSocketStore } from '@/entities/person/model/userSocketStore';
+import { searchList } from '@/entities/search/config/searchList';
+import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck';
+import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import { NotificationHeader } from '@/shared/ui/NotificationHeader';
+import { UserFiltersModal } from '@/widgets/userFiltersModal/ui/UserFiltersModal';
+import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters';
+import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel';
 
 const SearchPage = () => {
-	const { searchType } = useParams<{ searchType: string }>()
-	const card = searchList.find(item => item.href.endsWith(searchType || ''))
-	const users = useUserSocketStore(state => state.users)
+	const { searchType } = useParams<{ searchType: string }>();
+	const card = searchList.find(item => item.href.endsWith(searchType || ''));
+	const users = useUserSocketStore(state => state.users);
 
 	const mockGames = [
 		{
@@ -39,13 +39,13 @@ const SearchPage = () => {
 			// 	'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg',
 			mode: 'Unrated'
 		}
-	]
+	];
 
 	const handleGoBack = () => {
-		window.history.back()
-	}
+		window.history.back();
+	};
 
-	if (!card) return <div>Ничего не найдено 😢</div>
+	if (!card) return <div>Ничего не найдено 😢</div>;
 	return (
 		<>
 			<div className='p-4 px-4 h-screen relative overflow-scroll pb-48'>
@@ -65,7 +65,7 @@ const SearchPage = () => {
 			</div>
 			<UserFiltersModal />
 		</>
-	)
-}
+	);
+};
 
-export default AnimatedPage(SearchPage)
+export default AnimatedPage(SearchPage);

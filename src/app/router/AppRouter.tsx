@@ -28,7 +28,7 @@ const AppRouter: FC = () => {
 
 	return (
 		<Routes location={location} key={location.pathname}>
-			<Route path='/' element={<Navigate to='/onboarding' replace />} />
+			<Route path='/' element={<Navigate to='/' replace />} />
 			{routes.map(renderRoutes)}
 
 			{/* Catch-all: редирект на онбординг для любых неизвестных маршрутов */}

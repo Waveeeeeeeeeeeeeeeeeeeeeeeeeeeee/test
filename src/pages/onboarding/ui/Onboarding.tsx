@@ -133,7 +133,7 @@ export const Onboarding = () => {
 					serviceId: 1,
 					telegramId: telegram?.id || 0
 				});
-				navigate('/');
+				navigate('/profile');
 			} catch (error) {
 				console.error(error);
 				toast.error('Ошибка при отправке данных');

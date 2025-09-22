@@ -10,7 +10,7 @@ import ProfileSupport from '@/pages/profileSupport/ui/ProfileSupport';
 import SearchPage from '@/pages/searchPage/ui/SearchPage';
 
 type BgRoutesType = {
-	[key in EnumRoutes]?: string; // Все ключи из EnumRoutes, значения - строки
+	[key in EnumRoutes]?: string;
 };
 export const bgRoutes: BgRoutesType = {
 	[EnumRoutes.HOME]: '#FFC96A',
@@ -26,6 +26,11 @@ export const routes: IRoute[] = [
 		path: EnumRoutes.ONBOARDING,
 		component: Onboarding
 	},
+	{
+		path: EnumRoutes.SEARCH,
+		component: SearchPage
+	},
+
 	{
 		path: EnumRoutes.SEARCH_DETAIL,
 		component: SearchPage

@@ -1,13 +1,13 @@
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router';
 
-import styles from './BottomNavigation.module.css'
-import { useUserStore } from '@/entities/user/model/store'
-import { useCustomTranslation } from '@/shared'
-import FriendsIcon from '@/shared/assets/icons/Friends.svg?react'
-import HomeIcon from '@/shared/assets/icons/Home.svg?react'
+import styles from './BottomNavigation.module.css';
+import { useUserStore } from '@/entities/user/model/store';
+import { useCustomTranslation } from '@/shared';
+import FriendsIcon from '@/shared/assets/icons/Friends.svg?react';
+import HomeIcon from '@/shared/assets/icons/Home.svg?react';
 
 export const BottomNavigation = () => {
-	const { label1, label3, label4 } = useCustomTranslation('bottomBar')
+	const { label1, label3, label4 } = useCustomTranslation('bottomBar');
 	const navigationItems = [
 		{
 			label: label1,
@@ -24,10 +24,10 @@ export const BottomNavigation = () => {
 			path: '/profile',
 			isProfile: true
 		}
-	]
-	const navigate = useNavigate()
-	const location = useLocation()
-	const { user } = useUserStore()
+	];
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { user } = useUserStore();
 
 	return (
 		<nav className='fixed z-[100] bottom-0 p-4 w-full flex justify-between items-center bg-[var(--second-bg)] rounded-t-[16px] rounded-b-[29px]'>
@@ -36,7 +36,7 @@ export const BottomNavigation = () => {
 					item.path === '/'
 						? location.pathname === '/' ||
 							location.pathname.startsWith('/search')
-						: location.pathname.startsWith(item.path)
+						: location.pathname.startsWith(item.path);
 				return (
 					<button
 						key={item.path}
@@ -71,8 +71,8 @@ export const BottomNavigation = () => {
 							{item.label}
 						</span>
 					</button>
-				)
+				);
 			})}
 		</nav>
-	)
-}
+	);
+};
