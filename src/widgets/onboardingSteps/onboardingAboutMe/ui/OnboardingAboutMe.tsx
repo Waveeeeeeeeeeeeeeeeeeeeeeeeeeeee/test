@@ -1,10 +1,14 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react';
+
+import { qualityOfDescription } from '../api/qualityOfDescription';
 
 import styles from './OnboardingAboutMe.module.css';
 import { useUserStore } from '@/entities/user/model/store';
 import { useCustomTranslation } from '@/shared';
 import { Input } from '@/shared';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
+import { QualityDescriptionIndicator } from '@/shared/ui/QualityDescriptionIndicator/QualityDescriptionIndicator';
 import { TextArea } from '@/shared/ui/TextArea';
 
 const OnboardingAboutMe = () => {
@@ -30,6 +34,35 @@ const OnboardingAboutMe = () => {
 	} = useCustomTranslation('onboardingAboutMe');
 	const [reqChangeNickname, setReqChangeNickname] = useState(true);
 	const [previousNickname, setPreviousNickname] = useState(profile.nickname);
+	const controllerRef = useRef<AbortController | null>(null);
+
+	useEffect(() => {
+		const text = profile.about?.trim();
+
+		controllerRef.current?.abort();
+
+		if (!text) {
+			setProfileField?.('qualityOfDescription', -4);
+			return;
+		}
+
+		const controller = new AbortController();
+		controllerRef.current = controller;
+
+		const debounceReq = setTimeout(async () => {
+			try {
+				const res = await qualityOfDescription({ description: text });
+				setProfileField?.('qualityOfDescription', res.data.evaluation);
+			} catch (err) {
+				console.error(err);
+			}
+		}, 2000);
+
+		return () => {
+			clearTimeout(debounceReq);
+			controller.abort();
+		};
+	}, [profile.about]);
 
 	return (
 		<div className='flex flex-col gap-8 pb-20'>
@@ -131,6 +164,9 @@ const OnboardingAboutMe = () => {
 					onChange: (value: string) => setProfileField('about', value)
 				}}
 			/>
+
+			{/* Индикатор качества описания */}
+			<QualityDescriptionIndicator />
 		</div>
 	);
 };

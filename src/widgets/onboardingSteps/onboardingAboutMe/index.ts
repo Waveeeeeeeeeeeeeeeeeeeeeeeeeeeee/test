@@ -1,1 +1,1 @@
-export * from "./ui/AccountInfoStep2";
+export * from './ui/OnboardingAboutMe';

@@ -21,6 +21,7 @@ const defaultProfile = {
 	user_id: null,
 	profile_id: null,
 	country_code: '',
+	qualityOfDescription: -4,
 	isFirstFormValid: false,
 	isSecondFormValid: false,
 	selectedPlatform: ['pc'],

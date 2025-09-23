@@ -42,6 +42,7 @@ export interface UserProfile {
 	selectedGoal: string[];
 	selectedPrime: string[];
 	selectedMatchType: string;
+	qualityOfDescription: number;
 	country_code: string;
 	isFirstFormValid: boolean;
 	isSecondFormValid: boolean;
