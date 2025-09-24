@@ -9,4 +9,6 @@ export type GameListProps = {
 	onChangeSelectedGameIds: (ids: string[]) => void;
 	searchPlaceholder?: string;
 	withTargetSelector?: boolean;
+	onToggle?: (game: Game) => void;
+	onTogglePurpose?: () => void;
 };

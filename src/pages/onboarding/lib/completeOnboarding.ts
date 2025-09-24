@@ -3,9 +3,7 @@ import { UserProfile } from '@/entities/user/model/types';
 import {
 	createProfile,
 	createProfileMedia,
-	createUser,
-	setProfileGamesWithPurposes
-	// createDevice,
+	createUser
 } from '@/shared/api/endpoints';
 import { getLocationDetails } from '@/shared/services/location-service';
 

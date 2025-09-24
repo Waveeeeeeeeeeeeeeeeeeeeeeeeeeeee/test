@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -55,8 +56,12 @@ const ProfileSettings = () => {
 			updateProfile(profile);
 			localStorage.setItem('selectedLanguage', profile.selectedLanguage);
 			window.history.back();
-		} catch (err: object | unknown) {
-			toast.error(err.response?.data?.message || 'Ошибка обновления профиля');
+		} catch (err) {
+			if (axios.isAxiosError(err)) {
+				toast.error(err.response?.data?.message || 'Ошибка обновления профиля');
+			} else {
+				toast.error('Неизвестная ошибка');
+			}
 		}
 	};
 	const InputData = [
@@ -161,7 +166,7 @@ const ProfileSettings = () => {
 						variant='row'
 						data={genders}
 						selected={profile.gender || ''}
-						onSelect={handleGenderChange}
+						onSelect={value => handleGenderChange(value as string)}
 					/>
 				</div>
 				<div>
@@ -169,7 +174,7 @@ const ProfileSettings = () => {
 					<VariantSelection
 						data={languages}
 						selected={profile.selectedLanguage}
-						onSelect={handleLanguageChange}
+						onSelect={value => handleLanguageChange(value as string)}
 					/>
 				</div>
 				<div>

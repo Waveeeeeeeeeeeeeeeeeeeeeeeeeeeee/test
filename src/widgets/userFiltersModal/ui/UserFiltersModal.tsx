@@ -118,6 +118,7 @@ export const UserFiltersModal = () => {
 						allGameTitles={games.map(game => game.title)}
 						searchPlaceholder='Поиск'
 						withTargetSelector={false}
+						onChangeSelectedGameIds={() => {}}
 						onTogglePurpose={undefined}
 					/>
 				</div>
@@ -127,7 +128,7 @@ export const UserFiltersModal = () => {
 						variant='row'
 						data={genders}
 						selected={gender || 'men'}
-						onSelect={setGender}
+						onSelect={value => setGender(value as string)}
 					/>
 				</div>
 
@@ -137,7 +138,7 @@ export const UserFiltersModal = () => {
 						variant='col'
 						data={scopes}
 						selected={scope || 'city'}
-						onSelect={setScope}
+						onSelect={value => setScope(value as string)}
 					/>
 				</div>
 			</div>
