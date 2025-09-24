@@ -10,7 +10,7 @@ import Description from '@/shared/ui/Description/Description';
 import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
 import { UserCard } from '@/shared/ui/UserCard/UserCard';
 import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules';
-import { OnboardingRules } from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
+import { OnboardingRules } from '@/widgets/onboardingSteps/tempRules/ui/OnboardingRules';
 
 const Profile = () => {
 	const [toggle, setToggle] = useState('description');

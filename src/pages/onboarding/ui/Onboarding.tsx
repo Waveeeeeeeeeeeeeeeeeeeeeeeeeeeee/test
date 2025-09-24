@@ -28,7 +28,7 @@ import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePers
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
 import { OnboardingChoosePrime } from '@/widgets/onboardingSteps/onboardingChoosePrime';
-import { OnboardingRules } from '@/widgets/onboardingSteps/onboardingRules/ui/OnboardingRules';
+import { OnboardingRules } from '@/widgets/onboardingSteps/tempRules/ui/OnboardingRules';
 
 export const Onboarding = () => {
 	const navigate = useNavigate();
