@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import styles from './OnboardingRules.module.css';
+import styles from './tempRules.module.css';
 import { Button, useCustomTranslation } from '@/shared';
 import { NumericList } from '@/shared/ui/NumericList';
 
@@ -11,7 +11,7 @@ interface OnboardingRulesProps {
 	handleAccetpRules: () => void;
 	profile?: boolean;
 }
-export const OnboardingRules = ({
+export const TempRules = ({
 	handleResetSteps,
 	handleAccetpRules,
 	profile = false

@@ -28,7 +28,7 @@ import { validateLocation } from '@/widgets/onboardingSteps/onboardingChoosePers
 import OnboardingChoosePerson from '@/widgets/onboardingSteps/onboardingChoosePerson/ui/OnboardingChoosePerson';
 import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingChoosePlatform';
 import { OnboardingChoosePrime } from '@/widgets/onboardingSteps/onboardingChoosePrime';
-import { OnboardingRules } from '@/widgets/onboardingSteps/tempRules/ui/OnboardingRules';
+import { TempRules } from '@/widgets/onboardingSteps/tempRules/ui/tempRules';
 
 export const Onboarding = () => {
 	const navigate = useNavigate();
@@ -279,7 +279,7 @@ export const Onboarding = () => {
 						transition={{ duration: 0.3, ease: 'easeInOut' }}
 						className='fixed inset-0 z-50 flex items-center justify-center bg-black/50'
 					>
-						<OnboardingRules
+						<TempRules
 							handleAccetpRules={handleAcceptRules}
 							handleResetSteps={handleResetSteps}
 						/>

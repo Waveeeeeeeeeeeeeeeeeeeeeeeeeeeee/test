@@ -1,1 +1,1 @@
-export * from './ui/OnboardingRules';
+export * from './ui/tempRules';
