@@ -10,7 +10,7 @@ import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { useCustomTranslation } from '@/shared';
 
 const languages = [
-	{ code: 'ru', label: 'Русский', icon: RuIco },
+	{ code: 'ru', label: 'Китайский', icon: RuIco },
 	{ code: 'ua', label: 'Український', icon: UaIco },
 	{ code: 'en', label: 'English', icon: GbIco }
 ];
