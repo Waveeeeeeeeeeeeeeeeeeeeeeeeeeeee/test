@@ -1,11 +1,12 @@
 import { useParams } from 'react-router';
 
-// import { mockUsers } from '@/5.entities/person/config/testUsers'
 import { useUserSocketStore } from '@/entities/person/model/userSocketStore';
 import { searchList } from '@/entities/search/config/searchList';
 import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeader } from '@/shared/ui/NotificationHeader';
+import { SearchedUser } from '@/widgets/searchedUser/SearchedUser';
+import { mockUser } from '@/widgets/searchedUser/api/mockUser';
 import { UserFiltersModal } from '@/widgets/userFiltersModal/ui/UserFiltersModal';
 import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters';
 import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel';
@@ -35,8 +36,6 @@ const SearchPage = () => {
 				'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg',
 			level: 7,
 			badgeLabel: 'Дуо',
-			// infoImg:
-			// 	'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg',
 			mode: 'Unrated'
 		}
 	];
@@ -60,9 +59,11 @@ const SearchPage = () => {
 				<div className=' mb-4'>
 					<UserListFilters />
 				</div>
-				<SwipeCardDeck users={users} games={mockGames} />
+				<SwipeCardDeck users={mockUser} games={mockGames} />
+
 				<UserInteractionPanel userId='123' />
 			</div>
+
 			<UserFiltersModal />
 		</>
 	);

@@ -35,7 +35,7 @@ export interface UserProfile {
 	about: string;
 	interests: string[];
 	games: Game[];
-	image: File | null;
+	image: File | null | string;
 	selectedLanguage: string;
 	selectedPlatform: string[];
 	selectedCountry: string[];

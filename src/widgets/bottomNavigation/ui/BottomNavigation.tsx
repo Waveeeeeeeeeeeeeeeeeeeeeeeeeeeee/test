@@ -59,6 +59,7 @@ export const BottomNavigation = () => {
 							item.icon && (
 								<item.icon
 									fill={isActive ? 'white' : '#828289'}
+									color='#828289'
 									className='transition-all duration-200 group-hover:fill-white'
 								/>
 							)

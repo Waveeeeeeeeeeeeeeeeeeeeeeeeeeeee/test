@@ -1,21 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-import InfoIco from '../../assets/icons/info.svg?react'
-import NotificationIco from '../../assets/images/notification.svg?react'
+import InfoIco from '../../assets/icons/info.svg?react';
+import NotificationIco from '../../assets/images/notification.svg?react';
 
-import styles from './UserCard.module.css'
+import styles from './UserCard.module.css';
 
 export type UserCardProps = {
-	name: string
-	age: number
-	gender: string
-	city: string
-	languages: string
-	avatarUrl: string | File
-	isOnline?: boolean
-	icon: 'notification' | 'info'
-	coutry_code: string
-}
+	name: string;
+	age: number;
+	gender: string;
+	city?: string;
+	languages?: string;
+	avatarUrl: string | File;
+	isOnline?: boolean;
+	icon: 'notification' | 'info';
+	coutry_code: string;
+};
 
 export const UserCard: React.FC<UserCardProps> = ({
 	name,
@@ -64,10 +64,10 @@ export const UserCard: React.FC<UserCardProps> = ({
 					</span>
 				</div>
 				<div className={styles.nameRow}>
-					<div className={styles.location}>г. {city}</div>
-					<div className={styles.langs}>{languages.toUpperCase()}</div>
+					<div className={styles.location}>{city ? 'г.' + city : ''}</div>
+					<div className={styles.langs}>{languages?.toUpperCase()}</div>
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
