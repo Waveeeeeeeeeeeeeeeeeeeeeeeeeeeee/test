@@ -1,3 +1,4 @@
+import { User } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router';
 
 import styles from './BottomNavigation.module.css';
@@ -11,7 +12,7 @@ export const BottomNavigation = () => {
 	const navigationItems = [
 		{
 			label: label1,
-			path: '/',
+			path: '/home',
 			icon: HomeIcon
 		},
 		{
@@ -22,7 +23,8 @@ export const BottomNavigation = () => {
 		{
 			label: label4,
 			path: '/profile',
-			isProfile: true
+			isProfile: true,
+			icon: User
 		}
 	];
 	const navigate = useNavigate();

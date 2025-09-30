@@ -1,5 +1,5 @@
 export enum EnumRoutes {
-	HOME = '/',
+	HOME = '/home',
 	ONBOARDING = '/onboarding',
 	SEARCH = '/search',
 	SEARCH_DETAIL = '/search/:searchType',

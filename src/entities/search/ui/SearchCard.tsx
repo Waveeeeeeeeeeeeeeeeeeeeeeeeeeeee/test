@@ -1,33 +1,41 @@
-import { FC, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import { SearchCardTypes } from '../model/types'
+import { SearchCardTypes } from '../model/types';
 
-import styles from './SearchCard.module.css'
-import HeartIco from '@/shared/assets/images/heart.svg?react'
+import styles from './SearchCard.module.css';
+import HeartIco from '@/shared/assets/images/heart.svg?react';
+import VectorBg from '@/shared/assets/images/vector.svg';
 
 interface Props {
-	data: SearchCardTypes
+	data: SearchCardTypes;
 }
 
 export const SearchCard: FC<Props> = ({ data }) => {
-	const navigate = useNavigate()
-	const [isSubscribe, setIsSubscribe] = useState(false)
+	const navigate = useNavigate();
+	const [isSubscribe, setIsSubscribe] = useState(false);
 
 	const handleCardClick = () => {
-		navigate(data.href)
-	}
+		navigate(data.href);
+	};
 
 	const handleHeartClick = (e: React.MouseEvent) => {
-		e.stopPropagation()
-		setIsSubscribe(!isSubscribe)
-	}
+		e.stopPropagation();
+		setIsSubscribe(!isSubscribe);
+	};
 
 	return (
 		<div
-			className={`relative rounded-2xl bg-[#1a1a1a] cursor-pointer hover:scale-[1.01] transition-all duration-200 ${styles.card}`}
+			className={` relative rounded-2xl cursor-pointer hover:scale-[1.01] transition-all duration-200 ${styles.card}`}
 			onClick={handleCardClick}
 		>
+			<div
+				className='absolute inset-0 bg-cover bg-center'
+				style={{
+					backgroundImage: `url(${VectorBg})`,
+					backgroundColor: '#1a1a1a'
+				}}
+			/>
 			<div className='p-3 h-full flex flex-col justify-between gap-11.5'>
 				<div
 					className='z-20 w-5 h-5 relative'
@@ -56,5 +64,5 @@ export const SearchCard: FC<Props> = ({ data }) => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

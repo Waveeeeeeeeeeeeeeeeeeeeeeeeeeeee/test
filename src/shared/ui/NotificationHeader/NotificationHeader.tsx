@@ -1,14 +1,14 @@
-import BackIco from '../../assets/icons/back.svg?react'
-import NotificationIco from '../../assets/images/notification.svg?react'
+import BackIco from '../../assets/icons/back.svg?react';
+import NotificationIco from '../../assets/images/notification.svg?react';
 
-import styles from './NotificationHeader.module.css'
+import styles from './NotificationHeader.module.css';
 
 export type NotificationHeaderProps = {
-	title: string
-	goBack?: () => void
-	back?: boolean
-	notification?: boolean
-}
+	title: string;
+	goBack?: () => void;
+	back?: boolean;
+	notification?: boolean;
+};
 
 export const NotificationHeader = ({
 	title,
@@ -29,9 +29,9 @@ export const NotificationHeader = ({
 			{notification && (
 				<button className='cursor-pointer'>
 					{' '}
-					<NotificationIco fill='white' />
+					<NotificationIco fill='gray' />
 				</button>
 			)}
 		</div>
-	)
-}
+	);
+};

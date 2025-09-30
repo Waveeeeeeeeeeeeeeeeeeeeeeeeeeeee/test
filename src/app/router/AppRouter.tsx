@@ -31,8 +31,8 @@ const AppRouter: FC = () => {
 			<Route path='/' element={<Navigate to='/' replace />} />
 			{routes.map(renderRoutes)}
 
-			{/* Catch-all: редирект на онбординг для любых неизвестных маршрутов */}
-			<Route path='*' element={<Navigate to='/onboarding' replace />} />
+			{/* Catch-all: редирект на home для любых неизвестных маршрутов */}
+			<Route path='*' element={<Navigate to='/home' replace />} />
 		</Routes>
 	);
 };

@@ -35,6 +35,7 @@ export const useMainApp = () => {
 				swipeBehavior.disableVertical();
 
 				const { tgWebAppData } = retrieveLaunchParams();
+				console.log('tgWebAppData:', tgWebAppData);
 
 				if (tgWebAppData?.user && !useUserStore.getState().user) {
 					console.log('tgWebAppData', tgWebAppData);
