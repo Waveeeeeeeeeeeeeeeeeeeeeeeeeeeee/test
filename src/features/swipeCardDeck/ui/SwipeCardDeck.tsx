@@ -11,8 +11,14 @@ import { PersonPreviewCard } from '@/entities/person/ui/PersonPreviewCard';
 import { UserProfile } from '@/entities/user/model/types';
 import { PersonGame } from '@/features/personGamesSlider/model/types';
 
+type PersonPreview = Pick<
+	UserProfile,
+	'nickname' | 'image' | 'country_code' | 'age' | 'interests' | 'about'
+> &
+	Partial<UserProfile>;
+
 interface SwipeCardDeckProps {
-	users: UserProfile[];
+	users: PersonPreview[];
 	games: PersonGame[];
 }
 
@@ -58,7 +64,7 @@ export const SwipeCardDeck = ({ users, games }: SwipeCardDeckProps) => {
 };
 
 interface SwipeableCardProps {
-	user: UserProfile;
+	user: PersonPreview;
 	games: PersonGame[];
 	onSwipe: (dir: number) => void;
 	direction: number | null;

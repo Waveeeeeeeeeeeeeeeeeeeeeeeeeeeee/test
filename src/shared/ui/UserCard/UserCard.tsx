@@ -22,7 +22,6 @@ export const UserCard: React.FC<UserCardProps> = ({
 	age,
 	gender,
 	city,
-	languages,
 	avatarUrl,
 	isOnline = false,
 	icon = 'info',
@@ -65,7 +64,6 @@ export const UserCard: React.FC<UserCardProps> = ({
 				</div>
 				<div className={styles.nameRow}>
 					<div className={styles.location}>{city ? 'г.' + city : ''}</div>
-					<div className={styles.langs}>{languages?.toUpperCase()}</div>
 				</div>
 			</div>
 		</div>

@@ -1,12 +1,10 @@
 import { useParams } from 'react-router';
 
-import { useUserSocketStore } from '@/entities/person/model/userSocketStore';
+import { mockUser } from '@/entities/person/api/mockUser';
 import { searchList } from '@/entities/search/config/searchList';
 import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeader } from '@/shared/ui/NotificationHeader';
-import { SearchedUser } from '@/widgets/searchedUser/SearchedUser';
-import { mockUser } from '@/widgets/searchedUser/api/mockUser';
 import { UserFiltersModal } from '@/widgets/userFiltersModal/ui/UserFiltersModal';
 import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters';
 import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel';
@@ -14,18 +12,16 @@ import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPane
 const SearchPage = () => {
 	const { searchType } = useParams<{ searchType: string }>();
 	const card = searchList.find(item => item.href.endsWith(searchType || ''));
-	const users = useUserSocketStore(state => state.users);
+	// const users = useUserSocketStore(state => state.users);
 
 	const mockGames = [
 		{
 			id: '1',
 			title: 'PUBG Mobile',
 			iconUrl:
-				'https://upload.wikimedia.org/wikipedia/ru/thumb/c/c9/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%B8%D0%B3%D1%80%D1%8B_PlayerUnknown%27s_Battlegrounds.jpg/411px-%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%B8%D0%B3%D1%80%D1%8B_PlayerUnknown%27s_Battlegrounds.jpg',
+				'https://upload.wikimedia.org/wikipedia/en/thumb/4/44/PlayerUnknown%27s_Battlegrounds_Mobile.webp/240px-PlayerUnknown%27s_Battlegrounds_Mobile.webp.png',
 			level: 12,
 			badgeLabel: 'Праки',
-			infoImg:
-				'https://upload.wikimedia.org/wikipedia/ru/thumb/c/c9/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%B8%D0%B3%D1%80%D1%8B_PlayerUnknown%27s_Battlegrounds.jpg/411px-%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%B8%D0%B3%D1%80%D1%8B_PlayerUnknown%27s_Battlegrounds.jpg',
 			mode: 'Ranked',
 			verify: true
 		},
@@ -36,7 +32,8 @@ const SearchPage = () => {
 				'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg',
 			level: 7,
 			badgeLabel: 'Дуо',
-			mode: 'Unrated'
+			mode: 'Unrated',
+			verify: true
 		}
 	];
 
