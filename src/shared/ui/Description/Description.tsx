@@ -1,11 +1,16 @@
-import styles from './Description.module.css'
+import styles from './Description.module.css';
 
 export type DescriptionProps = {
-	description: string
-	variant: 'full' | 'short'
-}
-const Description = ({ description, variant }: DescriptionProps) => {
-	return <div className={styles[variant]}>{description}</div>
-}
+	description: string;
+	toggle: () => void;
+};
 
-export default Description
+const Description = ({ description, toggle }: DescriptionProps) => {
+	return (
+		<div className={styles.about}>
+			<p onClick={toggle}>{description}</p>
+		</div>
+	);
+};
+
+export default Description;

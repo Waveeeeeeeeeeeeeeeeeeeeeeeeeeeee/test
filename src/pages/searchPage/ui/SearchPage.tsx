@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 
+import { mockGames } from '@/entities/game/api/mockGames';
 import { mockUser } from '@/entities/person/api/mockUser';
 import { searchList } from '@/entities/search/config/searchList';
 import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck';
@@ -13,29 +14,6 @@ const SearchPage = () => {
 	const { searchType } = useParams<{ searchType: string }>();
 	const card = searchList.find(item => item.href.endsWith(searchType || ''));
 	// const users = useUserSocketStore(state => state.users);
-
-	const mockGames = [
-		{
-			id: '1',
-			title: 'PUBG Mobile',
-			iconUrl:
-				'https://upload.wikimedia.org/wikipedia/en/thumb/4/44/PlayerUnknown%27s_Battlegrounds_Mobile.webp/240px-PlayerUnknown%27s_Battlegrounds_Mobile.webp.png',
-			level: 12,
-			badgeLabel: 'Праки',
-			mode: 'Ranked',
-			verify: true
-		},
-		{
-			id: '2',
-			title: 'Overwatch',
-			iconUrl:
-				'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_cover_art.jpg',
-			level: 7,
-			badgeLabel: 'Дуо',
-			mode: 'Unrated',
-			verify: true
-		}
-	];
 
 	const handleGoBack = () => {
 		window.history.back();

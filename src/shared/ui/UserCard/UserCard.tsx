@@ -1,5 +1,3 @@
-import React from 'react';
-
 import InfoIco from '../../assets/icons/info.svg?react';
 import NotificationIco from '../../assets/images/notification.svg?react';
 

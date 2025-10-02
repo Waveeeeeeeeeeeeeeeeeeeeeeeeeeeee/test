@@ -6,6 +6,7 @@ import { PersonGamesSlider } from '@/features/personGamesSlider';
 import { PersonGame } from '@/features/personGamesSlider/model/types';
 import { ShowTags } from '@/features/showTags';
 import catIco from '@/shared/assets/images/cat.webp';
+import { useDescription } from '@/shared/lib/hooks/useDescription';
 import Description from '@/shared/ui/Description/Description';
 import { UserCard } from '@/shared/ui/UserCard/UserCard';
 
@@ -16,6 +17,11 @@ type Props = {
 };
 
 export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
+	const { displayText, setIsCuted } = useDescription({
+		text: person.about,
+		maxLength: 100
+	});
+
 	return (
 		<div
 			className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-4 px-1.5 pt-1.5 relative '
@@ -39,7 +45,10 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 				) : null}
 				<>
 					{person.selectedMatchType === 'realLife' ? (
-						<Description description={person.about} variant='short' />
+						<Description
+							description={displayText}
+							toggle={() => setIsCuted(prev => !prev)}
+						/>
 					) : (
 						<div className='flex flex-col gap-2'>
 							<h3 className='font-semibold text-lg'>Страны</h3>
