@@ -1,15 +1,15 @@
-import styles from './PersonGameCard.module.css'
-import { PersonGame } from '@/features/personGamesSlider/model/types'
-import VerifideIco from '@/shared/assets/icons/verified.svg?react'
+import styles from './PersonGameCard.module.css';
+import { PersonGame } from '@/features/personGamesSlider/model/types';
+import VerifideIco from '@/shared/assets/icons/verified.svg?react';
 
 type Props = {
-	game: PersonGame
-}
+	game: PersonGame;
+};
 
 export const PersonGameCard = ({ game }: Props) => {
 	return (
 		<div
-			className={`rounded-2xl p-1.5 flex items-center justify-between text-white ${styles.card}`}
+			className={`rounded-2xl mt-4 flex items-center justify-between text-white ${styles.card}`}
 		>
 			<div className='flex items-center space-x-4'>
 				<img
@@ -37,5 +37,5 @@ export const PersonGameCard = ({ game }: Props) => {
 				/>
 			)}
 		</div>
-	)
-}
+	);
+};

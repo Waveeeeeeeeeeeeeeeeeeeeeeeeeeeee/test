@@ -50,7 +50,7 @@ const Profile = () => {
 						variant='base'
 					/>
 				</div>
-				<Description description={profile.about} variant='full' />
+				<Description description={profile.about} />
 				<ShowTags tags={profile.interests} />
 			</div>
 			<ProfileMenu />

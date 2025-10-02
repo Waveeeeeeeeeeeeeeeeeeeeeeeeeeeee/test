@@ -1,27 +1,27 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { useUserFiltersToggleStore } from '../model/toggleUserFilter'
+import { useUserFiltersToggleStore } from '../model/toggleUserFilter';
 
-import { useCustomTranslation } from '@/shared'
-import FilterICon from '@/shared/ui/Filter/Filter'
-import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs'
+import { useCustomTranslation } from '@/shared';
+import FilterICon from '@/shared/ui/Filter/Filter';
+import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
 
 const UserListFilters = () => {
-	const [status, setStatus] = useState('online')
-	const open = useUserFiltersToggleStore(state => state.open)
-	const { label1, label2 } = useCustomTranslation('statusFilter')
+	const [status, setStatus] = useState('online');
+	const open = useUserFiltersToggleStore(state => state.open);
+	const { label1, label2 } = useCustomTranslation('statusFilter');
 	const statusOptions = [
 		{
 			label: label1,
 			value: 'online',
 			subtitle: '2.384 онлайн',
-			icon: <span className='text-emerald-400 text-sm animate-pulse'>●</span>
+			icon: <span className='text-violet-500 text-sm animate-pulse'>●</span>
 		},
 		{
 			label: label2,
 			value: 'offline'
 		}
-	]
+	];
 
 	return (
 		<div className='flex items-center gap-2.5 w-full'>
@@ -35,7 +35,7 @@ const UserListFilters = () => {
 				variant='accent'
 			/>
 		</div>
-	)
-}
+	);
+};
 
-export default UserListFilters
+export default UserListFilters;

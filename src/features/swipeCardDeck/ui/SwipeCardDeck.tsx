@@ -35,7 +35,7 @@ export const SwipeCardDeck = ({ users, games }: SwipeCardDeckProps) => {
 				className='absolute w-full h-full'
 				initial={{ opacity: 0.3, scale: 0.85 }}
 				animate={{ opacity: 0.3, scale: 0.85 }}
-				style={{ zIndex: 5, height: '100%', bottom: 50 }}
+				style={{ zIndex: 5, height: '100%', bottom: 52 }}
 			>
 				<PersonPreviewCard person={nextUser} games={games} />
 			</motion.div>

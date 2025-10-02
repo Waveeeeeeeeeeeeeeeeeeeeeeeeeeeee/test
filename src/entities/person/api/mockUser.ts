@@ -25,7 +25,21 @@ export const mockUser = [
 		],
 		selectedMatchType: 'online',
 		selectedCountry: ['Россия', 'Беларусь'],
-		selectedGoal: ['Праки', 'ТDM', 'UltimateRoyal'],
+		selectedGoal: [
+			'Праки',
+			'ТDM',
+			'UltimateRoyal',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM',
+			'ТDM'
+		],
 		selectedPrime: ['Утро (6:00 - 12:00)', 'Вечер (18:00 - 00:00)'],
 		isOnline: true
 	},

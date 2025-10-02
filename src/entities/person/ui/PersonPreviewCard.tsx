@@ -24,7 +24,7 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 
 	return (
 		<div
-			className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-4 px-1.5 pt-1.5 relative '
+			className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-5 px-1.5 pt-1.5 relative pb-6'
 			style={style}
 		>
 			<UserCard
@@ -40,9 +40,6 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 			/>
 
 			<div className='flex flex-col gap-4 px-3 '>
-				{person.selectedMatchType === 'realLife' ? (
-					<div className='font-medium text-[#8a8989]'>{`${person.country}, г. ${person.city}`}</div>
-				) : null}
 				<>
 					{person.selectedMatchType === 'realLife' ? (
 						<Description
@@ -66,8 +63,16 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 				{person.selectedMatchType === 'realLife' ? (
 					<ShowTags tags={person.interests} />
 				) : null}
+
+				{person.selectedMatchType === 'realLife' ? (
+					<div className='font-medium text-[#8a8989]'>{`${person.country}, г. ${person.city}`}</div>
+				) : null}
 			</div>
-			{games?.length ? <PersonGamesSlider games={games} /> : null}
+
+			<div className='px-4 mt-1'>
+				<p className='uppercase text-violet-400'>Играет в:</p>
+				{games?.length ? <PersonGamesSlider games={games} /> : null}
+			</div>
 		</div>
 	);
 };

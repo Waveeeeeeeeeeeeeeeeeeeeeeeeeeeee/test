@@ -1,32 +1,32 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
-import styles from './ToggleTabs.module.css'
+import styles from './ToggleTabs.module.css';
 
 type ToggleOption = {
-	label: string
-	value: string
-	subtitle?: string
-	icon?: React.ReactNode
-}
+	label: string;
+	value: string;
+	subtitle?: string;
+	icon?: React.ReactNode;
+};
 
 type ToggleTabsProps = {
-	options: ToggleOption[]
-	active: string
-	onChange: (val: string) => void
-	variant?: 'accent' | 'base'
-}
+	options: ToggleOption[];
+	active: string;
+	onChange: (val: string) => void;
+	variant?: 'accent' | 'base';
+};
 
 const colorVariant = (value: string) => {
 	switch (value) {
 		case 'accent': {
-			return '#84dcc6'
+			return '#84dcc6';
 		}
 		case 'base': {
-			return '#201e1d'
+			return '#201e1d';
 		}
 	}
-}
+};
 
 export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 	options,
@@ -34,7 +34,7 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 	onChange,
 	variant = 'accent'
 }) => {
-	const activeIndex = options.findIndex(opt => opt.value === active)
+	const activeIndex = options.findIndex(opt => opt.value === active);
 
 	return (
 		<div className='relative flex bg-zinc-900 w-full p-1 rounded-full overflow-hidden h-full'>
@@ -47,7 +47,7 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 			/>
 
 			{options.map(opt => {
-				const isActive = opt.value === active
+				const isActive = opt.value === active;
 				return (
 					<button
 						key={opt.value}
@@ -74,8 +74,8 @@ export const ToggleTabs: React.FC<ToggleTabsProps> = ({
 							</div>
 						)}
 					</button>
-				)
+				);
 			})}
 		</div>
-	)
-}
+	);
+};

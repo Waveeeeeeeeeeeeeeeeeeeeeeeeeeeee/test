@@ -2,7 +2,7 @@ import styles from './Description.module.css';
 
 export type DescriptionProps = {
 	description: string;
-	toggle: () => void;
+	toggle?: () => void;
 };
 
 const Description = ({ description, toggle }: DescriptionProps) => {
