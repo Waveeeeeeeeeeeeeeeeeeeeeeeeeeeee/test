@@ -48,6 +48,7 @@ export interface UserProfile {
 	isSecondFormValid: boolean;
 	profile_id: number | null | string;
 	user_id: number | null | string;
+	isOnline: boolean;
 }
 
 export interface UserState {

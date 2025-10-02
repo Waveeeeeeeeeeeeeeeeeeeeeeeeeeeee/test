@@ -44,7 +44,7 @@ const SearchPage = () => {
 	if (!card) return <div>Ничего не найдено 😢</div>;
 	return (
 		<>
-			<div className='p-4 px-4 h-screen relative overflow-scroll pb-48'>
+			<div className='p-4 px-4 h-[900px] mb-20 relative overflow-scoll pb-48'>
 				<div className=' mb-2.5'>
 					<NotificationHeader
 						title={card.title}

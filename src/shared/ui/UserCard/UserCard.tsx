@@ -44,8 +44,8 @@ export const UserCard: React.FC<UserCardProps> = ({
 					}
 					alt={name}
 					className={styles.avatar}
-					width={150}
-					height={150}
+					width={250}
+					height={250}
 				/>
 				{isOnline && <span className={styles.statusDot} />}
 			</div>

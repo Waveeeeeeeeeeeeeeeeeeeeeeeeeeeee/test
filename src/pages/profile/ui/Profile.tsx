@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useUserStore } from '@/entities/user/model/store';
 import ProfileMenu from '@/features/profileMenu/ui/ProfileMenu';
-import { ShowInterests } from '@/features/showInterests';
+import { ShowTags } from '@/features/showTags';
 import { useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import Description from '@/shared/ui/Description/Description';
@@ -51,7 +51,7 @@ const Profile = () => {
 					/>
 				</div>
 				<Description description={profile.about} variant='full' />
-				<ShowInterests interests={profile.interests} />
+				<ShowTags tags={profile.interests} />
 			</div>
 			<ProfileMenu />
 
