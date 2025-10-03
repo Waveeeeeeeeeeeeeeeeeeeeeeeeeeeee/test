@@ -26,15 +26,17 @@ export const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
 		if (!isOpen) return;
 
 		const handleKeyDownEvent = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') {
+			if (e.key === 'Escape' || e.code === 'Escape') {
 				onClose();
 			}
 		};
 
+		document.body.style.overflow = 'hidden';
 		document.addEventListener('keydown', handleKeyDownEvent);
 
 		return () => {
 			document.removeEventListener('keydown', handleKeyDownEvent);
+			document.body.style.overflowY = 'scroll';
 		};
 	}, [isOpen, onClose]);
 

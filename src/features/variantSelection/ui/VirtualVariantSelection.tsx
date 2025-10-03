@@ -130,6 +130,7 @@ const VirtualVariantSelection = ({
 						rowHeight={rowHeight}
 						rowRenderer={rowRenderer}
 						overscanRowCount={10}
+						style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
 					/>
 				)}
 			</AutoSizer>

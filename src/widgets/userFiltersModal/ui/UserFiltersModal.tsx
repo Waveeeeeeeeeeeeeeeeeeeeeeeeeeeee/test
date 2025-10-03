@@ -92,6 +92,22 @@ export const UserFiltersModal = () => {
 	const handleToggle = (game: Game) => {
 		toggleSelectedGames(game.id);
 	};
+
+	const handleChangeSelectedGameIds = (newSelectedIds: string[]) => {
+		const currentSelectedIds = selectedGames;
+
+		const addedIds = newSelectedIds.filter(
+			id => !currentSelectedIds.includes(id)
+		);
+
+		const removedIds = currentSelectedIds.filter(
+			id => !newSelectedIds.includes(id)
+		);
+
+		addedIds.forEach(id => toggleSelectedGames(id));
+
+		removedIds.forEach(id => toggleSelectedGames(id));
+	};
 	return (
 		<Modal isOpen={isOpen}>
 			<div className='mb-5'>
@@ -118,7 +134,7 @@ export const UserFiltersModal = () => {
 						allGameTitles={games.map(game => game.title)}
 						searchPlaceholder='Поиск'
 						withTargetSelector={false}
-						onChangeSelectedGameIds={() => {}}
+						onChangeSelectedGameIds={handleChangeSelectedGameIds}
 						onTogglePurpose={undefined}
 					/>
 				</div>

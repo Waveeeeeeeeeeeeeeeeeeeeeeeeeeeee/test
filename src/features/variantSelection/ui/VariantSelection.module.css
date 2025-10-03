@@ -12,3 +12,13 @@
 .full {
 	width: 100%;
 }
+
+/* Hide scrollbar for VirtualVariantSelection */
+:global(.ReactVirtualized__List) {
+	scrollbar-width: none !important; /* Firefox */
+	-ms-overflow-style: none !important; /* Internet Explorer 10+ */
+}
+
+:global(.ReactVirtualized__List::-webkit-scrollbar) {
+	display: none !important; /* WebKit */
+}

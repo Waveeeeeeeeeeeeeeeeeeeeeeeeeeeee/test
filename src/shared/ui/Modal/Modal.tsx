@@ -1,11 +1,24 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import type { PropsWithChildren } from 'react'
+import { AnimatePresence, motion } from 'framer-motion';
+import type { PropsWithChildren } from 'react';
+import { useEffect } from 'react';
 
 type Props = {
-	isOpen: boolean
-}
+	isOpen: boolean;
+};
 
 export const Modal = ({ children, isOpen }: PropsWithChildren<Props>) => {
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+
+		return () => {
+			document.body.style.overflow = 'unset';
+		};
+	}, [isOpen]);
+
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -27,5 +40,5 @@ export const Modal = ({ children, isOpen }: PropsWithChildren<Props>) => {
 				</motion.div>
 			)}
 		</AnimatePresence>
-	)
-}
+	);
+};
