@@ -22,6 +22,15 @@
 	object-fit: cover;
 	width: 150px;
 	height: 150px;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+	cursor: pointer;
+}
+
+.avatar:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .statusDot {

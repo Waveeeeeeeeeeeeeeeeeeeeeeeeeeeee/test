@@ -1,5 +1,8 @@
+import React, { useState } from 'react';
+
 import InfoIco from '../../assets/icons/info.svg?react';
 import NotificationIco from '../../assets/images/notification.svg?react';
+import { ImageZoomModal } from '../ImageZoomModal/ImageZoomModal';
 
 import styles from './UserCard.module.css';
 
@@ -25,6 +28,19 @@ export const UserCard: React.FC<UserCardProps> = ({
 	icon = 'info',
 	coutry_code
 }) => {
+	const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
+
+	const handleAvatarClick = () => {
+		setIsZoomModalOpen(true);
+	};
+
+	const handleCloseZoom = () => {
+		setIsZoomModalOpen(false);
+	};
+
+	const avatarSrc =
+		typeof avatarUrl === 'string' ? avatarUrl : URL.createObjectURL(avatarUrl);
+
 	return (
 		<div className={styles.card}>
 			<button className='bg-transparent border-none absolute right-2.5 top-2.5 cursor-pointer'>
@@ -35,15 +51,13 @@ export const UserCard: React.FC<UserCardProps> = ({
 			</button>
 			<div className={styles.avatarWrapper}>
 				<img
-					src={
-						typeof avatarUrl === 'string'
-							? avatarUrl
-							: URL.createObjectURL(avatarUrl)
-					}
+					src={avatarSrc}
 					alt={name}
 					className={styles.avatar}
 					width={250}
 					height={250}
+					onClick={handleAvatarClick}
+					style={{ cursor: 'pointer' }}
 				/>
 				{isOnline && <span className={styles.statusDot} />}
 			</div>
@@ -64,6 +78,12 @@ export const UserCard: React.FC<UserCardProps> = ({
 					<div className={styles.location}>{city ? 'г.' + city : ''}</div>
 				</div>
 			</div>
+			<ImageZoomModal
+				isOpen={isZoomModalOpen}
+				imageSrc={avatarSrc}
+				imageAlt={name}
+				onClose={handleCloseZoom}
+			/>
 		</div>
 	);
 };

@@ -1,0 +1,59 @@
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	backdrop-filter: blur(2px);
+}
+
+.modal {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.closeButton {
+	position: absolute;
+	top: -40px;
+	right: -40px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	z-index: 1001;
+}
+
+.zoomedImage {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border-radius: 8px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+	transition: transform 0.2s ease;
+}
+
+.zoomedImage:hover {
+	transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+	.modal {
+		max-width: 95vw;
+		max-height: 95vh;
+	}
+
+	.closeButton {
+		top: -30px;
+		right: -30px;
+		width: 30px;
+		height: 30px;
+		font-size: 18px;
+	}
+}
