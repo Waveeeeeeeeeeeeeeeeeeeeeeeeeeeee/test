@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
 	}
 
 	return {
-		plugins: [react(), svgr(), tailwindcss()],
+		plugins: [tailwindcss(), react(), svgr()],
 		server,
 		resolve: {
 			alias: {

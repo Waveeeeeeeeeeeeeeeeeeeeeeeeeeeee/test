@@ -120,7 +120,7 @@ const VirtualVariantSelection = ({
 	};
 
 	return (
-		<div style={{ width: '100%', height: '600px' }}>
+		<div style={{ width: '100%', height: '300px' }}>
 			<AutoSizer>
 				{({ height, width }) => (
 					<List
@@ -129,7 +129,7 @@ const VirtualVariantSelection = ({
 						rowCount={data.length}
 						rowHeight={rowHeight}
 						rowRenderer={rowRenderer}
-						overscanRowCount={10}
+						overscanRowCount={4}
 						style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
 					/>
 				)}

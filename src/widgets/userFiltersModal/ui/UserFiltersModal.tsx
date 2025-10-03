@@ -8,6 +8,7 @@ import { UserProfile } from '@/entities/user/model/types';
 import { useUserFiltersStore } from '@/features/userFilters/model/useUserFiltersStore';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, useCustomTranslation } from '@/shared';
+// import { useGoals } from '@/shared/lib/hooks/useGoals';
 import {
 	initSocket,
 	sendFindRequest,
@@ -46,6 +47,8 @@ export const UserFiltersModal = () => {
 		{ code: 'MALE', label: button1 },
 		{ code: 'FEMALE', label: button2 }
 	];
+
+	// const { refGoals, t } = useGoals();
 
 	useEffect(() => {
 		initSocket('wss://api.acetest.site/dating/profiles/ws', {
@@ -119,8 +122,8 @@ export const UserFiltersModal = () => {
 				/>
 			</div>
 			<div className='flex flex-col gap-7 pb-20'>
-				<div>
-					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle1}</h3>
+				<div className={styles.sectionDivider}>
+					<h3 className={`mb-2.5  ${styles.title}`}>{subtitle1}</h3>
 					<GameList
 						games={games}
 						searchValue={search}
@@ -138,7 +141,8 @@ export const UserFiltersModal = () => {
 						onTogglePurpose={undefined}
 					/>
 				</div>
-				<div className='flex flex-col gap-2 mt-6'>
+				<div>{/* <h3 className={styles.title}>{t.title}</h3> */}</div>
+				<div className={`${styles.sectionDivider} flex flex-col gap-2 mt-6`}>
 					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle2}</h3>
 					<VariantSelection
 						variant='row'
@@ -148,8 +152,8 @@ export const UserFiltersModal = () => {
 					/>
 				</div>
 
-				<div>
-					<h3 className='text-xl font-bold mt-6 mb-2'>{subtitle3}</h3>
+				<div className={styles.sectionDivider}>
+					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle3}</h3>
 					<VariantSelection
 						variant='col'
 						data={scopes}

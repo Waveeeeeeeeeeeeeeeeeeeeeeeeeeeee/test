@@ -1,16 +1,24 @@
 .title {
-    font-weight: 600;
-    font-size: 17px;
-    color: var(--object-white);
+	font-weight: 600;
+	font-size: 17px;
+	color: var(--object-white);
 }
 
-
 .buttons {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    background: var(--second-bg);
-    border-radius: 16px 16px 29px 29px;
-    padding: 12px 16px;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	background: var(--second-bg);
+	border-radius: 16px 16px 29px 29px;
+	padding: 12px 16px;
+}
+
+.sectionDivider::after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: #3d404c;
+	margin-top: 2.5rem; /* mt-10 */
 }
