@@ -7,6 +7,7 @@ export type FindRequestParams = {
 	age?: string;
 	gender?: 'MALE' | 'FEMALE';
 	country_code?: string;
+	goal: string | null;
 };
 
 type Subscriber = (data: SocketMessage<unknown>) => void;

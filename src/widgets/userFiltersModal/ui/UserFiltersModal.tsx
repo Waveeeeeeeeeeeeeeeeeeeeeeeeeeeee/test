@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 import styles from './UserFilterModal.module.css';
 import { Game } from '@/entities/game/model/types';
@@ -8,7 +9,7 @@ import { UserProfile } from '@/entities/user/model/types';
 import { useUserFiltersStore } from '@/features/userFilters/model/useUserFiltersStore';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, useCustomTranslation } from '@/shared';
-// import { useGoals } from '@/shared/lib/hooks/useGoals';
+import { useGoals } from '@/shared/lib/hooks/useGoals';
 import {
 	initSocket,
 	sendFindRequest,
@@ -21,6 +22,8 @@ import { GameList } from '@/widgets/gameList/ui/GameList';
 import { useUserFiltersToggleStore } from '@/widgets/userListFilters/model/toggleUserFilter';
 
 export const UserFiltersModal = () => {
+	const [goalSearch, setGoalSearch] = useState('');
+
 	const {
 		gender,
 		setGender,
@@ -48,7 +51,7 @@ export const UserFiltersModal = () => {
 		{ code: 'FEMALE', label: button2 }
 	];
 
-	// const { refGoals, t } = useGoals();
+	const { refGoals, t } = useGoals();
 
 	useEffect(() => {
 		initSocket('wss://api.acetest.site/dating/profiles/ws', {
@@ -69,7 +72,8 @@ export const UserFiltersModal = () => {
 			age: '14',
 			// scope,
 			// games: selectedGames,
-			country_code: 'RU'
+			country_code: 'RU',
+			goal: goalSearch
 		});
 
 		close();
@@ -111,6 +115,8 @@ export const UserFiltersModal = () => {
 
 		removedIds.forEach(id => toggleSelectedGames(id));
 	};
+
+	console.log('goal', goalSearch);
 	return (
 		<Modal isOpen={isOpen}>
 			<div className='mb-5'>
@@ -141,11 +147,19 @@ export const UserFiltersModal = () => {
 						onTogglePurpose={undefined}
 					/>
 				</div>
-				<div>{/* <h3 className={styles.title}>{t.title}</h3> */}</div>
+				<div className='flex flex-col gap-3'>
+					{<h3 className={styles.title}>{t.title}</h3>}
+					<VariantSelection
+						variant='row'
+						data={refGoals}
+						selected={goalSearch}
+						onSelect={value => setGoalSearch(value as string)}
+					/>
+				</div>
 				<div className={`${styles.sectionDivider} flex flex-col gap-2 mt-6`}>
 					<h3 className={`mb-2.5 ${styles.title}`}>{subtitle2}</h3>
 					<VariantSelection
-						variant='row'
+						variant='col'
 						data={genders}
 						selected={gender || 'men'}
 						onSelect={value => setGender(value as string)}

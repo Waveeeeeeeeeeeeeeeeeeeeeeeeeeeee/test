@@ -21,6 +21,7 @@ interface VariantSelectionProps {
 	variant?: 'col' | 'row';
 	multiple?: boolean;
 	shape?: 'circle' | 'square';
+	className?: string;
 }
 
 const VariantSelection = ({
@@ -48,7 +49,11 @@ const VariantSelection = ({
 	};
 
 	return (
-		<div className={clsx(`w-full flex flex-${variant} mx-auto gap-3`)}>
+		<div
+			className={clsx('w-full flex mx-auto gap-3', `flex-${variant}`, {
+				'flex-wrap': variant === 'row'
+			})}
+		>
 			{data.map(item => {
 				const isSelected = selectedArray.includes(item.code);
 
@@ -81,7 +86,7 @@ const VariantSelection = ({
 
 						<span
 							className={clsx(
-								'w-5 h-5 min-w-5 ml-1.5 flex items-center justify-center transition-colors border-2', // 👈 border-2 всегда
+								'w-5 h-5 min-w-5 ml-1.5 flex items-center justify-center transition-colors border-2',
 								shape === 'square' ? 'rounded-md' : 'rounded-full',
 								isSelected
 									? 'border-purple-700 bg-purple-700 text-white'
@@ -100,7 +105,14 @@ const VariantSelection = ({
 				);
 
 				return (
-					<div key={item.code} className='w-full flex flex-col'>
+					<div
+						key={item.code}
+						className={clsx(
+							variant === 'col' ? 'w-full' : 'w-auto',
+							'flex',
+							'flex-col'
+						)}
+					>
 						{item.withContainer && isSelected ? (
 							<div className='w-full bg-[var(--second-bg)] rounded-lg shadow-lg flex flex-col '>
 								{labelContent}
