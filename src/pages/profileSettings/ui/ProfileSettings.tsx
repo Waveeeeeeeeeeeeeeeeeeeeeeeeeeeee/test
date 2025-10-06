@@ -12,8 +12,8 @@ import RuIco from '@/shared/assets/flags/ru.svg?react';
 import UaIco from '@/shared/assets/flags/ua.svg?react';
 import GbIco from '@/shared/assets/flags/us.svg?react';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
 import { InputWithDropdown } from '@/shared/ui/InputWithDropdown/InputWithDropdown';
-import { NotificationHeader } from '@/shared/ui/NotificationHeader';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 import { TagSelector } from '@/shared/ui/TagsSelectors/TagsSelectors';
 
@@ -49,6 +49,12 @@ const ProfileSettings = () => {
 	const handleBack = () => {
 		window.history.back();
 	};
+
+	const { NotificationHeaderWrapper } = useNotificationHeader({
+		title,
+		back: true,
+		notification: false
+	});
 
 	const handleSave = async () => {
 		setError(null);
@@ -145,17 +151,12 @@ const ProfileSettings = () => {
 		if (i18n.language !== profile.selectedLanguage) {
 			i18n.changeLanguage(profile.selectedLanguage);
 		}
-	}, [profile.selectedLanguage, i18n.language]);
+	}, [profile.selectedLanguage, i18n.language, i18n]);
 
 	return (
 		<div className='h-full relative overflow-scroll flex flex-col pb-20'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
-				<NotificationHeader
-					back
-					title={title}
-					goBack={handleBack}
-					notification={false}
-				/>
+				<NotificationHeaderWrapper />
 				<PhotoContainer setImage={setUserImage} />
 				{InputData.map((item, index) => (
 					<Input key={index} data={item} />

@@ -137,7 +137,8 @@ const ru = {
 			title: 'Друзья'
 		},
 		profile: {
-			description: 'Описание',
+			online: 'Просто поиграть',
+			realLife: 'Реальная встеча',
 			games: 'Ваши игры',
 			games_description: 'Изменить список игры и целей',
 			settings: 'Настройки профиля',

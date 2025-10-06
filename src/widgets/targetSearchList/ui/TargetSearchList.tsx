@@ -1,15 +1,15 @@
-import { SearchCardTypes } from '@/entities/search/model/types'
-import { SearchCard } from '@/entities/search/ui/SearchCard'
-import { useCustomTranslation } from '@/shared'
-import duo from '@/shared/assets/images/duo.svg?react'
-import justPlay from '@/shared/assets/images/justplay.svg?react'
-import praks from '@/shared/assets/images/praks.svg?react'
-import ultimate from '@/shared/assets/images/ultimate.svg?react'
-import сonqueror from '@/shared/assets/images/сonqueror.svg?react'
+import { SearchCardTypes } from '@/entities/search/model/types';
+import { SearchCard } from '@/entities/search/ui/SearchCard';
+import { useCustomTranslation } from '@/shared';
+import duo from '@/shared/assets/images/duo.svg?react';
+import justPlay from '@/shared/assets/images/justplay.svg?react';
+import praks from '@/shared/assets/images/praks.svg?react';
+import ultimate from '@/shared/assets/images/ultimate.svg?react';
+import сonqueror from '@/shared/assets/images/сonqueror.svg?react';
 
 const TargetSearchList = () => {
 	const { justPlayTxt, conquerorTxt, praksTxt, duoTxt } =
-		useCustomTranslation('targetSearchList')
+		useCustomTranslation('targetSearchList');
 	const searchList: SearchCardTypes[] = [
 		{
 			id: 'just-play-1',
@@ -60,14 +60,14 @@ const TargetSearchList = () => {
 			href: '/search/tdm',
 			players: 2384
 		}
-	]
+	];
 	return (
 		<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2'>
 			{searchList.map(card => (
 				<SearchCard key={card.id} data={card} />
 			))}
 		</div>
-	)
-}
+	);
+};
 
-export default TargetSearchList
+export default TargetSearchList;

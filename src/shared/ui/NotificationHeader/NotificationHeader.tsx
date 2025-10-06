@@ -29,7 +29,7 @@ export const NotificationHeader = ({
 			{notification && (
 				<button className='cursor-pointer'>
 					{' '}
-					<NotificationIco fill='gray' />
+					<NotificationIco fill='gray	' />
 				</button>
 			)}
 		</div>

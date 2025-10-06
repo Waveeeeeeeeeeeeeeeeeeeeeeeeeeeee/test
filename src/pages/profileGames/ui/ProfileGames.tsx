@@ -3,7 +3,8 @@ import { useGamesWithPurposes } from '@/entities/game/model/useGamesWithPurposes
 import { useUserStore } from '@/entities/user/model/store';
 import { Button, useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
-import { NotificationHeader } from '@/shared/ui/NotificationHeader';
+import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
+import { handleBack } from '@/shared/lib/utils/handleBack';
 import { useGameFilter } from '@/widgets/gameList/model/useGameFilter';
 import { GameList } from '@/widgets/gameList/ui/GameList';
 import { UserGameList } from '@/widgets/userGameList/ui/UserGameList';
@@ -15,22 +16,14 @@ const ProfileGames = () => {
 	const { search, onChange } = useGameFilter();
 	const { games } = useGamesWithPurposes();
 	const { profile, addGame, removeGame } = useUserStore();
-
 	const selectedGameIds = profile.games.map(g => g.id);
 
-	const handleBack = () => {
-		window.history.back();
-	};
+	const { NotificationHeaderWrapper } = useNotificationHeader({ title });
 
 	return (
 		<>
 			<div className='p-4 px-4 h-screen relative overflow-scroll pb-20 flex flex-col gap-7.5'>
-				<NotificationHeader
-					back
-					title={title}
-					goBack={handleBack}
-					notification={false}
-				/>
+				<NotificationHeaderWrapper />
 				<UserGameList />
 				<h3 className={styles.subtitle}>{subtitle}</h3>
 				<GameList

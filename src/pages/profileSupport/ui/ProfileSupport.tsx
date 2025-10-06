@@ -1,39 +1,39 @@
-import styles from './ProfileSupport.module.css'
-import { useSupportFormStore } from '@/features/supportForm/model/store'
-import { Button, DropDown, TextArea, useCustomTranslation } from '@/shared'
-import { AnimatedPage } from '@/shared/hoc/AnimatedPage'
-import { NotificationHeader } from '@/shared/ui/NotificationHeader'
-import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer'
+import styles from './ProfileSupport.module.css';
+import { useSupportFormStore } from '@/features/supportForm/model/store';
+import { Button, DropDown, TextArea, useCustomTranslation } from '@/shared';
+import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
+import { handleBack } from '@/shared/lib/utils/handleBack';
+import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 
 const ProfileSupport = () => {
 	const { title, messageTitle, problemTitle, problemDesc } =
-		useCustomTranslation('profileSupport')
+		useCustomTranslation('profileSupport');
 	const { topic, setTopic, description, setDescription, setImage } =
-		useSupportFormStore()
-	const { char } = useCustomTranslation('accountInfoStep3')
-	const { backButton, nextButton } = useCustomTranslation('Onboarding')
-	const handleBack = () => {
-		window.history.back()
-	}
+		useSupportFormStore();
+	const { char } = useCustomTranslation('accountInfoStep3');
+	const { backButton, nextButton } = useCustomTranslation('Onboarding');
+
+	const { NotificationHeaderWrapper } = useNotificationHeader({
+		title,
+		back: true,
+		notification: false
+	});
 
 	const handleTopicChange = (info: string) => {
-		setTopic(info)
-	}
+		setTopic(info);
+	};
 
 	const problemData = [
 		{ label: 'Проблема с функционалом сообщений', code: 'message' },
 		{ label: 'Проблема с работой приложения', code: 'application' }
-	]
+	];
 
 	return (
 		<div className='h-screen relative overflow-scroll flex flex-col'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
-				<NotificationHeader
-					back
-					title={title}
-					goBack={handleBack}
-					notification={false}
-				/>
+				<NotificationHeaderWrapper />
+
 				<div>
 					<h3 className={styles.subtitle}>{messageTitle}</h3>
 					<DropDown
@@ -73,7 +73,7 @@ const ProfileSupport = () => {
 				</Button>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default AnimatedPage(ProfileSupport)
+export default AnimatedPage(ProfileSupport);

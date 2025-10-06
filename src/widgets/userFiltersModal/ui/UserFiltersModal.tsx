@@ -10,13 +10,13 @@ import { useUserFiltersStore } from '@/features/userFilters/model/useUserFilters
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, useCustomTranslation } from '@/shared';
 import { useGoals } from '@/shared/lib/hooks/useGoals';
+import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
 import {
 	initSocket,
 	sendFindRequest,
 	subscribeToSocketMessages
 } from '@/shared/socket/socketClient';
 import { Modal } from '@/shared/ui/Modal/Modal';
-import { NotificationHeader } from '@/shared/ui/NotificationHeader';
 import { useGameFilter } from '@/widgets/gameList/model/useGameFilter';
 import { GameList } from '@/widgets/gameList/ui/GameList';
 import { useUserFiltersToggleStore } from '@/widgets/userListFilters/model/toggleUserFilter';
@@ -100,6 +100,13 @@ export const UserFiltersModal = () => {
 		toggleSelectedGames(game.id);
 	};
 
+	const { NotificationHeaderWrapper } = useNotificationHeader({
+		title: mainTitle,
+		back: true,
+		notification: false,
+		onGoBack: close
+	});
+
 	const handleChangeSelectedGameIds = (newSelectedIds: string[]) => {
 		const currentSelectedIds = selectedGames;
 
@@ -115,17 +122,10 @@ export const UserFiltersModal = () => {
 
 		removedIds.forEach(id => toggleSelectedGames(id));
 	};
-
-	console.log('goal', goalSearch);
 	return (
 		<Modal isOpen={isOpen}>
 			<div className='mb-5'>
-				<NotificationHeader
-					title={mainTitle}
-					back
-					goBack={close}
-					notification={false}
-				/>
+				<NotificationHeaderWrapper />
 			</div>
 			<div className='flex flex-col gap-7 pb-20'>
 				<div className={styles.sectionDivider}>

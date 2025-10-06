@@ -1,4 +1,4 @@
-const ua = {
+export const ua = {
 	translation: {
 		Onboarding: {
 			backButton: 'Назад',
@@ -136,8 +136,9 @@ const ua = {
 			title: 'Друзі'
 		},
 		profile: {
-			description: 'Опис',
-			games: 'Ваші ігри',
+			online: 'Просто пограти',
+			realLife: 'Реальна зустріч',
+			games: 'Ваші гри',
 			games_description: 'Змінити список гри та цілей',
 			settings: 'Налаштування профілю',
 			settings_description: 'Особиста інформація, опис теги',

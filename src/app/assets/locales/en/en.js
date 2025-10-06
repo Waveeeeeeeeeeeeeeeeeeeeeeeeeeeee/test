@@ -139,8 +139,9 @@ const en = {
 			title: 'Friends'
 		},
 		profile: {
-			description: 'Description',
-			games: 'Your games',
+			online: 'Just to play',
+			realLife: 'Real meet',
+			games: 'Your Games',
 			games_description: 'Change your game list and goals',
 			settings: 'Profile settings',
 			settings_description: 'Personal information, description tags',

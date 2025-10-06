@@ -1,10 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router';
 
+import { mockUser } from '@/entities/person/api/mockUser';
 import { useUserStore } from '@/entities/user/model/store';
 import ProfileMenu from '@/features/profileMenu/ui/ProfileMenu';
 import { ShowTags } from '@/features/showTags';
 import { useCustomTranslation } from '@/shared';
+import EditIco from '@/shared/assets/icons/edit.svg?react';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import Description from '@/shared/ui/Description/Description';
 import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
@@ -12,46 +15,111 @@ import { UserCard } from '@/shared/ui/UserCard/UserCard';
 import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules';
 import { TempRules } from '@/widgets/onboardingSteps/tempRules/ui/tempRules';
 
+type matchType = 'online' | 'realLife';
+
 const Profile = () => {
-	const [toggle, setToggle] = useState('description');
-	const { profile, telegram } = useUserStore();
-	const { description, games } = useCustomTranslation('profile');
+	const { profile, setProfileField } = useUserStore();
+	const { online, realLife } = useCustomTranslation('profile');
 	const { isOpen, close } = useRulesToggle();
+	const [isEdit, setEdit] = useState(false);
+	const navigate = useNavigate();
+
+	const handleEdit = useCallback(
+		({ matchType }: { matchType: matchType }) => {
+			setEdit(true);
+			navigate(`/profile/info/${matchType}`);
+		},
+		[setEdit, navigate]
+	);
+
+	const setToggle = useCallback(() => {
+		setProfileField(
+			'selectedMatchType',
+			profile.selectedMatchType === 'realLife' ? 'online' : 'realLife'
+		);
+	}, [setProfileField, profile.selectedMatchType]);
+
 	const profileOptions = [
 		{
-			label: description,
-			value: 'description'
+			label: online,
+			value: 'online'
 		},
 		{
-			label: games,
-			value: 'games'
+			label: realLife,
+			value: 'realLife'
 		}
 	];
 
-	console.log(profile);
 	return (
 		<div className={'px-4 pt-4 pb-28 flex flex-col gap-7.5'}>
 			<UserCard
-				name={profile.nickname}
-				age={+profile.age}
-				gender={profile.gender || ''}
-				city={profile.city}
-				languages={profile.selectedLanguage}
-				avatarUrl={profile.image || telegram?.photo_url || ''}
-				coutry_code={profile.country_code}
+				name={mockUser[0].nickname}
+				age={+mockUser[0].age}
+				gender={mockUser[0].gender || ''}
+				languages={mockUser[0].selectedLanguage}
+				avatarUrl={mockUser[0].image || ''}
+				coutry_code={mockUser[0].country_code}
 				icon='notification'
 			/>
-			<div className='flex flex-col gap-4 border-b-[1px] border-[#40434f] pb-7.5 mt-5'>
-				<div className='h-[47px]'>
+			<div className='flex flex-col gap-4 border-b-[1px] border-[#40434f] pb-7.5 mt-2'>
+				<div className='h-[47px] mb-10'>
+					<h2 className='text-xl font-semibold mb-3'>Ваш статус</h2>
 					<ToggleTabs
 						options={profileOptions}
-						active={toggle}
+						active={profile.selectedMatchType}
 						onChange={setToggle}
-						variant='base'
+						variant='accent'
 					/>
 				</div>
-				<Description description={profile.about} />
-				<ShowTags tags={profile.interests} />
+
+				{profile.selectedMatchType === 'realLife' ? (
+					<Description description={mockUser[0].about} />
+				) : (
+					<div>
+						<h2 className='text-xl font-semibold mb-3'>Страны</h2>
+						<ShowTags
+							tags={
+								mockUser[0].selectedCountry !== undefined
+									? mockUser[0].selectedCountry
+									: []
+							}
+						/>
+					</div>
+				)}
+				{profile.selectedMatchType === 'realLife' ? (
+					<ShowTags tags={mockUser[0].interests} />
+				) : (
+					<div>
+						<h2 className='text-xl font-semibold mb-3'>Цели игры</h2>
+						<ShowTags tags={mockUser[0].selectedGoal} />
+					</div>
+				)}
+				{profile.selectedMatchType === 'realLife' ? (
+					<div>
+						<span className='text-sm text-gray-400'>
+							{mockUser[0].country} {'г.' + mockUser[0].city}
+						</span>
+					</div>
+				) : (
+					<div>
+						<h2 className='text-xl font-semibold mb-3'>
+							Время основной активности
+						</h2>
+						<ShowTags tags={mockUser[0].selectedPrime} />
+					</div>
+				)}
+
+				<button
+					className='text-sm border-[1px] bg-[#18181B] border-none rounded-3xl py-3 flex flex-row items-center justify-center gap-2 cursor-pointer'
+					onClick={() =>
+						handleEdit({ matchType: profile.selectedMatchType as matchType })
+					}
+				>
+					<span className='font-semibold text-sm'>Редактировать</span>
+					<span>
+						<EditIco />
+					</span>
+				</button>
 			</div>
 			<ProfileMenu />
 

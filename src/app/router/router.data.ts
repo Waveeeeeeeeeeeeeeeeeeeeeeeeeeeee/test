@@ -5,6 +5,8 @@ import Home from '@/pages/home/ui/Home';
 import { Onboarding } from '@/pages/onboarding';
 import Profile from '@/pages/profile/ui/Profile';
 import ProfileGames from '@/pages/profileGames/ui/ProfileGames';
+import ProfileInfoOnline from '@/pages/profileInfoOnline/ProfileInfoOnline';
+import ProfileInfoRealLife from '@/pages/profileInfoRealLife/profileInfoRealLife';
 import ProfileSettings from '@/pages/profileSettings/ui/ProfileSettings';
 import ProfileSupport from '@/pages/profileSupport/ui/ProfileSupport';
 import SearchPage from '@/pages/searchPage/ui/SearchPage';
@@ -54,5 +56,13 @@ export const routes: IRoute[] = [
 	{
 		path: EnumRoutes.PROFILE_SUPPORT,
 		component: ProfileSupport
+	},
+	{
+		path: EnumRoutes.PROFILE_INFO_ONLINE,
+		component: ProfileInfoOnline
+	},
+	{
+		path: EnumRoutes.PROFILE_INFO_REALLIFE,
+		component: ProfileInfoRealLife
 	}
 ];
