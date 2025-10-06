@@ -1,5 +1,7 @@
 import { createElement, useCallback } from 'react';
 
+import { handleBack } from '../utils/handleBack';
+
 import { NotificationHeader } from '@/shared/ui/NotificationHeader';
 
 interface UseNotificationHeaderProps {
@@ -15,9 +17,7 @@ export const useNotificationHeader = ({
 	notification = true,
 	onGoBack
 }: UseNotificationHeaderProps) => {
-	const defaultGoBack = useCallback(() => {
-		window.history.back();
-	}, []);
+	const defaultGoBack = useCallback(() => handleBack(), []);
 
 	const handleGoBack = onGoBack || defaultGoBack;
 
