@@ -2,8 +2,8 @@ import styles from './ProfileSupport.module.css';
 import { useSupportFormStore } from '@/features/supportForm/model/store';
 import { Button, DropDown, TextArea, useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
-import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
-import { handleBack } from '@/shared/lib/utils/handleBack';
+import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
+import { handleBack } from '@/shared/lib/navigation/handleBack';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 
 const ProfileSupport = () => {
@@ -13,12 +13,6 @@ const ProfileSupport = () => {
 		useSupportFormStore();
 	const { char } = useCustomTranslation('accountInfoStep3');
 	const { backButton, nextButton } = useCustomTranslation('Onboarding');
-
-	const { NotificationHeaderWrapper } = useNotificationHeader({
-		title,
-		back: true,
-		notification: false
-	});
 
 	const handleTopicChange = (info: string) => {
 		setTopic(info);
@@ -32,8 +26,7 @@ const ProfileSupport = () => {
 	return (
 		<div className='h-screen relative overflow-scroll flex flex-col'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
-				<NotificationHeaderWrapper />
-
+				<NotificationHeaderFactory title={title} IsBack={true} />
 				<div>
 					<h3 className={styles.subtitle}>{messageTitle}</h3>
 					<DropDown

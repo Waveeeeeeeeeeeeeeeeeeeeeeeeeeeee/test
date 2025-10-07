@@ -9,8 +9,8 @@ import { UserProfile } from '@/entities/user/model/types';
 import { useUserFiltersStore } from '@/features/userFilters/model/useUserFiltersStore';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, useCustomTranslation } from '@/shared';
+import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 import { useGoals } from '@/shared/lib/hooks/useGoals';
-import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
 import {
 	initSocket,
 	sendFindRequest,
@@ -100,13 +100,6 @@ export const UserFiltersModal = () => {
 		toggleSelectedGames(game.id);
 	};
 
-	const { NotificationHeaderWrapper } = useNotificationHeader({
-		title: mainTitle,
-		back: true,
-		notification: false,
-		onGoBack: close
-	});
-
 	const handleChangeSelectedGameIds = (newSelectedIds: string[]) => {
 		const currentSelectedIds = selectedGames;
 
@@ -125,7 +118,11 @@ export const UserFiltersModal = () => {
 	return (
 		<Modal isOpen={isOpen}>
 			<div className='mb-5'>
-				<NotificationHeaderWrapper />
+				<NotificationHeaderFactory
+					title={mainTitle}
+					IsBack={true}
+					notification={true}
+				/>
 			</div>
 			<div className='flex flex-col gap-7 pb-20'>
 				<div className={styles.sectionDivider}>

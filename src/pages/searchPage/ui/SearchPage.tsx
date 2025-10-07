@@ -5,7 +5,7 @@ import { mockUser } from '@/entities/person/api/mockUser';
 import { searchList } from '@/entities/search/config/searchList';
 import { SwipeCardDeck } from '@/features/swipeCardDeck/ui/SwipeCardDeck';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
-import { useNotificationHeader } from '@/shared/lib/hooks/useNotificationHeader';
+import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 import { UserFiltersModal } from '@/widgets/userFiltersModal/ui/UserFiltersModal';
 import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters';
 import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel';
@@ -15,18 +15,16 @@ const SearchPage = () => {
 	const card = searchList.find(item => item.href.endsWith(searchType || ''));
 	// const users = useUserSocketStore(state => state.users);
 
-	const { NotificationHeaderWrapper } = useNotificationHeader({
-		title: card !== undefined ? card?.title : 'Режимы поиска',
-		back: true,
-		notification: true
-	});
-
 	if (!card) return <div>Ничего не найдено 😢</div>;
 	return (
 		<>
 			<div className='p-4 px-4 h-[900px] mb-20 relative overflow-scoll pb-48'>
 				<div className=' mb-2.5'>
-					<NotificationHeaderWrapper />
+					<NotificationHeaderFactory
+						title={card.title}
+						IsBack={true}
+						notification={true}
+					/>
 				</div>
 				<div className=' mb-4'>
 					<UserListFilters />

@@ -1,18 +1,16 @@
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
-import { useProfileHeader } from '@/shared/lib/hooks/useNotificationHeader';
+import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 
 const ProfileInfoRealLife = () => {
-	const { NotificationHeaderWrapper } = useProfileHeader({
-		title: 'Инфо: Реальная встреча',
-		back: true,
-		notification: true
-	});
-
 	return (
 		<>
 			<div className=''>
 				<div className=' mb-2.5'>
-					<NotificationHeaderWrapper />
+					<NotificationHeaderFactory
+						title='Инфо: Реальная встреча'
+						IsBack={true}
+						notification={false}
+					/>
 				</div>
 				<div className=' mb-4'></div>
 			</div>

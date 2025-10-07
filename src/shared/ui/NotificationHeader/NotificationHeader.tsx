@@ -6,20 +6,20 @@ import styles from './NotificationHeader.module.css';
 export type NotificationHeaderProps = {
 	title: string;
 	goBack?: () => void;
-	back?: boolean;
+	IsBack?: boolean;
 	notification?: boolean;
 };
 
 export const NotificationHeader = ({
 	title,
 	goBack,
-	back = false,
+	IsBack = false,
 	notification = true
 }: NotificationHeaderProps) => {
 	return (
 		<div className='flex justify-between items-center'>
 			<div className='flex items-center gap-2.5'>
-				{back && (
+				{IsBack && (
 					<button className='cursor-pointer' onClick={goBack}>
 						<BackIco />
 					</button>
