@@ -165,7 +165,6 @@ const OnboardingAboutMe = () => {
 				}}
 			/>
 
-			{/* Индикатор качества описания */}
 			<QualityDescriptionIndicator />
 		</div>
 	);
