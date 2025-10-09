@@ -1,16 +1,76 @@
 .subtitle {
-    font-weight: 600;
-    font-size: 17px;
-    color: var(--object-white);
-    margin-bottom: 10px;
+	font-weight: 600;
+	font-size: 17px;
+	color: var(--object-white);
+	margin-bottom: 10px;
 }
 
 .buttons {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    background: var(--second-bg);
-    border-radius: 16px 16px 29px 29px;
-    padding: 12px 16px;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	background: var(--second-bg);
+	border-radius: 16px 16px 29px 29px;
+	padding: 12px 16px;
+}
+
+.avatarSlot {
+	width: 64px;
+	height: 64px;
+	border-radius: 12px;
+	border: 2px dashed #6b7280;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background-color: var(--second-bg);
+}
+
+.avatarSlot:hover {
+	background-color: #2a2a2a;
+}
+
+.avatarSlot.primary {
+	border-color: #fbbf24;
+}
+
+.avatarImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.removeButton {
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	width: 20px;
+	height: 20px;
+	background-color: #ef4444;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.removeButton:hover {
+	background-color: #dc2626;
+}
+
+/* Скрытие стрелок в Firefox для number input */
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

@@ -7,7 +7,7 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig(({ mode }) => {
 	let server: ServerOptions = {};
 
-	if (mode !== 'production') {
+	if (mode === 'production' || mode === 'development') {
 		server = {
 			port: 3000,
 			host: 'localhost',

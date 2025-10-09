@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const telegramLoginInstance = axios.create({
+export const telegramRegisterInstance = axios.create({
 	baseURL: '/api',
-	timeout: 10000,
+	timeout: 10000000000000,
 	headers: {
 		'Content-Type': 'application/json'
 	}

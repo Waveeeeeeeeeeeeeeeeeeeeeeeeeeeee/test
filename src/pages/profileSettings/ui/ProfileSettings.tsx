@@ -1,60 +1,190 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import styles from './ProfileSettings.module.css';
 import { useUserStore } from '@/entities/user/model/store';
-import Search from '@/features/search/Search';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
-import { Button, Input, TextArea, useCustomTranslation } from '@/shared';
-import RuIco from '@/shared/assets/flags/ru.svg?react';
-import UaIco from '@/shared/assets/flags/ua.svg?react';
-import GbIco from '@/shared/assets/flags/us.svg?react';
+import { Button, Input, useCustomTranslation } from '@/shared';
+import GbIco from '@/shared/assets/flags/gb-square.svg?react';
+import RuIco from '@/shared/assets/flags/ru-square.svg?react';
+import UaIco from '@/shared/assets/flags/ua-square.svg?react';
+import DeleteIco from '@/shared/assets/icons/delete.svg?react';
+import CameraIco from '@/shared/assets/images/camera.svg?react';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
-import { InputWithDropdown } from '@/shared/ui/InputWithDropdown/InputWithDropdown';
-import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
-import { TagSelector } from '@/shared/ui/TagsSelectors/TagsSelectors';
+
+const AvatarSelector = ({
+	avatars,
+	onAvatarChange,
+	onRemoveAvatar
+}: {
+	avatars: (File | null)[];
+	onAvatarChange: (index: number, file: File | null) => void;
+	onRemoveAvatar: (index: number) => void;
+}) => {
+	const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+	const handleAvatarClick = (index: number) => {
+		fileInputRefs.current[index]?.click();
+	};
+
+	const handleFileChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		index: number
+	) => {
+		const file = event.target.files?.[0];
+		if (file) {
+			onAvatarChange(index, file);
+		}
+	};
+
+	const handleRemoveAvatar = (index: number, event: React.MouseEvent) => {
+		event.stopPropagation();
+		onRemoveAvatar(index);
+	};
+
+	return (
+		<div className='flex gap-3'>
+			{[0, 1, 2, 3].map(index => (
+				<div key={index} className='relative'>
+					<div
+						onClick={() => handleAvatarClick(index)}
+						className={`z-1 w-26 h-26 rounded-2xl cursor-pointer flex items-center justify-center ${
+							index === 0
+								? 'border-2 border-dashed border-yellow-400 bg-[var(--second-bg)]'
+								: avatars[index]
+									? 'bg-transparent'
+									: 'border-2 border-dashed border-gray-500 bg-[var(--second-bg)]'
+						}`}
+					>
+						{avatars[index] ? (
+							<div className='relative w-full h-full'>
+								<img
+									src={URL.createObjectURL(avatars[index]!)}
+									alt={`Avatar ${index + 1}`}
+									className='w-full h-full object-cover rounded-2xl'
+								/>
+								<button
+									onClick={e => handleRemoveAvatar(index, e)}
+									className={`absolute w-6 h-6 border border-red-500 rounded-lg flex items-center justify-center z-10 ${
+										index === 0 ? 'bottom-2 right-1' : 'top-21 left-20'
+									}`}
+									style={{ backdropFilter: 'blur(2px)' }}
+								>
+									<DeleteIco
+										fill='white'
+										width={24}
+										height={24}
+										className='animate-pulse duration-500'
+									/>
+								</button>
+								{index === 0 && (
+									<div className='absolute inset-0 border-2 border-transparent rounded-2xl pointer-events-none ' />
+								)}
+							</div>
+						) : (
+							<div className='flex flex-col items-center justify-center'>
+								<CameraIco />
+							</div>
+						)}
+					</div>
+					<input
+						type='file'
+						accept='image/*'
+						ref={el => {
+							fileInputRefs.current[index] = el;
+						}}
+						onChange={e => handleFileChange(e, index)}
+						className='hidden'
+					/>
+				</div>
+			))}
+		</div>
+	);
+};
 
 const ProfileSettings = () => {
-	const {
-		profile,
-		setProfileField,
-		addInterest,
-		toggleInterest,
-		setUserImage,
-		updateProfile
-	} = useUserStore();
-	const [tags, setTags] = useState([...profile.interests]);
-	const { label, placeholder, char, interest, searchHolder } =
-		useCustomTranslation('accountInfoStep3');
-	const {
-		label1,
-		placeholder1,
-		notification,
-		label2,
-		placeholder2,
-		button1,
-		button2,
-		label3,
-		label4,
-		lang,
-		countryPlaceHolder
-	} = useCustomTranslation('accountInfoStep2');
-	const { title, backBtn, saveBtn } = useCustomTranslation('profileSettings');
-	const [searchValue, setSearchValue] = useState('');
+	const { profile, setProfileField, setUserImage, updateProfile } =
+		useUserStore();
+
+	const [avatars, setAvatars] = useState<(File | null)[]>([
+		null,
+		null,
+		null,
+		null
+	]);
+
+	const [originalProfile] = useState({
+		nickname: profile.nickname,
+		age: profile.age,
+		gender: profile.gender,
+		selectedLanguage: profile.selectedLanguage
+	});
+
+	const { title } = useCustomTranslation('profileSettings');
 	const { i18n } = useTranslation();
-	const [_, setError] = useState(null);
+	const [, setError] = useState(null);
+
 	const handleBack = () => {
+		setProfileField('nickname', originalProfile.nickname);
+		setProfileField('age', originalProfile.age);
+		setProfileField('gender', originalProfile.gender);
+		setProfileField('selectedLanguage', originalProfile.selectedLanguage);
+
 		window.history.back();
+	};
+
+	const validateAge = (age: string | number): boolean => {
+		const ageNum = typeof age === 'string' ? parseInt(age) : age;
+		return ageNum >= 14 && ageNum <= 80;
+	};
+
+	const validateName = (name: string): boolean => {
+		const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-']{2,50}$/;
+		return nameRegex.test(name.trim());
 	};
 
 	const handleSave = async () => {
 		setError(null);
+
+		if (!profile.nickname || profile.nickname.trim() === '') {
+			toast.error('Поле "Имя" не может быть пустым');
+			return;
+		}
+
+		if (
+			!profile.age ||
+			profile.age === '' ||
+			(typeof profile.age === 'number' && profile.age === 0)
+		) {
+			toast.error('Поле "Возраст" не может быть пустым');
+			return;
+		}
+
+		if (!validateName(profile.nickname)) {
+			toast.error(
+				'Имя должно содержать только буквы и быть от 2 до 50 символов'
+			);
+			return;
+		}
+
+		const ageNum =
+			typeof profile.age === 'string' ? parseInt(profile.age) : profile.age;
+		if (!validateAge(profile.age)) {
+			if (ageNum < 14) {
+				toast.error('Возраст должен быть не менее 14 лет');
+			} else if (ageNum > 80) {
+				toast.error('Возраст должен быть не более 80 лет');
+			}
+			return;
+		}
+
 		try {
 			updateProfile(profile);
 			localStorage.setItem('selectedLanguage', profile.selectedLanguage);
+			toast.success('Профиль успешно обновлен');
 			window.history.back();
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
@@ -64,30 +194,54 @@ const ProfileSettings = () => {
 			}
 		}
 	};
-	const InputData = [
-		{
-			label: label2,
-			type: 'text',
-			name: 'name',
-			value: profile.nickname,
-			onChange: (value: string) => setProfileField('nickname', value),
-			placeholder: placeholder2
-		},
-		{
-			label: label1,
-			type: 'number',
-			name: 'age',
-			placeholder: placeholder1,
-			value: profile.age,
-			onChange: (value: string) => setProfileField('age', value),
-			notification
-		}
-	];
 
-	const genders = [
-		{ code: 'MALE', label: button1 },
-		{ code: 'FEMALE', label: button2 }
-	];
+	const handleAvatarChange = (index: number, file: File | null) => {
+		if (!file) return;
+
+		const newAvatars = [...avatars];
+
+		if (index > 0) {
+			for (let i = 0; i < index; i++) {
+				if (!newAvatars[i]) {
+					newAvatars[i] = file;
+					setAvatars(newAvatars);
+
+					if (i === 0) {
+						setUserImage(file);
+					}
+					return;
+				}
+			}
+		}
+
+		newAvatars[index] = file;
+		setAvatars(newAvatars);
+
+		if (index === 0) {
+			setUserImage(file);
+		}
+	};
+
+	const handleRemoveAvatar = (index: number) => {
+		const newAvatars = [...avatars];
+
+		newAvatars[index] = null;
+
+		const filledAvatars = newAvatars.filter(avatar => avatar !== null);
+		const shiftedAvatars = new Array(4).fill(null);
+
+		filledAvatars.forEach((avatar, i) => {
+			shiftedAvatars[i] = avatar;
+		});
+
+		setAvatars(shiftedAvatars);
+
+		if (index === 0 && shiftedAvatars[0]) {
+			setUserImage(shiftedAvatars[0]);
+		} else if (index === 0 && !shiftedAvatars[0]) {
+			return;
+		}
+	};
 
 	const handleGenderChange = (gender: string) => {
 		setProfileField('gender', gender);
@@ -97,49 +251,51 @@ const ProfileSettings = () => {
 		setProfileField('selectedLanguage', language);
 	};
 
+	const genders = [
+		{ code: 'MALE', label: 'Я парень' },
+		{ code: 'FEMALE', label: 'Я девушка' }
+	];
+
 	const languages = [
-		{ code: 'ru', label: 'Русский', flag: RuIco },
-		{ code: 'ua', label: 'Український', flag: UaIco },
-		{ code: 'en', label: 'English', flag: GbIco }
+		{ code: 'ru', label: 'Русский', icon: RuIco },
+		{ code: 'ua', label: 'Український', icon: UaIco },
+		{ code: 'en', label: 'English', icon: GbIco }
 	];
 
-	const countryData = [
-		{ label: 'Украина', code: 'ua' },
-		{ label: 'Россия', code: 'ru' }
-	];
+	const InputData = [
+		{
+			label: 'Имя',
+			type: 'text',
+			name: 'name',
+			value: profile.nickname || '',
+			onChange: (value: string) => setProfileField('nickname', value),
+			placeholder: 'Введите ваше имя',
+			labelSize: 'text-lg',
+			labelColor: 'text-white'
+		},
+		{
+			label: 'Сколько тебе лет?',
+			type: 'number',
+			name: 'age',
+			placeholder: 'Введите ваш возраст',
+			value: profile.age,
+			onChange: (value: string) => {
+				if (value === '' || value === '0') {
+					setProfileField('age', value);
+					return;
+				}
 
-	const citiesByCountry = {
-		ua: [
-			{ label: 'Киев', code: 'kyiv' },
-			{ label: 'Одесса', code: 'odesa' }
-		],
-		ru: [
-			{ label: 'Москва', code: 'moscow' },
-			{ label: 'Санкт-Петербург', code: 'spb' }
-		]
-	};
+				const ageNum = parseInt(value);
 
-	const handleCountryChange = (countryCode: string) => {
-		setProfileField('country', countryCode);
-		setProfileField('city', '');
-	};
-
-	useEffect(() => {
-		const newTags = [...profile.interests];
-		profile.interests.forEach(interest => {
-			if (!newTags.includes(interest)) {
-				newTags.push(interest);
-			}
-		});
-		setTags(newTags);
-	}, [profile.interests]);
-
-	const handleAddInterest = (tag: string) => {
-		if (!tags.includes(tag)) {
-			setTags([tag, ...tags]);
+				if (!isNaN(ageNum) && ageNum <= 80) {
+					setProfileField('age', value);
+				}
+			},
+			notification: 'Возраст должен быть от 14 до 80 лет',
+			labelSize: 'text-lg',
+			labelColor: 'text-white'
 		}
-		addInterest(tag);
-	};
+	];
 
 	useEffect(() => {
 		if (i18n.language !== profile.selectedLanguage) {
@@ -150,13 +306,29 @@ const ProfileSettings = () => {
 	return (
 		<div className='h-full relative overflow-scroll flex flex-col pb-20'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
-				<NotificationHeaderFactory title={title} IsBack={true} />
-				<PhotoContainer setImage={setUserImage} />
+				<NotificationHeaderFactory
+					title={title}
+					IsBack={true}
+					notification={false}
+				/>
+
+				<div>
+					<h3 className={styles.subtitle}>Аватар</h3>
+					<AvatarSelector
+						avatars={avatars}
+						onAvatarChange={handleAvatarChange}
+						onRemoveAvatar={handleRemoveAvatar}
+					/>
+				</div>
+
 				{InputData.map((item, index) => (
 					<Input key={index} data={item} />
 				))}
+
 				<div>
-					<h3 className={styles.subtitle}>{label3}</h3>
+					<div className='flex items-center gap-2 mb-3'>
+						<h3 className={styles.subtitle}>Твой пол</h3>
+					</div>
 					<VariantSelection
 						variant='row'
 						data={genders}
@@ -164,78 +336,23 @@ const ProfileSettings = () => {
 						onSelect={value => handleGenderChange(value as string)}
 					/>
 				</div>
+
 				<div>
-					<h3 className={styles.subtitle}>{lang}</h3>
+					<h3 className={styles.subtitle}>Язык</h3>
 					<VariantSelection
 						data={languages}
 						selected={profile.selectedLanguage}
 						onSelect={value => handleLanguageChange(value as string)}
 					/>
 				</div>
-				<div>
-					<h3 className={styles.subtitle}>{label4}</h3>
-					<div className='flex gap-2.5'>
-						<InputWithDropdown
-							data={countryData}
-							value={profile.country}
-							onChange={handleCountryChange}
-							placeholder={countryPlaceHolder}
-						/>
-						<InputWithDropdown
-							data={
-								profile.country
-									? citiesByCountry[
-											profile.country as keyof typeof citiesByCountry
-										] || []
-									: []
-							}
-							value={profile.city}
-							onChange={value => setProfileField('city', value)}
-							placeholder='Выберите город'
-							disabled={!profile.country}
-						/>
-					</div>
-				</div>
-
-				<TextArea
-					data={{
-						label: label,
-						name: 'comment',
-						placeholder: placeholder,
-						value: profile.about,
-						minLength: 10,
-						maxLength: 300,
-						notification: `${profile.about.length}/300 ${char}`,
-						onChange: (value: string) => setProfileField('about', value)
-					}}
-				/>
-				<div>
-					<h3 className={styles.subtitle}>{interest}</h3>
-					<div>
-						<Search
-							tags={tags}
-							addInterest={handleAddInterest}
-							placeholder={searchHolder}
-							searchValue={searchValue}
-							onSearchChange={setSearchValue}
-						/>
-
-						<TagSelector
-							presetTags={tags}
-							interests={profile.interests}
-							toggleInterest={toggleInterest}
-							edit={true}
-							addInterest={handleAddInterest}
-						/>
-					</div>
-				</div>
 			</div>
+
 			<div className={`flex w-full gap-4 mt-8 ${styles.buttons}`}>
 				<Button variant='secondary' onClick={handleBack} type='submit'>
-					{backBtn}
+					Отменить
 				</Button>
 				<Button variant='accept' onClick={handleSave}>
-					{saveBtn}
+					Сохранить
 				</Button>
 			</div>
 		</div>
