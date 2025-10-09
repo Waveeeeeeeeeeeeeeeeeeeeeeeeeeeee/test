@@ -10,9 +10,9 @@ export const useDescription = ({ text, maxLength = 100 }: IDescription) => {
 	const [isCuted, setIsCuted] = useState(true);
 
 	useEffect(() => {
-		if (isCuted) {
+		if (isCuted && text.length > maxLength) {
 			const slicedText = text.slice(0, maxLength);
-			setDisplayText(text.length > maxLength ? slicedText + '...' : slicedText);
+			setDisplayText(slicedText);
 		} else {
 			setDisplayText(text);
 		}
@@ -20,6 +20,9 @@ export const useDescription = ({ text, maxLength = 100 }: IDescription) => {
 
 	return {
 		displayText,
-		setIsCuted
+		setIsCuted,
+		isLongText: text.length > maxLength,
+		isTextCut: isCuted && text.length > maxLength,
+		isTextExpanded: !isCuted && text.length > maxLength
 	};
 };

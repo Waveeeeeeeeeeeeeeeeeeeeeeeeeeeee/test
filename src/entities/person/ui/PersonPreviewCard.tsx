@@ -17,10 +17,12 @@ type Props = {
 };
 
 export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
-	const { displayText, setIsCuted } = useDescription({
-		text: person.about,
-		maxLength: 100
-	});
+	const { displayText, setIsCuted, isTextCut, isTextExpanded } = useDescription(
+		{
+			text: person.about,
+			maxLength: 100
+		}
+	);
 
 	return (
 		<div
@@ -45,6 +47,8 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 						<Description
 							description={displayText}
 							toggle={() => setIsCuted(prev => !prev)}
+							showMoreButton={isTextCut}
+							showHideButton={isTextExpanded}
 						/>
 					) : (
 						<div className='flex flex-col gap-2'>

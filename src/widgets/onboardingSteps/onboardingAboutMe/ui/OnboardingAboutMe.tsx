@@ -158,9 +158,9 @@ const OnboardingAboutMe = () => {
 					name: 'comment',
 					placeholder: placeholder,
 					value: profile.about,
-					minLength: 10,
-					maxLength: 300,
-					notification: `${profile.about.length}/300 ${char}`,
+					minLength: 30,
+					maxLength: 400,
+					notification: `${profile.about.length}/400 ${char}`,
 					onChange: (value: string) => setProfileField('about', value)
 				}}
 			/>

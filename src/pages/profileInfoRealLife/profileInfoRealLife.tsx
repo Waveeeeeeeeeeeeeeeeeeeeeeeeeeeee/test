@@ -205,8 +205,8 @@ const ProfileInfoRealLife = () => {
 						placeholder: 'Расскажите о себе...',
 						value: profile.about || '',
 						minLength: 30,
-						maxLength: 200,
-						notification: `От 30 до 200 символов`,
+						maxLength: 400,
+						notification: `${profile.about?.length || 0}/400 символов`,
 						onChange: (value: string) => setProfileField('about', value)
 					}}
 				/>

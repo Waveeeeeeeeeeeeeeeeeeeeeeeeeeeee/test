@@ -45,8 +45,8 @@ const ProfileSupport = () => {
 							placeholder: problemDesc,
 							value: description,
 							minLength: 30,
-							maxLength: 2000,
-							notification: `${description.length}/2000 ${char}`,
+							maxLength: 400,
+							notification: `${description.length}/400 ${char}`,
 							onChange: (value: string) => setDescription(value),
 							height: 'h-[172px]'
 						}}

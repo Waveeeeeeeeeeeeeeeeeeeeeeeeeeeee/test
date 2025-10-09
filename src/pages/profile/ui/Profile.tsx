@@ -21,15 +21,14 @@ const Profile = () => {
 	const { profile, setProfileField } = useUserStore();
 	const { online, realLife } = useCustomTranslation('profile');
 	const { isOpen, close } = useRulesToggle();
-	const [isEdit, setEdit] = useState(false);
+	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 	const navigate = useNavigate();
 
 	const handleEdit = useCallback(
 		({ matchType }: { matchType: matchType }) => {
-			setEdit(true);
 			navigate(`/profile/info/${matchType}`);
 		},
-		[setEdit, navigate]
+		[navigate]
 	);
 
 	const setToggle = useCallback(() => {
@@ -73,7 +72,20 @@ const Profile = () => {
 				</div>
 
 				{profile.selectedMatchType === 'realLife' ? (
-					<Description description={mockUser[0].about} />
+					<Description
+						description={
+							isDescriptionExpanded
+								? mockUser[0].about
+								: mockUser[0].about.slice(0, 100)
+						}
+						showMoreButton={
+							!isDescriptionExpanded && mockUser[0].about.length > 100
+						}
+						showHideButton={
+							isDescriptionExpanded && mockUser[0].about.length > 100
+						}
+						toggle={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+					/>
 				) : (
 					<div>
 						<h2 className='text-xl font-semibold mb-3'>Страны</h2>
@@ -91,7 +103,7 @@ const Profile = () => {
 				) : (
 					<div>
 						<h2 className='text-xl font-semibold mb-3'>Цели игры</h2>
-						<ShowTags tags={mockUser[0].selectedGoal} />
+						<ShowTags tags={mockUser[0].selectedGoal ?? []} />
 					</div>
 				)}
 				{profile.selectedMatchType === 'realLife' ? (
@@ -105,7 +117,7 @@ const Profile = () => {
 						<h2 className='text-xl font-semibold mb-3'>
 							Время основной активности
 						</h2>
-						<ShowTags tags={mockUser[0].selectedPrime} />
+						<ShowTags tags={mockUser[0].selectedPrime ?? []} />
 					</div>
 				)}
 

@@ -6,3 +6,19 @@
 	white-space: normal;
 	word-break: break-word;
 }
+
+.showMoreButton {
+	background: none;
+	border: none;
+	color: #6b5cd1;
+	font-size: 12px;
+	font-weight: 500;
+	cursor: pointer;
+	margin-top: 4px;
+	padding: 0;
+	text-decoration: underline;
+}
+
+.showMoreButton:hover {
+	color: #8b7ed8;
+}
