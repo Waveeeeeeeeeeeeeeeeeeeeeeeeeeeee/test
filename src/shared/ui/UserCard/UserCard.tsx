@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import InfoIco from '../../assets/icons/info.svg?react';
 import NotificationIco from '../../assets/images/notification.svg?react';
 import { ImageZoomModal } from '../ImageZoomModal/ImageZoomModal';
 
 import styles from './UserCard.module.css';
+import { EnumRoutes } from '@/app/router/router.consts';
 
 export type UserCardProps = {
 	name: string;
@@ -29,6 +31,7 @@ export const UserCard: React.FC<UserCardProps> = ({
 	coutry_code
 }) => {
 	const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
+	const navigate = useNavigate();
 
 	const handleAvatarClick = () => {
 		setIsZoomModalOpen(true);
@@ -38,12 +41,20 @@ export const UserCard: React.FC<UserCardProps> = ({
 		setIsZoomModalOpen(false);
 	};
 
+	const handleNotificationClick = () => {
+		console.log('Notification icon clicked in UserCard');
+		navigate(EnumRoutes.NOTIFICATIONS);
+	};
+
 	const avatarSrc =
 		typeof avatarUrl === 'string' ? avatarUrl : URL.createObjectURL(avatarUrl);
 
 	return (
 		<div className={styles.card}>
-			<button className='bg-transparent border-none absolute right-2.5 top-2.5 cursor-pointer'>
+			<button
+				className='bg-transparent border-none absolute right-2.5 top-2.5 cursor-pointer'
+				onClick={icon === 'notification' ? handleNotificationClick : undefined}
+			>
 				{icon === 'info' && <InfoIco />}
 				{icon === 'notification' && (
 					<NotificationIco fill='var(--object-secondary-white)' />

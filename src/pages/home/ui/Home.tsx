@@ -4,15 +4,13 @@ import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHead
 import TargetSearchList from '@/widgets/targetSearchList/ui/TargetSearchList';
 
 const Home = () => {
-	useTelegramRegister();
-
 	return (
 		<div className='pt-4 pb-24 px-1.5 h-full'>
 			<div className=' mb-3.5'>
 				<NotificationHeaderFactory
 					title='Режимы поиска'
 					IsBack={false}
-					notification={false}
+					notification={true}
 				/>
 			</div>
 			<div className='bg-black'>

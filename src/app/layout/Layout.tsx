@@ -10,7 +10,8 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 		'/profile/games',
 		'/profile/rules',
 		'/profile/support',
-		'/onboarding'
+		'/onboarding',
+		'/notifications'
 	].includes(location.pathname);
 
 	return (

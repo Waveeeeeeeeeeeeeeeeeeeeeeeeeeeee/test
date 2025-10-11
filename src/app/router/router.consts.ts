@@ -9,5 +9,6 @@ export enum EnumRoutes {
 	PROFILE_GAMES = '/profile/games',
 	PROFILE_SUPPORT = '/profile/support',
 	PROFILE_INFO_REALLIFE = '/profile/info/realLife',
-	PROFILE_INFO_ONLINE = '/profile/info/online'
+	PROFILE_INFO_ONLINE = '/profile/info/online',
+	NOTIFICATIONS = '/notifications'
 }

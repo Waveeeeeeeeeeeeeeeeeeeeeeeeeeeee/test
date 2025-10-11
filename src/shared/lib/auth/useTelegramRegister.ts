@@ -7,15 +7,12 @@ export const useTelegramRegister = () => {
 	useEffect(() => {
 		const register = async () => {
 			const userData = {
-				nickname: 'Wave',
+				nickname: 'Lex',
 				lang: 'EN',
 				city: 'Moscow',
 				country: 'Russia',
 				country_code: 'RU',
-				password: 'string',
-				email: 'string',
-				telegram_id: 123456,
-				password_hash: 'string',
+				telegram_id: 2324,
 				search_type: 'JUST_PLAY'
 			};
 

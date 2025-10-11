@@ -2,6 +2,7 @@ import { EnumRoutes } from './router.consts';
 import { IRoute } from './router.types';
 import Friends from '@/pages/friends/ui/Friends';
 import Home from '@/pages/home/ui/Home';
+import { Notification } from '@/pages/notifications';
 import { Onboarding } from '@/pages/onboarding';
 import Profile from '@/pages/profile/ui/Profile';
 import ProfileGames from '@/pages/profileGames/ui/ProfileGames';
@@ -64,5 +65,9 @@ export const routes: IRoute[] = [
 	{
 		path: EnumRoutes.PROFILE_INFO_REALLIFE,
 		component: ProfileInfoRealLife
+	},
+	{
+		path: EnumRoutes.NOTIFICATIONS,
+		component: Notification
 	}
 ];

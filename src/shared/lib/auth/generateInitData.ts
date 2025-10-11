@@ -40,8 +40,8 @@ export const generateInitData = async () => {
 	const botToken = '8218619054:AAHijFAIOThUQBJ1dIvUo5Gnvnh74AoeZx8';
 
 	const userData = new TelegramUserDataModel({
-		id: 123456789,
-		first_name: 'Ivan',
+		id: 2324,
+		first_name: 'Igor',
 		last_name: 'Ivanov',
 		username: '@Ivanov',
 		language_code: 'ru',
@@ -52,9 +52,11 @@ export const generateInitData = async () => {
 		photo_url: 'https://example.com/photo.jpg'
 	});
 
+	const authDate = Math.floor(Date.now() / 1000);
+
 	const payload = {
-		auth_date: 1760014550,
-		query_id: 'IB7vfBYS54rmblsG',
+		auth_date: authDate,
+		query_id: 'IB7vfBYS54rmblsGd',
 		user: userData.toJSON()
 	};
 
