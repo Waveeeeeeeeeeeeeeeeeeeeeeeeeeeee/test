@@ -30,8 +30,7 @@ const AppRouter: FC = () => {
 		<Routes location={location} key={location.pathname}>
 			{routes.map(renderRoutes)}
 
-			{/* Catch-all: редирект на home для любых неизвестных маршрутов */}
-			<Route path='*' element={<Navigate to='/home' replace />} />
+			<Route path='*' element={<Navigate to='/auth' replace />} />
 		</Routes>
 	);
 };

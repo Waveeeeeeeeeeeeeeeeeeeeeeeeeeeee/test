@@ -1,42 +1,32 @@
-import { FC, useEffect, useState } from 'react';
-import { BrowserRouter } from 'react-router';
+import { FC } from 'react';
+import { BrowserRouter, useLocation } from 'react-router';
 
 import Layout from '../layout/Layout';
 import { useMainApp } from '../lib/hooks/useMainApp';
 import AppRouter from '../router/AppRouter';
 
-import Preloader from './preloader/Preloader';
 import { Toast } from '@/entities/toast/ToastProvider';
 
-const App: FC = () => {
-	const { showContent, shouldRedirectToOnboarding } = useMainApp();
-	const [isPreloaderVisible, setIsPreloaderVisible] = useState(true);
+const AppContent: FC = () => {
+	const location = useLocation();
 
-	useEffect(() => {
-		if (showContent) {
-			const timer = setTimeout(() => setIsPreloaderVisible(false), 300);
-			return () => clearTimeout(timer);
-		}
-	}, [showContent]);
+	if (location.pathname === '/auth') {
+		return <AppRouter />;
+	}
+
+	return (
+		<Layout>
+			<AppRouter />
+		</Layout>
+	);
+};
+
+const App: FC = () => {
+	const { showContent } = useMainApp();
 
 	return (
 		<BrowserRouter>
-			<Toast>
-				{isPreloaderVisible && <Preloader />}
-
-				<div
-					style={{
-						opacity: showContent && !isPreloaderVisible ? 1 : 0,
-						transition: 'opacity 300ms ease-in-out'
-					}}
-				>
-					{showContent && shouldRedirectToOnboarding !== null && (
-						<Layout>
-							<AppRouter />
-						</Layout>
-					)}
-				</div>
-			</Toast>
+			<Toast>{showContent && <AppContent />}</Toast>
 		</BrowserRouter>
 	);
 };

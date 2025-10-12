@@ -40,13 +40,6 @@ export const completeOnboarding = async (
 	console.log(user);
 	console.log(userId);
 
-	// await createDevice({
-	//   user_id: userId,
-	//   service_id: profile.serviceId
-	//   platform: 'WEB_APP',
-	//   push_service_token: null,
-	// })
-
 	const createdProfile = await createProfile({
 		user_id: 119,
 		game_platform: ['PC'],
@@ -73,19 +66,6 @@ export const completeOnboarding = async (
 			thumbnail_object_key: 'thumb.jpg'
 		});
 	}
-
-	// const gamesWithPurposes = profile.games.reduce(
-	// 	(acc, game) => {
-	// 		acc[game.id] = game.purposes.map(p => p.purpose_id);
-	// 		return acc;
-	// 	},
-	// 	{} as Record<string, number[]>
-	// );
-
-	// await setProfileGamesWithPurposes({
-	// 	profile_id: profileId,
-	// 	games_with_purposes: gamesWithPurposes
-	// });
 
 	return { userId: userId, profileId: profileId };
 };

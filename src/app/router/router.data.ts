@@ -1,5 +1,6 @@
 import { EnumRoutes } from './router.consts';
 import { IRoute } from './router.types';
+import AuthPage from '@/pages/auth/AuthPage';
 import Friends from '@/pages/friends/ui/Friends';
 import Home from '@/pages/home/ui/Home';
 import { Notification } from '@/pages/notifications';
@@ -21,6 +22,10 @@ export const bgRoutes: BgRoutesType = {
 };
 
 export const routes: IRoute[] = [
+	{
+		path: '/auth',
+		component: AuthPage
+	},
 	{
 		path: EnumRoutes.HOME,
 		component: Home
