@@ -25,7 +25,6 @@ export const useMainApp = () => {
 	useEffect(() => {
 		const initApp = async () => {
 			try {
-				// Функция для логирования в DOM
 				const logToDOM = (message: string) => {
 					const logElement = document.getElementById('debug-log');
 					if (logElement) {
@@ -34,7 +33,13 @@ export const useMainApp = () => {
 					}
 				};
 
+				alert(
+					'🚀 useMainApp: Начало инициализации - ' +
+						new Date().toLocaleTimeString()
+				);
+				alert('🔧 Проверка логирования: ' + new Date().toISOString());
 				logToDOM('🚀 useMainApp: Начало инициализации');
+				logToDOM('🔧 Проверка логирования в DOM');
 				init();
 				restoreInitData();
 				expandViewport();
@@ -47,7 +52,17 @@ export const useMainApp = () => {
 					const result = await retrieveLaunchParams();
 					tgWebAppData = result.tgWebAppData;
 					initDataString = result.initData;
-				} catch {
+
+					logToDOM(
+						'🔍 retrieveLaunchParams result: ' + JSON.stringify(result, null, 2)
+					);
+					logToDOM('🔍 tgWebAppData: ' + JSON.stringify(tgWebAppData, null, 2));
+					alert(
+						'✅ Данные получены от Telegram: ' +
+							JSON.stringify(tgWebAppData, null, 2)
+					);
+				} catch (error) {
+					alert('❌ Ошибка retrieveLaunchParams: ' + (error as Error).message);
 					try {
 						const user = initDataUser();
 						if (user) {
@@ -58,16 +73,21 @@ export const useMainApp = () => {
 										Telegram?: { WebApp?: { initData?: string } };
 									}
 								).Telegram?.WebApp?.initData || null;
+							alert('⚠️ Fallback: данные получены через initDataUser');
 						} else {
 							tgWebAppData = null;
+							alert('❌ Fallback: данные не найдены');
 						}
-					} catch {
+					} catch (fallbackError) {
 						tgWebAppData = null;
+						alert(
+							'❌ Fallback тоже не сработал: ' +
+								(fallbackError as Error).message
+						);
 					}
 				}
 
 				if (tgWebAppData?.user) {
-					// Функция для логирования в DOM
 					const logToDOM = (message: string) => {
 						const logElement = document.getElementById('debug-log');
 						if (logElement) {
@@ -93,24 +113,32 @@ export const useMainApp = () => {
 						logToDOM('✅ telegramQueryId записан: ' + tgWebAppData.query_id);
 					}
 					if (tgWebAppData.auth_date) {
-						// Преобразуем auth_date в timestamp (число)
-						const authDate =
-							typeof tgWebAppData.auth_date === 'number'
-								? tgWebAppData.auth_date
-								: new Date(tgWebAppData.auth_date).getTime() / 1000;
+						let authTimestamp: number;
+
+						if (typeof tgWebAppData.auth_date === 'number') {
+							authTimestamp = tgWebAppData.auth_date;
+						} else if (typeof tgWebAppData.auth_date === 'string') {
+							authTimestamp = Math.floor(
+								new Date(tgWebAppData.auth_date).getTime() / 1000
+							);
+						} else {
+							authTimestamp = Math.floor(
+								tgWebAppData.auth_date.getTime() / 1000
+							);
+						}
 
 						logToDOM(
-							'🔧 Преобразование auth_date: ' +
+							'🔧 Auth_date conversion: ' +
 								JSON.stringify({
 									original: tgWebAppData.auth_date,
 									originalType: typeof tgWebAppData.auth_date,
-									converted: authDate,
-									convertedType: typeof authDate
+									timestamp: authTimestamp,
+									humanReadable: new Date(authTimestamp * 1000).toISOString()
 								})
 						);
 
-						setTelegramAuthDate(authDate);
-						logToDOM('✅ telegramAuthDate записан в стор: ' + authDate);
+						setTelegramAuthDate(authTimestamp);
+						logToDOM('✅ telegramAuthDate записан в стор: ' + authTimestamp);
 					} else {
 						logToDOM('❌ tgWebAppData.auth_date отсутствует!');
 					}
@@ -121,9 +149,9 @@ export const useMainApp = () => {
 								initDataString.substring(0, 50) +
 								'...'
 						);
+						logToDOM('🔍 Full initDataString: ' + initDataString);
 					}
 				} else {
-					// Функция для логирования в DOM
 					const logToDOM = (message: string) => {
 						const logElement = document.getElementById('debug-log');
 						if (logElement) {

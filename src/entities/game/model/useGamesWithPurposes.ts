@@ -31,7 +31,24 @@ export const useGamesWithPurposes = () => {
 				}
 
 				setGames(largeGamesList);
-			} catch (err: unknown) {
+			} catch (err: any) {
+				// Детальное логирование ошибки
+				const logToDOM = (message: string) => {
+					const logElement = document.getElementById('debug-log');
+					if (logElement) {
+						logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+						logElement.scrollTop = logElement.scrollHeight;
+					}
+				};
+
+				logToDOM('❌ Games API Error Details:');
+				logToDOM('Status: ' + err.response?.status);
+				logToDOM('Status Text: ' + err.response?.statusText);
+				logToDOM('Detail: ' + err.response?.data?.detail);
+				logToDOM(
+					'Full Response Data: ' + JSON.stringify(err.response?.data, null, 2)
+				);
+
 				if (err instanceof Error) {
 					setError(err.message);
 				} else {

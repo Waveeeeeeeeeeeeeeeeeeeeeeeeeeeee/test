@@ -11,35 +11,51 @@ export const generateInitDataFromTelegram = (
 		allows_write_to_pm?: boolean;
 		photo_url?: string;
 	},
-	authDate: number,
+	authDate: string | number,
 	queryId: string,
 	hash: string
 ) => {
-	const userData = {
-		id: telegramUser.id,
-		first_name: telegramUser.first_name,
-		last_name: telegramUser.last_name || 'User',
-		username: telegramUser.username ? `@${telegramUser.username}` : '@user',
-		language_code: telegramUser.language_code || 'ru',
-		is_premium: telegramUser.is_premium || false,
-		is_bot: telegramUser.is_bot || false,
-		added_to_attachment_menu: telegramUser.added_to_attachment_menu || true,
-		allows_write_to_pm: telegramUser.allows_write_to_pm || true,
-		photo_url: telegramUser.photo_url || ''
-	};
+	let authTimestamp: number;
 
-	const userJsonString = JSON.stringify(
-		userData,
-		Object.keys(userData).sort(),
-		0
-	).replace(/\s/g, '');
+	if (typeof authDate === 'number') {
+		authTimestamp = authDate;
+	} else {
+		const dateObj =
+			typeof authDate === 'string' ? new Date(authDate) : authDate;
+		authTimestamp = Math.floor(dateObj.getTime() / 1000);
+	}
 
-	const result = {
-		auth_date: authDate,
+	const userJsonString = JSON.stringify(telegramUser);
+
+	const initDataObject = {
+		auth_date: authTimestamp,
 		query_id: queryId,
 		user: userJsonString,
 		hash
 	};
 
-	return result;
+	const logToDOM = (message: string) => {
+		const logElement = document.getElementById('debug-log');
+		if (logElement) {
+			logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+			logElement.scrollTop = logElement.scrollHeight;
+		}
+	};
+
+	logToDOM(
+		'🔍 Generated initData object: ' + JSON.stringify(initDataObject, null, 2)
+	);
+	logToDOM('🔍 Telegram user object: ' + JSON.stringify(telegramUser, null, 2));
+	logToDOM(
+		'🔧 Auth date conversion: ' +
+			JSON.stringify({
+				original: authDate,
+				originalType: typeof authDate,
+				timestamp: authTimestamp,
+				timestampType: typeof authTimestamp,
+				humanReadable: new Date(authTimestamp * 1000).toISOString()
+			})
+	);
+
+	return initDataObject;
 };

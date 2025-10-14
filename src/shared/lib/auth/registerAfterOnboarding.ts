@@ -2,7 +2,6 @@ import { generateInitDataFromTelegram } from './generateInitData';
 import { reqRegister } from './reqRegister';
 import { useUserStore } from '@/entities/user/model/store';
 
-// Функция для логирования в DOM
 const logToDOM = (message: string) => {
 	const logElement = document.getElementById('debug-log');
 	if (logElement) {
@@ -30,7 +29,10 @@ export const registerAfterOnboarding = async (profile: {
 		nickname: profile.nickname,
 		lang: profile.selectedLanguage.toUpperCase(),
 		city: profile.city,
-		country: profile.country,
+		country:
+			profile.country ||
+			(profile as { selectedCountry?: string[] }).selectedCountry?.[0] ||
+			'Russia',
 		country_code: profile.country_code || 'RU',
 		telegram_id: telegram.id,
 		search_type:
@@ -48,10 +50,14 @@ export const registerAfterOnboarding = async (profile: {
 		const response = await reqRegister(userData, initData);
 		logToDOM('✅ Register response: ' + JSON.stringify(response.data));
 		return response.data;
-	} catch (error: any) {
+	} catch (error: unknown) {
+		const errorResponse = error as { response?: { data?: unknown } } | Error;
 		logToDOM(
 			'❌ Register error: ' +
-				JSON.stringify(error.response?.data || error.message)
+				JSON.stringify(
+					(errorResponse as { response?: { data?: unknown } }).response?.data ||
+						(errorResponse as Error).message
+				)
 		);
 		throw error;
 	}
