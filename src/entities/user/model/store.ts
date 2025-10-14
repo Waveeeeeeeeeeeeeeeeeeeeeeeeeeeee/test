@@ -27,7 +27,8 @@ const defaultProfile = {
 	selectedPlatform: ['pc'],
 	selectedCountry: [],
 	selectedGoal: [],
-	selectedPrime: []
+	selectedPrime: [],
+	isOnline: false
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -35,8 +36,14 @@ export const useUserStore = create<UserStore>((set, get) => ({
 	telegram: null,
 	profile: defaultProfile,
 	userHash: null,
+	telegramQueryId: null,
+	telegramInitData: null,
+	telegramAuthDate: null,
 	setTelegramUser: (user: TelegramUser) => set({ telegram: user, user }),
 	setUserHash: hash => set({ userHash: hash }),
+	setTelegramQueryId: queryId => set({ telegramQueryId: queryId }),
+	setTelegramInitData: initData => set({ telegramInitData: initData }),
+	setTelegramAuthDate: authDate => set({ telegramAuthDate: authDate }),
 	setUserImage: (image: File) => set({ profile: { ...get().profile, image } }),
 	setProfile: (profile: UserProfile) => set({ profile }),
 
@@ -45,6 +52,9 @@ export const useUserStore = create<UserStore>((set, get) => ({
 			telegram: null,
 			user: null,
 			userHash: null,
+			telegramQueryId: null,
+			telegramInitData: null,
+			telegramAuthDate: null,
 			profile: defaultProfile
 		}),
 

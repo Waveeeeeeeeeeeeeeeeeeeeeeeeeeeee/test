@@ -56,11 +56,17 @@ export interface UserState {
 	telegram: TelegramUser | null;
 	profile: UserProfile;
 	userHash: string | null;
+	telegramQueryId: string | null;
+	telegramInitData: string | null;
+	telegramAuthDate: number | null;
 }
 
 export interface UserStore extends UserState {
 	setTelegramUser: (user: TelegramUser) => void;
 	setUserHash: (hash: string) => void;
+	setTelegramQueryId: (queryId: string) => void;
+	setTelegramInitData: (initData: string) => void;
+	setTelegramAuthDate: (authDate: number) => void;
 	setProfile: (profile: UserProfile) => void;
 	clearUser: () => void;
 	setUserImage: (image: File) => void;

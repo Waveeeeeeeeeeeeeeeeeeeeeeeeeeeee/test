@@ -1,11 +1,15 @@
 import { useUserStore } from '@/entities/user/model/store';
 import { UserProfile } from '@/entities/user/model/types';
-import {
-	createProfile,
-	createProfileMedia,
-	createUser
-} from '@/shared/api/endpoints';
-import { getLocationDetails } from '@/shared/services/location-service';
+import { registerAfterOnboarding } from '@/shared/lib/auth/registerAfterOnboarding';
+
+// Функция для логирования в DOM
+const logToDOM = (message: string) => {
+	const logElement = document.getElementById('debug-log');
+	if (logElement) {
+		logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+		logElement.scrollTop = logElement.scrollHeight;
+	}
+};
 
 type Params = UserProfile & {
 	serviceId: number;
@@ -14,58 +18,21 @@ type Params = UserProfile & {
 
 export const completeOnboarding = async (
 	profile: Params
-): Promise<{ userId: number; profileId: number }> => {
-	const { setUserAndProfileIds, setCountryCode } = useUserStore.getState();
-	const countryCode = await getLocationDetails(profile.country, profile.city);
+): Promise<{ userId: number }> => {
+	try {
+		const { telegram } = useUserStore.getState();
 
-	setCountryCode(countryCode);
-	const user = await createUser({
-		nickname: profile.nickname,
-		lang: profile.selectedLanguage.toLocaleUpperCase(),
-		city: profile.city,
-		country: profile.country,
-		country_code: 'RU',
-		countries: JSON.stringify([
-			{ code: 'RU', name: 'Russia' },
-			{ code: 'US', name: 'USA' },
-			{ code: 'DE', name: 'Germany' }
-		]),
-		email: 'zzzzzz.io@gmail.com',
-		password_hash: null,
-		telegram_id: 55
-	});
+		if (!telegram) {
+			throw new Error('Telegram пользователь не найден');
+		}
 
-	const userId = user.id;
+		const registerData = await registerAfterOnboarding(profile);
+		const userId = registerData.user_id || registerData.id;
 
-	console.log(user);
-	console.log(userId);
-
-	const createdProfile = await createProfile({
-		user_id: 119,
-		game_platform: ['PC'],
-		age_range: '14-17',
-		search_type: 'JUST_PLAY',
-		gender: 'MALE',
-		about: 'string',
-		activity_time: 'MORNING',
-		hobbies: 'string'
-	});
-
-	const profileId = createdProfile.id;
-
-	setUserAndProfileIds(userId, profileId);
-
-	if (profile.image) {
-		await createProfileMedia({
-			profile_id: profileId,
-			format: 'JPEG',
-			bucket_url: '',
-			bucket_name: 'your-bucket',
-			bucket_region: 'your-region',
-			object_key: 'original.jpg',
-			thumbnail_object_key: 'thumb.jpg'
-		});
+		logToDOM('🎉 completeOnboarding завершен успешно, userId: ' + userId);
+		return { userId: userId };
+	} catch (error) {
+		logToDOM('❌ Ошибка в completeOnboarding: ' + JSON.stringify(error));
+		throw error;
 	}
-
-	return { userId: userId, profileId: profileId };
 };

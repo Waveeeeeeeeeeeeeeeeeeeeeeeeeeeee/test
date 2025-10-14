@@ -230,6 +230,31 @@ export const Onboarding = () => {
 
 	return (
 		<>
+			{/* Debug log container */}
+			<div
+				id='debug-log'
+				style={{
+					position: 'fixed',
+					top: '0',
+					left: '0',
+					width: '100vw',
+					height: '40vh',
+					backgroundColor: 'rgba(0,0,0,0.9)',
+					color: 'white',
+					fontSize: '14px',
+					padding: '20px',
+					overflow: 'auto',
+					zIndex: 9999,
+					fontFamily: 'monospace'
+				}}
+			>
+				<div
+					style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px' }}
+				>
+					Debug Log:
+				</div>
+			</div>
+
 			<div
 				className={clsx(
 					'min-h-screen bg-[var(--bg)]  py-5 flex flex-col justify-between px-4',

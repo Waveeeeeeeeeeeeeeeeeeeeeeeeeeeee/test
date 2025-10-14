@@ -1,7 +1,11 @@
-import { useUserStore } from "./store";
+import { useUserStore } from './store';
 
-export const useUser = () => useUserStore((state) => state.user);
-export const useAvatar = () => useUserStore((state) => state.user?.photo_url);
-export const useUserName = () => useUserStore((state) => state.user?.username);
-export const useUserHash = () => useUserStore((state) => state.userHash);
-export const useTelegram = () => useUserStore((state) => state.telegram);
+export const useUser = () => useUserStore(state => state.user);
+export const useAvatar = () => useUserStore(state => state.user?.photo_url);
+export const useUserName = () => useUserStore(state => state.user?.username);
+export const useUserHash = () => useUserStore(state => state.userHash);
+export const useTelegram = () => useUserStore(state => state.telegram);
+export const useTelegramQueryId = () =>
+	useUserStore(state => state.telegramQueryId);
+export const useTelegramInitData = () =>
+	useUserStore(state => state.telegramInitData);
