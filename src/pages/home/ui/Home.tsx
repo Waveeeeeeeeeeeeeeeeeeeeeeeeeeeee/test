@@ -1,5 +1,4 @@
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
-import { useTelegramRegister } from '@/shared/lib/auth/useTelegramRegister';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 import TargetSearchList from '@/widgets/targetSearchList/ui/TargetSearchList';
 

@@ -40,6 +40,7 @@ export type StoreProfile = {
 	selectedCountry: string[];
 	selectedGoal: string[];
 	selectedPrime: string[];
+	isOnline: boolean;
 };
 
 export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
@@ -71,6 +72,7 @@ export const mapApiProfileToStore = (apiData: ApiProfile): StoreProfile => {
 		profile_id: apiData.id,
 
 		isFirstFormValid: true,
-		isSecondFormValid: true
+		isSecondFormValid: true,
+		isOnline: true
 	};
 };

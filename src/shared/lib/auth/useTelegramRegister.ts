@@ -1,34 +1,39 @@
 import { useEffect } from 'react';
 
-import { generateInitData } from './generateInitData';
+import { generateInitDataFromTelegram } from './generateInitData';
 import { reqRegister } from './reqRegister';
+import { useUserStore } from '@/entities/user/model/store';
 
 export const useTelegramRegister = () => {
 	useEffect(() => {
 		const register = async () => {
-			const userData = {
-				nickname: 'Lex',
-				lang: 'EN',
-				city: 'Moscow',
-				country: 'Russia',
-				country_code: 'RU',
-				telegram_id: 2324,
-				search_type: 'JUST_PLAY'
-			};
-
 			try {
-				const initData = await generateInitData();
-				userData.telegram_id = JSON.parse(initData.user).id;
+				const { telegram, telegramQueryId, telegramAuthDate, userHash } =
+					useUserStore.getState();
+
+				if (!telegram || !telegramQueryId || !telegramAuthDate) {
+					throw new Error('Telegram data not found');
+				}
+
+				const initData = generateInitDataFromTelegram(
+					telegram,
+					telegramAuthDate,
+					telegramQueryId,
+					userHash || undefined
+				);
+
+				const userData = {
+					telegram_id: telegram.id
+				};
 
 				const res = await reqRegister(userData, initData);
 
-				console.log('✅ Register response:', res.data);
-				alert('✅ Успешный вход: ' + JSON.stringify(res.data));
-			} catch (e: any) {
-				console.error('❌ Ошибка регистрации:', e.response?.data || e.message);
-				alert(
-					'❌ Ошибка регистрации: ' +
-						(e.response?.data?.detail || e.message || 'Неизвестная ошибка')
+				console.log('Register response:', res.data);
+			} catch (e: unknown) {
+				const error = e as { response?: { data?: unknown }; message?: string };
+				console.error(
+					'Registration error:',
+					error.response?.data || error.message
 				);
 			}
 		};

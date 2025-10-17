@@ -2,15 +2,6 @@ import { useUserStore } from '@/entities/user/model/store';
 import { UserProfile } from '@/entities/user/model/types';
 import { registerAfterOnboarding } from '@/shared/lib/auth/registerAfterOnboarding';
 
-// Функция для логирования в DOM
-const logToDOM = (message: string) => {
-	const logElement = document.getElementById('debug-log');
-	if (logElement) {
-		logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-		logElement.scrollTop = logElement.scrollHeight;
-	}
-};
-
 type Params = UserProfile & {
 	serviceId: number;
 	telegramId: number;
@@ -18,7 +9,7 @@ type Params = UserProfile & {
 
 export const completeOnboarding = async (
 	profile: Params
-): Promise<{ userId: number }> => {
+): Promise<{ userId: number; profileId: number }> => {
 	try {
 		const { telegram } = useUserStore.getState();
 
@@ -29,10 +20,9 @@ export const completeOnboarding = async (
 		const registerData = await registerAfterOnboarding(profile);
 		const userId = registerData.user_id || registerData.id;
 
-		logToDOM('🎉 completeOnboarding завершен успешно, userId: ' + userId);
-		return { userId: userId };
+		return { userId: userId, profileId: userId };
 	} catch (error) {
-		logToDOM('❌ Ошибка в completeOnboarding: ' + JSON.stringify(error));
+		console.error('completeOnboarding error:', error);
 		throw error;
 	}
 };

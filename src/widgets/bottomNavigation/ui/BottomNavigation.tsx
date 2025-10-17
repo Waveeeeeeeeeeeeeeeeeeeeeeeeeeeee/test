@@ -11,7 +11,7 @@ export const BottomNavigation = () => {
 	const { label1, label3, label4 } = useCustomTranslation('bottomBar');
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { user, setProfileField } = useUserStore();
+	const { user } = useUserStore();
 
 	// Check if we're on the profile info pages
 	const isProfileInfoRealLife = location.pathname === '/profile/info/realLife';

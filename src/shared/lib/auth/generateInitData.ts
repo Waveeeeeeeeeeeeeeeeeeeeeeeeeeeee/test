@@ -1,3 +1,52 @@
+export const generateInitData = (
+	telegramUser: {
+		id: number;
+		first_name: string;
+		last_name?: string;
+		username?: string;
+		language_code?: string;
+		is_premium?: boolean;
+		is_bot?: boolean;
+		added_to_attachment_menu?: boolean;
+		allows_write_to_pm?: boolean;
+		photo_url?: string;
+	},
+	authDate: string | number,
+	queryId: string,
+	originalHash?: string
+) => {
+	let authTimestamp: number;
+	if (typeof authDate === 'number') {
+		authTimestamp = authDate;
+	} else if (typeof authDate === 'string') {
+		authTimestamp = Math.floor(new Date(authDate).getTime() / 1000);
+	} else {
+		authTimestamp = Math.floor((authDate as Date).getTime() / 1000);
+	}
+
+	return {
+		auth_date: authTimestamp,
+		query_id: queryId,
+		user: JSON.stringify(telegramUser),
+		hash: originalHash || ''
+	};
+};
+
+export const generateMockInitData = () => {
+	return {
+		auth_date: Math.floor(Date.now() / 1000),
+		query_id: 'mock_query_id',
+		user: JSON.stringify({
+			id: 123456789,
+			first_name: 'Test',
+			last_name: 'User',
+			username: 'testuser',
+			language_code: 'ru'
+		}),
+		hash: 'mock_hash'
+	};
+};
+
 export const generateInitDataFromTelegram = (
 	telegramUser: {
 		id: number;
@@ -13,49 +62,21 @@ export const generateInitDataFromTelegram = (
 	},
 	authDate: string | number,
 	queryId: string,
-	hash: string
+	originalHash?: string
 ) => {
 	let authTimestamp: number;
-
 	if (typeof authDate === 'number') {
 		authTimestamp = authDate;
+	} else if (typeof authDate === 'string') {
+		authTimestamp = Math.floor(new Date(authDate).getTime() / 1000);
 	} else {
-		const dateObj =
-			typeof authDate === 'string' ? new Date(authDate) : authDate;
-		authTimestamp = Math.floor(dateObj.getTime() / 1000);
+		authTimestamp = Math.floor((authDate as Date).getTime() / 1000);
 	}
 
-	const userJsonString = JSON.stringify(telegramUser);
-
-	const initDataObject = {
+	return {
 		auth_date: authTimestamp,
 		query_id: queryId,
-		user: userJsonString,
-		hash
+		user: JSON.stringify(telegramUser),
+		hash: originalHash || ''
 	};
-
-	const logToDOM = (message: string) => {
-		const logElement = document.getElementById('debug-log');
-		if (logElement) {
-			logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-			logElement.scrollTop = logElement.scrollHeight;
-		}
-	};
-
-	logToDOM(
-		'🔍 Generated initData object: ' + JSON.stringify(initDataObject, null, 2)
-	);
-	logToDOM('🔍 Telegram user object: ' + JSON.stringify(telegramUser, null, 2));
-	logToDOM(
-		'🔧 Auth date conversion: ' +
-			JSON.stringify({
-				original: authDate,
-				originalType: typeof authDate,
-				timestamp: authTimestamp,
-				timestampType: typeof authTimestamp,
-				humanReadable: new Date(authTimestamp * 1000).toISOString()
-			})
-	);
-
-	return initDataObject;
 };
