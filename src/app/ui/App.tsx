@@ -27,6 +27,21 @@ const App: FC = () => {
 	return (
 		<BrowserRouter>
 			<Toast>{showContent && <AppContent />}</Toast>
+			<div id="telegram-debug" style={{
+				position: 'fixed',
+				top: '10px',
+				right: '10px',
+				background: 'rgba(0,0,0,0.8)',
+				color: 'white',
+				padding: '10px',
+				borderRadius: '5px',
+				fontSize: '12px',
+				maxWidth: '300px',
+				maxHeight: '400px',
+				overflow: 'auto',
+				zIndex: 9999,
+				display: 'none'
+			}}></div>
 		</BrowserRouter>
 	);
 };

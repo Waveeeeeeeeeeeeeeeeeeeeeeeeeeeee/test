@@ -48,6 +48,19 @@ export const useMainApp = () => {
 					);
 					console.log('===========================');
 
+					const debugElement = document.getElementById('telegram-debug');
+					if (debugElement) {
+						debugElement.style.display = 'block';
+						debugElement.innerHTML = `
+							<h3>TELEGRAM WEBAPP DATA</h3>
+							<p><strong>RAW INIT DATA:</strong> ${rawInitData || 'Нет данных'}</p>
+							<p><strong>RESULT:</strong></p>
+							<pre>${JSON.stringify(result, null, 2)}</pre>
+							<p><strong>tgWebAppData:</strong></p>
+							<pre>${JSON.stringify(result.tgWebAppData, null, 2)}</pre>
+						`;
+					}
+
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('retrieveLaunchParams failed:', error);
