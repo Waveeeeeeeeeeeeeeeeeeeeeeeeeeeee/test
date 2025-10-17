@@ -219,7 +219,28 @@ export const useMainApp = () => {
 
 				setIsReady(true);
 			} catch (error) {
-				console.error('useMainApp initialization error:', error);
+				console.error('=== useMainApp initialization error ===');
+				console.error('Error type:', typeof error);
+				console.error('Error name:', (error as Error)?.name);
+				console.error('Error message:', (error as Error)?.message);
+				console.error('Error stack:', (error as Error)?.stack);
+				console.error('Full error:', JSON.stringify(error, null, 2));
+				console.error('===============================');
+
+				const logToDOM = (message: string) => {
+					const timestamp = new Date().toLocaleTimeString();
+					const logMessage = `${timestamp}: ${message}`;
+					setDebugLog(prev => prev + logMessage + '\n');
+				};
+
+				logToDOM('=== useMainApp initialization error ===');
+				logToDOM('Error type: ' + typeof error);
+				logToDOM('Error name: ' + ((error as Error)?.name || 'unknown'));
+				logToDOM('Error message: ' + ((error as Error)?.message || 'no message'));
+				logToDOM('Error stack: ' + ((error as Error)?.stack || 'no stack'));
+				logToDOM('Full error: ' + JSON.stringify(error, null, 2));
+				logToDOM('===============================');
+
 				setIsReady(true);
 			}
 		};
