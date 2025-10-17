@@ -52,6 +52,22 @@ export const useMainApp = () => {
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
+					const telegram = (
+						window as unknown as {
+							Telegram?: {
+								WebApp?: {
+									initData?: string;
+									version?: string;
+									platform?: string;
+								};
+							};
+						}
+					).Telegram;
+					logToDOM('window.Telegram: ' + JSON.stringify(telegram, null, 2));
+					logToDOM('window.Telegram.WebApp: ' + JSON.stringify(telegram?.WebApp, null, 2));
+					logToDOM('window.Telegram.WebApp.initData: ' + telegram?.WebApp?.initData);
+					logToDOM('window.Telegram.WebApp.version: ' + telegram?.WebApp?.version);
+					logToDOM('window.Telegram.WebApp.platform: ' + telegram?.WebApp?.platform);
 					logToDOM(
 						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
 					);
@@ -68,6 +84,20 @@ export const useMainApp = () => {
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
+					const telegram = (
+						window as unknown as {
+							Telegram?: {
+								WebApp?: {
+									initData?: string;
+									version?: string;
+									platform?: string;
+								};
+							};
+						}
+					).Telegram;
+					logToDOM('window.Telegram: ' + JSON.stringify(telegram, null, 2));
+					logToDOM('window.Telegram.WebApp: ' + JSON.stringify(telegram?.WebApp, null, 2));
+					logToDOM('window.Telegram.WebApp.initData: ' + telegram?.WebApp?.initData);
 					logToDOM('Error: ' + JSON.stringify(error, null, 2));
 					logToDOM('===========================');
 
