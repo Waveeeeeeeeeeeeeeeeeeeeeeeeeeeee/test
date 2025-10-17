@@ -76,6 +76,12 @@ export const useMainApp = () => {
 
 					// Логируем все данные WebApp для анализа
 					console.log('=== TELEGRAM WEBAPP DATA ===');
+					const telegram = (window as unknown as { Telegram?: { WebApp?: { initData?: string; version?: string; platform?: string } } }).Telegram;
+					console.log('window.Telegram:', telegram);
+					console.log('window.Telegram.WebApp:', telegram?.WebApp);
+					console.log('window.Telegram.WebApp.initData:', telegram?.WebApp?.initData);
+					console.log('window.Telegram.WebApp.version:', telegram?.WebApp?.version);
+					console.log('window.Telegram.WebApp.platform:', telegram?.WebApp?.platform);
 					console.log('RAW INIT DATA:', rawInitData);
 					console.log('RESULT:', result);
 					console.log('tgWebAppData:', result.tgWebAppData);
@@ -89,7 +95,15 @@ export const useMainApp = () => {
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('retrieveLaunchParams failed:', error);
+					console.log('=== FALLBACK DEBUG ===');
+					const telegram = (window as unknown as { Telegram?: { WebApp?: { initData?: string; version?: string; platform?: string } } }).Telegram;
+					console.log('window.Telegram:', telegram);
+					console.log('window.Telegram.WebApp:', telegram?.WebApp);
+					console.log('window.Telegram.WebApp.initData:', telegram?.WebApp?.initData);
+					console.log('=====================');
+					
 					const user = initDataUser();
+					console.log('initDataUser():', user);
 
 					if (user) {
 						tgWebAppData = { user };
@@ -99,8 +113,11 @@ export const useMainApp = () => {
 									Telegram?: { WebApp?: { initData?: string } };
 								}
 							).Telegram?.WebApp?.initData || null;
+						console.log('tgWebAppData from fallback:', tgWebAppData);
+						console.log('initDataString from fallback:', initDataString);
 					} else {
 						tgWebAppData = null;
+						console.log('No user data found in fallback');
 					}
 				}
 
