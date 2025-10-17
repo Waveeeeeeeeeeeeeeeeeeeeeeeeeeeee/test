@@ -37,13 +37,35 @@ export const useMainApp = () => {
 
 				// Логируем состояние ДО вызова retrieveLaunchParams
 				console.log('=== BEFORE retrieveLaunchParams ===');
-				const telegram = (window as unknown as { Telegram?: { WebApp?: { initData?: string; version?: string; platform?: string } } }).Telegram;
+				const telegram = (
+					window as unknown as {
+						Telegram?: {
+							WebApp?: {
+								initData?: string;
+								version?: string;
+								platform?: string;
+							};
+						};
+					}
+				).Telegram;
 				console.log('window.Telegram exists:', !!telegram);
 				console.log('window.Telegram.WebApp exists:', !!telegram?.WebApp);
-				console.log('window.Telegram.WebApp.initData exists:', !!telegram?.WebApp?.initData);
-				console.log('window.Telegram.WebApp.version:', telegram?.WebApp?.version);
-				console.log('window.Telegram.WebApp.platform:', telegram?.WebApp?.platform);
-				console.log('window.Telegram.WebApp.initData length:', telegram?.WebApp?.initData?.length);
+				console.log(
+					'window.Telegram.WebApp.initData exists:',
+					!!telegram?.WebApp?.initData
+				);
+				console.log(
+					'window.Telegram.WebApp.version:',
+					telegram?.WebApp?.version
+				);
+				console.log(
+					'window.Telegram.WebApp.platform:',
+					telegram?.WebApp?.platform
+				);
+				console.log(
+					'window.Telegram.WebApp.initData length:',
+					telegram?.WebApp?.initData?.length
+				);
 				console.log('=====================================');
 
 				try {
@@ -53,19 +75,18 @@ export const useMainApp = () => {
 
 					console.log('=== TELEGRAM WEBAPP DATA ===');
 					console.log('Full result:', JSON.stringify(result, null, 2));
-					console.log(
-						'result.tgWebAppData:',
-						JSON.stringify(result.tgWebAppData, null, 2)
-					);
+					console.log('=== TGWEBAPPDATA ANALYSIS ===');
+					console.log('result.tgWebAppData:', JSON.stringify(result.tgWebAppData, null, 2));
 					console.log('result.tgWebAppData type:', typeof result.tgWebAppData);
-					console.log(
-						'result.tgWebAppData === undefined:',
-						result.tgWebAppData === undefined
-					);
-					console.log(
-						'result.tgWebAppData === null:',
-						result.tgWebAppData === null
-					);
+					console.log('result.tgWebAppData === undefined:', result.tgWebAppData === undefined);
+					console.log('result.tgWebAppData === null:', result.tgWebAppData === null);
+					console.log('result.tgWebAppData keys:', result.tgWebAppData ? Object.keys(result.tgWebAppData) : 'NO KEYS');
+					console.log('result.tgWebAppData.user:', result.tgWebAppData?.user);
+					console.log('result.tgWebAppData.user type:', typeof result.tgWebAppData?.user);
+					console.log('result.tgWebAppData.hash:', result.tgWebAppData?.hash);
+					console.log('result.tgWebAppData.query_id:', result.tgWebAppData?.query_id);
+					console.log('result.tgWebAppData.auth_date:', result.tgWebAppData?.auth_date);
+					console.log('result.tgWebAppData.signature:', result.tgWebAppData?.signature);
 					console.log('===========================');
 
 					const logToDOM = (message: string) => {
@@ -75,34 +96,18 @@ export const useMainApp = () => {
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
-					const telegram = (
-						window as unknown as {
-							Telegram?: {
-								WebApp?: {
-									initData?: string;
-									version?: string;
-									platform?: string;
-								};
-							};
-						}
-					).Telegram;
-					logToDOM('window.Telegram: ' + JSON.stringify(telegram, null, 2));
-					logToDOM(
-						'window.Telegram.WebApp: ' +
-							JSON.stringify(telegram?.WebApp, null, 2)
-					);
-					logToDOM(
-						'window.Telegram.WebApp.initData: ' + telegram?.WebApp?.initData
-					);
-					logToDOM(
-						'window.Telegram.WebApp.version: ' + telegram?.WebApp?.version
-					);
-					logToDOM(
-						'window.Telegram.WebApp.platform: ' + telegram?.WebApp?.platform
-					);
-					logToDOM(
-						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
-					);
+					logToDOM('=== TGWEBAPPDATA ANALYSIS ===');
+					logToDOM('tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2));
+					logToDOM('tgWebAppData type: ' + typeof result.tgWebAppData);
+					logToDOM('tgWebAppData === undefined: ' + (result.tgWebAppData === undefined));
+					logToDOM('tgWebAppData === null: ' + (result.tgWebAppData === null));
+					logToDOM('tgWebAppData keys: ' + (result.tgWebAppData ? Object.keys(result.tgWebAppData).join(', ') : 'NO KEYS'));
+					logToDOM('tgWebAppData.user: ' + JSON.stringify(result.tgWebAppData?.user, null, 2));
+					logToDOM('tgWebAppData.user type: ' + typeof result.tgWebAppData?.user);
+					logToDOM('tgWebAppData.hash: ' + result.tgWebAppData?.hash);
+					logToDOM('tgWebAppData.query_id: ' + result.tgWebAppData?.query_id);
+					logToDOM('tgWebAppData.auth_date: ' + result.tgWebAppData?.auth_date);
+					logToDOM('tgWebAppData.signature: ' + result.tgWebAppData?.signature);
 					logToDOM('===========================');
 
 					tgWebAppData = result.tgWebAppData;
@@ -118,10 +123,26 @@ export const useMainApp = () => {
 					console.log('User Agent:', navigator.userAgent);
 					console.log('URL:', window.location.href);
 					console.log('Referrer:', document.referrer);
-					const telegramAfterError = (window as unknown as { Telegram?: { WebApp?: { initData?: string; version?: string; platform?: string } } }).Telegram;
+					const telegramAfterError = (
+						window as unknown as {
+							Telegram?: {
+								WebApp?: {
+									initData?: string;
+									version?: string;
+									platform?: string;
+								};
+							};
+						}
+					).Telegram;
 					console.log('window.Telegram after error:', telegramAfterError);
-					console.log('window.Telegram.WebApp after error:', telegramAfterError?.WebApp);
-					console.log('window.Telegram.WebApp.initData after error:', telegramAfterError?.WebApp?.initData);
+					console.log(
+						'window.Telegram.WebApp after error:',
+						telegramAfterError?.WebApp
+					);
+					console.log(
+						'window.Telegram.WebApp.initData after error:',
+						telegramAfterError?.WebApp?.initData
+					);
 					console.log('========================');
 
 					const logToDOM = (message: string) => {
@@ -133,10 +154,15 @@ export const useMainApp = () => {
 					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
 					logToDOM('Error type: ' + typeof error);
 					logToDOM('Error name: ' + ((error as Error)?.name || 'unknown'));
-					logToDOM('Error message: ' + ((error as Error)?.message || 'no message'));
+					logToDOM(
+						'Error message: ' + ((error as Error)?.message || 'no message')
+					);
 					logToDOM('User Agent: ' + navigator.userAgent);
 					logToDOM('URL: ' + window.location.href);
 					logToDOM('Referrer: ' + document.referrer);
+					logToDOM('=== TGWEBAPPDATA IN ERROR ===');
+					logToDOM('tgWebAppData will be undefined due to error');
+					logToDOM('This is why colleague gets undefined!');
 
 					const telegram = (
 						window as unknown as {
