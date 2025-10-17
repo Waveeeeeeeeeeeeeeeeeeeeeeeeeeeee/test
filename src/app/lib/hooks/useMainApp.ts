@@ -42,6 +42,10 @@ export const useMainApp = () => {
 
 				try {
 					console.log('Calling retrieveLaunchParams...');
+					
+					// ИСКУССТВЕННАЯ ОШИБКА ДЛЯ ТЕСТИРОВАНИЯ
+					throw new Error('TEST ERROR: retrieveLaunchParams() artificially failed');
+					
 					const result = retrieveLaunchParams();
 					console.log('retrieveLaunchParams SUCCESS!');
 
@@ -123,8 +127,6 @@ export const useMainApp = () => {
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('=== retrieveLaunchParams FAILED ===');
-					console.error('THIS IS WHY COLLEAGUE GETS UNDEFINED!');
-					console.error('retrieveLaunchParams() threw error, so tgWebAppData is undefined');
 					console.error('Error type:', typeof error);
 					console.error('Error name:', (error as Error)?.name);
 					console.error('Error message:', (error as Error)?.message);
@@ -153,9 +155,13 @@ export const useMainApp = () => {
 					logToDOM('URL: ' + window.location.href);
 					logToDOM('Referrer: ' + document.referrer);
 					logToDOM('=== TGWEBAPPDATA IN ERROR ===');
-					logToDOM('retrieveLaunchParams() FAILED - this is why tgWebAppData is undefined!');
+					logToDOM(
+						'retrieveLaunchParams() FAILED - this is why tgWebAppData is undefined!'
+					);
 					logToDOM('Error details: ' + JSON.stringify(error, null, 2));
-					logToDOM('Colleague gets undefined because retrieveLaunchParams() throws error');
+					logToDOM(
+						'Colleague gets undefined because retrieveLaunchParams() throws error'
+					);
 					logToDOM('===========================');
 
 					const user = initDataUser();
