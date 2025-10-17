@@ -1,5 +1,5 @@
-import { useMainApp } from '@/app/lib/hooks/useMainApp';
 import { Onboarding } from './Onboarding';
+import { useMainApp } from '@/app/lib/hooks/useMainApp';
 
 export const OnboardingWithDebug = () => {
 	const { debugLog } = useMainApp();
