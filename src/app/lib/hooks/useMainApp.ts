@@ -48,18 +48,21 @@ export const useMainApp = () => {
 					);
 					console.log('===========================');
 
-					const debugElement = document.getElementById('telegram-debug');
-					if (debugElement) {
-						debugElement.style.display = 'block';
-						debugElement.innerHTML = `
-							<h3>TELEGRAM WEBAPP DATA</h3>
-							<p><strong>RAW INIT DATA:</strong> ${rawInitData || 'Нет данных'}</p>
-							<p><strong>RESULT:</strong></p>
-							<pre>${JSON.stringify(result, null, 2)}</pre>
-							<p><strong>tgWebAppData:</strong></p>
-							<pre>${JSON.stringify(result.tgWebAppData, null, 2)}</pre>
-						`;
-					}
+					const logToDOM = (message: string) => {
+						const logElement = document.getElementById('debug-log');
+						if (logElement) {
+							logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+							logElement.scrollTop = logElement.scrollHeight;
+						}
+					};
+
+					logToDOM('=== TELEGRAM WEBAPP DATA ===');
+					logToDOM('RAW INIT DATA: ' + (rawInitData || 'Нет данных'));
+					logToDOM('RESULT: ' + JSON.stringify(result, null, 2));
+					logToDOM(
+						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
+					);
+					logToDOM('===========================');
 
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
