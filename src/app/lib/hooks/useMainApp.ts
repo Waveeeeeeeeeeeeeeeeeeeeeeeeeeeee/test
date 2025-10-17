@@ -48,7 +48,6 @@ export const useMainApp = () => {
 					const logToDOM = (message: string) => {
 						let logElement = document.getElementById('debug-log');
 						if (!logElement) {
-							// Создаем элемент если его нет
 							logElement = document.createElement('div');
 							logElement.id = 'debug-log';
 							logElement.style.cssText = `
@@ -82,7 +81,7 @@ export const useMainApp = () => {
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('retrieveLaunchParams failed:', error);
-					
+
 					// Логируем ошибку в DOM
 					const logToDOM = (message: string) => {
 						let logElement = document.getElementById('debug-log');
@@ -109,11 +108,11 @@ export const useMainApp = () => {
 						logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
 						logElement.scrollTop = logElement.scrollHeight;
 					};
-					
+
 					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
 					logToDOM('Error: ' + JSON.stringify(error, null, 2));
 					logToDOM('===========================');
-					
+
 					const user = initDataUser();
 
 					if (user) {
