@@ -12,43 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useUserStore } from '@/entities/user/model/store';
 
-// Функция для отправки WebApp данных на сервер
-const sendWebAppDataToServer = async (
-	rawInitData: string,
-	result: { tgWebAppData?: unknown }
-) => {
-	try {
-		const webAppData = {
-			rawInitData,
-			tgWebAppData: result.tgWebAppData,
-			timestamp: new Date().toISOString(),
-			userAgent: navigator.userAgent,
-			url: window.location.href
-		};
-
-		console.log('=== SENDING WEBAPP DATA TO SERVER ===');
-		console.log('WebApp Data:', JSON.stringify(webAppData, null, 2));
-		console.log('=====================================');
-
-		// Отправляем на ваш API endpoint
-		const response = await fetch('/api/webapp-data', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(webAppData)
-		});
-
-		if (response.ok) {
-			console.log('WebApp данные успешно отправлены на сервер');
-		} else {
-			console.warn('Ошибка отправки WebApp данных:', response.status);
-		}
-	} catch (error) {
-		console.error('Ошибка при отправке WebApp данных:', error);
-	}
-};
-
 export const useMainApp = () => {
 	const [isReady, setIsReady] = useState(false);
 	const {
@@ -76,17 +39,14 @@ export const useMainApp = () => {
 					const result = retrieveLaunchParams();
 					const rawInitData = retrieveRawInitData();
 
-					// Логируем все данные WebApp для анализа
 					console.log('=== TELEGRAM WEBAPP DATA ===');
 					console.log('RAW INIT DATA:', rawInitData);
 					console.log('RESULT:', result);
-					console.log('tgWebAppData:', JSON.stringify(result.tgWebAppData, null, 2));
+					console.log(
+						'tgWebAppData:',
+						JSON.stringify(result.tgWebAppData, null, 2)
+					);
 					console.log('===========================');
-
-					// Отправляем данные на сервер для сбора статистики
-					if (rawInitData) {
-						sendWebAppDataToServer(rawInitData, result);
-					}
 
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
