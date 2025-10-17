@@ -13,6 +13,7 @@ import { useUserStore } from '@/entities/user/model/store';
 
 export const useMainApp = () => {
 	const [isReady, setIsReady] = useState(false);
+	const [debugLog, setDebugLog] = useState<string>('');
 	const {
 		setTelegramUser,
 		setUserHash,
@@ -45,11 +46,9 @@ export const useMainApp = () => {
 					console.log('===========================');
 
 					const logToDOM = (message: string) => {
-						const logElement = document.getElementById('debug-log');
-						if (logElement) {
-							logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-							logElement.scrollTop = logElement.scrollHeight;
-						}
+						const timestamp = new Date().toLocaleTimeString();
+						const logMessage = `${timestamp}: ${message}`;
+						setDebugLog(prev => prev + logMessage + '\n');
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
@@ -62,13 +61,10 @@ export const useMainApp = () => {
 				} catch (error) {
 					console.error('retrieveLaunchParams failed:', error);
 
-					// Логируем ошибку в DOM
 					const logToDOM = (message: string) => {
-						const logElement = document.getElementById('debug-log');
-						if (logElement) {
-							logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-							logElement.scrollTop = logElement.scrollHeight;
-						}
+						const timestamp = new Date().toLocaleTimeString();
+						const logMessage = `${timestamp}: ${message}`;
+						setDebugLog(prev => prev + logMessage + '\n');
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
@@ -146,6 +142,7 @@ export const useMainApp = () => {
 	return {
 		showContent: isReady,
 		shouldRedirectToOnboarding: false,
-		isAuthChecking: false
+		isAuthChecking: false,
+		debugLog
 	};
 };

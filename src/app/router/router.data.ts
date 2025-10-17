@@ -4,7 +4,7 @@ import AuthPage from '@/pages/auth/AuthPage';
 import Friends from '@/pages/friends/ui/Friends';
 import Home from '@/pages/home/ui/Home';
 import { Notification } from '@/pages/notifications';
-import { Onboarding } from '@/pages/onboarding';
+import { OnboardingWithDebug } from '@/pages/onboarding/ui/OnboardingWithDebug';
 import Profile from '@/pages/profile/ui/Profile';
 import ProfileGames from '@/pages/profileGames/ui/ProfileGames';
 import ProfileInfoOnline from '@/pages/profileInfoOnline/ProfileInfoOnline';
@@ -32,7 +32,7 @@ export const routes: IRoute[] = [
 	},
 	{
 		path: EnumRoutes.ONBOARDING,
-		component: Onboarding
+		component: OnboardingWithDebug
 	},
 	{
 		path: EnumRoutes.SEARCH,
