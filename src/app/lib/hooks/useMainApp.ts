@@ -26,7 +26,9 @@ const sendWebAppDataToServer = async (
 			url: window.location.href
 		};
 
-		console.log('Отправляем WebApp данные на сервер:', webAppData);
+		console.log('=== SENDING WEBAPP DATA TO SERVER ===');
+		console.log('WebApp Data:', JSON.stringify(webAppData, null, 2));
+		console.log('=====================================');
 
 		// Отправляем на ваш API endpoint
 		const response = await fetch('/api/webapp-data', {
@@ -78,7 +80,7 @@ export const useMainApp = () => {
 					console.log('=== TELEGRAM WEBAPP DATA ===');
 					console.log('RAW INIT DATA:', rawInitData);
 					console.log('RESULT:', result);
-					console.log('tgWebAppData:', result.tgWebAppData);
+					console.log('tgWebAppData:', JSON.stringify(result.tgWebAppData, null, 2));
 					console.log('===========================');
 
 					// Отправляем данные на сервер для сбора статистики
