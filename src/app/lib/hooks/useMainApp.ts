@@ -36,15 +36,10 @@ export const useMainApp = () => {
 				let initDataString;
 
 				console.log('=== BEFORE retrieveLaunchParams ===');
-				console.log('About to call retrieveLaunchParams()...');
 				console.log('=====================================');
 
 				try {
 					console.log('Calling retrieveLaunchParams...');
-
-					throw new Error(
-						'TEST ERROR: retrieveLaunchParams() artificially failed'
-					);
 
 					const result = retrieveLaunchParams();
 					console.log('retrieveLaunchParams SUCCESS!');
