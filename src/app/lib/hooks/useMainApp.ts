@@ -4,7 +4,6 @@ import {
 	initDataUser,
 	restoreInitData,
 	retrieveLaunchParams,
-	retrieveRawInitData,
 	swipeBehavior
 } from '@telegram-apps/sdk';
 import { useEffect, useState } from 'react';
@@ -37,10 +36,8 @@ export const useMainApp = () => {
 
 				try {
 					const result = retrieveLaunchParams();
-					const rawInitData = retrieveRawInitData();
 
 					console.log('=== TELEGRAM WEBAPP DATA ===');
-					console.log('RAW INIT DATA:', rawInitData);
 					console.log('RESULT:', result);
 					console.log(
 						'tgWebAppData:',
@@ -57,7 +54,6 @@ export const useMainApp = () => {
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
-					logToDOM('RAW INIT DATA: ' + (rawInitData || 'Нет данных'));
 					logToDOM('RESULT: ' + JSON.stringify(result, null, 2));
 					logToDOM(
 						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
