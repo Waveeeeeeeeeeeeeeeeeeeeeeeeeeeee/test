@@ -123,6 +123,8 @@ export const useMainApp = () => {
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('=== retrieveLaunchParams FAILED ===');
+					console.error('THIS IS WHY COLLEAGUE GETS UNDEFINED!');
+					console.error('retrieveLaunchParams() threw error, so tgWebAppData is undefined');
 					console.error('Error type:', typeof error);
 					console.error('Error name:', (error as Error)?.name);
 					console.error('Error message:', (error as Error)?.message);
@@ -151,9 +153,9 @@ export const useMainApp = () => {
 					logToDOM('URL: ' + window.location.href);
 					logToDOM('Referrer: ' + document.referrer);
 					logToDOM('=== TGWEBAPPDATA IN ERROR ===');
-					logToDOM('tgWebAppData will be undefined due to error');
-					logToDOM('This is why colleague gets undefined!');
-					logToDOM('Full Error: ' + JSON.stringify(error, null, 2));
+					logToDOM('retrieveLaunchParams() FAILED - this is why tgWebAppData is undefined!');
+					logToDOM('Error details: ' + JSON.stringify(error, null, 2));
+					logToDOM('Colleague gets undefined because retrieveLaunchParams() throws error');
 					logToDOM('===========================');
 
 					const user = initDataUser();
