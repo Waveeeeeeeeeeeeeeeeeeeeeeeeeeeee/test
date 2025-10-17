@@ -157,13 +157,9 @@ export const useMainApp = () => {
 					logToDOM('URL: ' + window.location.href);
 					logToDOM('Referrer: ' + document.referrer);
 					logToDOM('=== TGWEBAPPDATA IN ERROR ===');
-					logToDOM(
-						'retrieveLaunchParams() FAILED - this is why tgWebAppData is undefined!'
-					);
+					logToDOM('retrieveLaunchParams() FAILED ');
 					logToDOM('Error details: ' + JSON.stringify(error, null, 2));
-					logToDOM(
-						'Colleague gets undefined because retrieveLaunchParams() throws error'
-					);
+
 					logToDOM('===========================');
 
 					const user = initDataUser();
@@ -236,7 +232,9 @@ export const useMainApp = () => {
 				logToDOM('=== useMainApp initialization error ===');
 				logToDOM('Error type: ' + typeof error);
 				logToDOM('Error name: ' + ((error as Error)?.name || 'unknown'));
-				logToDOM('Error message: ' + ((error as Error)?.message || 'no message'));
+				logToDOM(
+					'Error message: ' + ((error as Error)?.message || 'no message')
+				);
 				logToDOM('Error stack: ' + ((error as Error)?.stack || 'no stack'));
 				logToDOM('Full error: ' + JSON.stringify(error, null, 2));
 				logToDOM('===============================');
