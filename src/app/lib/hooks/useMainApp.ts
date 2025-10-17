@@ -38,7 +38,6 @@ export const useMainApp = () => {
 					const result = retrieveLaunchParams();
 
 					console.log('=== TELEGRAM WEBAPP DATA ===');
-					console.log('RESULT:', result);
 					console.log(
 						'tgWebAppData:',
 						JSON.stringify(result.tgWebAppData, null, 2)
@@ -72,7 +71,6 @@ export const useMainApp = () => {
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
-					logToDOM('RESULT: ' + JSON.stringify(result, null, 2));
 					logToDOM(
 						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
 					);
