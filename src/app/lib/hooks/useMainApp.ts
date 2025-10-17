@@ -35,17 +35,17 @@ export const useMainApp = () => {
 				let tgWebAppData;
 				let initDataString;
 
-				// Логируем состояние ДО вызова retrieveLaunchParams
 				console.log('=== BEFORE retrieveLaunchParams ===');
 				console.log('About to call retrieveLaunchParams()...');
 				console.log('=====================================');
 
 				try {
 					console.log('Calling retrieveLaunchParams...');
-					
-					// ИСКУССТВЕННАЯ ОШИБКА ДЛЯ ТЕСТИРОВАНИЯ
-					throw new Error('TEST ERROR: retrieveLaunchParams() artificially failed');
-					
+
+					throw new Error(
+						'TEST ERROR: retrieveLaunchParams() artificially failed'
+					);
+
 					const result = retrieveLaunchParams();
 					console.log('retrieveLaunchParams SUCCESS!');
 
