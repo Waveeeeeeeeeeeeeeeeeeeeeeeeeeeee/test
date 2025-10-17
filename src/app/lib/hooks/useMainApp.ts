@@ -46,11 +46,30 @@ export const useMainApp = () => {
 					console.log('===========================');
 
 					const logToDOM = (message: string) => {
-						const logElement = document.getElementById('debug-log');
-						if (logElement) {
-							logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-							logElement.scrollTop = logElement.scrollHeight;
+						let logElement = document.getElementById('debug-log');
+						if (!logElement) {
+							// Создаем элемент если его нет
+							logElement = document.createElement('div');
+							logElement.id = 'debug-log';
+							logElement.style.cssText = `
+								position: fixed;
+								top: 10px;
+								right: 10px;
+								background: rgba(0,0,0,0.8);
+								color: white;
+								padding: 10px;
+								border-radius: 5px;
+								font-size: 12px;
+								max-width: 300px;
+								max-height: 400px;
+								overflow: auto;
+								z-index: 9999;
+								display: block;
+							`;
+							document.body.appendChild(logElement);
 						}
+						logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+						logElement.scrollTop = logElement.scrollHeight;
 					};
 
 					logToDOM('=== TELEGRAM WEBAPP DATA ===');
@@ -63,6 +82,38 @@ export const useMainApp = () => {
 					tgWebAppData = result.tgWebAppData;
 				} catch (error) {
 					console.error('retrieveLaunchParams failed:', error);
+					
+					// Логируем ошибку в DOM
+					const logToDOM = (message: string) => {
+						let logElement = document.getElementById('debug-log');
+						if (!logElement) {
+							logElement = document.createElement('div');
+							logElement.id = 'debug-log';
+							logElement.style.cssText = `
+								position: fixed;
+								top: 10px;
+								right: 10px;
+								background: rgba(0,0,0,0.8);
+								color: white;
+								padding: 10px;
+								border-radius: 5px;
+								font-size: 12px;
+								max-width: 300px;
+								max-height: 400px;
+								overflow: auto;
+								z-index: 9999;
+								display: block;
+							`;
+							document.body.appendChild(logElement);
+						}
+						logElement.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+						logElement.scrollTop = logElement.scrollHeight;
+					};
+					
+					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
+					logToDOM('Error: ' + JSON.stringify(error, null, 2));
+					logToDOM('===========================');
+					
 					const user = initDataUser();
 
 					if (user) {
