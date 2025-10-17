@@ -67,7 +67,9 @@ export const useMainApp = () => {
 					);
 					console.log(
 						'result.tgWebAppData keys:',
-						result.tgWebAppData ? Object.keys(result.tgWebAppData) : 'NO KEYS'
+						result.tgWebAppData
+							? Object.keys(result.tgWebAppData as any)
+							: 'NO KEYS'
 					);
 					console.log('result.tgWebAppData.user:', result.tgWebAppData?.user);
 					console.log(
@@ -108,7 +110,7 @@ export const useMainApp = () => {
 					logToDOM(
 						'tgWebAppData keys: ' +
 							(result.tgWebAppData
-								? Object.keys(result.tgWebAppData).join(', ')
+								? Object.keys(result.tgWebAppData as any).join(', ')
 								: 'NO KEYS')
 					);
 					logToDOM(
@@ -182,13 +184,13 @@ export const useMainApp = () => {
 				if (tgWebAppData?.user) {
 					setTelegramUser(tgWebAppData.user);
 
-					if (tgWebAppData.hash) {
-						setUserHash(tgWebAppData.hash);
+					if ('hash' in tgWebAppData && tgWebAppData.hash) {
+						setUserHash(tgWebAppData.hash as string);
 					}
-					if (tgWebAppData.query_id) {
-						setTelegramQueryId(tgWebAppData.query_id);
+					if ('query_id' in tgWebAppData && tgWebAppData.query_id) {
+						setTelegramQueryId(tgWebAppData.query_id as string);
 					}
-					if (tgWebAppData.auth_date) {
+					if ('auth_date' in tgWebAppData && tgWebAppData.auth_date) {
 						let authTimestamp: number;
 
 						if (typeof tgWebAppData.auth_date === 'number') {
@@ -199,7 +201,7 @@ export const useMainApp = () => {
 							);
 						} else {
 							authTimestamp = Math.floor(
-								tgWebAppData.auth_date.getTime() / 1000
+								(tgWebAppData.auth_date as Date).getTime() / 1000
 							);
 						}
 
