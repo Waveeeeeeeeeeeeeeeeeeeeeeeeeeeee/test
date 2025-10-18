@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
 
+import { genderDetermining } from '../api/genderDetermining';
 import { qualityOfDescription } from '../api/qualityOfDescription';
 
 import styles from './OnboardingAboutMe.module.css';
@@ -12,7 +13,7 @@ import { QualityDescriptionIndicator } from '@/shared/ui/QualityDescriptionIndic
 import { TextArea } from '@/shared/ui/TextArea';
 
 const OnboardingAboutMe = () => {
-	const { profile, setProfileField, setUserImage } = useUserStore();
+	const { profile, setProfileField, setUserImage, user } = useUserStore();
 	const selectedMatchType = useUserStore(
 		state => state.profile.selectedMatchType
 	);
@@ -35,6 +36,69 @@ const OnboardingAboutMe = () => {
 	const [reqChangeNickname, setReqChangeNickname] = useState(true);
 	const [previousNickname, setPreviousNickname] = useState(profile.nickname);
 	const controllerRef = useRef<AbortController | null>(null);
+	const genderControllerRef = useRef<AbortController | null>(null);
+
+	useEffect(() => {
+		if (user?.username && !profile.nickname) {
+			setProfileField('nickname', user.username);
+		}
+	}, [user?.username, profile.nickname, setProfileField]);
+
+	useEffect(() => {
+		const nickname = profile.nickname?.trim();
+		const description = profile.about?.trim();
+
+		genderControllerRef.current?.abort();
+
+		if (!nickname || !description) {
+			return;
+		}
+
+		const controller = new AbortController();
+		genderControllerRef.current = controller;
+
+		const debounceReq = setTimeout(async () => {
+			try {
+				const res = await genderDetermining(
+					{
+						nickname: nickname,
+						description: description
+					},
+					controller.signal
+				);
+
+				if (res.data !== undefined && res.data !== null) {
+					let genderValue;
+					if (typeof res.data === 'number') {
+						genderValue =
+							res.data === 1 ? 'FEMALE' : res.data === 0 ? 'MALE' : null;
+					} else if (typeof res.data.gender === 'number') {
+						genderValue =
+							res.data.gender === 1
+								? 'FEMALE'
+								: res.data.gender === 0
+									? 'MALE'
+									: null;
+					} else if (typeof res.data.gender === 'string') {
+						genderValue = res.data.gender;
+					}
+
+					if (genderValue) {
+						setProfileField('gender', genderValue);
+					}
+				}
+			} catch (err) {
+				if (err instanceof Error && err.name !== 'AbortError') {
+					console.error('Ошибка при автоопределении пола:', err);
+				}
+			}
+		}, 2000);
+
+		return () => {
+			clearTimeout(debounceReq);
+			controller.abort();
+		};
+	}, [profile.nickname, profile.about, setProfileField]);
 
 	useEffect(() => {
 		const text = profile.about?.trim();
@@ -63,6 +127,13 @@ const OnboardingAboutMe = () => {
 			controller.abort();
 		};
 	}, [profile.about]);
+
+	useEffect(() => {
+		return () => {
+			controllerRef.current?.abort();
+			genderControllerRef.current?.abort();
+		};
+	}, []);
 
 	return (
 		<div className='flex flex-col gap-8 pb-20'>

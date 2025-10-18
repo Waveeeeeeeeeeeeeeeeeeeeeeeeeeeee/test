@@ -17,7 +17,7 @@ export interface VariantItem {
 
 interface VirtualVariantSelectionProps {
 	data: VariantItem[];
-	selected: string[]; // массив выбранных
+	selected: string[];
 	onSelect: (value: string[]) => void;
 	multiple?: boolean;
 	rowHeight?: number;
@@ -105,6 +105,11 @@ const VirtualVariantSelection = ({
 
 	const rowRenderer: ListRowRenderer = ({ index, key, style }) => {
 		const item = data[index];
+
+		if (!item) {
+			return null;
+		}
+
 		const isSelected = selected.includes(item.code);
 
 		return (
@@ -118,6 +123,10 @@ const VirtualVariantSelection = ({
 			/>
 		);
 	};
+
+	if (!data || data.length === 0) {
+		return null;
+	}
 
 	return (
 		<div style={{ width: '100%', height: '300px' }}>

@@ -55,13 +55,28 @@ export const GameList = ({
 					code: game.id,
 					label: game.title,
 					seclabel: `${game.players} чел.`,
-					icon: () => (
-						<img
-							src={game.icon}
-							alt={game.title}
-							className='w-[52px] h-[52px] rounded-2xl'
-						/>
-					)
+					icon: (() => {
+						const hasValidIcon =
+							game.icon &&
+							game.icon.trim() !== '' &&
+							(game.icon.startsWith('http') || game.icon.startsWith('/'));
+
+						return hasValidIcon
+							? () => (
+									<img
+										src={game.icon}
+										alt={game.title}
+										className='w-[52px] h-[52px] rounded-2xl object-cover'
+									/>
+								)
+							: () => (
+									<div className='w-[52px] h-[52px] rounded-2xl bg-gray-300 flex items-center justify-center'>
+										<span className='text-gray-500 text-xs font-bold'>
+											{game.title.charAt(0).toUpperCase()}
+										</span>
+									</div>
+								);
+					})()
 				}))}
 				selected={selectedGameIds}
 				onSelect={value => {
