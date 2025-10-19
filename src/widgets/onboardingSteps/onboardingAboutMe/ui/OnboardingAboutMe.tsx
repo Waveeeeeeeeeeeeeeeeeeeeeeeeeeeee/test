@@ -8,6 +8,7 @@ import styles from './OnboardingAboutMe.module.css';
 import { useUserStore } from '@/entities/user/model/store';
 import { useCustomTranslation } from '@/shared';
 import { Input } from '@/shared';
+import { validateNickname } from '@/shared/lib/validation/validateNickname';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 import { QualityDescriptionIndicator } from '@/shared/ui/QualityDescriptionIndicator/QualityDescriptionIndicator';
 import { TextArea } from '@/shared/ui/TextArea';
@@ -26,7 +27,6 @@ const OnboardingAboutMe = () => {
 		char,
 		save,
 		cancel,
-		min,
 		complete,
 		yourAge,
 		minAge,
@@ -35,8 +35,26 @@ const OnboardingAboutMe = () => {
 	} = useCustomTranslation('onboardingAboutMe');
 	const [reqChangeNickname, setReqChangeNickname] = useState(true);
 	const [previousNickname, setPreviousNickname] = useState(profile.nickname);
+	const [nicknameError, setNicknameError] = useState<string>('');
 	const controllerRef = useRef<AbortController | null>(null);
 	const genderControllerRef = useRef<AbortController | null>(null);
+
+	const handleNicknameChange = (value: string) => {
+		setProfileField('nickname', value);
+		const validation = validateNickname(value);
+		setNicknameError(validation.isValid ? '' : validation.message || '');
+	};
+
+	const handleSaveNickname = () => {
+		const validation = validateNickname(profile.nickname);
+		if (validation.isValid) {
+			setReqChangeNickname(false);
+			setPreviousNickname(profile.nickname);
+			setNicknameError('');
+		} else {
+			setNicknameError(validation.message || '');
+		}
+	};
 
 	useEffect(() => {
 		if (user?.username && !profile.nickname) {
@@ -152,19 +170,17 @@ const OnboardingAboutMe = () => {
 								type: 'text',
 								placeholder: label,
 								value: profile.nickname,
-								onChange: (value: string) => setProfileField('nickname', value),
+								onChange: handleNicknameChange,
 								labelSize: 'text-md'
 							}}
 						/>
+						{nicknameError && (
+							<p className='text-red-500 text-sm mt-1'>{nicknameError}</p>
+						)}
 						<div className='flex gap-2 mt-2'>
 							<button
-								onClick={() => {
-									if (profile.nickname.length >= 6) {
-										setReqChangeNickname(false);
-										setPreviousNickname(profile.nickname);
-									}
-								}}
-								disabled={profile.nickname.length < 6}
+								onClick={handleSaveNickname}
+								disabled={!validateNickname(profile.nickname).isValid}
 								className='px-4 py-2 bg-[#6B5CD1] text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed'
 							>
 								{save}
@@ -174,6 +190,7 @@ const OnboardingAboutMe = () => {
 									onClick={() => {
 										setProfileField('nickname', previousNickname);
 										setReqChangeNickname(false);
+										setNicknameError('');
 									}}
 									className='px-4 py-2 bg-gray-500 text-white rounded'
 								>
@@ -181,11 +198,13 @@ const OnboardingAboutMe = () => {
 								</button>
 							)}
 						</div>
-						<p className='font-normal text-sm text-[#828289] mt-2'>
-							{profile.nickname.length < 6
-								? `${min} ${6 - profile.nickname.length}`
-								: `${complete}`}
-						</p>
+						{!nicknameError && (
+							<p className='font-normal text-sm text-[#828289] mt-2'>
+								{validateNickname(profile.nickname).isValid
+									? `${complete}`
+									: `От 4 до 32 символов. Разрешены буквы, цифры и _`}
+							</p>
+						)}
 					</>
 				) : (
 					<div
@@ -193,6 +212,7 @@ const OnboardingAboutMe = () => {
 						onClick={() => {
 							setPreviousNickname(profile.nickname);
 							setReqChangeNickname(true);
+							setNicknameError('');
 						}}
 					>
 						{label}: {profile.nickname}
