@@ -59,8 +59,6 @@ export const UserFiltersModal = () => {
 			version: '1'
 		});
 		subscribeToSocketMessages<{ users: UserProfile[] }>(data => {
-			console.log('Callback received socket data:', data);
-
 			if (data.cmd === 'find' && data.payload?.users) {
 				useUserSocketStore.getState().setUsers(data.payload.users);
 			}
@@ -70,8 +68,6 @@ export const UserFiltersModal = () => {
 		sendFindRequest({
 			gender: 'MALE',
 			age: '14',
-			// scope,
-			// games: selectedGames,
 			country_code: 'RU',
 			goal: goalSearch
 		});

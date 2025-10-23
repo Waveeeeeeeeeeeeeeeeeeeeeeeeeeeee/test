@@ -9,6 +9,7 @@ import { ShowTags } from '@/features/showTags';
 import { useCustomTranslation } from '@/shared';
 import EditIco from '@/shared/assets/icons/edit.svg?react';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
+import { useTranslateTags } from '@/shared/lib/translateTags';
 import Description from '@/shared/ui/Description/Description';
 import { ToggleTabs } from '@/shared/ui/ToggleTabs/ToggleTabs';
 import { UserCard } from '@/shared/ui/UserCard/UserCard';
@@ -19,7 +20,16 @@ type matchType = 'online' | 'realLife';
 
 const Profile = () => {
 	const { profile, setProfileField } = useUserStore();
-	const { online, realLife } = useCustomTranslation('profile');
+	const {
+		online,
+		realLife,
+		statusLabel,
+		countriesLabel,
+		goalsLabel,
+		activityTimeLabel,
+		editButton
+	} = useCustomTranslation('profile');
+	const { translateTags } = useTranslateTags();
 	const { isOpen, close } = useRulesToggle();
 	const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 	const navigate = useNavigate();
@@ -62,7 +72,7 @@ const Profile = () => {
 			/>
 			<div className='flex flex-col gap-4 border-b-[1px] border-[#40434f] pb-7.5 mt-2'>
 				<div className='h-[47px] mb-10'>
-					<h2 className='text-xl font-semibold mb-3'>Ваш статус</h2>
+					<h2 className='text-xl font-semibold mb-3'>{statusLabel}</h2>
 					<ToggleTabs
 						options={profileOptions}
 						active={profile.selectedMatchType}
@@ -88,22 +98,22 @@ const Profile = () => {
 					/>
 				) : (
 					<div>
-						<h2 className='text-xl font-semibold mb-3'>Страны</h2>
+						<h2 className='text-xl font-semibold mb-3'>{countriesLabel}</h2>
 						<ShowTags
 							tags={
 								mockUser[0].selectedCountry !== undefined
-									? mockUser[0].selectedCountry
+									? translateTags(mockUser[0].selectedCountry)
 									: []
 							}
 						/>
 					</div>
 				)}
 				{profile.selectedMatchType === 'realLife' ? (
-					<ShowTags tags={mockUser[0].interests} />
+					<ShowTags tags={translateTags(mockUser[0].interests)} />
 				) : (
 					<div>
-						<h2 className='text-xl font-semibold mb-3'>Цели игры</h2>
-						<ShowTags tags={mockUser[0].selectedGoal ?? []} />
+						<h2 className='text-xl font-semibold mb-3'>{goalsLabel}</h2>
+						<ShowTags tags={translateTags(mockUser[0].selectedGoal ?? [])} />
 					</div>
 				)}
 				{profile.selectedMatchType === 'realLife' ? (
@@ -114,10 +124,8 @@ const Profile = () => {
 					</div>
 				) : (
 					<div>
-						<h2 className='text-xl font-semibold mb-3'>
-							Время основной активности
-						</h2>
-						<ShowTags tags={mockUser[0].selectedPrime ?? []} />
+						<h2 className='text-xl font-semibold mb-3'>{activityTimeLabel}</h2>
+						<ShowTags tags={translateTags(mockUser[0].selectedPrime ?? [])} />
 					</div>
 				)}
 
@@ -127,7 +135,7 @@ const Profile = () => {
 						handleEdit({ matchType: profile.selectedMatchType as matchType })
 					}
 				>
-					<span className='font-semibold text-sm'>Редактировать</span>
+					<span className='font-semibold text-sm'>{editButton}</span>
 					<span>
 						<EditIco />
 					</span>

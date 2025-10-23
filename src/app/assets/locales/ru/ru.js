@@ -1,5 +1,3 @@
-import { a } from '@react-spring/web';
-
 const ru = {
 	translation: {
 		Onboarding: {
@@ -140,15 +138,23 @@ const ru = {
 			online: 'Просто поиграть',
 			realLife: 'Реальная встеча',
 			games: 'Ваши игры',
-			games_description: 'Изменить список игры и целей',
+			games_description: 'Управление списком игр и игровых целей',
 			settings: 'Настройки профиля',
-			settings_description: 'Личная информация, описание теги',
+			settings_description: 'Редактирование личной информации и предпочтений',
 			support: 'Обратиться в поддержку',
-			support_description: 'Личная информация, описание теги',
+			support_description:
+				'Получить помощь по вопросам использования приложения',
 			rules: 'Правила пользования',
-			rules_description: 'Личная информация, описание теги',
+			rules_description: 'Ознакомиться с условиями использования сервиса',
 			privacy: 'Политика конфиденциальности',
-			privacy_description: 'Личная информация, описание теги'
+			privacy_description:
+				'Информация о защите и обработке персональных данных',
+			statusLabel: 'Ваш статус',
+			countriesLabel: 'Страны',
+			goalsLabel: 'Цели игры',
+			activityTimeLabel: 'Время основной активности',
+			editButton: 'Редактировать',
+			fuck: 'fuck'
 		},
 		profileSettings: {
 			title: 'Настройки профиля',
@@ -163,7 +169,113 @@ const ru = {
 			title: 'Обращение в поддержку',
 			messageTitle: 'Выберите тему обращения',
 			problemTitle: 'Опишите проблему',
-			problemDesc: 'Дайте подробное описание вопроса'
+			problemDesc: 'Дайте подробное описание вопроса',
+			problemMessage: 'Проблема с функционалом сообщений',
+			problemApplication: 'Проблема с работой приложения'
+		},
+		profileSettingsValidation: {
+			nameEmpty: 'Поле "Имя" не может быть пустым',
+			ageEmpty: 'Поле "Возраст" не может быть пустым',
+			nameInvalid:
+				'Имя должно содержать только буквы и быть от 2 до 50 символов',
+			ageMin: 'Возраст должен быть не менее 14 лет',
+			ageMax: 'Возраст должен быть не более 80 лет',
+			profileUpdated: 'Профиль успешно обновлен',
+			profileUpdateError: 'Ошибка обновления профиля',
+			unknownError: 'Неизвестная ошибка'
+		},
+		profileSettingsForm: {
+			nameLabel: 'Имя',
+			ageLabel: 'Сколько тебе лет?',
+			avatarLabel: 'Аватар',
+			genderLabel: 'Твой пол',
+			languageLabel: 'Язык',
+			namePlaceholder: 'Введите ваше имя',
+			agePlaceholder: 'Введите ваш возраст',
+			ageNotification: 'Возраст должен быть от 14 до 80 лет',
+			maleLabel: 'Я парень',
+			femaleLabel: 'Я девушка',
+			cancelButton: 'Отменить',
+			saveButton: 'Сохранить'
+		},
+		notifications: {
+			title: 'Уведомления',
+			allTab: 'Все',
+			likesTab: 'Лайки',
+			invitationsTab: 'Приглашения',
+			newMessage: 'У вас новое сообщение',
+			adminReply: 'Вам ответил администратор'
+		},
+		home: {
+			searchModes: 'Режимы поиска'
+		},
+		onboardingValidation: {
+			selectPlatform: 'Пожалуйста выберите платформу',
+			selectGame: 'Пожалуйста выберите игру',
+			fillAllFields: 'Пожалуйста заполните все поля',
+			invalidCountry: 'Неверная страна или город',
+			countryCityError: 'Ошибка при проверке страны и города',
+			enterCountry: 'Введите как минимум одну страну',
+			selectGoal: 'Выберите как минимум одну цель для игры',
+			selectTime: 'Выберите как минимум один временной отрезок',
+			sendDataError: 'Ошибка при отправке данных'
+		},
+		interests: {
+			football: 'Футбол',
+			basketball: 'Баскетбол',
+			drawing: 'Рисование',
+			anime: 'Аниме',
+			cars: 'Машины',
+			movies: 'Фильмы',
+			music: 'Музыка',
+			sports: 'Спорт',
+			literature: 'Литература',
+			programming: 'Программирование',
+			photography: 'Фотография',
+			travel: 'Путешествия',
+			cooking: 'Кулинария',
+			dancing: 'Танцы',
+			yoga: 'Йога'
+		},
+		profileInfoRealLife: {
+			countryLabel: 'Страна проживания',
+			countryPlaceholder: 'Введите страну',
+			cityLabel: 'Город проживания',
+			cityPlaceholder: 'Введите город',
+			descriptionLabel: 'Описание вашей реальной жизни',
+			searchTags: 'Поиск тегов',
+			addInterest: 'Добавить свой интерес',
+			removeTitle: 'Удалить'
+		},
+		profileInfoOnline: {
+			validationError: 'Ошибка валидации',
+			countryPlaceholder: 'Введите страну',
+			removeTitle: 'Удалить',
+			descriptionLabel: 'Описание вашей виртуальной жизни'
+		},
+		description: {
+			hideButton: 'Скрыть',
+			moreButton: 'Еще...'
+		},
+		tags: {
+			russia: 'Россия',
+			belarus: 'Беларусь',
+			ukraine: 'Украина',
+			praks: 'Праки',
+			tdm: 'TDM',
+			ultimateRoyal: 'Ultimate Royal',
+			morning: 'Утро (6:00 - 12:00)',
+			afternoon: 'День (12:00 - 18:00)',
+			evening: 'Вечер (18:00 - 00:00)',
+			night: 'Ночь (00:00 - 6:00)',
+			cybersport: 'Киберспорт',
+			football: 'Футбол',
+			swimming: 'Плавание',
+			boxing: 'Бокс',
+			volleyball: 'Волейбол',
+			basketball: 'Баскетбол',
+			tennis: 'Теннис',
+			backgammon: 'Нарды'
 		}
 	}
 };

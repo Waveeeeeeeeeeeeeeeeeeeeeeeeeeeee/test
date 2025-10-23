@@ -42,7 +42,6 @@ export const UserCard: React.FC<UserCardProps> = ({
 	};
 
 	const handleNotificationClick = () => {
-		console.log('Notification icon clicked in UserCard');
 		navigate(EnumRoutes.NOTIFICATIONS);
 	};
 

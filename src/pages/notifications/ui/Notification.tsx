@@ -4,6 +4,7 @@ import styles from './Notification.module.css';
 import NotificationList from './NotificationList';
 import NotificationPopup from './NotificationPopup';
 import { mockNotifications } from './mockNotifications';
+import { useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 
@@ -11,11 +12,13 @@ type TabType = 'all' | 'likes' | 'invitations';
 
 const Notification = () => {
 	const [activeTab, setActiveTab] = useState<TabType>('all');
+	const { title, allTab, likesTab, invitationsTab } =
+		useCustomTranslation('notifications');
 
 	const tabOptions = [
-		{ label: 'Все', value: 'all' },
-		{ label: 'Лайки', value: 'likes' },
-		{ label: 'Приглашения', value: 'invitations' }
+		{ label: allTab, value: 'all' },
+		{ label: likesTab, value: 'likes' },
+		{ label: invitationsTab, value: 'invitations' }
 	];
 
 	const filteredNotifications = mockNotifications.filter(notification => {
@@ -30,7 +33,7 @@ const Notification = () => {
 		<div className={styles.container}>
 			<div className='mt-3'>
 				<NotificationHeaderFactory
-					title='Уведомления'
+					title={title}
 					IsBack={true}
 					notification={false}
 				/>

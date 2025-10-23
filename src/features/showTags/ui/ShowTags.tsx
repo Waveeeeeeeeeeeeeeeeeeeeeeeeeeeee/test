@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 
 import styles from './ShowTags.module.css';
+import { useCustomTranslation } from '@/shared';
 
 interface Props {
 	tags: string[];
@@ -10,6 +11,7 @@ interface Props {
 
 export const ShowTags: React.FC<Props> = ({ tags, maxVisible = 6 }) => {
 	const [expanded, setExpanded] = useState(false);
+	const { hideButton } = useCustomTranslation('description');
 
 	const hiddenCount = tags.length - maxVisible;
 	const toggleExpanded = () => setExpanded(prev => !prev);
@@ -53,7 +55,7 @@ export const ShowTags: React.FC<Props> = ({ tags, maxVisible = 6 }) => {
 						className={`${styles.interest} cursor-pointer`}
 					>
 						{expanded ? (
-							<span className='text-sm'>Скрыть</span>
+							<span className='text-sm'>{hideButton}</span>
 						) : (
 							`+${hiddenCount}`
 						)}

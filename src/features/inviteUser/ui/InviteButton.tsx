@@ -1,15 +1,13 @@
-import { useCustomTranslation } from '@/shared'
-import InviteIco from '@/shared/assets/icons/invite.svg?react'
+import { useCustomTranslation } from '@/shared';
+import InviteIco from '@/shared/assets/icons/invite.svg?react';
 
 type Props = {
-	userId: string
-}
+	userId: string;
+};
 
 export const InviteButton = ({ userId }: Props) => {
-	const { text } = useCustomTranslation('inviteButton')
-	const handleInvite = () => {
-		console.log('Inviting user', userId)
-	}
+	const { text } = useCustomTranslation('inviteButton');
+	const handleInvite = () => {};
 
 	return (
 		<button
@@ -19,5 +17,5 @@ export const InviteButton = ({ userId }: Props) => {
 			<InviteIco />
 			{text}
 		</button>
-	)
-}
+	);
+};

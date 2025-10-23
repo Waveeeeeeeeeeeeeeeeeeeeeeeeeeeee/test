@@ -13,25 +13,18 @@ export const BottomNavigation = () => {
 	const location = useLocation();
 	const { user } = useUserStore();
 
-	// Check if we're on the profile info pages
 	const isProfileInfoRealLife = location.pathname === '/profile/info/realLife';
 	const isProfileInfoOnline = location.pathname === '/profile/info/online';
 	const isProfileInfoPage = isProfileInfoRealLife || isProfileInfoOnline;
 
 	const handleSave = () => {
-		// Add save logic here
-		console.log('Saving profile info...');
-		// You can add actual save logic here
 		navigate('/profile');
 	};
 
 	const handleCancel = () => {
-		// Add cancel logic here
-		console.log('Canceling changes...');
 		navigate('/profile');
 	};
 
-	// Custom buttons for profile info pages
 	if (isProfileInfoPage) {
 		return (
 			<nav className='fixed z-[100] bottom-0 p-4 w-full flex gap-4 bg-[var(--second-bg)] rounded-t-[16px] rounded-b-[29px]'>

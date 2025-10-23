@@ -13,7 +13,6 @@ export type FindRequestParams = {
 type Subscriber = (data: SocketMessage<unknown>) => void;
 
 let socket: WebSocket | null = null;
-// Хранение всех подписчиков как unknown
 let subscribers: Subscriber[] = [];
 
 export const initSocket = (url: string, auth?: Record<string, unknown>) => {
@@ -21,7 +20,6 @@ export const initSocket = (url: string, auth?: Record<string, unknown>) => {
 		socket = new WebSocket(url);
 
 		socket.onopen = () => {
-			console.log('WebSocket connected');
 			if (auth) socket?.send(JSON.stringify(auth));
 		};
 
@@ -34,7 +32,7 @@ export const initSocket = (url: string, auth?: Record<string, unknown>) => {
 			}
 		};
 
-		socket.onclose = event => console.log('WebSocket disconnected', event);
+		socket.onclose = event => {};
 		socket.onerror = error => console.error('WebSocket error', error);
 	}
 
@@ -52,11 +50,9 @@ export const sendSocketCommand = <TPayload = unknown>(
 	}
 };
 
-// Подписка с кастомным типом для callback
 export const subscribeToSocketMessages = <TPayload = unknown>(
 	callback: (data: SocketMessage<TPayload>) => void
 ) => {
-	// Кастуем в Subscriber<unknown>
 	const wrappedCallback: Subscriber = data =>
 		callback(data as SocketMessage<TPayload>);
 	subscribers.push(wrappedCallback);

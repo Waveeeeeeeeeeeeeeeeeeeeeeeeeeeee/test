@@ -124,6 +124,8 @@ const ProfileSettings = () => {
 	});
 
 	const { title } = useCustomTranslation('profileSettings');
+	const validation = useCustomTranslation('profileSettingsValidation');
+	const form = useCustomTranslation('profileSettingsForm');
 	const { i18n } = useTranslation();
 	const [, setError] = useState(null);
 
@@ -150,7 +152,7 @@ const ProfileSettings = () => {
 		setError(null);
 
 		if (!profile.nickname || profile.nickname.trim() === '') {
-			toast.error('Поле "Имя" не может быть пустым');
+			toast.error(validation.nameEmpty);
 			return;
 		}
 
@@ -159,14 +161,12 @@ const ProfileSettings = () => {
 			profile.age === '' ||
 			(typeof profile.age === 'number' && profile.age === 0)
 		) {
-			toast.error('Поле "Возраст" не может быть пустым');
+			toast.error(validation.ageEmpty);
 			return;
 		}
 
 		if (!validateName(profile.nickname)) {
-			toast.error(
-				'Имя должно содержать только буквы и быть от 2 до 50 символов'
-			);
+			toast.error(validation.nameInvalid);
 			return;
 		}
 
@@ -174,9 +174,9 @@ const ProfileSettings = () => {
 			typeof profile.age === 'string' ? parseInt(profile.age) : profile.age;
 		if (!validateAge(profile.age)) {
 			if (ageNum < 14) {
-				toast.error('Возраст должен быть не менее 14 лет');
+				toast.error(validation.ageMin);
 			} else if (ageNum > 80) {
-				toast.error('Возраст должен быть не более 80 лет');
+				toast.error(validation.ageMax);
 			}
 			return;
 		}
@@ -184,13 +184,15 @@ const ProfileSettings = () => {
 		try {
 			updateProfile(profile);
 			localStorage.setItem('selectedLanguage', profile.selectedLanguage);
-			toast.success('Профиль успешно обновлен');
+			toast.success(validation.profileUpdated);
 			window.history.back();
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
-				toast.error(err.response?.data?.message || 'Ошибка обновления профиля');
+				toast.error(
+					err.response?.data?.message || validation.profileUpdateError
+				);
 			} else {
-				toast.error('Неизвестная ошибка');
+				toast.error(validation.unknownError);
 			}
 		}
 	};
@@ -252,8 +254,8 @@ const ProfileSettings = () => {
 	};
 
 	const genders = [
-		{ code: 'MALE', label: 'Я парень' },
-		{ code: 'FEMALE', label: 'Я девушка' }
+		{ code: 'MALE', label: form.maleLabel },
+		{ code: 'FEMALE', label: form.femaleLabel }
 	];
 
 	const languages = [
@@ -264,20 +266,20 @@ const ProfileSettings = () => {
 
 	const InputData = [
 		{
-			label: 'Имя',
+			label: form.nameLabel,
 			type: 'text',
 			name: 'name',
 			value: profile.nickname || '',
 			onChange: (value: string) => setProfileField('nickname', value),
-			placeholder: 'Введите ваше имя',
+			placeholder: form.namePlaceholder,
 			labelSize: 'text-lg',
 			labelColor: 'text-white'
 		},
 		{
-			label: 'Сколько тебе лет?',
+			label: form.ageLabel,
 			type: 'number',
 			name: 'age',
-			placeholder: 'Введите ваш возраст',
+			placeholder: form.agePlaceholder,
 			value: profile.age,
 			onChange: (value: string) => {
 				if (value === '' || value === '0') {
@@ -291,7 +293,7 @@ const ProfileSettings = () => {
 					setProfileField('age', value);
 				}
 			},
-			notification: 'Возраст должен быть от 14 до 80 лет',
+			notification: form.ageNotification,
 			labelSize: 'text-lg',
 			labelColor: 'text-white'
 		}
@@ -313,7 +315,7 @@ const ProfileSettings = () => {
 				/>
 
 				<div>
-					<h3 className={styles.subtitle}>Аватар</h3>
+					<h3 className={styles.subtitle}>{form.avatarLabel}</h3>
 					<AvatarSelector
 						avatars={avatars}
 						onAvatarChange={handleAvatarChange}
@@ -327,7 +329,7 @@ const ProfileSettings = () => {
 
 				<div>
 					<div className='flex items-center gap-2 mb-3'>
-						<h3 className={styles.subtitle}>Твой пол</h3>
+						<h3 className={styles.subtitle}>{form.genderLabel}</h3>
 					</div>
 					<VariantSelection
 						variant='row'
@@ -338,7 +340,7 @@ const ProfileSettings = () => {
 				</div>
 
 				<div>
-					<h3 className={styles.subtitle}>Язык</h3>
+					<h3 className={styles.subtitle}>{form.languageLabel}</h3>
 					<VariantSelection
 						data={languages}
 						selected={profile.selectedLanguage}
@@ -349,10 +351,10 @@ const ProfileSettings = () => {
 
 			<div className={`flex w-full gap-4 mt-8 ${styles.buttons}`}>
 				<Button variant='secondary' onClick={handleBack} type='submit'>
-					Отменить
+					{form.cancelButton}
 				</Button>
 				<Button variant='accept' onClick={handleSave}>
-					Сохранить
+					{form.saveButton}
 				</Button>
 			</div>
 		</div>

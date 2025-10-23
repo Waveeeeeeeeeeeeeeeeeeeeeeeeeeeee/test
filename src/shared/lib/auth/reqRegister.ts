@@ -16,11 +16,9 @@ export const reqRegister = (
 			}
 		})
 		.then(response => {
-			console.log('Server response:', response.data);
 			return response;
 		})
 		.catch(error => {
-			console.log('Server response:', error.response?.data || error.message);
 			throw error;
 		});
 };

@@ -1,15 +1,13 @@
-import { useCustomTranslation } from '@/shared'
-import MessageIco from '@/shared/assets/icons/message.svg?react'
+import { useCustomTranslation } from '@/shared';
+import MessageIco from '@/shared/assets/icons/message.svg?react';
 
 type Props = {
-	userId: string
-}
+	userId: string;
+};
 
 export const MessageButton = ({ userId }: Props) => {
-	const { text } = useCustomTranslation('messageButton')
-	const handleMessage = () => {
-		console.log('Open chat with', userId)
-	}
+	const { text } = useCustomTranslation('messageButton');
+	const handleMessage = () => {};
 
 	return (
 		<button
@@ -19,5 +17,5 @@ export const MessageButton = ({ userId }: Props) => {
 			<MessageIco />
 			{text}
 		</button>
-	)
-}
+	);
+};

@@ -27,8 +27,6 @@ export const useTelegramRegister = () => {
 				};
 
 				const res = await reqRegister(userData, initData);
-
-				console.log('Register response:', res.data);
 			} catch (e: unknown) {
 				const error = e as { response?: { data?: unknown }; message?: string };
 				console.error(

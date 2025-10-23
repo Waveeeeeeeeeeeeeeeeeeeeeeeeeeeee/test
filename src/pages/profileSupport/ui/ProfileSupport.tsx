@@ -18,9 +18,12 @@ const ProfileSupport = () => {
 		setTopic(info);
 	};
 
+	const { problemMessage, problemApplication } =
+		useCustomTranslation('profileSupport');
+
 	const problemData = [
-		{ label: 'Проблема с функционалом сообщений', code: 'message' },
-		{ label: 'Проблема с работой приложения', code: 'application' }
+		{ label: problemMessage, code: 'message' },
+		{ label: problemApplication, code: 'application' }
 	];
 
 	return (

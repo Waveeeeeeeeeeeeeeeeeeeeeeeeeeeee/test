@@ -139,15 +139,22 @@ export const ua = {
 			online: 'Просто пограти',
 			realLife: 'Реальна зустріч',
 			games: 'Ваші гри',
-			games_description: 'Змінити список гри та цілей',
+			games_description: 'Управління списком ігор та ігрових цілей',
 			settings: 'Налаштування профілю',
-			settings_description: 'Особиста інформація, опис теги',
+			settings_description: 'Редагування особистої інформації та уподобань',
 			support: 'Звернутися на підтримку',
-			support_description: 'Особиста інформація, опис теги',
+			support_description: 'Отримати допомогу з питань використання додатку',
 			rules: 'Правила користування',
-			rules_description: 'Особиста інформація, опис теги',
+			rules_description: 'Ознайомитися з умовами використання сервісу',
 			privacy: 'Політика конфіденційності',
-			privacy_description: 'Особиста інформація, опис теги'
+			privacy_description:
+				'Інформація про захист та обробку персональних даних',
+			statusLabel: 'Ваш статус',
+			countriesLabel: 'Країни',
+			goalsLabel: 'Цілі гри',
+			activityTimeLabel: 'Час основної активності',
+			editButton: 'Редагувати',
+			fuck: 'fuck'
 		},
 		profileSettings: {
 			backBtn: 'Назад',
@@ -166,7 +173,113 @@ export const ua = {
 			title: 'Звернення в підтримку',
 			messageTitle: 'Виберіть тему звернення',
 			problemTitle: 'Опишіть проблему',
-			problemDesc: 'Дайте докладний опис питання'
+			problemDesc: 'Дайте докладний опис питання',
+			problemMessage: 'Проблема з функціоналом повідомлень',
+			problemApplication: 'Проблема з роботою додатку'
+		},
+		profileSettingsValidation: {
+			nameEmpty: 'Поле "Ім\'я" не може бути порожнім',
+			ageEmpty: 'Поле "Вік" не може бути порожнім',
+			nameInvalid:
+				"Ім'я повинно містити тільки літери та бути від 2 до 50 символів",
+			ageMin: 'Вік повинен бути не менше 14 років',
+			ageMax: 'Вік повинен бути не більше 80 років',
+			profileUpdated: 'Профіль успішно оновлено',
+			profileUpdateError: 'Помилка оновлення профілю',
+			unknownError: 'Невідома помилка'
+		},
+		profileSettingsForm: {
+			nameLabel: "Ім'я",
+			ageLabel: 'Скільки тобі років?',
+			avatarLabel: 'Аватар',
+			genderLabel: 'Твій стать',
+			languageLabel: 'Мова',
+			namePlaceholder: "Введіть ваше ім'я",
+			agePlaceholder: 'Введіть ваш вік',
+			ageNotification: 'Вік повинен бути від 14 до 80 років',
+			maleLabel: 'Я хлопець',
+			femaleLabel: 'Я дівчина',
+			cancelButton: 'Скасувати',
+			saveButton: 'Зберегти'
+		},
+		notifications: {
+			title: 'Сповіщення',
+			allTab: 'Всі',
+			likesTab: 'Лайки',
+			invitationsTab: 'Запрошення',
+			newMessage: 'У вас нове повідомлення',
+			adminReply: 'Вам відповів адміністратор'
+		},
+		home: {
+			searchModes: 'Режими пошуку'
+		},
+		onboardingValidation: {
+			selectPlatform: 'Будь ласка виберіть платформу',
+			selectGame: 'Будь ласка виберіть гру',
+			fillAllFields: 'Будь ласка заповніть всі поля',
+			invalidCountry: 'Невірна країна або місто',
+			countryCityError: 'Помилка при перевірці країни та міста',
+			enterCountry: 'Введіть принаймні одну країну',
+			selectGoal: 'Виберіть принаймні одну ціль для гри',
+			selectTime: 'Виберіть принаймні один часовий відрізок',
+			sendDataError: 'Помилка при відправці даних'
+		},
+		interests: {
+			football: 'Футбол',
+			basketball: 'Баскетбол',
+			drawing: 'Малювання',
+			anime: 'Аніме',
+			cars: 'Машини',
+			movies: 'Фільми',
+			music: 'Музика',
+			sports: 'Спорт',
+			literature: 'Література',
+			programming: 'Програмування',
+			photography: 'Фотографія',
+			travel: 'Подорожі',
+			cooking: 'Кулінарія',
+			dancing: 'Танці',
+			yoga: 'Йога'
+		},
+		profileInfoRealLife: {
+			countryLabel: 'Країна проживання',
+			countryPlaceholder: 'Введіть країну',
+			cityLabel: 'Місто проживання',
+			cityPlaceholder: 'Введіть місто',
+			descriptionLabel: 'Опис вашого реального життя',
+			searchTags: 'Пошук тегів',
+			addInterest: 'Додати свій інтерес',
+			removeTitle: 'Видалити'
+		},
+		profileInfoOnline: {
+			validationError: 'Помилка валідації',
+			countryPlaceholder: 'Введіть країну',
+			removeTitle: 'Видалити',
+			descriptionLabel: 'Опис вашого віртуального життя'
+		},
+		description: {
+			hideButton: 'Приховати',
+			moreButton: 'Ще...'
+		},
+		tags: {
+			russia: 'Росія',
+			belarus: 'Білорусь',
+			ukraine: 'Україна',
+			praks: 'Праки',
+			tdm: 'TDM',
+			ultimateRoyal: 'Ultimate Royal',
+			morning: 'Ранок (6:00 - 12:00)',
+			afternoon: 'День (12:00 - 18:00)',
+			evening: 'Вечір (18:00 - 00:00)',
+			night: 'Ніч (00:00 - 6:00)',
+			cybersport: 'Кіберспорт',
+			football: 'Футбол',
+			swimming: 'Плавання',
+			boxing: 'Бокс',
+			volleyball: 'Волейбол',
+			basketball: 'Баскетбол',
+			tennis: 'Теніс',
+			backgammon: 'Нарди'
 		}
 	}
 };

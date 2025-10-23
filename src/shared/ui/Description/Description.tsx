@@ -1,4 +1,5 @@
 import styles from './Description.module.css';
+import { useCustomTranslation } from '@/shared';
 
 export type DescriptionProps = {
 	description: string;
@@ -14,7 +15,8 @@ const Description = ({
 	showHideButton = false
 }: DescriptionProps) => {
 	const shouldShowButton = showMoreButton || showHideButton;
-	const buttonText = showHideButton ? 'Скрыть' : 'Еще...';
+	const { hideButton, moreButton } = useCustomTranslation('description');
+	const buttonText = showHideButton ? hideButton : moreButton;
 
 	return (
 		<div className={styles.about}>

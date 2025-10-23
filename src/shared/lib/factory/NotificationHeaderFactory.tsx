@@ -27,19 +27,13 @@ export const NotificationHeaderFactory: FC<NotificationHeaderFactoryProps> = ({
 	const handleGoBack = getHeaderNavigation(onGoBack, handleBack);
 
 	const handleNotificationClick = () => {
-		console.log(
-			'Notification clicked, current path:',
-			window.location.pathname
-		);
 		if (onNotificationClick) {
 			onNotificationClick();
 		} else {
-			console.log('Navigating to notifications:', EnumRoutes.NOTIFICATIONS);
 			try {
 				navigate(EnumRoutes.NOTIFICATIONS);
 			} catch (error) {
 				console.error('Navigation error:', error);
-				// Fallback to window.location if navigate fails
 				window.location.href = EnumRoutes.NOTIFICATIONS;
 			}
 		}

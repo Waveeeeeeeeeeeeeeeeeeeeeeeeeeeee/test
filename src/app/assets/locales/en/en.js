@@ -142,15 +142,21 @@ const en = {
 			online: 'Just to play',
 			realLife: 'Real meet',
 			games: 'Your Games',
-			games_description: 'Change your game list and goals',
+			games_description: 'Manage your game list and gaming goals',
 			settings: 'Profile settings',
-			settings_description: 'Personal information, description tags',
+			settings_description: 'Edit personal information and preferences',
 			support: 'Contact support',
-			support_description: 'Personal information, description tags',
+			support_description: 'Get help with app usage questions',
 			rules: 'Terms of use',
-			rules_description: 'Personal information, description tags',
+			rules_description: 'Read service terms and conditions',
 			privacy: 'Privacy policy',
-			privacy_description: 'Personal information, description tags'
+			privacy_description:
+				'Information about personal data protection and processing',
+			statusLabel: 'Your status',
+			countriesLabel: 'Countries',
+			goalsLabel: 'Game goals',
+			activityTimeLabel: 'Main activity time',
+			editButton: 'Edit'
 		},
 		profileSettings: {
 			title: 'Profile Settings',
@@ -165,7 +171,112 @@ const en = {
 			title: 'Contact Support',
 			messageTitle: 'Select a subject for your contact',
 			problemTitle: 'Describe the problem',
-			problemDesc: 'Give a detailed description of the issue'
+			problemDesc: 'Give a detailed description of the issue',
+			problemMessage: 'Problem with message functionality',
+			problemApplication: 'Problem with application work'
+		},
+		profileSettingsValidation: {
+			nameEmpty: 'Name field cannot be empty',
+			ageEmpty: 'Age field cannot be empty',
+			nameInvalid: 'Name should contain only letters and be 2-50 characters',
+			ageMin: 'Age must be at least 14 years',
+			ageMax: 'Age must be no more than 80 years',
+			profileUpdated: 'Profile successfully updated',
+			profileUpdateError: 'Profile update error',
+			unknownError: 'Unknown error'
+		},
+		profileSettingsForm: {
+			nameLabel: 'Name',
+			ageLabel: 'How old are you?',
+			avatarLabel: 'Avatar',
+			genderLabel: 'Your gender',
+			languageLabel: 'Language',
+			namePlaceholder: 'Enter your name',
+			agePlaceholder: 'Enter your age',
+			ageNotification: 'Age should be from 14 to 80 years',
+			maleLabel: 'I am a guy',
+			femaleLabel: 'I am a girl',
+			cancelButton: 'Cancel',
+			saveButton: 'Save'
+		},
+		notifications: {
+			title: 'Notifications',
+			allTab: 'All',
+			likesTab: 'Likes',
+			invitationsTab: 'Invitations',
+			newMessage: 'You have a new message',
+			adminReply: 'Administrator replied to you'
+		},
+		home: {
+			searchModes: 'Search modes'
+		},
+		onboardingValidation: {
+			selectPlatform: 'Please select a platform',
+			selectGame: 'Please select a game',
+			fillAllFields: 'Please fill in all fields',
+			invalidCountry: 'Invalid country or city',
+			countryCityError: 'Error checking country and city',
+			enterCountry: 'Enter at least one country',
+			selectGoal: 'Select at least one game goal',
+			selectTime: 'Select at least one time period',
+			sendDataError: 'Error sending data'
+		},
+		interests: {
+			football: 'Football',
+			basketball: 'Basketball',
+			drawing: 'Drawing',
+			anime: 'Anime',
+			cars: 'Cars',
+			movies: 'Movies',
+			music: 'Music',
+			sports: 'Sports',
+			literature: 'Literature',
+			programming: 'Programming',
+			photography: 'Photography',
+			travel: 'Travel',
+			cooking: 'Cooking',
+			dancing: 'Dancing',
+			yoga: 'Yoga'
+		},
+		profileInfoRealLife: {
+			countryLabel: 'Country of residence',
+			countryPlaceholder: 'Enter country',
+			cityLabel: 'City of residence',
+			cityPlaceholder: 'Enter city',
+			descriptionLabel: 'Description of your real life',
+			searchTags: 'Search tags',
+			addInterest: 'Add your interest',
+			removeTitle: 'Remove'
+		},
+		profileInfoOnline: {
+			validationError: 'Validation error',
+			countryPlaceholder: 'Enter country',
+			removeTitle: 'Remove',
+			descriptionLabel: 'Description of your virtual life'
+		},
+		description: {
+			hideButton: 'Hide',
+			moreButton: 'More...'
+		},
+		tags: {
+			russia: 'Russia',
+			belarus: 'Belarus',
+			ukraine: 'Ukraine',
+			praks: 'Praks',
+			tdm: 'TDM',
+			ultimateRoyal: 'Ultimate Royal',
+			morning: 'Morning (6:00 - 12:00)',
+			afternoon: 'Afternoon (12:00 - 18:00)',
+			evening: 'Evening (18:00 - 00:00)',
+			night: 'Night (00:00 - 6:00)',
+			cybersport: 'Cybersport',
+			football: 'Football',
+			swimming: 'Swimming',
+			boxing: 'Boxing',
+			volleyball: 'Volleyball',
+			basketball: 'Basketball',
+			tennis: 'Tennis',
+			backgammon: 'Backgammon'
 		}
 	}
 };

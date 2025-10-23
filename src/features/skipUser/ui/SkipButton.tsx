@@ -1,15 +1,13 @@
-import { useCustomTranslation } from '@/shared'
-import SkipIco from '@/shared/assets/icons/skip.svg?react'
+import { useCustomTranslation } from '@/shared';
+import SkipIco from '@/shared/assets/icons/skip.svg?react';
 
 type Props = {
-	userId: string
-}
+	userId: string;
+};
 
 export const SkipButton = ({ userId }: Props) => {
-	const { text } = useCustomTranslation('skipButton')
-	const handleSkip = () => {
-		console.log('Skip user', userId)
-	}
+	const { text } = useCustomTranslation('skipButton');
+	const handleSkip = () => {};
 
 	return (
 		<button
@@ -19,5 +17,5 @@ export const SkipButton = ({ userId }: Props) => {
 			<SkipIco />
 			{text}
 		</button>
-	)
-}
+	);
+};
