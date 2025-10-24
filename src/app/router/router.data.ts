@@ -11,6 +11,7 @@ import ProfileInfoOnline from '@/pages/profileInfoOnline/ProfileInfoOnline';
 import ProfileInfoRealLife from '@/pages/profileInfoRealLife/profileInfoRealLife';
 import ProfileSettings from '@/pages/profileSettings/ui/ProfileSettings';
 import ProfileSupport from '@/pages/profileSupport/ui/ProfileSupport';
+import { ProfileTickets } from '@/pages/proflleTickets/profileTickets';
 import SearchPage from '@/pages/searchPage/ui/SearchPage';
 
 type BgRoutesType = {
@@ -58,6 +59,10 @@ export const routes: IRoute[] = [
 	{
 		path: EnumRoutes.PROFILE_GAMES,
 		component: ProfileGames
+	},
+	{
+		path: EnumRoutes.PROFILE_TICKETS,
+		component: ProfileTickets
 	},
 	{
 		path: EnumRoutes.PROFILE_SUPPORT,

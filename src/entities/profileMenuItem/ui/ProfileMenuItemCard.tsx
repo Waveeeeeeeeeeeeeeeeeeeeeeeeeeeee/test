@@ -14,11 +14,13 @@ export const ProfileMenuItemCard: FC<Props> = ({ item }) => {
 	const {
 		settings,
 		games,
+		tickets,
 		support,
 		rules,
 		privacy,
 		settings_description,
 		games_description,
+		tickets_description,
 		support_description,
 		rules_description,
 		privacy_description
@@ -39,6 +41,8 @@ export const ProfileMenuItemCard: FC<Props> = ({ item }) => {
 				return settings || 'Settings';
 			case 'games':
 				return games || 'Games';
+			case 'tickets':
+				return tickets || 'Tickets';
 			case 'support':
 				return support || 'Support';
 			case 'rules':
@@ -56,6 +60,8 @@ export const ProfileMenuItemCard: FC<Props> = ({ item }) => {
 				return settings_description || 'Personal information, description tags';
 			case 'games':
 				return games_description || 'Change your game list and goals';
+			case 'tickets':
+				return tickets_description || 'View and manage your support tickets';
 			case 'support':
 				return support_description || 'Personal information, description tags';
 			case 'rules':

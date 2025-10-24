@@ -143,6 +143,31 @@ const en = {
 			realLife: 'Real meet',
 			games: 'Your Games',
 			games_description: 'Manage your game list and gaming goals',
+			tickets: 'Your Tickets',
+			tickets_description: 'View and manage your support tickets',
+			tickets_empty_title: 'You have no tickets yet',
+			tickets_empty_description:
+				'Create your first ticket in the support section',
+			tickets_count: 'Your tickets',
+			tickets_subtitle: 'Track the status of your requests',
+			ticket_status_open: 'Open',
+			ticket_status_in_progress: 'In Progress',
+			ticket_status_resolved: 'Resolved',
+			ticket_status_closed: 'Closed',
+			ticket_auth_problem_title: 'Authorization Problem',
+			ticket_auth_problem_desc:
+				'Cannot log into account, constantly getting "Invalid password" error',
+			ticket_search_error_title: 'Player Search Error',
+			ticket_search_error_desc:
+				'When searching for players by filters, no results are displayed',
+			ticket_notifications_title: 'Notification Problem',
+			ticket_notifications_desc:
+				'Push notifications about new messages are not coming',
+			ticket_photo_upload_title: 'Photo Upload Error',
+			ticket_photo_upload_desc: 'Cannot upload profile photo, app crashes',
+			ticket_chat_problem_title: 'Chat Problem',
+			ticket_chat_problem_desc:
+				'Messages in chat are not sending, stuck on "Sending..."',
 			settings: 'Profile settings',
 			settings_description: 'Edit personal information and preferences',
 			support: 'Contact support',
@@ -173,7 +198,15 @@ const en = {
 			problemTitle: 'Describe the problem',
 			problemDesc: 'Give a detailed description of the issue',
 			problemMessage: 'Problem with message functionality',
-			problemApplication: 'Problem with application work'
+			problemApplication: 'Problem with application work',
+			problemAuth: 'Authorization problem',
+			problemSearch: 'Player search error',
+			problemNotifications: 'Notification problem',
+			problemPhoto: 'Photo upload error',
+			problemChat: 'Chat problem',
+			problemPayment: 'Payment problem',
+			problemAccount: 'Account problem',
+			sendButton: 'Send'
 		},
 		profileSettingsValidation: {
 			nameEmpty: 'Name field cannot be empty',
@@ -198,6 +231,10 @@ const en = {
 			femaleLabel: 'I am a girl',
 			cancelButton: 'Cancel',
 			saveButton: 'Save'
+		},
+		authLoading: {
+			title: '🔐 Authentication Check',
+			description: 'Please wait, we are checking your data...'
 		},
 		notifications: {
 			title: 'Notifications',

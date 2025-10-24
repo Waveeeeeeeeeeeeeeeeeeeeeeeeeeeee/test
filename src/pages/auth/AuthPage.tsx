@@ -28,7 +28,8 @@ const AuthPage: FC = () => {
 				};
 
 				await reqLogin(initData);
-			} catch (error: any) {
+			} catch (error: unknown) {
+				console.error('Authentication error:', error);
 				setShouldGoToOnboarding(true);
 			} finally {
 				setIsLoading(false);
