@@ -24,7 +24,7 @@ export const mockTickets: Ticket[] = [
 		id: '3',
 		title: 'Проблема с уведомлениями',
 		description: 'Не приходят push-уведомления о новых сообщениях',
-		status: 'resolved',
+		status: 'closed',
 		icon: '🔔',
 		createdAt: '2024-01-13T08:15:00Z',
 		updatedAt: '2024-01-15T14:30:00Z'

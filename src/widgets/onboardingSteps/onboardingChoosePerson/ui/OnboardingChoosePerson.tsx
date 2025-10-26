@@ -70,7 +70,6 @@ const OnboardingChoosePerson = () => {
 
 			setIsCityValid(true);
 		} catch (err) {
-			console.error(err);
 			setIsCityValid(false);
 		}
 	};

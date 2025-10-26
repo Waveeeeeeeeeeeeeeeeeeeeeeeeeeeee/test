@@ -22,7 +22,6 @@ export const completeOnboarding = async (
 
 		return { userId: userId, profileId: userId };
 	} catch (error) {
-		console.error('completeOnboarding error:', error);
 		throw error;
 	}
 };

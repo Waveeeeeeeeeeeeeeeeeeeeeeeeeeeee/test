@@ -81,9 +81,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 			const apiResponse = await updateUserProfile.updateProfile(data);
 			const storeData = mapApiProfileToStore(apiResponse);
 			set({ profile: storeData });
-		} catch (error) {
-			console.error('Ошибка при обновлении профиля:', error);
-		}
+		} catch (error) {}
 	},
 
 	setGamePhoto: (gameId, file) =>

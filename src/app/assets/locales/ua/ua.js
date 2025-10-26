@@ -150,8 +150,8 @@ export const ua = {
 			tickets_subtitle: 'Відстежуйте статус ваших звернень',
 			ticket_status_open: 'Відкритий',
 			ticket_status_in_progress: 'В роботі',
-			ticket_status_resolved: 'Вирішений',
 			ticket_status_closed: 'Закритий',
+			ticket_closed_message: 'Тикет був закритий',
 			ticket_auth_problem_title: 'Проблема з авторизацією',
 			ticket_auth_problem_desc:
 				'Не можу увійти в акаунт, постійно видає помилку "Невірний пароль"',

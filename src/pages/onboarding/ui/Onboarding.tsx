@@ -140,7 +140,6 @@ export const Onboarding = () => {
 				});
 				navigate('/profile');
 			} catch (err) {
-				console.error(err);
 				toast.error('Ошибка при отправке данных');
 			}
 			return;
@@ -230,7 +229,6 @@ export const Onboarding = () => {
 
 	return (
 		<>
-			{/* Debug log container */}
 			<div
 				id='debug-log'
 				style={{

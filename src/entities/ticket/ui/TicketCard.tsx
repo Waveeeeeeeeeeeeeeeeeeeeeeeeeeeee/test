@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router';
+
 import { Ticket } from '../model/types';
 
 import { useCustomTranslation } from '@/shared';
@@ -9,25 +11,27 @@ interface TicketCardProps {
 const getStatusColor = (status: string) => {
 	switch (status) {
 		case 'open':
-			return 'text-green-400 bg-green-400/20';
+			return 'text-white bg-[#4D4B4A] border-2 border-white rounded-[10px]';
 		case 'in_progress':
-			return 'text-yellow-400 bg-yellow-400/20';
-		case 'resolved':
-			return 'text-blue-400 bg-blue-400/20';
+			return 'text-[#FFDA44] bg-[#453C1D] border-2 border-[#FFDA44] rounded-[10px]';
 		case 'closed':
-			return 'text-red-400 bg-red-400/20';
+			return 'text-[#84DCC6] bg-[#34443F] border-2 border-[#84DCC6] rounded-[10px]';
 		default:
-			return 'text-gray-400 bg-gray-400/20';
+			return 'text-gray-400 bg-gray-400/20 border-2 border-gray-400 rounded-[10px]';
 	}
 };
 
 export const TicketCard = ({ ticket }: TicketCardProps) => {
+	const navigate = useNavigate();
 	const {
 		ticket_status_open,
 		ticket_status_in_progress,
-		ticket_status_resolved,
 		ticket_status_closed
 	} = useCustomTranslation('profile');
+
+	const handleTicketClick = () => {
+		navigate(`/profile/tickets/${ticket.id}`);
+	};
 
 	const getStatusText = (status: string) => {
 		switch (status) {
@@ -35,8 +39,6 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
 				return ticket_status_open;
 			case 'in_progress':
 				return ticket_status_in_progress;
-			case 'resolved':
-				return ticket_status_resolved;
 			case 'closed':
 				return ticket_status_closed;
 			default:
@@ -56,7 +58,10 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
 	};
 
 	return (
-		<div className='bg-[var(--second-bg)] rounded-2xl p-4 mb-3 hover:bg-[var(--third-bg)] transition-colors cursor-pointer'>
+		<div
+			className='bg-[var(--second-bg)] rounded-2xl p-4 mb-3 hover:bg-[var(--third-bg)] transition-colors cursor-pointer'
+			onClick={handleTicketClick}
+		>
 			<div className='flex items-start gap-3'>
 				<div className='text-2xl mt-1'>{ticket.icon}</div>
 
@@ -66,7 +71,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
 							{ticket.title}
 						</h3>
 						<span
-							className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(ticket.status)}`}
+							className={`px-2 py-1 text-xs font-medium ${getStatusColor(ticket.status)}`}
 						>
 							{getStatusText(ticket.status)}
 						</span>

@@ -83,11 +83,9 @@ const ProfileSupport = () => {
 
 	const handleSubmitTicket = () => {
 		if (!topic) {
-			alert('Пожалуйста, выберите тему проблемы');
 			return;
 		}
 		if (!description || description.length < 30) {
-			alert('Описание должно содержать минимум 30 символов');
 			return;
 		}
 

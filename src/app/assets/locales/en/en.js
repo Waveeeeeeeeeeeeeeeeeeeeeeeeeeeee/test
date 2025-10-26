@@ -152,8 +152,8 @@ const en = {
 			tickets_subtitle: 'Track the status of your requests',
 			ticket_status_open: 'Open',
 			ticket_status_in_progress: 'In Progress',
-			ticket_status_resolved: 'Resolved',
 			ticket_status_closed: 'Closed',
+			ticket_closed_message: 'Ticket was closed',
 			ticket_auth_problem_title: 'Authorization Problem',
 			ticket_auth_problem_desc:
 				'Cannot log into account, constantly getting "Invalid password" error',

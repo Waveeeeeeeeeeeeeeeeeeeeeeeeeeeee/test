@@ -27,13 +27,11 @@ export const initSocket = (url: string, auth?: Record<string, unknown>) => {
 			try {
 				const data: SocketMessage = JSON.parse(event.data);
 				subscribers.forEach(sub => sub(data));
-			} catch (err) {
-				console.error('Failed to parse socket message', err);
-			}
+			} catch (err) {}
 		};
 
 		socket.onclose = event => {};
-		socket.onerror = error => console.error('WebSocket error', error);
+		socket.onerror = error => {};
 	}
 
 	return socket;
@@ -46,7 +44,6 @@ export const sendSocketCommand = <TPayload = unknown>(
 	if (socket && socket.readyState === WebSocket.OPEN) {
 		socket.send(JSON.stringify({ cmd, payload }));
 	} else {
-		console.warn('WebSocket not open', socket?.readyState);
 	}
 };
 

@@ -33,7 +33,6 @@ export const NotificationHeaderFactory: FC<NotificationHeaderFactoryProps> = ({
 			try {
 				navigate(EnumRoutes.NOTIFICATIONS);
 			} catch (error) {
-				console.error('Navigation error:', error);
 				window.location.href = EnumRoutes.NOTIFICATIONS;
 			}
 		}

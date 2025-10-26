@@ -13,6 +13,7 @@ import ProfileSettings from '@/pages/profileSettings/ui/ProfileSettings';
 import ProfileSupport from '@/pages/profileSupport/ui/ProfileSupport';
 import { ProfileTickets } from '@/pages/proflleTickets/profileTickets';
 import SearchPage from '@/pages/searchPage/ui/SearchPage';
+import { TicketDetail } from '@/pages/ticketDetail/TicketDetail';
 
 type BgRoutesType = {
 	[key in EnumRoutes]?: string;
@@ -63,6 +64,10 @@ export const routes: IRoute[] = [
 	{
 		path: EnumRoutes.PROFILE_TICKETS,
 		component: ProfileTickets
+	},
+	{
+		path: EnumRoutes.PROFILE_TICKET_DETAIL,
+		component: TicketDetail
 	},
 	{
 		path: EnumRoutes.PROFILE_SUPPORT,

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
 
 import { genderDetermining } from '../api/genderDetermining';
@@ -105,11 +104,7 @@ const OnboardingAboutMe = () => {
 						setProfileField('gender', genderValue);
 					}
 				}
-			} catch (err) {
-				if (err instanceof Error && err.name !== 'AbortError') {
-					console.error('Ошибка при автоопределении пола:', err);
-				}
-			}
+			} catch (err) {}
 		}, 2000);
 
 		return () => {
@@ -135,9 +130,7 @@ const OnboardingAboutMe = () => {
 			try {
 				const res = await qualityOfDescription({ description: text });
 				setProfileField?.('qualityOfDescription', res.data.evaluation);
-			} catch (err) {
-				console.error(err);
-			}
+			} catch (err) {}
 		}, 2000);
 
 		return () => {

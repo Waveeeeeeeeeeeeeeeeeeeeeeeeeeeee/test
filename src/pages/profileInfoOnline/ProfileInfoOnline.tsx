@@ -139,9 +139,7 @@ const ProfileInfoOnline = () => {
 			try {
 				const res = await qualityOfDescription({ description: text });
 				setProfileField?.('qualityOfDescription', res.data.evaluation);
-			} catch (err) {
-				console.error(err);
-			}
+			} catch (err) {}
 		}, 2000);
 
 		return () => {

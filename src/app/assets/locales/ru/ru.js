@@ -149,8 +149,8 @@ const ru = {
 			tickets_subtitle: 'Отслеживайте статус ваших обращений',
 			ticket_status_open: 'Открыт',
 			ticket_status_in_progress: 'В работе',
-			ticket_status_resolved: 'Решен',
 			ticket_status_closed: 'Закрыт',
+			ticket_closed_message: 'Тикет был закрыт',
 			ticket_auth_problem_title: 'Проблема с авторизацией',
 			ticket_auth_problem_desc:
 				'Не могу войти в аккаунт, постоянно выдает ошибку "Неверный пароль"',
