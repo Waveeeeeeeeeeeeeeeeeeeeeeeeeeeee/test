@@ -9,6 +9,7 @@ import Profile from '@/pages/profile/ui/Profile';
 import ProfileGames from '@/pages/profileGames/ui/ProfileGames';
 import ProfileInfoOnline from '@/pages/profileInfoOnline/ProfileInfoOnline';
 import ProfileInfoRealLife from '@/pages/profileInfoRealLife/profileInfoRealLife';
+import ProfilePrivacy from '@/pages/profilePrivacy';
 import ProfileSettings from '@/pages/profileSettings/ui/ProfileSettings';
 import ProfileSupport from '@/pages/profileSupport/ui/ProfileSupport';
 import { ProfileTickets } from '@/pages/proflleTickets/profileTickets';
@@ -72,6 +73,10 @@ export const routes: IRoute[] = [
 	{
 		path: EnumRoutes.PROFILE_SUPPORT,
 		component: ProfileSupport
+	},
+	{
+		path: EnumRoutes.PROFILE_PRIVACY,
+		component: ProfilePrivacy
 	},
 	{
 		path: EnumRoutes.PROFILE_INFO_ONLINE,

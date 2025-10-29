@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 import { EnumRoutes } from '@/app/router/router.consts';
 import { getHeaderNavigation } from '@/shared/lib/navigation/getHeaderNavigation';
-import { handleBack } from '@/shared/lib/navigation/handleBack';
+import { createHandleBack } from '@/shared/lib/navigation/handleBack';
 import { NotificationHeader } from '@/shared/ui/NotificationHeader';
 
 interface NotificationHeaderFactoryProps {
@@ -24,7 +24,10 @@ export const NotificationHeaderFactory: FC<NotificationHeaderFactoryProps> = ({
 	className
 }) => {
 	const navigate = useNavigate();
-	const handleGoBack = getHeaderNavigation(onGoBack, handleBack);
+	const handleGoBack = getHeaderNavigation(
+		onGoBack,
+		createHandleBack(navigate)
+	);
 
 	const handleNotificationClick = () => {
 		if (onNotificationClick) {

@@ -10,6 +10,7 @@ export enum EnumRoutes {
 	PROFILE_TICKETS = '/profile/tickets',
 	PROFILE_TICKET_DETAIL = '/profile/tickets/:ticketId',
 	PROFILE_SUPPORT = '/profile/support',
+	PROFILE_PRIVACY = '/profile/privacy',
 	PROFILE_INFO_REALLIFE = '/profile/info/realLife',
 	PROFILE_INFO_ONLINE = '/profile/info/online',
 	NOTIFICATIONS = '/notifications'

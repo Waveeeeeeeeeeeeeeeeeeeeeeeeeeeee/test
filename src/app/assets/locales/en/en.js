@@ -154,6 +154,12 @@ const en = {
 			ticket_status_in_progress: 'In Progress',
 			ticket_status_closed: 'Closed',
 			ticket_closed_message: 'Ticket was closed',
+			ticket_closed_empty_title: 'Ticket Closed',
+			ticket_closed_empty_description:
+				'This ticket has been closed. Conversation is not available.',
+			ticket_start_conversation: 'Start Conversation',
+			ticket_start_description:
+				'Write your message below and we will respond shortly',
 			ticket_auth_problem_title: 'Authorization Problem',
 			ticket_auth_problem_desc:
 				'Cannot log into account, constantly getting "Invalid password" error',
@@ -294,6 +300,53 @@ const en = {
 		description: {
 			hideButton: 'Hide',
 			moreButton: 'More...'
+		},
+		privacyPolicy: {
+			title: 'Privacy Policy',
+			lastUpdated: 'Last updated: October 28, 2025',
+			introduction: {
+				title: 'Introduction',
+				content:
+					'This Privacy Policy describes how Ace Friends ("we", "our", or "us") collects, uses, and protects your personal information when you use our gaming social platform.'
+			},
+			dataCollection: {
+				title: 'Information We Collect',
+				personalInfo:
+					'Personal Information: Name, age, email address, profile photos',
+				gameData: 'Gaming Data: Game preferences, gaming goals, activity times',
+				location:
+					'Location Data: Country and city information (for meeting real-life gamers)',
+				usage: 'Usage Data: App usage patterns, feature interactions'
+			},
+			dataUse: {
+				title: 'How We Use Your Information',
+				matching: 'To match you with compatible gaming partners',
+				communication: 'To enable communication between users',
+				improvement: 'To improve our services and features',
+				support: 'To provide customer support'
+			},
+			dataSharing: {
+				title: 'Information Sharing',
+				content:
+					'We do not sell your personal information. We only share information with other users as necessary for the platform functionality (profile matching) and with service providers who help us operate the platform.'
+			},
+			dataProtection: {
+				title: 'Data Protection',
+				content:
+					'We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.'
+			},
+			userRights: {
+				title: 'Your Rights',
+				access: 'Access your personal data',
+				update: 'Update or correct your information',
+				delete: 'Request deletion of your account',
+				portability: 'Data portability upon request'
+			},
+			contact: {
+				title: 'Contact Us',
+				content:
+					'If you have questions about this Privacy Policy, please contact us through the support section in the app.'
+			}
 		},
 		tags: {
 			russia: 'Russia',

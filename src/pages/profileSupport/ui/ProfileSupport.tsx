@@ -6,7 +6,7 @@ import { useSupportFormStore } from '@/features/supportForm/model/store';
 import { Button, DropDown, TextArea, useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
-import { handleBack } from '@/shared/lib/navigation/handleBack';
+import { createHandleBack } from '@/shared/lib/navigation/handleBack';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 
 const ProfileSupport = () => {
@@ -143,7 +143,7 @@ const ProfileSupport = () => {
 				</div>
 			</div>
 			<div className={`w-full flex gap-4 mt-8 ${styles.buttons}`}>
-				<Button variant='secondary' onClick={handleBack}>
+				<Button variant='secondary' onClick={createHandleBack(navigate)}>
 					{backButton}
 				</Button>
 				<Button variant='next' onClick={handleSubmitTicket}>

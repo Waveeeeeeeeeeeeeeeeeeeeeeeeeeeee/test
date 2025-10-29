@@ -1,15 +1,18 @@
+import { useNavigate } from 'react-router';
+
 import styles from './ProfileGames.module.css';
 import { useGamesWithPurposes } from '@/entities/game/model/useGamesWithPurposes';
 import { useUserStore } from '@/entities/user/model/store';
 import { Button, useCustomTranslation } from '@/shared';
 import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
-import { handleBack } from '@/shared/lib/navigation/handleBack';
+import { createHandleBack } from '@/shared/lib/navigation/handleBack';
 import { useGameFilter } from '@/widgets/gameList/model/useGameFilter';
 import { GameList } from '@/widgets/gameList/ui/GameList';
 import { UserGameList } from '@/widgets/userGameList/ui/UserGameList';
 
 const ProfileGames = () => {
+	const navigate = useNavigate();
 	const { title, subtitle } = useCustomTranslation('profileGames');
 	const { searchHolder } = useCustomTranslation('onboardingStep2');
 	const { backBtn, saveBtn } = useCustomTranslation('profileSettings');
@@ -57,10 +60,10 @@ const ProfileGames = () => {
 			</div>
 
 			<div className={`flex w-full gap-4 mt-8 ${styles.buttons}`}>
-				<Button variant='secondary' onClick={handleBack}>
+				<Button variant='secondary' onClick={createHandleBack(navigate)}>
 					{backBtn}
 				</Button>
-				<Button variant='accept' onClick={handleBack}>
+				<Button variant='accept' onClick={createHandleBack(navigate)}>
 					{saveBtn}
 				</Button>
 			</div>

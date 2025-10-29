@@ -7,6 +7,10 @@ import styles from './ProfileSettings.module.css';
 import { useUserStore } from '@/entities/user/model/store';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, Input, useCustomTranslation } from '@/shared';
+import {
+	UpdateProfileParams,
+	updateProfile as updateProfileApi
+} from '@/shared/api/endpoints/updateProfile';
 import GbIco from '@/shared/assets/flags/gb-square.svg?react';
 import RuIco from '@/shared/assets/flags/ru-square.svg?react';
 import UaIco from '@/shared/assets/flags/ua-square.svg?react';
@@ -105,9 +109,95 @@ const AvatarSelector = ({
 	);
 };
 
+/**
+ * Преобразует возраст в возрастную группу
+ */
+const getAgeRange = (age: string | number): string => {
+	const ageNum = typeof age === 'string' ? parseInt(age) : age;
+	if (isNaN(ageNum)) return '18-24';
+
+	if (ageNum < 18) return '14-17';
+	if (ageNum <= 24) return '18-24';
+	if (ageNum <= 30) return '25-30';
+	return '30+';
+};
+
+/**
+ * Преобразует тип поиска из формата приложения в формат API
+ */
+const mapSearchType = (
+	selectedMatchType: string
+): UpdateProfileParams['search_type'] => {
+	switch (selectedMatchType) {
+		case 'realLife':
+			return 'REAL_MEETING';
+		case 'online':
+			return 'JUST_PLAY';
+		default:
+			return 'JUST_PLAY';
+	}
+};
+
+/**
+ * Преобразует измененные данные профиля в формат для обновления через API
+ */
+const mapProfileToUpdateParams = (
+	originalProfile: {
+		nickname: string;
+		age: string;
+		gender: string;
+		selectedLanguage: string;
+	},
+	currentProfile: ReturnType<typeof useUserStore>['profile']
+): UpdateProfileParams => {
+	const updateData: UpdateProfileParams = {};
+
+	// Проверяем, что изменилось и добавляем только измененные поля
+	if (currentProfile.gender !== originalProfile.gender) {
+		updateData.gender = currentProfile.gender || undefined;
+	}
+
+	if (currentProfile.age !== originalProfile.age) {
+		updateData.age_range = getAgeRange(currentProfile.age);
+	}
+
+	if (currentProfile.selectedMatchType) {
+		updateData.search_type = mapSearchType(currentProfile.selectedMatchType);
+	}
+
+	// about всегда можно обновить, если есть изменения
+	if (currentProfile.about !== undefined && currentProfile.about !== '') {
+		updateData.about = currentProfile.about;
+	}
+
+	// hobbies (interests)
+	if (currentProfile.interests && currentProfile.interests.length > 0) {
+		updateData.hobbies = currentProfile.interests.join(', ');
+	}
+
+	// game_platform
+	if (
+		currentProfile.selectedPlatform &&
+		currentProfile.selectedPlatform.length > 0
+	) {
+		updateData.game_platform = currentProfile.selectedPlatform;
+	}
+
+	// activity_time только для JUST_PLAY
+	const searchType = mapSearchType(currentProfile.selectedMatchType);
+	if (
+		searchType === 'JUST_PLAY' &&
+		currentProfile.selectedPrime &&
+		currentProfile.selectedPrime.length > 0
+	) {
+		updateData.activity_time = currentProfile.selectedPrime[0].toUpperCase();
+	}
+
+	return updateData;
+};
+
 const ProfileSettings = () => {
-	const { profile, setProfileField, setUserImage, updateProfile } =
-		useUserStore();
+	const { profile, setProfileField, setUserImage } = useUserStore();
 
 	const [avatars, setAvatars] = useState<(File | null)[]>([
 		null,
@@ -182,7 +272,19 @@ const ProfileSettings = () => {
 		}
 
 		try {
-			updateProfile(profile);
+			// Формируем данные для обновления (только измененные поля)
+			const updateData = mapProfileToUpdateParams(originalProfile, profile);
+
+			// Отправляем запрос на обновление профиля
+			// profile_id подтягивается из токена автоматически
+			await updateProfileApi(updateData);
+
+			// Обновляем локальное состояние после успешного обновления
+			setProfileField('nickname', profile.nickname);
+			setProfileField('age', profile.age);
+			setProfileField('gender', profile.gender);
+			setProfileField('selectedLanguage', profile.selectedLanguage);
+
 			localStorage.setItem('selectedLanguage', profile.selectedLanguage);
 			toast.success(validation.profileUpdated);
 			window.history.back();

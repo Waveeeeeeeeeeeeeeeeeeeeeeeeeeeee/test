@@ -8,8 +8,6 @@ type State = {
 	isLoading: boolean;
 	error: string | null;
 	isSuccess: boolean;
-	userId: number | null;
-	profileId: number | null;
 	submit: (
 		profile: UserProfile & {
 			telegramId: number;
@@ -23,17 +21,13 @@ export const useOnboarding = create<State>(set => ({
 	isLoading: false,
 	error: null,
 	isSuccess: false,
-	userId: null,
-	profileId: null,
 	submit: async profile => {
 		set({ isLoading: true, error: null });
 		try {
-			const { userId, profileId } = await completeOnboarding(profile);
+			await completeOnboarding(profile);
 			set({
 				isLoading: false,
-				isSuccess: true,
-				userId,
-				profileId
+				isSuccess: true
 			});
 		} catch (e: unknown) {
 			set({

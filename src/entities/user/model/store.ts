@@ -1,9 +1,6 @@
 import { create } from 'zustand';
 
-import { updateUserProfile } from '../api/updateUserProfile';
-
 import { Purpose, TelegramUser, UserProfile, UserStore } from './types';
-import { mapApiProfileToStore } from '@/app/utils/mapApiProfileToStore';
 import { Game } from '@/entities/game/model/types';
 
 const defaultProfile = {
@@ -77,11 +74,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 	},
 
 	updateProfile: async (data: Partial<UserProfile>) => {
-		try {
-			const apiResponse = await updateUserProfile.updateProfile(data);
-			const storeData = mapApiProfileToStore(apiResponse);
-			set({ profile: storeData });
-		} catch (error) {}
+		set({ profile: { ...get().profile, ...data } });
 	},
 
 	setGamePhoto: (gameId, file) =>
