@@ -115,6 +115,9 @@ const ru = {
     messageButton: {
       text: 'Написать'
     },
+    likeButton: {
+      text: 'Лайк'
+    },
     inviteButton: {
       text: 'Пригласить'
     },

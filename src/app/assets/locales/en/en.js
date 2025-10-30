@@ -119,6 +119,9 @@ const en = {
     messageButton: {
       text: 'Write'
     },
+    likeButton: {
+      text: 'Like'
+    },
     inviteButton: {
       text: 'Invite'
     },
