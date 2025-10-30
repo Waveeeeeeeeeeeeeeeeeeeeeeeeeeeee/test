@@ -11,20 +11,20 @@ import UserListFilters from '@/widgets/userListFilters/ui/UserListFilters';
 import { UserInteractionPanel } from '@/widgets/userPanel/ui/UserInteractionPanel';
 
 const SearchPage = () => {
-	const { searchType } = useParams<{ searchType: string }>();
-	const card = searchList.find(item => item.href.endsWith(searchType || ''));
-	// const users = useUserSocketStore(state => state.users);
+  const { searchType } = useParams<{searchType: string;}>();
+  const card = searchList.find((item) => item.href.endsWith(searchType || ''));
 
-	if (!card) return <div>Ничего не найдено 😢</div>;
-	return (
-		<>
+
+  if (!card) return <div>Ничего не найдено 😢</div>;
+  return (
+    <>
 			<div className='p-4 px-4 h-[900px] mb-20 relative overflow-scoll pb-48'>
 				<div className=' mb-2.5'>
 					<NotificationHeaderFactory
-						title={card.title}
-						IsBack={true}
-						notification={true}
-					/>
+            title={card.title}
+            IsBack={true}
+            notification={true} />
+          
 				</div>
 				<div className=' mb-4'>
 					<UserListFilters />
@@ -35,8 +35,8 @@ const SearchPage = () => {
 			</div>
 
 			<UserFiltersModal />
-		</>
-	);
+		</>);
+
 };
 
 export default AnimatedPage(SearchPage);

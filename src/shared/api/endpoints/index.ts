@@ -6,5 +6,4 @@ export * from './getAllMatches';
 export * from './getAllLikes';
 export * from './createLike';
 
-// Экспортируем общие типы
 export type { LikeData, MatchData } from './types/likes';

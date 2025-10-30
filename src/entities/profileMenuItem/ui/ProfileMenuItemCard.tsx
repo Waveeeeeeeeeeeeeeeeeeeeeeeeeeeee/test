@@ -6,78 +6,78 @@ import { useCustomTranslation } from '@/shared';
 import { useRulesToggle } from '@/widgets/onboardingSteps/model/toggleRules';
 
 interface Props {
-	item: ProfileMenuItem;
+  item: ProfileMenuItem;
 }
 
 export const ProfileMenuItemCard: FC<Props> = ({ item }) => {
-	const navigate = useNavigate();
-	const {
-		settings,
-		games,
-		tickets,
-		support,
-		rules,
-		privacy,
-		settings_description,
-		games_description,
-		tickets_description,
-		support_description,
-		rules_description,
-		privacy_description
-	} = useCustomTranslation('profile');
-	const { open } = useRulesToggle();
+  const navigate = useNavigate();
+  const {
+    settings,
+    games,
+    tickets,
+    support,
+    rules,
+    privacy,
+    settings_description,
+    games_description,
+    tickets_description,
+    support_description,
+    rules_description,
+    privacy_description
+  } = useCustomTranslation('profile');
+  const { open } = useRulesToggle();
 
-	const handleNavigate = (route: string) => {
-		if (route === 'rules') {
-			open();
-			return;
-		}
-		navigate(route);
-	};
+  const handleNavigate = (route: string) => {
+    if (route === 'rules') {
+      open();
+      return;
+    }
+    navigate(route);
+  };
 
-	const getItemText = (key: string) => {
-		switch (key) {
-			case 'settings':
-				return settings || 'Settings';
-			case 'games':
-				return games || 'Games';
-			case 'tickets':
-				return tickets || 'Tickets';
-			case 'support':
-				return support || 'Support';
-			case 'rules':
-				return rules || 'Rules';
-			case 'privacy':
-				return privacy || 'Privacy';
-			default:
-				return key;
-		}
-	};
+  const getItemText = (key: string) => {
+    switch (key) {
+      case 'settings':
+        return settings || 'Settings';
+      case 'games':
+        return games || 'Games';
+      case 'tickets':
+        return tickets || 'Tickets';
+      case 'support':
+        return support || 'Support';
+      case 'rules':
+        return rules || 'Rules';
+      case 'privacy':
+        return privacy || 'Privacy';
+      default:
+        return key;
+    }
+  };
 
-	const getItemDescription = (key: string) => {
-		switch (key) {
-			case 'settings':
-				return settings_description || 'Personal information, description tags';
-			case 'games':
-				return games_description || 'Change your game list and goals';
-			case 'tickets':
-				return tickets_description || 'View and manage your support tickets';
-			case 'support':
-				return support_description || 'Personal information, description tags';
-			case 'rules':
-				return rules_description || 'Personal information, description tags';
-			case 'privacy':
-				return privacy_description || 'Personal information, description tags';
-			default:
-				return '';
-		}
-	};
+  const getItemDescription = (key: string) => {
+    switch (key) {
+      case 'settings':
+        return settings_description || 'Personal information, description tags';
+      case 'games':
+        return games_description || 'Change your game list and goals';
+      case 'tickets':
+        return tickets_description || 'View and manage your support tickets';
+      case 'support':
+        return support_description || 'Personal information, description tags';
+      case 'rules':
+        return rules_description || 'Personal information, description tags';
+      case 'privacy':
+        return privacy_description || 'Personal information, description tags';
+      default:
+        return '';
+    }
+  };
 
-	return (
-		<button
-			onClick={() => handleNavigate(item.route)}
-			className='flex items-center gap-4 bg-[var(--second-bg)] p-4 rounded-2xl text-left  text-white hover:bg-[var(--third-bg)] transition-colors w-full cursor-pointer'
-		>
+  return (
+    <button
+      onClick={() => handleNavigate(item.route)}
+      className='flex items-center gap-4 bg-[var(--second-bg)] p-4 rounded-2xl text-left  text-white hover:bg-[var(--third-bg)] transition-colors w-full cursor-pointer'>
+
 			<div className='mt-1'>
 				<item.icon />
 			</div>
@@ -87,6 +87,6 @@ export const ProfileMenuItemCard: FC<Props> = ({ item }) => {
 					{getItemDescription(item.key)}
 				</div>
 			</div>
-		</button>
-	);
+		</button>);
+
 };

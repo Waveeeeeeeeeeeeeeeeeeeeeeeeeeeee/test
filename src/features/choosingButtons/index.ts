@@ -1,1 +1,1 @@
-export * from './ui/ChoosingButtons'
+export * from './ui/ChoosingButtons';

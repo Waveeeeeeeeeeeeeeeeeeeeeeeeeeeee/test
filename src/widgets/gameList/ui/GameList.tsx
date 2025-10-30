@@ -6,88 +6,88 @@ import Search from '@/features/search/Search';
 import VirtualVariantSelection from '@/features/variantSelection/ui/VirtualVariantSelection';
 
 export const GameList = ({
-	games,
-	searchValue,
-	onSearchChange,
-	selectedGameIds,
-	onChangeSelectedGameIds,
-	allGameTitles,
-	searchPlaceholder = 'Поиск'
+  games,
+  searchValue,
+  onSearchChange,
+  selectedGameIds,
+  onChangeSelectedGameIds,
+  allGameTitles,
+  searchPlaceholder = 'Поиск'
 }: GameListProps) => {
-	const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-	const filteredGames = selectedTag
-		? games.filter(game => game.title === selectedTag)
-		: searchValue.trim() === ''
-			? games
-			: games.filter(game =>
-					game.title.toLowerCase().includes(searchValue.toLowerCase())
-				);
+  const filteredGames = selectedTag ?
+  games.filter((game) => game.title === selectedTag) :
+  searchValue.trim() === '' ?
+  games :
+  games.filter((game) =>
+  game.title.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
-	const handleAddInterest = (tag: string) => {
-		const game = games.find(g => g.title === tag);
-		if (game) {
-			onChangeSelectedGameIds([...selectedGameIds, game.id]);
-		}
-		setSelectedTag(tag);
-		onSearchChange('');
-	};
+  const handleAddInterest = (tag: string) => {
+    const game = games.find((g) => g.title === tag);
+    if (game) {
+      onChangeSelectedGameIds([...selectedGameIds, game.id]);
+    }
+    setSelectedTag(tag);
+    onSearchChange('');
+  };
 
-	const handleSearchChange = (value: string) => {
-		onSearchChange(value);
-		if (value === '') {
-			setSelectedTag(null);
-		}
-	};
+  const handleSearchChange = (value: string) => {
+    onSearchChange(value);
+    if (value === '') {
+      setSelectedTag(null);
+    }
+  };
 
-	return (
-		<div className='w-full mx-auto'>
+  return (
+    <div className='w-full mx-auto'>
 			<Search
-				tags={allGameTitles}
-				addInterest={handleAddInterest}
-				placeholder={searchPlaceholder}
-				searchValue={searchValue}
-				onSearchChange={handleSearchChange}
-			/>
+        tags={allGameTitles}
+        addInterest={handleAddInterest}
+        placeholder={searchPlaceholder}
+        searchValue={searchValue}
+        onSearchChange={handleSearchChange} />
+      
 
 			<VirtualVariantSelection
-				data={filteredGames.map(game => ({
-					code: game.id,
-					label: game.title,
-					seclabel: `${game.players} чел.`,
-					icon: (() => {
-						const hasValidIcon =
-							game.icon &&
-							game.icon.trim() !== '' &&
-							(game.icon.startsWith('http') || game.icon.startsWith('/'));
+        data={filteredGames.map((game) => ({
+          code: game.id,
+          label: game.title,
+          seclabel: `${game.players} чел.`,
+          icon: (() => {
+            const hasValidIcon =
+            game.icon &&
+            game.icon.trim() !== '' && (
+            game.icon.startsWith('http') || game.icon.startsWith('/'));
 
-						return hasValidIcon
-							? () => (
-									<img
-										src={game.icon}
-										alt={game.title}
-										className='w-[52px] h-[52px] rounded-2xl object-cover'
-									/>
-								)
-							: () => (
-									<div className='w-[52px] h-[52px] rounded-2xl bg-gray-300 flex items-center justify-center'>
+            return hasValidIcon ?
+            () =>
+            <img
+              src={game.icon}
+              alt={game.title}
+              className='w-[52px] h-[52px] rounded-2xl object-cover' /> :
+
+
+            () =>
+            <div className='w-[52px] h-[52px] rounded-2xl bg-gray-300 flex items-center justify-center'>
 										<span className='text-gray-500 text-xs font-bold'>
 											{game.title.charAt(0).toUpperCase()}
 										</span>
-									</div>
-								);
-					})()
-				}))}
-				selected={selectedGameIds}
-				onSelect={value => {
-					if (Array.isArray(value)) {
-						onChangeSelectedGameIds(value);
-					} else {
-						onChangeSelectedGameIds([value]);
-					}
-				}}
-				multiple
-			/>
-		</div>
-	);
+									</div>;
+
+          })()
+        }))}
+        selected={selectedGameIds}
+        onSelect={(value) => {
+          if (Array.isArray(value)) {
+            onChangeSelectedGameIds(value);
+          } else {
+            onChangeSelectedGameIds([value]);
+          }
+        }}
+        multiple />
+      
+		</div>);
+
 };

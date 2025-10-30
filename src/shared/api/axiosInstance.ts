@@ -5,8 +5,8 @@ export const axiosInstance = axios.create({
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',
-		'X-Access-Token': '1234567890',
-		'X-Token-Version': '1234567890'
+		'X-Access-Token': 's.RzpsCwccQ8gcPSPR3sQIVR4z',
+		'X-Token-Version': 'DATING_V1'
 	}
 });
 

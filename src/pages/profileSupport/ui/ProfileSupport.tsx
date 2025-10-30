@@ -10,132 +10,132 @@ import { createHandleBack } from '@/shared/lib/navigation/handleBack';
 import PhotoContainer from '@/shared/ui/PhotoContainer/PhotoContainer';
 
 const ProfileSupport = () => {
-	const navigate = useNavigate();
-	const { addTicket } = useTicketStore();
-	const { title, messageTitle, problemTitle, problemDesc, sendButton } =
-		useCustomTranslation('profileSupport');
-	const { topic, setTopic, description, setDescription, setImage } =
-		useSupportFormStore();
-	const { char } = useCustomTranslation('onboardingAboutMe');
-	const { backButton } = useCustomTranslation('Onboarding');
+  const navigate = useNavigate();
+  const { addTicket } = useTicketStore();
+  const { title, messageTitle, problemTitle, problemDesc, sendButton } =
+  useCustomTranslation('profileSupport');
+  const { topic, setTopic, description, setDescription, setImage } =
+  useSupportFormStore();
+  const { char } = useCustomTranslation('onboardingAboutMe');
+  const { backButton } = useCustomTranslation('Onboarding');
 
-	const handleTopicChange = (info: string) => {
-		setTopic(info);
-	};
+  const handleTopicChange = (info: string) => {
+    setTopic(info);
+  };
 
-	const {
-		problemMessage,
-		problemApplication,
-		problemAuth,
-		problemSearch,
-		problemNotifications,
-		problemPhoto,
-		problemChat,
-		problemPayment,
-		problemAccount
-	} = useCustomTranslation('profileSupport');
+  const {
+    problemMessage,
+    problemApplication,
+    problemAuth,
+    problemSearch,
+    problemNotifications,
+    problemPhoto,
+    problemChat,
+    problemPayment,
+    problemAccount
+  } = useCustomTranslation('profileSupport');
 
-	const getIconByProblemType = (problemType: string) => {
-		const iconMap: { [key: string]: string } = {
-			message: '💬',
-			application: '📱',
-			auth: '🔐',
-			search: '🔍',
-			notifications: '🔔',
-			photo: '📷',
-			chat: '💬',
-			payment: '💳',
-			account: '👤'
-		};
-		return iconMap[problemType] || '🎫';
-	};
+  const getIconByProblemType = (problemType: string) => {
+    const iconMap: {[key: string]: string;} = {
+      message: '💬',
+      application: '📱',
+      auth: '🔐',
+      search: '🔍',
+      notifications: '🔔',
+      photo: '📷',
+      chat: '💬',
+      payment: '💳',
+      account: '👤'
+    };
+    return iconMap[problemType] || '🎫';
+  };
 
-	const generateUniqueId = () => {
-		return Date.now().toString() + Math.random().toString(36).substr(2, 9);
-	};
+  const generateUniqueId = () => {
+    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+  };
 
-	const getTitleByProblemType = (problemType: string) => {
-		const titleMap: { [key: string]: string } = {
-			message: problemMessage,
-			application: problemApplication,
-			auth: problemAuth,
-			search: problemSearch,
-			notifications: problemNotifications,
-			photo: problemPhoto,
-			chat: problemChat,
-			payment: problemPayment,
-			account: problemAccount
-		};
-		return titleMap[problemType] || problemApplication;
-	};
+  const getTitleByProblemType = (problemType: string) => {
+    const titleMap: {[key: string]: string;} = {
+      message: problemMessage,
+      application: problemApplication,
+      auth: problemAuth,
+      search: problemSearch,
+      notifications: problemNotifications,
+      photo: problemPhoto,
+      chat: problemChat,
+      payment: problemPayment,
+      account: problemAccount
+    };
+    return titleMap[problemType] || problemApplication;
+  };
 
-	const problemData = [
-		{ label: problemMessage, code: 'message' },
-		{ label: problemApplication, code: 'application' },
-		{ label: problemAuth, code: 'auth' },
-		{ label: problemSearch, code: 'search' },
-		{ label: problemNotifications, code: 'notifications' },
-		{ label: problemPhoto, code: 'photo' },
-		{ label: problemChat, code: 'chat' },
-		{ label: problemPayment, code: 'payment' },
-		{ label: problemAccount, code: 'account' }
-	];
+  const problemData = [
+  { label: problemMessage, code: 'message' },
+  { label: problemApplication, code: 'application' },
+  { label: problemAuth, code: 'auth' },
+  { label: problemSearch, code: 'search' },
+  { label: problemNotifications, code: 'notifications' },
+  { label: problemPhoto, code: 'photo' },
+  { label: problemChat, code: 'chat' },
+  { label: problemPayment, code: 'payment' },
+  { label: problemAccount, code: 'account' }];
 
-	const handleSubmitTicket = () => {
-		if (!topic) {
-			return;
-		}
-		if (!description || description.length < 30) {
-			return;
-		}
 
-		const newTicket = {
-			id: generateUniqueId(),
-			title: getTitleByProblemType(topic),
-			description: description,
-			status: 'open' as const,
-			icon: getIconByProblemType(topic),
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString()
-		};
+  const handleSubmitTicket = () => {
+    if (!topic) {
+      return;
+    }
+    if (!description || description.length < 30) {
+      return;
+    }
 
-		addTicket(newTicket);
+    const newTicket = {
+      id: generateUniqueId(),
+      title: getTitleByProblemType(topic),
+      description: description,
+      status: 'open' as const,
+      icon: getIconByProblemType(topic),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
 
-		setTopic('');
-		setDescription('');
-		setImage(null);
+    addTicket(newTicket);
 
-		navigate('/profile/tickets');
-	};
+    setTopic('');
+    setDescription('');
+    setImage(null);
 
-	return (
-		<div className='h-screen relative overflow-scroll flex flex-col'>
+    navigate('/profile/tickets');
+  };
+
+  return (
+    <div className='h-screen relative overflow-scroll flex flex-col'>
 			<div className='flex-1 p-4 px-4 flex flex-col gap-7.5'>
 				<NotificationHeaderFactory title={title} IsBack={true} />
 				<div>
 					<h3 className={styles.subtitle}>{messageTitle}</h3>
 					<DropDown
-						data={problemData}
-						selectedValue={topic}
-						onSelect={handleTopicChange}
-						placeholder={problemData[0].label}
-					/>
+            data={problemData}
+            selectedValue={topic}
+            onSelect={handleTopicChange}
+            placeholder={problemData[0].label} />
+          
 				</div>
 
 				<div>
 					<TextArea
-						data={{
-							label: problemTitle,
-							name: 'comment',
-							placeholder: problemDesc,
-							value: description,
-							minLength: 30,
-							maxLength: 400,
-							notification: `${description.length}/400 ${char}`,
-							onChange: (value: string) => setDescription(value),
-							height: 'h-[172px]'
-						}}
-					/>
+            data={{
+              label: problemTitle,
+              name: 'comment',
+              placeholder: problemDesc,
+              value: description,
+              minLength: 30,
+              maxLength: 400,
+              notification: `${description.length}/400 ${char}`,
+              onChange: (value: string) => setDescription(value),
+              height: 'h-[172px]'
+            }} />
+          
 				</div>
 
 				<div>
@@ -150,8 +150,8 @@ const ProfileSupport = () => {
 					{sendButton}
 				</Button>
 			</div>
-		</div>
-	);
+		</div>);
+
 };
 
 export default AnimatedPage(ProfileSupport);

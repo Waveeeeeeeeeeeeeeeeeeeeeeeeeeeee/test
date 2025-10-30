@@ -1,1 +1,1 @@
-export * from './ui/PersonGameCard'
+export * from './ui/PersonGameCard';

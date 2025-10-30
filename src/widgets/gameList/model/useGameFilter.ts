@@ -9,6 +9,6 @@ export const useGameFilter = () => {
 
   return {
     search,
-    onChange,
+    onChange
   };
 };

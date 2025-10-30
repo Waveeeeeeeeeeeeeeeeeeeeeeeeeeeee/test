@@ -134,6 +134,7 @@ export const BottomNavigation = () => {
 										alt={`Attachment ${index + 1}`}
 										className='w-12 h-12 object-cover rounded'
 									/>
+
 									<button
 										onClick={() => {
 											setAttachedFiles(prev =>
@@ -174,6 +175,7 @@ export const BottomNavigation = () => {
 						}
 						maxLength={200}
 					/>
+
 					<div className='text-xs text-gray-400 mt-1'>{message.length}/200</div>
 				</div>
 				<button

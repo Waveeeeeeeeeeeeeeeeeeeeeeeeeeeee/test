@@ -4,26 +4,26 @@ import { useLocation } from 'react-router';
 import { BottomNavigation } from '@/widgets/bottomNavigation/ui/BottomNavigation';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-	const location = useLocation();
-	const disabledBottom = [
-		'/profile/settings',
-		'/profile/games',
-		'/profile/rules',
-		'/profile/support',
-		'/profile/privacy',
-		'/onboarding',
-		'/notifications'
-	].includes(location.pathname);
+  const location = useLocation();
+  const disabledBottom = [
+  '/profile/settings',
+  '/profile/games',
+  '/profile/rules',
+  '/profile/support',
+  '/profile/privacy',
+  '/onboarding',
+  '/notifications'].
+  includes(location.pathname);
 
-	return (
-		<div
-			style={{ backgroundColor: 'black' }}
-			className='flex flex-col min-h-screen overflow-hidden '
-		>
+  return (
+    <div
+      style={{ backgroundColor: 'black' }}
+      className='flex flex-col min-h-screen overflow-hidden '>
+
 			{children}
 			{!disabledBottom && <BottomNavigation />}
-		</div>
-	);
+		</div>);
+
 };
 
 export default Layout;

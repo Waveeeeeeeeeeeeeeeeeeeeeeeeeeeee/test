@@ -5,31 +5,31 @@ import { reqRegister } from './reqRegister';
 import { useUserStore } from '@/entities/user/model/store';
 
 export const useTelegramRegister = () => {
-	useEffect(() => {
-		const register = async () => {
-			try {
-				const { telegram, telegramQueryId, telegramAuthDate, userHash } =
-					useUserStore.getState();
+  useEffect(() => {
+    const register = async () => {
+      try {
+        const { telegram, telegramQueryId, telegramAuthDate, userHash } =
+        useUserStore.getState();
 
-				if (!telegram || !telegramQueryId || !telegramAuthDate) {
-					throw new Error('Telegram data not found');
-				}
+        if (!telegram || !telegramQueryId || !telegramAuthDate) {
+          throw new Error('Telegram data not found');
+        }
 
-				const initData = generateInitDataFromTelegram(
-					telegram,
-					telegramAuthDate,
-					telegramQueryId,
-					userHash || undefined
-				);
+        const initData = generateInitDataFromTelegram(
+          telegram,
+          telegramAuthDate,
+          telegramQueryId,
+          userHash || undefined
+        );
 
-				const userData = {
-					telegram_id: telegram.id
-				};
+        const userData = {
+          telegram_id: telegram.id
+        };
 
-				const res = await reqRegister(userData, initData);
-			} catch (e: unknown) {}
-		};
+        const res = await reqRegister(userData, initData);
+      } catch (e: unknown) {}
+    };
 
-		register();
-	}, []);
+    register();
+  }, []);
 };

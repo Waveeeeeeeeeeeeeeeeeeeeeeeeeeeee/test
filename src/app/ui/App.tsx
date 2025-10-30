@@ -8,27 +8,27 @@ import AppRouter from '../router/AppRouter';
 import { Toast } from '@/entities/toast/ToastProvider';
 
 const AppContent: FC = () => {
-	const location = useLocation();
+  const location = useLocation();
 
-	if (location.pathname === '/auth') {
-		return <AppRouter />;
-	}
+  if (location.pathname === '/auth') {
+    return <AppRouter />;
+  }
 
-	return (
-		<Layout>
+  return (
+    <Layout>
 			<AppRouter />
-		</Layout>
-	);
+		</Layout>);
+
 };
 
 const App: FC = () => {
-	const { showContent } = useMainApp();
+  const { showContent } = useMainApp();
 
-	return (
-		<BrowserRouter>
+  return (
+    <BrowserRouter>
 			<Toast>{showContent && <AppContent />}</Toast>
-		</BrowserRouter>
-	);
+		</BrowserRouter>);
+
 };
 
 export default App;

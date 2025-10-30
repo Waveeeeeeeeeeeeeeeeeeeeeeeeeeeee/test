@@ -5,61 +5,61 @@ import { AnimatedPage } from '@/shared/hoc/AnimatedPage';
 import { NotificationHeaderFactory } from '@/shared/lib/factory/NotificationHeaderFactory';
 
 type PrivacyPolicyTranslation = {
-	title: string;
-	lastUpdated: string;
-	introduction: {
-		title: string;
-		content: string;
-	};
-	dataCollection: {
-		title: string;
-		personalInfo: string;
-		gameData: string;
-		location: string;
-		usage: string;
-	};
-	dataUse: {
-		title: string;
-		matching: string;
-		communication: string;
-		improvement: string;
-		support: string;
-	};
-	dataSharing: {
-		title: string;
-		content: string;
-	};
-	dataProtection: {
-		title: string;
-		content: string;
-	};
-	userRights: {
-		title: string;
-		access: string;
-		update: string;
-		delete: string;
-		portability: string;
-	};
-	contact: {
-		title: string;
-		content: string;
-	};
+  title: string;
+  lastUpdated: string;
+  introduction: {
+    title: string;
+    content: string;
+  };
+  dataCollection: {
+    title: string;
+    personalInfo: string;
+    gameData: string;
+    location: string;
+    usage: string;
+  };
+  dataUse: {
+    title: string;
+    matching: string;
+    communication: string;
+    improvement: string;
+    support: string;
+  };
+  dataSharing: {
+    title: string;
+    content: string;
+  };
+  dataProtection: {
+    title: string;
+    content: string;
+  };
+  userRights: {
+    title: string;
+    access: string;
+    update: string;
+    delete: string;
+    portability: string;
+  };
+  contact: {
+    title: string;
+    content: string;
+  };
 };
 
 const ProfilePrivacy = () => {
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	const privacyPolicy = t('privacyPolicy', {
-		returnObjects: true
-	}) as PrivacyPolicyTranslation;
+  const privacyPolicy = t('privacyPolicy', {
+    returnObjects: true
+  }) as PrivacyPolicyTranslation;
 
-	return (
-		<div className={styles.container}>
+  return (
+    <div className={styles.container}>
 			<NotificationHeaderFactory
-				title={privacyPolicy.title}
-				IsBack={true}
-				notification={false}
-			/>
+        title={privacyPolicy.title}
+        IsBack={true}
+        notification={false} />
+
 
 			<div className={styles.content}>
 				<div className={styles.section}>
@@ -156,8 +156,8 @@ const ProfilePrivacy = () => {
 					</p>
 				</div>
 			</div>
-		</div>
-	);
+		</div>);
+
 };
 
 export default AnimatedPage(ProfilePrivacy);

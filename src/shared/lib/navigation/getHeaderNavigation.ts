@@ -1,6 +1,6 @@
 export const getHeaderNavigation = (
-	onGoBack?: () => void,
-	defaultBack: () => void = () => {}
-) => {
-	return onGoBack ?? defaultBack;
+onGoBack?: () => void,
+defaultBack: () => void = () => {}) =>
+{
+  return onGoBack ?? defaultBack;
 };
