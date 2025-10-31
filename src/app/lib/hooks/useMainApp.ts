@@ -2,16 +2,17 @@ import {
 	expandViewport,
 	init,
 	restoreInitData,
+	retrieveLaunchParams,
 	swipeBehavior
 } from '@telegram-apps/sdk';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useUserStore } from '@/entities/user/model/store';
-import { TelegramUser } from '@/entities/user/model/types';
 
 export const useMainApp = () => {
 	const [isReady, setIsReady] = useState(false);
+	const [debugLog, setDebugLog] = useState<string>('');
 	const {
 		setTelegramUser,
 		setUserHash,
@@ -36,37 +37,140 @@ export const useMainApp = () => {
 
 			let initDataString: string | null = null;
 
-			const debugLog = (label: string, payload: unknown) => {
+				console.log('=== BEFORE retrieveLaunchParams ===');
+				console.log('=====================================');
+
 				try {
-					let el = document.getElementById('debug-log');
-					if (!el) {
-						el = document.createElement('div');
-						el.id = 'debug-log';
-						el.setAttribute(
-							'style',
-							[
-								'position: fixed',
-								'top: 0',
-								'left: 0',
-								'width: 100vw',
-								'height: 40vh',
-								'background-color: rgba(0,0,0,0.9)',
-								'color: white',
-								'font-size: 14px',
-								'padding: 20px',
-								'overflow: auto',
-								'z-index: 9999',
-								'font-family: monospace'
-							].join(';')
-						);
-						const titleDiv = document.createElement('div');
-						titleDiv.setAttribute(
-							'style',
-							'font-size: 18px; font-weight: bold; margin-bottom: 10px'
-						);
-						titleDiv.textContent = 'Debug Log:';
-						el.appendChild(titleDiv);
-						document.body.appendChild(el);
+					console.log('Calling retrieveLaunchParams...');
+
+					const result = retrieveLaunchParams();
+					console.log('retrieveLaunchParams SUCCESS!');
+
+					console.log('=== TELEGRAM WEBAPP DATA ===');
+					console.log('Full result:', JSON.stringify(result, null, 2));
+					console.log('=== TGWEBAPPDATA ANALYSIS ===');
+					console.log(
+						'result.tgWebAppData:',
+						JSON.stringify(result.tgWebAppData, null, 2)
+					);
+					console.log('result.tgWebAppData type:', typeof result.tgWebAppData);
+					console.log(
+						'result.tgWebAppData === undefined:',
+						result.tgWebAppData === undefined
+					);
+					console.log(
+						'result.tgWebAppData === null:',
+						result.tgWebAppData === null
+					);
+					console.log(
+						'result.tgWebAppData keys:',
+						result.tgWebAppData
+							? Object.keys(result.tgWebAppData as any)
+							: 'NO KEYS'
+					);
+					console.log('result.tgWebAppData.user:', result.tgWebAppData?.user);
+					console.log(
+						'result.tgWebAppData.user type:',
+						typeof result.tgWebAppData?.user
+					);
+					console.log('result.tgWebAppData.hash:', result.tgWebAppData?.hash);
+					console.log(
+						'result.tgWebAppData.query_id:',
+						result.tgWebAppData?.query_id
+					);
+					console.log(
+						'result.tgWebAppData.auth_date:',
+						result.tgWebAppData?.auth_date
+					);
+					console.log(
+						'result.tgWebAppData.signature:',
+						result.tgWebAppData?.signature
+					);
+					console.log('===========================');
+
+					const logToDOM = (message: string) => {
+						const timestamp = new Date().toLocaleTimeString();
+						const logMessage = `${timestamp}: ${message}`;
+						setDebugLog(prev => prev + logMessage + '\n');
+					};
+
+					logToDOM('=== TELEGRAM WEBAPP DATA ===');
+					logToDOM('=== TGWEBAPPDATA ANALYSIS ===');
+					logToDOM(
+						'tgWebAppData: ' + JSON.stringify(result.tgWebAppData, null, 2)
+					);
+					logToDOM('tgWebAppData type: ' + typeof result.tgWebAppData);
+					logToDOM(
+						'tgWebAppData === undefined: ' + (result.tgWebAppData === undefined)
+					);
+					logToDOM('tgWebAppData === null: ' + (result.tgWebAppData === null));
+					logToDOM(
+						'tgWebAppData keys: ' +
+							(result.tgWebAppData
+								? Object.keys(result.tgWebAppData as any).join(', ')
+								: 'NO KEYS')
+					);
+					logToDOM(
+						'tgWebAppData.user: ' +
+							JSON.stringify(result.tgWebAppData?.user, null, 2)
+					);
+					logToDOM(
+						'tgWebAppData.user type: ' + typeof result.tgWebAppData?.user
+					);
+					logToDOM('tgWebAppData.hash: ' + result.tgWebAppData?.hash);
+					logToDOM('tgWebAppData.query_id: ' + result.tgWebAppData?.query_id);
+					logToDOM('tgWebAppData.auth_date: ' + result.tgWebAppData?.auth_date);
+					logToDOM('tgWebAppData.signature: ' + result.tgWebAppData?.signature);
+					logToDOM('===========================');
+
+					tgWebAppData = result.tgWebAppData;
+				} catch (error) {
+					console.error('=== retrieveLaunchParams FAILED ===');
+					console.error('Error type:', typeof error);
+					console.error('Error name:', (error as Error)?.name);
+					console.error('Error message:', (error as Error)?.message);
+					console.error('Error stack:', (error as Error)?.stack);
+					console.error('Full error:', JSON.stringify(error, null, 2));
+
+					console.log('=== DIAGNOSTIC INFO ===');
+					console.log('User Agent:', navigator.userAgent);
+					console.log('URL:', window.location.href);
+					console.log('Referrer:', document.referrer);
+					console.log('========================');
+
+					const logToDOM = (message: string) => {
+						const timestamp = new Date().toLocaleTimeString();
+						const logMessage = `${timestamp}: ${message}`;
+						setDebugLog(prev => prev + logMessage + '\n');
+					};
+
+					logToDOM('=== TELEGRAM WEBAPP ERROR ===');
+					logToDOM('Error type: ' + typeof error);
+					logToDOM('Error name: ' + ((error as Error)?.name || 'unknown'));
+					logToDOM(
+						'Error message: ' + ((error as Error)?.message || 'no message')
+					);
+					logToDOM('User Agent: ' + navigator.userAgent);
+					logToDOM('URL: ' + window.location.href);
+					logToDOM('Referrer: ' + document.referrer);
+					logToDOM('=== TGWEBAPPDATA IN ERROR ===');
+					logToDOM('retrieveLaunchParams() FAILED ');
+					logToDOM('Error details: ' + JSON.stringify(error, null, 2));
+
+					logToDOM('===========================');
+
+					const user = initDataUser();
+
+					if (user) {
+						tgWebAppData = { user };
+						initDataString =
+							(
+								window as unknown as {
+									Telegram?: { WebApp?: { initData?: string } };
+								}
+							).Telegram?.WebApp?.initData || null;
+					} else {
+						tgWebAppData = null;
 					}
 					const block = document.createElement('div');
 					block.style.marginBottom = '6px';
@@ -140,13 +244,16 @@ export const useMainApp = () => {
 						}
 					}
 
-					if (userData && typeof userData === 'object') {
-						setTelegramUser(userData as TelegramUser);
+				if (tgWebAppData?.user) {
+					setTelegramUser(tgWebAppData.user);
+
+					if ('hash' in tgWebAppData && tgWebAppData.hash) {
+						setUserHash(tgWebAppData.hash as string);
 					}
-					if (parsedUrlData.query_id) {
-						setTelegramQueryId(String(parsedUrlData.query_id));
+					if ('query_id' in tgWebAppData && tgWebAppData.query_id) {
+						setTelegramQueryId(tgWebAppData.query_id as string);
 					}
-					if (parsedUrlData.auth_date) {
+					if ('auth_date' in tgWebAppData && tgWebAppData.auth_date) {
 						let authTimestamp: number;
 						if (typeof parsedUrlData.auth_date === 'number') {
 							authTimestamp = parsedUrlData.auth_date;
@@ -160,7 +267,7 @@ export const useMainApp = () => {
 										);
 						} else {
 							authTimestamp = Math.floor(
-								(parsedUrlData.auth_date as Date).getTime() / 1000
+								(tgWebAppData.auth_date as Date).getTime() / 1000
 							);
 						}
 						setTelegramAuthDate(authTimestamp);
@@ -185,9 +292,33 @@ export const useMainApp = () => {
 				debugLog('X-Telegram-Init-Data (final)', initDataString);
 			}
 
-			const languageCodeFromLs = localStorage.getItem('language_code');
-			if (languageCodeFromLs) {
-				i18n.changeLanguage(languageCodeFromLs);
+				setIsReady(true);
+			} catch (error) {
+				console.error('=== useMainApp initialization error ===');
+				console.error('Error type:', typeof error);
+				console.error('Error name:', (error as Error)?.name);
+				console.error('Error message:', (error as Error)?.message);
+				console.error('Error stack:', (error as Error)?.stack);
+				console.error('Full error:', JSON.stringify(error, null, 2));
+				console.error('===============================');
+
+				const logToDOM = (message: string) => {
+					const timestamp = new Date().toLocaleTimeString();
+					const logMessage = `${timestamp}: ${message}`;
+					setDebugLog(prev => prev + logMessage + '\n');
+				};
+
+				logToDOM('=== useMainApp initialization error ===');
+				logToDOM('Error type: ' + typeof error);
+				logToDOM('Error name: ' + ((error as Error)?.name || 'unknown'));
+				logToDOM(
+					'Error message: ' + ((error as Error)?.message || 'no message')
+				);
+				logToDOM('Error stack: ' + ((error as Error)?.stack || 'no stack'));
+				logToDOM('Full error: ' + JSON.stringify(error, null, 2));
+				logToDOM('===============================');
+
+				setIsReady(true);
 			}
 
 			setIsReady(true);
@@ -207,6 +338,7 @@ export const useMainApp = () => {
 	return {
 		showContent: isReady,
 		shouldRedirectToOnboarding: false,
-		isAuthChecking: false
+		isAuthChecking: false,
+		debugLog
 	};
 };

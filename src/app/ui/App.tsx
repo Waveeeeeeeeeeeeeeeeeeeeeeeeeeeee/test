@@ -27,8 +27,14 @@ const App: FC = () => {
   return (
     <BrowserRouter>
 			<Toast>{showContent && <AppContent />}</Toast>
-		</BrowserRouter>);
-
+			<div
+				id='debug-log'
+				style={{
+					display: 'none'
+				}}
+			></div>
+		</BrowserRouter>
+	);
 };
 
 export default App;

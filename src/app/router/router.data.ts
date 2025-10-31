@@ -4,7 +4,7 @@ import AuthPage from '@/pages/auth/AuthPage';
 import Friends from '@/pages/friends/ui/Friends';
 import Home from '@/pages/home/ui/Home';
 import { Notification } from '@/pages/notifications';
-import { Onboarding } from '@/pages/onboarding';
+import { OnboardingWithDebug } from '@/pages/onboarding/ui/OnboardingWithDebug';
 import Profile from '@/pages/profile/ui/Profile';
 import ProfileGames from '@/pages/profileGames/ui/ProfileGames';
 import ProfileInfoOnline from '@/pages/profileInfoOnline/ProfileInfoOnline';
@@ -25,22 +25,22 @@ export const bgRoutes: BgRoutesType = {
 };
 
 export const routes: IRoute[] = [
-{
-  path: '/auth',
-  component: AuthPage
-},
-{
-  path: EnumRoutes.HOME,
-  component: Home
-},
-{
-  path: EnumRoutes.ONBOARDING,
-  component: Onboarding
-},
-{
-  path: EnumRoutes.SEARCH,
-  component: SearchPage
-},
+	{
+		path: '/auth',
+		component: AuthPage
+	},
+	{
+		path: EnumRoutes.HOME,
+		component: Home
+	},
+	{
+		path: EnumRoutes.ONBOARDING,
+		component: OnboardingWithDebug
+	},
+	{
+		path: EnumRoutes.SEARCH,
+		component: SearchPage
+	},
 
 {
   path: EnumRoutes.SEARCH_DETAIL,
