@@ -81,13 +81,35 @@ export const completeOnboarding = async (profile: Params): Promise<void> => {
   
   if (!telegramUser && storeState.telegramInitData) {
     try {
-      const initDataParsed = JSON.parse(storeState.telegramInitData);
-      if (initDataParsed.user) {
-        if (typeof initDataParsed.user === 'string') {
-          telegramUser = JSON.parse(initDataParsed.user);
-        } else if (typeof initDataParsed.user === 'object') {
-          telegramUser = initDataParsed.user;
+      const initDataStr = storeState.telegramInitData;
+      let parsedUser: unknown = null;
+      
+      if (initDataStr.startsWith('{')) {
+        const initDataParsed = JSON.parse(initDataStr);
+        if (initDataParsed.user) {
+          if (typeof initDataParsed.user === 'string') {
+            parsedUser = JSON.parse(initDataParsed.user);
+          } else if (typeof initDataParsed.user === 'object') {
+            parsedUser = initDataParsed.user;
+          }
         }
+      } else {
+        const parts = initDataStr.split(/\\n|\n/);
+        for (const part of parts) {
+          if (part.startsWith('user=')) {
+            const userStr = part.substring(5).trim();
+            try {
+              parsedUser = JSON.parse(userStr);
+            } catch {
+              parsedUser = userStr;
+            }
+            break;
+          }
+        }
+      }
+      
+      if (parsedUser && typeof parsedUser === 'object') {
+        telegramUser = parsedUser as typeof telegramUser;
         console.log('completeOnboarding: извлекли пользователя из telegramInitData', telegramUser);
       }
     } catch (e) {
