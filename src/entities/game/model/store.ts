@@ -28,5 +28,5 @@ export const useGameStore = create<GameStore>((set) => ({
   error: null,
   setGames: (games) => set({ games }),
   setLoading: (loading) => set({ isLoading: loading }),
-  setError: (error) => set({ error }),
+  setError: (error) => set({ error })
 }));

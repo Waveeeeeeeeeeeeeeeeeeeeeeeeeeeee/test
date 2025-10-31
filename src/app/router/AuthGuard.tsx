@@ -4,37 +4,40 @@ import { Navigate } from 'react-router';
 import { useUserStore } from '@/entities/user/model/store';
 
 interface AuthGuardProps {
-	children: ReactNode;
-	requireAuth?: boolean;
-	requireOnboarding?: boolean;
+  children: ReactNode;
+  requireAuth?: boolean;
+  requireOnboarding?: boolean;
 }
 
 export const AuthGuard: FC<AuthGuardProps> = ({
-	children,
-	requireAuth = false,
-	requireOnboarding = false
+  children,
+  requireAuth = false,
+  requireOnboarding = false
 }) => {
-	const { user, profile } = useUserStore();
+  const { user, profile } = useUserStore();
 
-	// Если требуется аутентификация, но пользователь не авторизован
-	if (requireAuth && !user) {
-		return <Navigate to='/onboarding' replace />;
-	}
 
-	// Если требуется завершение онбординга, но профиль не создан
-	if (requireOnboarding && (!profile || !profile.user_id)) {
-		return <Navigate to='/onboarding' replace />;
-	}
+  if (requireAuth && !user) {
+    return <Navigate to='/onboarding' replace />;
+  }
 
-	// Если пользователь авторизован и пытается попасть на онбординг
-	if (
-		user &&
-		profile &&
-		profile.user_id &&
-		window.location.pathname === '/onboarding'
-	) {
-		return <Navigate to='/home' replace />;
-	}
 
-	return <>{children}</>;
+
+  const isProfileComplete =
+  profile &&
+  profile.nickname &&
+  profile.age &&
+  profile.isFirstFormValid &&
+  profile.isSecondFormValid;
+
+  if (requireOnboarding && !isProfileComplete) {
+    return <Navigate to='/onboarding' replace />;
+  }
+
+
+  if (user && isProfileComplete && window.location.pathname === '/onboarding') {
+    return <Navigate to='/home' replace />;
+  }
+
+  return <>{children}</>;
 };

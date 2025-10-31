@@ -13,6 +13,7 @@ import HeaderIco from '@/app/assets/images/header.svg?react';
 import { useTelegram } from '@/entities/user/model/selectors';
 import { useUserStore } from '@/entities/user/model/store';
 import { Button, useCustomTranslation } from '@/shared';
+import { axiosInstance } from '@/shared/api/axiosInstance';
 import { AnimatedBlock } from '@/shared/ui/AnimatedBlock';
 import {
 	HeaderIcosChooseGame,
@@ -56,6 +57,145 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 
 	const [stepIndex, setStepIndex] = useState(0);
 	const [openRules, setOpenRules] = useState(false);
+
+	useEffect(() => {
+		console.log('Onboarding useEffect: verify запрос начал выполняться');
+
+		const logToDebug = (label: string, payload: unknown) => {
+			try {
+				const el = document.getElementById('debug-log');
+				if (!el) {
+					console.warn('debug-log element not found');
+					return;
+				}
+				const block = document.createElement('div');
+				block.style.marginBottom = '6px';
+				const title = document.createElement('div');
+				title.style.fontWeight = 'bold';
+				title.textContent = label;
+				const pre = document.createElement('pre');
+				pre.style.whiteSpace = 'pre-wrap';
+				pre.style.wordBreak = 'break-word';
+				pre.textContent =
+					typeof payload === 'string'
+						? payload
+						: JSON.stringify(payload, null, 2);
+				block.appendChild(title);
+				block.appendChild(pre);
+				el.appendChild(block);
+			} catch (e) {
+				console.debug('debug-log error', e);
+			}
+		};
+
+		(async () => {
+			console.log('Onboarding: async функция запущена');
+			try {
+				const storeInitData = useUserStore.getState().telegramInitData;
+				const windowInitData = (
+					window as unknown as {
+						Telegram?: { WebApp?: { initData?: string } };
+					}
+				).Telegram?.WebApp?.initData;
+				const lsInitData = localStorage.getItem('debug_init_data');
+
+				console.log('Onboarding: проверка initData источников', {
+					storeInitData: !!storeInitData,
+					windowInitData: !!windowInitData,
+					lsInitData: !!lsInitData
+				});
+
+				const initDataHeader = storeInitData || windowInitData || lsInitData;
+
+				let hash: string | null = null;
+				if (initDataHeader) {
+					try {
+						if (initDataHeader.startsWith('{')) {
+							const parsed = JSON.parse(initDataHeader);
+							hash = parsed.hash || null;
+						} else {
+							const params = new URLSearchParams(initDataHeader);
+							hash = params.get('hash');
+						}
+					} catch {
+						console.log('полученный хэш: не удалось распарсить initData');
+					}
+				}
+
+				if (hash) {
+					console.log('полученный хэш:', hash);
+				}
+
+				if (!initDataHeader) {
+					logToDebug(
+						'verify: нет X-Telegram-Init-Data',
+						'Добавь сырую initData в localStorage.debug_init_data'
+					);
+				} else {
+					logToDebug('verify: отправляем X-Telegram-Init-Data', initDataHeader);
+				}
+
+				console.log('Onboarding: отправка verify запроса...');
+				console.log(
+					'Onboarding: initDataHeader длина',
+					initDataHeader?.length || 0
+				);
+
+				if (initDataHeader && typeof initDataHeader !== 'string') {
+					console.error(
+						'Onboarding: initDataHeader не строка!',
+						typeof initDataHeader,
+						initDataHeader
+					);
+					logToDebug('verify: initDataHeader не строка', typeof initDataHeader);
+					return;
+				}
+
+				const res = await axiosInstance.post('/auth/v1/telegram/verify', {});
+
+				console.log('Onboarding: verify запрос успешен', res.data);
+				console.log(
+					'response.request.headers:',
+					res.config.headers || res.request?.headers || {}
+				);
+				logToDebug('/auth/v1/telegram/verify: response', res.data ?? 'ok');
+			} catch (err) {
+				console.error('Onboarding: verify запрос ошибка', err);
+				const axiosError = err as {
+					response?: {
+						config?: { headers?: unknown };
+						data?: unknown;
+						status?: number;
+					};
+					request?: { headers?: unknown };
+				};
+				if (
+					axiosError?.response?.config?.headers ||
+					axiosError?.request?.headers
+				) {
+					console.log(
+						'response.request.headers (error):',
+						axiosError.response?.config?.headers || axiosError.request?.headers
+					);
+				}
+				if (axiosError?.response) {
+					console.error(
+						'Onboarding: response status:',
+						axiosError.response.status
+					);
+					console.error('Onboarding: response data:', axiosError.response.data);
+					logToDebug('/auth/v1/telegram/verify: error response', {
+						status: axiosError.response.status,
+						data: axiosError.response.data
+					});
+				}
+				logToDebug(
+					'/auth/v1/telegram/verify: error',
+					(err as Error)?.message || err
+				);
+			}
+		})();
+	}, []);
 
 	const stepsFlow =
 		selectedMatchType === 'realLife'
@@ -143,8 +283,7 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 					telegramId: telegram?.id || 0
 				});
 				navigate('/profile');
-			} catch (err) {
-				console.error(err);
+			} catch {
 				toast.error('Ошибка при отправке данных');
 			}
 			return;
@@ -184,6 +323,7 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 				) : (
 					<HeaderIcosChooseLanguage />
 				);
+
 			case 6:
 				return selectedMatchType === 'online' ? (
 					<HeaderIcosChoosePlatform />
@@ -213,6 +353,7 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 				) : (
 					<OnboardingChooseCountry />
 				);
+
 			case 6:
 				return selectedMatchType === 'online' ? <OnboardingChooseGoal /> : null;
 			case 7:
@@ -234,7 +375,6 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 
 	return (
 		<>
-			{/* Debug log container */}
 			<div
 				id='debug-log'
 				style={{

@@ -3,57 +3,53 @@ import { useNavigate } from 'react-router';
 
 import { EnumRoutes } from '@/app/router/router.consts';
 import { getHeaderNavigation } from '@/shared/lib/navigation/getHeaderNavigation';
-import { handleBack } from '@/shared/lib/navigation/handleBack';
+import { createHandleBack } from '@/shared/lib/navigation/handleBack';
 import { NotificationHeader } from '@/shared/ui/NotificationHeader';
 
 interface NotificationHeaderFactoryProps {
-	title: string;
-	IsBack?: boolean;
-	notification?: boolean;
-	onGoBack?: () => void;
-	onNotificationClick?: () => void;
-	className?: string;
+  title: string;
+  IsBack?: boolean;
+  notification?: boolean;
+  onGoBack?: () => void;
+  onNotificationClick?: () => void;
+  className?: string;
 }
 
 export const NotificationHeaderFactory: FC<NotificationHeaderFactoryProps> = ({
-	title,
-	IsBack = true,
-	notification = true,
-	onGoBack,
-	onNotificationClick,
-	className
+  title,
+  IsBack = true,
+  notification = true,
+  onGoBack,
+  onNotificationClick,
+  className
 }) => {
-	const navigate = useNavigate();
-	const handleGoBack = getHeaderNavigation(onGoBack, handleBack);
+  const navigate = useNavigate();
+  const handleGoBack = getHeaderNavigation(
+    onGoBack,
+    createHandleBack(navigate)
+  );
 
-	const handleNotificationClick = () => {
-		console.log(
-			'Notification clicked, current path:',
-			window.location.pathname
-		);
-		if (onNotificationClick) {
-			onNotificationClick();
-		} else {
-			console.log('Navigating to notifications:', EnumRoutes.NOTIFICATIONS);
-			try {
-				navigate(EnumRoutes.NOTIFICATIONS);
-			} catch (error) {
-				console.error('Navigation error:', error);
-				// Fallback to window.location if navigate fails
-				window.location.href = EnumRoutes.NOTIFICATIONS;
-			}
-		}
-	};
+  const handleNotificationClick = () => {
+    if (onNotificationClick) {
+      onNotificationClick();
+    } else {
+      try {
+        navigate(EnumRoutes.NOTIFICATIONS);
+      } catch (error) {
+        window.location.href = EnumRoutes.NOTIFICATIONS;
+      }
+    }
+  };
 
-	return (
-		<div className={`mb-2.5 ${className}`}>
+  return (
+    <div className={`mb-2.5 ${className}`}>
 			<NotificationHeader
-				title={title}
-				IsBack={IsBack}
-				goBack={handleGoBack}
-				notification={notification}
-				onNotificationClick={handleNotificationClick}
-			/>
-		</div>
-	);
+        title={title}
+        IsBack={IsBack}
+        goBack={handleGoBack}
+        notification={notification}
+        onNotificationClick={handleNotificationClick} />
+
+		</div>);
+
 };

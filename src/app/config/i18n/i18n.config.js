@@ -4,8 +4,8 @@ import { initReactI18next } from 'react-i18next';
 import locales from '@/app/assets/locales/locales';
 
 i18next.use(initReactI18next).init({
-	fallbackLng: 'ru',
-	returnObjects: true,
-	lng: 'en',
-	resources: locales
+  fallbackLng: 'ru',
+  returnObjects: true,
+  lng: 'en',
+  resources: locales
 });

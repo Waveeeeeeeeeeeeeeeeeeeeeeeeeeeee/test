@@ -11,47 +11,47 @@ import Description from '@/shared/ui/Description/Description';
 import { UserCard } from '@/shared/ui/UserCard/UserCard';
 
 type Props = {
-	person: TPersonPreview;
-	games?: PersonGame[];
-	style?: React.CSSProperties;
+  person: TPersonPreview;
+  games?: PersonGame[];
+  style?: React.CSSProperties;
 };
 
 export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
-	const { displayText, setIsCuted, isTextCut, isTextExpanded } = useDescription(
-		{
-			text: person.about,
-			maxLength: 100
-		}
-	);
+  const { displayText, setIsCuted, isTextCut, isTextExpanded } = useDescription(
+    {
+      text: person.about,
+      maxLength: 100
+    }
+  );
 
-	return (
-		<div
-			className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-5 px-1.5 pt-1.5 relative pb-6'
-			style={style}
-		>
+  return (
+    <div
+      className='rounded-2xl bg-[var(--second-bg)] flex flex-col gap-5 px-1.5 pt-1.5 relative pb-6'
+      style={style}>
+      
 			<UserCard
-				name={person.nickname}
-				age={+person.age}
-				gender={person.gender || ''}
-				city=''
-				languages={person.selectedLanguage}
-				avatarUrl={person.image || catIco}
-				coutry_code={person.country_code}
-				icon='info'
-				isOnline={person.isOnline}
-			/>
+        name={person.nickname}
+        age={+person.age}
+        gender={person.gender || ''}
+        city=''
+        languages={person.selectedLanguage}
+        avatarUrl={person.image || catIco}
+        coutry_code={person.country_code}
+        icon='info'
+        isOnline={person.isOnline} />
+      
 
 			<div className='flex flex-col gap-4 px-3 '>
 				<>
-					{person.selectedMatchType === 'realLife' ? (
-						<Description
-							description={displayText}
-							toggle={() => setIsCuted(prev => !prev)}
-							showMoreButton={isTextCut}
-							showHideButton={isTextExpanded}
-						/>
-					) : (
-						<div className='flex flex-col gap-2'>
+					{person.selectedMatchType === 'realLife' ?
+          <Description
+            description={displayText}
+            toggle={() => setIsCuted((prev) => !prev)}
+            showMoreButton={isTextCut}
+            showHideButton={isTextExpanded} /> :
+
+
+          <div className='flex flex-col gap-2'>
 							<h3 className='font-semibold text-lg'>Страны</h3>
 							<ShowTags tags={person.selectedCountry ?? []} />
 							<h3 className='font-semibold text-lg'>Цели игры</h3>
@@ -61,22 +61,22 @@ export const PersonPreviewCard: FC<Props> = ({ person, games, style }) => {
 							</h3>
 							<ShowTags tags={person.selectedPrime ?? []} />
 						</div>
-					)}
+          }
 				</>
 
-				{person.selectedMatchType === 'realLife' ? (
-					<ShowTags tags={person.interests} />
-				) : null}
+				{person.selectedMatchType === 'realLife' ?
+        <ShowTags tags={person.interests} /> :
+        null}
 
-				{person.selectedMatchType === 'realLife' ? (
-					<div className='font-medium text-[#8a8989]'>{`${person.country}, г. ${person.city}`}</div>
-				) : null}
+				{person.selectedMatchType === 'realLife' ?
+        <div className='font-medium text-[#8a8989]'>{`${person.country}, г. ${person.city}`}</div> :
+        null}
 			</div>
 
 			<div className='px-4 mt-1'>
 				<p className='uppercase text-violet-400'>Играет в:</p>
 				{games?.length ? <PersonGamesSlider games={games} /> : null}
 			</div>
-		</div>
-	);
+		</div>);
+
 };
