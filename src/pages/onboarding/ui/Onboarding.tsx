@@ -31,11 +31,7 @@ import { OnboardingChoosePlatform } from '@/widgets/onboardingSteps/onboardingCh
 import { OnboardingChoosePrime } from '@/widgets/onboardingSteps/onboardingChoosePrime';
 import { TempRules } from '@/widgets/onboardingSteps/tempRules/ui/tempRules';
 
-interface OnboardingProps {
-	debugLog?: string;
-}
-
-export const Onboarding = ({ debugLog }: OnboardingProps) => {
+export const Onboarding = () => {
 	const navigate = useNavigate();
 	const { i18n } = useTranslation();
 	const { backButton, nextButton } = useCustomTranslation('Onboarding');
@@ -397,11 +393,6 @@ export const Onboarding = ({ debugLog }: OnboardingProps) => {
 				>
 					Debug Log:
 				</div>
-				{debugLog && (
-					<div style={{ whiteSpace: 'pre-wrap', fontSize: '12px' }}>
-						{debugLog}
-					</div>
-				)}
 			</div>
 
 			<div
