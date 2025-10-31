@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import styles from './ProfileSettings.module.css';
 import { useUserStore } from '@/entities/user/model/store';
+import { UserProfile } from '@/entities/user/model/types';
 import VariantSelection from '@/features/variantSelection/ui/VariantSelection';
 import { Button, Input, useCustomTranslation } from '@/shared';
 import {
@@ -148,7 +149,7 @@ originalProfile: {
   gender: string;
   selectedLanguage: string;
 },
-currentProfile: ReturnType<typeof useUserStore>['profile'])
+currentProfile: UserProfile)
 : UpdateProfileParams => {
   const updateData: UpdateProfileParams = {};
 
