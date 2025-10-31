@@ -36,11 +36,13 @@ export const useUserStore = create<UserStore>((set, get) => ({
   telegramQueryId: null,
   telegramInitData: null,
   telegramAuthDate: null,
+  telegramSignature: null,
   setTelegramUser: (user: TelegramUser) => set({ telegram: user, user }),
   setUserHash: (hash) => set({ userHash: hash }),
   setTelegramQueryId: (queryId) => set({ telegramQueryId: queryId }),
   setTelegramInitData: (initData) => set({ telegramInitData: initData }),
   setTelegramAuthDate: (authDate) => set({ telegramAuthDate: authDate }),
+  setTelegramSignature: (signature) => set({ telegramSignature: signature }),
   setUserImage: (image: File) => set({ profile: { ...get().profile, image } }),
   setProfile: (profile: UserProfile) => set({ profile }),
 
@@ -52,6 +54,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     telegramQueryId: null,
     telegramInitData: null,
     telegramAuthDate: null,
+    telegramSignature: null,
     profile: defaultProfile
   }),
 

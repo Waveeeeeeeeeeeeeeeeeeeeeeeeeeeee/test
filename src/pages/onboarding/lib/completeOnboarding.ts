@@ -67,14 +67,54 @@ profile: UserProfile)
 };
 
 export const completeOnboarding = async (profile: Params): Promise<void> => {
-  const { telegram } = useUserStore.getState();
-
-  if (!telegram) {
+  console.log('completeOnboarding: начало', profile);
+  const storeState = useUserStore.getState();
+  console.log('completeOnboarding: состояние стора', {
+    telegram: storeState.telegram,
+    user: storeState.user,
+    telegramInitData: storeState.telegramInitData,
+    telegramQueryId: storeState.telegramQueryId,
+    telegramAuthDate: storeState.telegramAuthDate
+  });
+  
+  let telegramUser = storeState.telegram || storeState.user;
+  
+  if (!telegramUser && storeState.telegramInitData) {
+    try {
+      const initDataParsed = JSON.parse(storeState.telegramInitData);
+      if (initDataParsed.user) {
+        if (typeof initDataParsed.user === 'string') {
+          telegramUser = JSON.parse(initDataParsed.user);
+        } else if (typeof initDataParsed.user === 'object') {
+          telegramUser = initDataParsed.user;
+        }
+        console.log('completeOnboarding: извлекли пользователя из telegramInitData', telegramUser);
+      }
+    } catch (e) {
+      console.error('completeOnboarding: ошибка парсинга telegramInitData', e);
+    }
+  }
+  
+  if (!telegramUser) {
+    const windowTelegram = (window as unknown as { Telegram?: { WebApp?: { initData?: string; initDataUnsafe?: { user?: unknown } } } }).Telegram?.WebApp;
+    console.warn('completeOnboarding: Telegram пользователь не найден, пытаемся получить из window', {
+      windowTelegramUser: windowTelegram?.initDataUnsafe?.user,
+    });
+    
+    if (windowTelegram?.initDataUnsafe?.user) {
+      telegramUser = windowTelegram.initDataUnsafe.user as typeof telegramUser;
+      console.log('completeOnboarding: используем telegram пользователя из window.Telegram.WebApp');
+    }
+  }
+  
+  if (!telegramUser) {
+    console.error('completeOnboarding: Telegram пользователь не найден ни в сторе, ни в telegramInitData, ни в window');
     throw new Error('Telegram пользователь не найден');
   }
 
-
-  await registerAfterOnboarding(profile);
+  console.log('completeOnboarding: вызов registerAfterOnboarding с telegramUser:', telegramUser);
+  await registerAfterOnboarding({ ...profile, telegramId: telegramUser.id || profile.telegramId });
+  console.log('completeOnboarding: registerAfterOnboarding завершен');
 
 
 

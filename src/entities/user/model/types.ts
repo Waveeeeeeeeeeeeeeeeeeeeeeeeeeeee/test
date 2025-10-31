@@ -59,6 +59,7 @@ export interface UserState {
   telegramQueryId: string | null;
   telegramInitData: string | null;
   telegramAuthDate: number | null;
+  telegramSignature: string | null;
 }
 
 export interface UserStore extends UserState {
@@ -67,6 +68,7 @@ export interface UserStore extends UserState {
   setTelegramQueryId: (queryId: string) => void;
   setTelegramInitData: (initData: string) => void;
   setTelegramAuthDate: (authDate: number) => void;
+  setTelegramSignature: (signature: string) => void;
   setProfile: (profile: UserProfile) => void;
   clearUser: () => void;
   setUserImage: (image: File) => void;
