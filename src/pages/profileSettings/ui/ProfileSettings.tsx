@@ -209,7 +209,7 @@ const ProfileSettings = () => {
   const [originalProfile] = useState({
     nickname: profile.nickname,
     age: profile.age,
-    gender: profile.gender,
+    gender: profile.gender || 'MALE',
     selectedLanguage: profile.selectedLanguage
   });
 

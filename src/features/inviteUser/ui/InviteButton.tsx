@@ -5,7 +5,7 @@ type Props = {
   userId: string;
 };
 
-export const InviteButton = ({ userId }: Props) => {
+export const InviteButton = ({ userId: _userId }: Props) => {
   const { text } = useCustomTranslation('inviteButton');
   const handleInvite = () => {};
 

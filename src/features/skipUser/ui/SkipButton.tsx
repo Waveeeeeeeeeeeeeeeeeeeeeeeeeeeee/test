@@ -5,7 +5,7 @@ type Props = {
   userId: string;
 };
 
-export const SkipButton = ({ userId }: Props) => {
+export const SkipButton = ({ userId: _userId }: Props) => {
   const { text } = useCustomTranslation('skipButton');
   const handleSkip = () => {};
 

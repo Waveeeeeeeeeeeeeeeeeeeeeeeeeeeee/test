@@ -1,5 +1,5 @@
 import { useUserStore } from '@/entities/user/model/store';
-import { UserProfile } from '@/entities/user/model/types';
+import { TelegramUser, UserProfile } from '@/entities/user/model/types';
 import {
   CreateProfileParams,
   createProfile } from
@@ -109,7 +109,7 @@ export const completeOnboarding = async (profile: Params): Promise<void> => {
       }
       
       if (parsedUser && typeof parsedUser === 'object') {
-        telegramUser = parsedUser as typeof telegramUser;
+        telegramUser = parsedUser as TelegramUser;
         console.log('completeOnboarding: извлекли пользователя из telegramInitData', telegramUser);
       }
     } catch (e) {
@@ -124,7 +124,7 @@ export const completeOnboarding = async (profile: Params): Promise<void> => {
     });
     
     if (windowTelegram?.initDataUnsafe?.user) {
-      telegramUser = windowTelegram.initDataUnsafe.user as typeof telegramUser;
+      telegramUser = windowTelegram.initDataUnsafe.user as TelegramUser;
       console.log('completeOnboarding: используем telegram пользователя из window.Telegram.WebApp');
     }
   }

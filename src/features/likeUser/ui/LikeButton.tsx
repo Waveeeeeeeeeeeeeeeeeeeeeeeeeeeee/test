@@ -6,7 +6,7 @@ type Props = {
   userId: string;
 };
 
-export const LikeButton = ({ userId }: Props) => {
+export const LikeButton = ({ userId: _userId }: Props) => {
   const { text } = useCustomTranslation('likeButton');
   const handleLike = () => {};
 

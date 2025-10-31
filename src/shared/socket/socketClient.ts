@@ -30,8 +30,8 @@ export const initSocket = (url: string, auth?: Record<string, unknown>) => {
       } catch (err) {}
     };
 
-    socket.onclose = (event) => {};
-    socket.onerror = (error) => {};
+    socket.onclose = () => {};
+    socket.onerror = () => {};
   }
 
   return socket;

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { MessageStore, TicketMessage } from './messageTypes';
+import { MessageStore } from './messageTypes';
 import { mockMessages } from './mockMessages';
 
 export const useMessageStore = create<MessageStore>((set, get) => ({

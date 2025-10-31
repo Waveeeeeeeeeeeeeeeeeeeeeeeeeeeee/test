@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { generateInitDataFromTelegram } from './generateInitData';
 import { reqRegister } from './reqRegister';
 import { useUserStore } from '@/entities/user/model/store';
 
@@ -8,26 +7,20 @@ export const useTelegramRegister = () => {
   useEffect(() => {
     const register = async () => {
       try {
-        const { telegram, telegramQueryId, telegramAuthDate, userHash } =
-        useUserStore.getState();
+        const { telegram } = useUserStore.getState();
 
-        if (!telegram || !telegramQueryId || !telegramAuthDate) {
+        if (!telegram) {
           throw new Error('Telegram data not found');
         }
-
-        const initData = generateInitDataFromTelegram(
-          telegram,
-          telegramAuthDate,
-          telegramQueryId,
-          userHash || undefined
-        );
 
         const userData = {
           telegram_id: telegram.id
         };
 
-        const res = await reqRegister(userData, initData);
-      } catch (e: unknown) {}
+        await reqRegister(userData);
+      } catch (e: unknown) {
+        console.debug('useTelegramRegister error:', e);
+      }
     };
 
     register();

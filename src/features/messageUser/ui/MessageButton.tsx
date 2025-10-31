@@ -5,7 +5,7 @@ type Props = {
   userId: string;
 };
 
-export const MessageButton = ({ userId }: Props) => {
+export const MessageButton = ({ userId: _userId }: Props) => {
   const { text } = useCustomTranslation('messageButton');
   const handleMessage = () => {};
 
