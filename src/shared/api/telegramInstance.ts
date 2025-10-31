@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+import { getApiBaseURL } from './config';
 import { useUserStore } from '@/entities/user/model/store';
 
 export const telegramRegisterInstance = axios.create({
-	baseURL: '/api',
+	baseURL: getApiBaseURL(),
 	timeout: 10000000000000,
 	headers: {
 		'Content-Type': 'application/json'
@@ -27,7 +28,11 @@ telegramRegisterInstance.interceptors.request.use(config => {
 
 			if (headerValue.startsWith('{')) {
 				parsed = JSON.parse(headerValue);
-				if (parsed.user && typeof parsed.user === 'object' && !Array.isArray(parsed.user)) {
+				if (
+					parsed.user &&
+					typeof parsed.user === 'object' &&
+					!Array.isArray(parsed.user)
+				) {
 					parsed.user = JSON.stringify(parsed.user);
 				}
 				headerValue = JSON.stringify(parsed);
@@ -75,13 +80,20 @@ telegramRegisterInstance.interceptors.request.use(config => {
 	}
 
 	try {
-		const headers = (config.headers || {}) as unknown as Record<string, unknown>;
-		
+		const headers = (config.headers || {}) as unknown as Record<
+			string,
+			unknown
+		>;
+
 		if (headers && typeof headers === 'object' && !Array.isArray(headers)) {
 			if (typeof headerValue === 'string') {
 				headers['X-Telegram-Init-Data'] = headerValue;
 			} else {
-				console.error('Invalid header value type:', typeof headerValue, headerValue);
+				console.error(
+					'Invalid header value type:',
+					typeof headerValue,
+					headerValue
+				);
 				headers['X-Telegram-Init-Data'] = '';
 			}
 		}

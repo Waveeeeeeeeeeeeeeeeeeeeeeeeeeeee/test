@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+import { getApiBaseURL } from './config';
 import { useUserStore } from '@/entities/user/model/store';
 
 export const axiosInstance = axios.create({
-	baseURL: '/api',
+	baseURL: getApiBaseURL(),
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json'

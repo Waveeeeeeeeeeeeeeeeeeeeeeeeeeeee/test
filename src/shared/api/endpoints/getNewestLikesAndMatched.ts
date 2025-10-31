@@ -1,3 +1,5 @@
+import { getApiBaseURL } from '@/shared/api/config';
+
 import { LikeData } from './types/likes';
 
 export type NewestLikesAndMatchedData = {
@@ -16,7 +18,7 @@ export const subscribeToNewestLikesAndMatched = (
 ): (() => void) => {
 	const { onMessage, onError, onOpen } = options;
 
-	const baseURL = '/api';
+	const baseURL = getApiBaseURL();
 	const url = `${baseURL}/ace-friends/dating/v1/likes/get_newest_likes_and_matched`;
 
 	let isAborted = false;
